@@ -423,6 +423,18 @@
     .feature-list li { display: flex; align-items: center; gap: 8px; font-size: 14px; color: #08131a; }
     .feature-check { color: #1B6CA8; font-weight: 700; font-size: 15px; flex-shrink: 0; }
 
+    /* ─── Input Summary Badges (Screen 2) ─── */
+    .input-summary-badges { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 1.25rem; }
+    .input-badge { font-size: 12px; color: #1B6CA8; background: #f5f8fa; border: 1px solid rgba(27,108,168,0.2); border-radius: 4px; padding: 3px 10px; white-space: nowrap; }
+
+    /* ─── Warn Banner (Screen 3) ─── */
+    .warn-banner { background: #FFF3CD; border: 1px solid #FFCC00; border-radius: 8px; padding: 12px 16px; font-size: 14px; color: #856404; margin-bottom: 1.5rem; line-height: 1.6; }
+
+    /* ─── Result Title Row (Screen 3) ─── */
+    .result-title-row { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; margin-bottom: 0.5rem; flex-wrap: wrap; }
+    .result-title-row .section-title { margin-bottom: 0; }
+    .btn-download { width: auto !important; padding: 9px 16px !important; font-size: 13px !important; }
+
     /* ─── Misc ─── */
     .caption { font-size: 12px; color: rgba(8,19,26,0.66); line-height: 1.5; }
     .divider { border: none; border-top: 1px solid rgba(8,19,26,0.14); margin: 2rem 0; }
@@ -557,6 +569,12 @@
         <h2 class="section-title">AIにこんな質問を投げます</h2>
         <p class="section-subtitle">どんな人がこのキーワードでAIに質問するか、をAIが想定して質問文を作りました。<br>ズレていたら自由に修正できます。</p>
 
+        <div class="input-summary-badges">
+          <span class="input-badge" id="badge-category"></span>
+          <span class="input-badge" id="badge-type"></span>
+          <span class="input-badge" id="badge-keyword"></span>
+        </div>
+
         <div class="error-box" id="errorBox2" style="display:none;"></div>
 
         <div class="card" style="margin-bottom:1.25rem;">
@@ -583,10 +601,54 @@
     <!-- ━━━ Screen 3: Results ━━━ -->
     <div class="screen" id="screen3">
       <div class="container wide">
-        <h2 class="section-title">AI調査レポート</h2>
-        <p class="section-subtitle" id="resultSubtitle"></p>
 
-        <!-- なぜ3つのAIに聞くのか -->
+        <!-- 警告バナー -->
+        <div class="warn-banner">⚠️ このページを閉じると結果は消えます。今すぐ「結果を保存する」ボタンで保存してください。</div>
+
+        <!-- タイトル行（ダウンロードボタン A） -->
+        <div class="result-title-row">
+          <div>
+            <h2 class="section-title">AI調査レポート</h2>
+            <p class="section-subtitle" id="resultSubtitle"></p>
+          </div>
+          <button class="btn-secondary btn-download" type="button" onclick="downloadReport()">結果を保存する（HTML）</button>
+        </div>
+
+        <!-- ① 3AI回答カラム -->
+        <div class="result-grid">
+          <div class="result-card">
+            <div class="result-card-header">
+              <div class="ai-dot" style="background:#10a37f;"></div>
+              <span class="ai-name">ChatGPT</span>
+            </div>
+            <div class="result-content" id="result-chatgpt"></div>
+          </div>
+          <div class="result-card">
+            <div class="result-card-header">
+              <div class="ai-dot" style="background:#CC785C;"></div>
+              <span class="ai-name">Claude</span>
+            </div>
+            <div class="result-content" id="result-claude"></div>
+          </div>
+          <div class="result-card">
+            <div class="result-card-header">
+              <div class="ai-dot" style="background:#4285F4;"></div>
+              <span class="ai-name">Gemini</span>
+            </div>
+            <div class="result-content" id="result-gemini"></div>
+          </div>
+        </div>
+
+        <!-- ダウンロードボタン B（3AI直下・注釈の上） -->
+        <div style="margin-bottom:1rem;">
+          <button class="btn-secondary btn-download" type="button" onclick="downloadReport()">結果を保存する（HTML）</button>
+        </div>
+
+        <p class="caption" style="margin-bottom:2rem;">
+          ※ 回答は読みやすさのため140文字程度に要約しています。1回の調査のため結果にブレが生じる場合があります。
+        </p>
+
+        <!-- ② なぜ3つのAIに聞くのか -->
         <div class="why-3ai">
           <div class="why-3ai-title">なぜ3つのAIに聞くのか</div>
           <p class="why-3ai-body">日本国内の生成AIアシスタント利用者数は、ChatGPTが約931万人でトップ、Geminiが約261万人で続きます。ChatGPTとClaudeは20〜30代のビジネス職の利用割合が高く、Geminiはより幅広い年代に使われています。</p>
@@ -618,34 +680,6 @@
           </div>
           <p class="why-3ai-footer">1つのAIだけに聞いた結果は、そのAIのユーザー層や学習データのクセが反映されます。3つ横断することで、より多くの潜在顧客が実際に目にしているブランド像が浮かび上がります。</p>
         </div>
-
-        <div class="result-grid">
-          <div class="result-card">
-            <div class="result-card-header">
-              <div class="ai-dot" style="background:#10a37f;"></div>
-              <span class="ai-name">ChatGPT</span>
-            </div>
-            <div class="result-content" id="result-chatgpt"></div>
-          </div>
-          <div class="result-card">
-            <div class="result-card-header">
-              <div class="ai-dot" style="background:#CC785C;"></div>
-              <span class="ai-name">Claude</span>
-            </div>
-            <div class="result-content" id="result-claude"></div>
-          </div>
-          <div class="result-card">
-            <div class="result-card-header">
-              <div class="ai-dot" style="background:#4285F4;"></div>
-              <span class="ai-name">Gemini</span>
-            </div>
-            <div class="result-content" id="result-gemini"></div>
-          </div>
-        </div>
-
-        <p class="caption" style="margin-bottom:2rem;">
-          ※ 回答は読みやすさのため140文字程度に要約しています。1回の調査のため結果にブレが生じる場合があります。
-        </p>
 
         <!-- ③ AIインサイトパネル -->
         <div class="insight-panel">
@@ -729,6 +763,11 @@
           <div class="prompt-section-title">使用したプロンプト（全文）</div>
           <div class="prompt-box" id="promptDisplay"></div>
         </div>
+
+        <!-- ダウンロードボタン C（最下部） -->
+        <div style="margin-bottom:2rem;">
+          <button class="btn-secondary btn-download" type="button" onclick="downloadReport()">結果を保存する（HTML）</button>
+        </div>
       </div>
     </div>
 
@@ -807,6 +846,7 @@
         $('questionDisplay').textContent = state.question;
         $('questionEdit').value = state.question;
         showScreen(2);
+        updateInputBadges();
       } catch (err) {
         showError('errorBox1', err.message || 'ネットワークエラーが発生しました。しばらくしてから再試行してください。');
       } finally {
@@ -959,6 +999,107 @@
           `<p class="insight-value-text">${cat.ai_usage_comment}</p>`;
         $('insight-hint').textContent = cat.aeo_hint;
       }
+    }
+
+    function updateInputBadges() {
+      const typeLabel = state.surveyType === 'market' ? 'A 市場調査' : 'B ブランド調査';
+      $('badge-category').textContent = state.category;
+      $('badge-type').textContent     = typeLabel;
+      $('badge-keyword').textContent  = state.keyword;
+    }
+
+    function escapeHtml(str) {
+      return String(str)
+        .replace(/&/g, '&amp;').replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+    }
+
+    function downloadReport() {
+      const now        = new Date();
+      const dateStr    = `${now.getFullYear()}${String(now.getMonth()+1).padStart(2,'0')}${String(now.getDate()).padStart(2,'0')}`;
+      const dateTime   = now.toLocaleString('ja-JP');
+      const typeLabel  = state.surveyType === 'market' ? 'A 市場調査' : 'B ブランド調査';
+      const chatgpt    = $('result-chatgpt').innerHTML || '';
+      const claude     = $('result-claude').innerHTML  || '';
+      const gemini     = $('result-gemini').innerHTML  || '';
+      const prompt     = $('promptDisplay').textContent || '';
+      const iCommon    = $('insight-common').textContent    || '';
+      const iDiff      = $('insight-difference').textContent || '';
+      const iPersona   = $('insight-persona').textContent   || '';
+      const iTrend     = $('insight-trend').textContent     || '';
+      const iHint      = $('insight-hint').textContent      || '';
+
+      const html = `<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>AEOレポート_${escapeHtml(state.keyword)}_${dateStr}</title>
+<style>
+body{font-family:"Hiragino Sans",Arial,sans-serif;max-width:940px;margin:0 auto;padding:2rem 1rem;color:#08131a;line-height:1.7;}
+h1{font-size:22px;color:#1B6CA8;margin-bottom:.25rem;}
+h2{font-size:15px;font-weight:600;border-bottom:2px solid #1B6CA8;padding-bottom:4px;margin:1.75rem 0 .75rem;color:#1B6CA8;}
+.meta{font-size:13px;color:#5a656b;margin-bottom:1.75rem;display:flex;flex-wrap:wrap;gap:6px;}
+.badge{background:#f5f8fa;border:1px solid #dce0e3;border-radius:4px;padding:2px 8px;}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:.5rem;}
+.card{border:1px solid #dce0e3;border-radius:10px;padding:14px 16px;}
+.card-header{display:flex;align-items:center;gap:6px;font-weight:600;font-size:14px;margin-bottom:10px;}
+.dot{width:10px;height:10px;border-radius:50%;display:inline-block;flex-shrink:0;}
+.card p{margin-bottom:8px;font-size:15px;}
+.card ul,.card ol{padding-left:1.2em;margin-bottom:8px;font-size:15px;}
+.insight-panel{border:1px solid rgba(27,108,168,.2);border-radius:10px;overflow:hidden;margin-bottom:1.5rem;}
+.insight-header{background:#1B6CA8;color:#fff;padding:10px 14px;font-size:14px;font-weight:600;}
+.insight-item{padding:12px 14px;border-bottom:1px solid rgba(27,108,168,.1);}
+.insight-item:last-child{border-bottom:none;}
+.insight-label{font-size:11px;font-weight:600;color:#1B6CA8;margin-bottom:4px;}
+.insight-value{font-size:13px;}
+.prompt-box{background:#f5f8fa;border-radius:8px;padding:12px 16px;font-family:monospace;font-size:13px;color:#5a656b;white-space:pre-wrap;word-break:break-word;}
+.footer{margin-top:2rem;padding-top:1rem;border-top:1px solid #dce0e3;font-size:12px;color:#9ca7ad;}
+@media(max-width:640px){.grid{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<h1>AEOレポート 梅プラン</h1>
+<div class="meta">
+  <span class="badge">調査日時：${dateTime}</span>
+  <span class="badge">${escapeHtml(state.category)}</span>
+  <span class="badge">${escapeHtml(typeLabel)}</span>
+  <span class="badge">${escapeHtml(state.keyword)}</span>
+</div>
+
+<h2>3AIの回答</h2>
+<div class="grid">
+  <div class="card"><div class="card-header"><span class="dot" style="background:#10a37f;"></span>ChatGPT</div>${chatgpt}</div>
+  <div class="card"><div class="card-header"><span class="dot" style="background:#CC785C;"></span>Claude</div>${claude}</div>
+  <div class="card"><div class="card-header"><span class="dot" style="background:#4285F4;"></span>Gemini</div>${gemini}</div>
+</div>
+
+<h2>AIインサイト</h2>
+<div class="insight-panel">
+  <div class="insight-header">AIインサイト</div>
+  <div class="insight-item"><div class="insight-label">3AIの共通見解</div><div class="insight-value">${escapeHtml(iCommon)}</div></div>
+  <div class="insight-item"><div class="insight-label">AIによる言及の差</div><div class="insight-value">${escapeHtml(iDiff)}</div></div>
+  <div class="insight-item"><div class="insight-label">このキーワードを検索する想定ユーザー</div><div class="insight-value">${escapeHtml(iPersona)}</div></div>
+  <div class="insight-item"><div class="insight-label">この業界のAI検索利用傾向</div><div class="insight-value">${escapeHtml(iTrend)}</div></div>
+  <div class="insight-item"><div class="insight-label">AEO改善のヒント</div><div class="insight-value">${escapeHtml(iHint)}</div></div>
+</div>
+
+<h2>使用したプロンプト（全文）</h2>
+<div class="prompt-box">${escapeHtml(prompt)}</div>
+
+<div class="footer">AEOレポート 梅プラン ／ 本レポートは生成AIの回答を集計・要約したものです。</div>
+</body>
+</html>`;
+
+      const blob = new Blob([html], { type: 'text/html;charset=utf-8' });
+      const url  = URL.createObjectURL(blob);
+      const a    = document.createElement('a');
+      a.href     = url;
+      a.download = `AEOレポート_${state.keyword}_${dateStr}.html`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
     }
 
     function highlightKeyword(el, keyword) {
