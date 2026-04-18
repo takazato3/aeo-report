@@ -368,7 +368,7 @@
 
           <div class="form-group">
             <label class="form-label" for="token">
-              アクセストークン<span class="required">*</span>
+              購入コード<span class="required">*</span>
             </label>
             <input
               type="text"
@@ -378,7 +378,7 @@
               autocomplete="off"
               spellcheck="false"
             />
-            <p class="form-hint">購入時にメールでお知らせしたトークンを入力してください。</p>
+            <p class="form-hint">購入時にメールでお知らせした購入コードを入力してください。</p>
           </div>
 
           <div class="form-group">
@@ -397,6 +397,26 @@
           </div>
 
           <div class="form-group">
+            <label class="form-label">調査タイプ<span class="required">*</span></label>
+            <div class="radio-cards">
+              <label class="radio-card selected" id="card-market">
+                <input type="radio" name="surveyType" id="type-market" value="market" checked />
+                <div class="radio-card-content">
+                  <span class="radio-card-title">A 市場調査：このカテゴリで、どんなサービスがAIにオススメされているか知りたい</span>
+                  <span class="radio-card-desc">市場全体でいまAIが取り上げている企業・サービスの傾向を確認します</span>
+                </div>
+              </label>
+              <label class="radio-card" id="card-brand">
+                <input type="radio" name="surveyType" id="type-brand" value="brand" />
+                <div class="radio-card-content">
+                  <span class="radio-card-title">B ブランド調査：自社ブランドや競合のサービスがAIにどう紹介されているか知りたい</span>
+                  <span class="radio-card-desc">特定のブランド名・サービス名がいまAIにどのように説明・評価されているかを確認します</span>
+                </div>
+              </label>
+            </div>
+          </div>
+
+          <div class="form-group">
             <label class="form-label" for="keyword">
               ブランド名・キーワード<span class="required">*</span>
             </label>
@@ -404,29 +424,12 @@
               type="text"
               id="keyword"
               class="form-input"
-              placeholder="例：SmartHR、弁護士ドットコム、JAC Recruitment"
+              placeholder="カテゴリと調査タイプを選ぶとサジェストが表示されます"
+              list="keywordSuggestions"
+              autocomplete="off"
             />
-            <p class="form-hint">調査したいブランド名またはサービス名を1つ入力してください。</p>
-          </div>
-
-          <div class="form-group">
-            <label class="form-label">調査タイプ<span class="required">*</span></label>
-            <div class="radio-cards">
-              <label class="radio-card selected" id="card-market">
-                <input type="radio" name="surveyType" id="type-market" value="market" checked />
-                <div class="radio-card-content">
-                  <span class="radio-card-title">市場での立ち位置を知りたい</span>
-                  <span class="radio-card-desc">AIが回答する「競合他社との比較」や「市場ポジション」を確認</span>
-                </div>
-              </label>
-              <label class="radio-card" id="card-brand">
-                <input type="radio" name="surveyType" id="type-brand" value="brand" />
-                <div class="radio-card-content">
-                  <span class="radio-card-title">このブランド・サービスの評判を知りたい</span>
-                  <span class="radio-card-desc">AIが回答する「特徴・評価・口コミ的な印象」を確認</span>
-                </div>
-              </label>
-            </div>
+            <datalist id="keywordSuggestions"></datalist>
+            <p class="form-hint">調査したいキーワードを1つ入力してください。</p>
           </div>
 
           <div class="btn-group">
@@ -578,7 +581,7 @@
       const keyword    = $('keyword').value.trim();
       const surveyType = document.querySelector('input[name="surveyType"]:checked')?.value;
 
-      if (!token)      return showError('errorBox1', 'アクセストークンを入力してください。');
+      if (!token)      return showError('errorBox1', '購入コードを入力してください。');
       if (!category)   return showError('errorBox1', 'カテゴリを選択してください。');
       if (!keyword)    return showError('errorBox1', 'キーワードを入力してください。');
       if (!surveyType) return showError('errorBox1', '調査タイプを選択してください。');
@@ -601,11 +604,64 @@
       }
     });
 
-    // Radio card highlight
+    // ── Placeholder / Suggestion data ──
+    const PLACEHOLDERS = {
+      market: {
+        'BtoB SaaS / ITツール':        '例：会計システム、名刺管理ツール',
+        'コンサルティング / 士業':      '例：税理士法人、ITコンサル',
+        '人材サービス / HR Tech':       '例：転職エージェント、人事評価システム',
+        'マーケティング支援・広告代理店':'例：WEB広告代理店、SEO支援サービス',
+        'スクール・資格・習い事':        '例：オンライン英会話、ジム',
+        'D2Cブランド / EC':            '例：アパレルD2Cブランド、越境EC',
+      },
+      brand: {
+        'BtoB SaaS / ITツール':        '例：Salesforce、HubSpot、freee',
+        'コンサルティング / 士業':      '例：マッキンゼー、PwC',
+        '人材サービス / HR Tech':       '例：リクルートエージェント、JAC',
+        'マーケティング支援・広告代理店':'例：電通デジタル、サイバーエージェント',
+        'スクール・資格・習い事':        '例：RIZAP、スタディサプリ',
+        'D2Cブランド / EC':            '例：BOTANIST、SHEIN',
+      },
+    };
+
+    const SUGGESTIONS = {
+      market: {
+        'BtoB SaaS / ITツール':        ['会計システム', '名刺管理ツール', 'CRMツール', 'MAツール', 'プロジェクト管理ツール', '電子署名サービス'],
+        'コンサルティング / 士業':      ['税理士法人', '特許事務所', 'ITコンサル', 'M&Aアドバイザリー', '社会保険労務士事務所', '経営コンサル'],
+        '人材サービス / HR Tech':       ['転職エージェント', '人事評価システム', '採用管理システム', '勤怠管理ツール', '企業研修', '副業マッチング'],
+        'マーケティング支援・広告代理店':['WEB広告代理店', 'SEO支援サービス', 'SNSマーケ代行', 'コンテンツマーケティング', 'インフルエンサーマーケ', 'リスティング広告'],
+        'スクール・資格・習い事':        ['オンライン英会話', 'プログラミングスクール', 'ジム', '塾', '料理教室', 'ビジネス英語スクール'],
+        'D2Cブランド / EC':            ['アパレルD2Cブランド', '越境EC', '決済プラットフォーム', 'フードD2C', 'スキンケアD2C', 'サブスクEC'],
+      },
+      brand: {
+        'BtoB SaaS / ITツール':        ['Salesforce', 'HubSpot', 'freee', 'Slack', 'Notion', 'Sansan'],
+        'コンサルティング / 士業':      ['マッキンゼー', 'PwC', 'デロイト', 'ボストンコンサルティング', 'アクセンチュア', 'EY'],
+        '人材サービス / HR Tech':       ['リクルートエージェント', 'JAC', 'SmartHR', 'マイナビエージェント', 'パーソルキャリア', 'doda'],
+        'マーケティング支援・広告代理店':['電通デジタル', 'サイバーエージェント', '博報堂DYデジタル', 'オプト', 'アイレップ', 'ADK'],
+        'スクール・資格・習い事':        ['RIZAP', 'スタディサプリ', '東進ハイスクール', 'ベルリッツ', 'NOVA', 'ライザップゴルフ'],
+        'D2Cブランド / EC':            ['BOTANIST', 'SHEIN', 'BASE', 'Shopify', 'FABRIC TOKYO', 'Oisix'],
+      },
+    };
+
+    function updateKeywordField() {
+      const category   = $('category').value;
+      const surveyType = document.querySelector('input[name="surveyType"]:checked')?.value || 'market';
+      const ph = (category && PLACEHOLDERS[surveyType]?.[category])
+        ? PLACEHOLDERS[surveyType][category]
+        : 'カテゴリと調査タイプを選ぶとサジェストが表示されます';
+      $('keyword').placeholder = ph;
+      const list = category ? (SUGGESTIONS[surveyType]?.[category] || []) : [];
+      $('keywordSuggestions').innerHTML = list.map(s => `<option value="${s.replace(/"/g, '&quot;')}">`).join('');
+    }
+
+    $('category').addEventListener('change', updateKeywordField);
+
+    // Radio card highlight + keyword field sync
     document.querySelectorAll('input[name="surveyType"]').forEach(radio => {
       radio.addEventListener('change', () => {
         document.querySelectorAll('.radio-card').forEach(c => c.classList.remove('selected'));
         radio.closest('.radio-card').classList.add('selected');
+        updateKeywordField();
       });
     });
 
