@@ -236,6 +236,17 @@
       line-height: 1.7;
       margin-bottom: 10px;
     }
+    .edit-hint {
+      font-size: 13px;
+      color: rgba(8,19,26,0.66);
+      background: rgba(27,108,168,0.05);
+      border-left: 3px solid #1B6CA8;
+      padding: 8px 12px;
+      border-radius: 0 4px 4px 0;
+      margin-bottom: 8px;
+      line-height: 1.6;
+    }
+
     .question-textarea {
       width: 100%;
       padding: 12px 14px;
@@ -253,6 +264,49 @@
       margin-bottom: 10px;
     }
     .question-textarea:focus { border-color: #1B6CA8; box-shadow: 0 0 0 2px rgba(27,108,168,0.15); }
+
+    /* ─── Screen 3: Why 3 AIs ─── */
+    .why-3ai {
+      background: #f5f8fa;
+      border-radius: 12px;
+      padding: 20px 24px;
+      margin-bottom: 2rem;
+    }
+    .why-3ai-title {
+      font-size: 16px;
+      font-weight: 600;
+      color: #1B6CA8;
+      letter-spacing: 0.04em;
+      font-feature-settings: "palt";
+      margin-bottom: 10px;
+    }
+    .why-3ai-body { font-size: 14px; color: rgba(8,19,26,0.8); line-height: 1.7; margin-bottom: 4px; }
+    .why-3ai-cite { font-size: 11px; color: rgba(8,19,26,0.5); margin-bottom: 12px; }
+    .why-3ai-cite a { color: rgba(8,19,26,0.5); }
+    .why-3ai-emphasis { font-size: 14px; font-weight: 600; color: #08131a; margin-bottom: 14px; }
+    .why-3ai-table-wrap { overflow-x: auto; margin-bottom: 14px; }
+    .why-3ai-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    .why-3ai-table th {
+      background: rgba(27,108,168,0.08);
+      color: #1B6CA8;
+      font-weight: 600;
+      padding: 8px 12px;
+      text-align: left;
+      border-bottom: 2px solid rgba(27,108,168,0.2);
+      white-space: nowrap;
+    }
+    .why-3ai-table td {
+      padding: 8px 12px;
+      border-bottom: 1px solid rgba(8,19,26,0.08);
+      color: rgba(8,19,26,0.8);
+      vertical-align: top;
+    }
+    .why-3ai-table tr:last-child td { border-bottom: none; }
+    .why-3ai-ai-cell { display: flex; align-items: center; gap: 6px; font-weight: 500; color: #08131a; white-space: nowrap; }
+    .why-3ai-footer { font-size: 13px; color: rgba(8,19,26,0.66); line-height: 1.7; }
+
+    /* ─── Keyword highlight ─── */
+    .keyword-highlight { color: #1B6CA8; font-weight: 500; }
 
     /* ─── Screen 3: Results ─── */
     .result-grid {
@@ -301,16 +355,73 @@
       word-break: break-word;
     }
 
-    /* ─── Upsell ─── */
-    .upsell-banner {
-      background: rgba(27,108,168,0.08);
+    /* ─── Insight Panel ─── */
+    .insight-panel {
+      border-radius: 10px;
+      overflow: hidden;
       border: 1px solid rgba(27,108,168,0.2);
-      border-radius: 12px;
-      padding: 16px 20px;
       margin-bottom: 2rem;
     }
-    .upsell-title { font-size: 15px; font-weight: 600; color: #1B6CA8; margin-bottom: 6px; }
-    .upsell-desc  { font-size: 14px; color: rgba(8,19,26,0.66); }
+    .insight-panel-header {
+      background: #1B6CA8;
+      color: #ffffff;
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .insight-panel-title  { font-size: 15px; font-weight: 600; letter-spacing: 0.04em; }
+    .insight-panel-badge  { font-size: 11px; background: rgba(255,255,255,0.2); padding: 2px 8px; border-radius: 10px; }
+    .insight-panel-body   { background: rgba(27,108,168,0.04); }
+    .insight-item         { padding: 14px 16px; border-bottom: 1px solid rgba(27,108,168,0.1); }
+    .insight-item:last-child { border-bottom: none; }
+    .insight-label        { font-size: 12px; font-weight: 600; color: #1B6CA8; margin-bottom: 5px; }
+    .insight-value        { font-size: 14px; color: #08131a; line-height: 1.6; }
+    .insight-value.placeholder { color: rgba(8,19,26,0.35); font-style: italic; }
+    .insight-section-label { padding: 6px 16px; font-size: 11px; font-weight: 600; color: rgba(27,108,168,0.7); background: rgba(27,108,168,0.08); letter-spacing: 0.06em; text-transform: uppercase; }
+    .trend-bar-wrap       { display: flex; align-items: center; gap: 10px; margin-bottom: 6px; }
+    .trend-level          { font-size: 12px; font-weight: 600; color: #1B6CA8; min-width: 3.5em; }
+    .trend-bar            { flex: 1; height: 8px; background: rgba(27,108,168,0.15); border-radius: 4px; overflow: hidden; max-width: 160px; }
+    .trend-bar-fill       { height: 100%; background: #1B6CA8; border-radius: 4px; transition: width 0.6s ease; }
+    .insight-value-text   { font-size: 13px; color: rgba(8,19,26,0.7); line-height: 1.6; }
+
+    /* ─── Upsell Block ─── */
+    .upsell-block { border: 1px solid rgba(27,108,168,0.2); border-radius: 12px; overflow: hidden; margin-bottom: 2rem; }
+    .upsell-block-header { background: rgba(27,108,168,0.06); padding: 16px 20px; border-bottom: 1px solid rgba(27,108,168,0.12); }
+    .upsell-block-title  { font-size: 16px; font-weight: 700; color: #08131a; letter-spacing: 0.04em; font-feature-settings: "palt"; margin-bottom: 6px; }
+    .upsell-block-desc   { font-size: 13px; color: rgba(8,19,26,0.66); line-height: 1.6; }
+    .upsell-block-body   { padding: 16px 20px; background: #ffffff; }
+
+    /* ─── Locked Preview ─── */
+    .locked-preview { border: 1px solid rgba(8,19,26,0.14); border-radius: 10px; overflow: hidden; margin-bottom: 16px; }
+    .locked-preview-label { font-size: 12px; font-weight: 600; color: rgba(8,19,26,0.66); padding: 9px 14px; background: #f5f8fa; border-bottom: 1px solid rgba(8,19,26,0.08); }
+    .locked-preview-body  { position: relative; }
+    .locked-preview-content { padding: 10px 14px 12px; filter: blur(4px); user-select: none; pointer-events: none; }
+    .locked-row { display: flex; align-items: center; gap: 8px; padding: 5px 0; border-bottom: 1px solid rgba(8,19,26,0.07); font-size: 13px; }
+    .locked-row:last-child { border-bottom: none; }
+    .locked-rank { font-weight: 600; color: #1B6CA8; min-width: 2em; }
+    .locked-name { flex: 1; color: #08131a; }
+    .locked-bar  { width: 80px; height: 7px; background: #dce0e3; border-radius: 4px; overflow: hidden; }
+    .locked-bar-fill { height: 100%; background: #1B6CA8; border-radius: 4px; }
+    .locked-pct  { font-size: 12px; color: rgba(8,19,26,0.5); min-width: 2.5em; text-align: right; }
+    .locked-overlay {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255,255,255,0.72);
+      gap: 6px;
+      color: #1B6CA8;
+    }
+    .locked-overlay svg  { display: block; }
+    .locked-overlay span { font-size: 13px; font-weight: 600; color: #1B6CA8; }
+
+    /* ─── Feature List ─── */
+    .feature-list { list-style: none; margin-bottom: 16px; display: flex; flex-direction: column; gap: 6px; }
+    .feature-list li { display: flex; align-items: center; gap: 8px; font-size: 14px; color: #08131a; }
+    .feature-check { color: #1B6CA8; font-weight: 700; font-size: 15px; flex-shrink: 0; }
 
     /* ─── Misc ─── */
     .caption { font-size: 12px; color: rgba(8,19,26,0.66); line-height: 1.5; }
@@ -368,7 +479,7 @@
 
           <div class="form-group">
             <label class="form-label" for="token">
-              アクセストークン<span class="required">*</span>
+              購入コード<span class="required">*</span>
             </label>
             <input
               type="text"
@@ -378,7 +489,7 @@
               autocomplete="off"
               spellcheck="false"
             />
-            <p class="form-hint">購入時にメールでお知らせしたトークンを入力してください。</p>
+            <p class="form-hint">購入時にメールでお知らせした購入コードを入力してください。</p>
           </div>
 
           <div class="form-group">
@@ -397,6 +508,26 @@
           </div>
 
           <div class="form-group">
+            <label class="form-label">調査タイプ<span class="required">*</span></label>
+            <div class="radio-cards">
+              <label class="radio-card selected" id="card-market">
+                <input type="radio" name="surveyType" id="type-market" value="market" checked />
+                <div class="radio-card-content">
+                  <span class="radio-card-title">A 市場調査：このカテゴリで、どんなサービスがAIにオススメされているか知りたい</span>
+                  <span class="radio-card-desc">市場全体でいまAIが取り上げている企業・サービスの傾向を確認します</span>
+                </div>
+              </label>
+              <label class="radio-card" id="card-brand">
+                <input type="radio" name="surveyType" id="type-brand" value="brand" />
+                <div class="radio-card-content">
+                  <span class="radio-card-title">B ブランド調査：自社ブランドや競合のサービスがAIにどう紹介されているか知りたい</span>
+                  <span class="radio-card-desc">特定のブランド名・サービス名がいまAIにどのように説明・評価されているかを確認します</span>
+                </div>
+              </label>
+            </div>
+          </div>
+
+          <div class="form-group">
             <label class="form-label" for="keyword">
               ブランド名・キーワード<span class="required">*</span>
             </label>
@@ -404,29 +535,12 @@
               type="text"
               id="keyword"
               class="form-input"
-              placeholder="例：SmartHR、弁護士ドットコム、JAC Recruitment"
+              placeholder="カテゴリと調査タイプを選ぶとサジェストが表示されます"
+              list="keywordSuggestions"
+              autocomplete="off"
             />
-            <p class="form-hint">調査したいブランド名またはサービス名を1つ入力してください。</p>
-          </div>
-
-          <div class="form-group">
-            <label class="form-label">調査タイプ<span class="required">*</span></label>
-            <div class="radio-cards">
-              <label class="radio-card selected" id="card-market">
-                <input type="radio" name="surveyType" id="type-market" value="market" checked />
-                <div class="radio-card-content">
-                  <span class="radio-card-title">市場での立ち位置を知りたい</span>
-                  <span class="radio-card-desc">AIが回答する「競合他社との比較」や「市場ポジション」を確認</span>
-                </div>
-              </label>
-              <label class="radio-card" id="card-brand">
-                <input type="radio" name="surveyType" id="type-brand" value="brand" />
-                <div class="radio-card-content">
-                  <span class="radio-card-title">このブランド・サービスの評判を知りたい</span>
-                  <span class="radio-card-desc">AIが回答する「特徴・評価・口コミ的な印象」を確認</span>
-                </div>
-              </label>
-            </div>
+            <datalist id="keywordSuggestions"></datalist>
+            <p class="form-hint">調査したいキーワードを1つ入力してください。</p>
           </div>
 
           <div class="btn-group">
@@ -440,14 +554,15 @@
     <!-- ━━━ Screen 2: Question Confirm ━━━ -->
     <div class="screen" id="screen2">
       <div class="container">
-        <h2 class="section-title">AIへの質問文を確認</h2>
-        <p class="section-subtitle">以下の質問文でChatGPT・Claude・Geminiに問い合わせます。</p>
+        <h2 class="section-title">AIにこんな質問を投げます</h2>
+        <p class="section-subtitle">どんな人がこのキーワードでAIに質問するか、をAIが想定して質問文を作りました。<br>ズレていたら自由に修正できます。</p>
 
         <div class="error-box" id="errorBox2" style="display:none;"></div>
 
         <div class="card" style="margin-bottom:1.25rem;">
           <div class="question-box" id="questionDisplay"></div>
           <div id="editArea" style="display:none;">
+            <p class="edit-hint">想定ユーザーや質問の角度を変えたい場合は自由に書き直してください。<br>例：「40代の人事担当者です。」「競合と比較して教えてください。」</p>
             <textarea
               class="question-textarea"
               id="questionEdit"
@@ -457,10 +572,6 @@
           </div>
           <button class="btn-text" id="editToggleBtn" type="button">質問を修正する</button>
         </div>
-
-        <p class="caption" style="margin-bottom:1.5rem;">
-          ※ 各AIに同じ質問を送信します。回答は読みやすさのため140文字程度に要約しています。
-        </p>
 
         <div class="btn-group">
           <button class="btn-primary" id="runSurveyBtn" type="button">この質問で調査を実行する</button>
@@ -475,9 +586,38 @@
         <h2 class="section-title">AI調査レポート</h2>
         <p class="section-subtitle" id="resultSubtitle"></p>
 
-        <p class="caption" style="margin-bottom:1.5rem;">
-          ※ 回答は読みやすさのため140文字程度に要約しています。
-        </p>
+        <!-- なぜ3つのAIに聞くのか -->
+        <div class="why-3ai">
+          <div class="why-3ai-title">なぜ3つのAIに聞くのか</div>
+          <p class="why-3ai-body">日本国内の生成AIアシスタント利用者数は、ChatGPTが約931万人でトップ、Geminiが約261万人で続きます。ChatGPTとClaudeは20〜30代のビジネス職の利用割合が高く、Geminiはより幅広い年代に使われています。</p>
+          <p class="why-3ai-cite">※ 2025年3月ニールセン デジタルの発表。<a href="https://markezine.jp/news/detail/49204" target="_blank" rel="noopener">MarkeZine記事</a></p>
+          <p class="why-3ai-emphasis">つまり、あなたのブランドを検索する人によって、使うAIが違います。</p>
+          <div class="why-3ai-table-wrap">
+            <table class="why-3ai-table">
+              <thead>
+                <tr><th>AI</th><th>日本での位置づけ</th><th>特徴</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><div class="why-3ai-ai-cell"><div class="ai-dot" style="background:#10a37f;"></div>ChatGPT</div></td>
+                  <td>利用者数No.1・ビジネス層に強い</td>
+                  <td>網羅的・構造的な回答を返す傾向</td>
+                </tr>
+                <tr>
+                  <td><div class="why-3ai-ai-cell"><div class="ai-dot" style="background:#CC785C;"></div>Claude</div></td>
+                  <td>20〜30代・高関与ユーザー層</td>
+                  <td>文脈を踏まえた分析的な回答が多い</td>
+                </tr>
+                <tr>
+                  <td><div class="why-3ai-ai-cell"><div class="ai-dot" style="background:#4285F4;"></div>Gemini</div></td>
+                  <td>Google検索連携・幅広い層</td>
+                  <td>検索エンジンに近い文脈で回答する傾向</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="why-3ai-footer">1つのAIだけに聞いた結果は、そのAIのユーザー層や学習データのクセが反映されます。3つ横断することで、より多くの潜在顧客が実際に目にしているブランド像が浮かび上がります。</p>
+        </div>
 
         <div class="result-grid">
           <div class="result-card">
@@ -503,21 +643,91 @@
           </div>
         </div>
 
-        <hr class="divider" />
+        <p class="caption" style="margin-bottom:2rem;">
+          ※ 回答は読みやすさのため140文字程度に要約しています。1回の調査のため結果にブレが生じる場合があります。
+        </p>
 
+        <!-- ③ AIインサイトパネル -->
+        <div class="insight-panel">
+          <div class="insight-panel-header">
+            <span class="insight-panel-title">AIインサイト</span>
+            <span class="insight-panel-badge">このレポート専用</span>
+          </div>
+          <div class="insight-panel-body">
+            <div class="insight-item">
+              <div class="insight-label">3AIの共通見解</div>
+              <div class="insight-value placeholder" id="insight-common">分析中...</div>
+            </div>
+            <div class="insight-item">
+              <div class="insight-label">AIによる言及の差</div>
+              <div class="insight-value placeholder" id="insight-difference">分析中...</div>
+            </div>
+            <div class="insight-item">
+              <div class="insight-label">このキーワードを検索する想定ユーザー</div>
+              <div class="insight-value placeholder" id="insight-persona">分析中...</div>
+            </div>
+            <div class="insight-section-label">この業界の傾向（固定情報）</div>
+            <div class="insight-item">
+              <div class="insight-label">この業界のAI検索利用傾向</div>
+              <div class="insight-value" id="insight-trend"></div>
+            </div>
+            <div class="insight-item">
+              <div class="insight-label">AEO改善のヒント</div>
+              <div class="insight-value" id="insight-hint"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ④ 竹プランへの飢餓感ブロック -->
+        <div class="upsell-block">
+          <div class="upsell-block-header">
+            <div class="upsell-block-title">より精度の高い調査は竹プランで</div>
+            <p class="upsell-block-desc">梅プランは1回の試行のため、回答にブレが生じることがあります。竹プランでは30回試行した結果を統計的に集計するため、より信頼性の高いインサイトが得られます。</p>
+          </div>
+          <div class="upsell-block-body">
+            <div class="locked-preview">
+              <div class="locked-preview-label">AI推薦頻度ランキング（競合2社との比較）</div>
+              <div class="locked-preview-body">
+                <div class="locked-preview-content">
+                  <div class="locked-row">
+                    <span class="locked-rank">1位</span>
+                    <span class="locked-name">競合A社名</span>
+                    <div class="locked-bar"><div class="locked-bar-fill" style="width:83%"></div></div>
+                    <span class="locked-pct">83%</span>
+                  </div>
+                  <div class="locked-row">
+                    <span class="locked-rank">2位</span>
+                    <span class="locked-name">あなたのブランド</span>
+                    <div class="locked-bar"><div class="locked-bar-fill" style="width:61%"></div></div>
+                    <span class="locked-pct">61%</span>
+                  </div>
+                  <div class="locked-row">
+                    <span class="locked-rank">3位</span>
+                    <span class="locked-name">競合B社名</span>
+                    <div class="locked-bar"><div class="locked-bar-fill" style="width:42%"></div></div>
+                    <span class="locked-pct">42%</span>
+                  </div>
+                </div>
+                <div class="locked-overlay">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                  <span>竹プランで確認する</span>
+                </div>
+              </div>
+            </div>
+            <ul class="feature-list">
+              <li><span class="feature-check">✓</span>30回試行・統計集計</li>
+              <li><span class="feature-check">✓</span>キーワード3つまで対応</li>
+              <li><span class="feature-check">✓</span>競合2社との比較</li>
+              <li><span class="feature-check">✓</span>PDFレポート納品</li>
+            </ul>
+            <button class="btn-primary" style="max-width:280px;" type="button">竹プランを見る（¥2,980）</button>
+          </div>
+        </div>
+
+        <!-- ⑤ プロンプト全文 -->
         <div class="prompt-section">
           <div class="prompt-section-title">使用したプロンプト（全文）</div>
           <div class="prompt-box" id="promptDisplay"></div>
-        </div>
-
-        <hr class="divider" />
-
-        <div class="upsell-banner">
-          <div class="upsell-title">より詳しく調査したい方へ — 竹プラン</div>
-          <div class="upsell-desc">
-            竹プランでは、より詳細な分析レポート・複数キーワードの一括調査・CSVエクスポートが利用できます。
-            AIが自社をどう評価しているか、競合との差別化ポイントを徹底的に把握しましょう。
-          </div>
         </div>
       </div>
     </div>
@@ -528,6 +738,9 @@
     const GAS_URL = 'https://script.google.com/macros/s/AKfycbx_rsGMtxez4G17xEbcX46fk8GFs85lEd--eNdI1BZipoPpJf3nXkkxMfHQAOSaRUb3/exec';
 
     const state = { token: '', category: '', keyword: '', surveyType: 'market', question: '' };
+
+    let categoriesData = {};
+    fetch('data/categories.json').then(r => r.json()).then(d => { categoriesData = d; }).catch(() => {});
 
     const $ = id => document.getElementById(id);
 
@@ -578,7 +791,7 @@
       const keyword    = $('keyword').value.trim();
       const surveyType = document.querySelector('input[name="surveyType"]:checked')?.value;
 
-      if (!token)      return showError('errorBox1', 'アクセストークンを入力してください。');
+      if (!token)      return showError('errorBox1', '購入コードを入力してください。');
       if (!category)   return showError('errorBox1', 'カテゴリを選択してください。');
       if (!keyword)    return showError('errorBox1', 'キーワードを入力してください。');
       if (!surveyType) return showError('errorBox1', '調査タイプを選択してください。');
@@ -601,11 +814,64 @@
       }
     });
 
-    // Radio card highlight
+    // ── Placeholder / Suggestion data ──
+    const PLACEHOLDERS = {
+      market: {
+        'BtoB SaaS / ITツール':        '例：会計システム、名刺管理ツール',
+        'コンサルティング / 士業':      '例：税理士法人、ITコンサル',
+        '人材サービス / HR Tech':       '例：転職エージェント、人事評価システム',
+        'マーケティング支援・広告代理店':'例：WEB広告代理店、SEO支援サービス',
+        'スクール・資格・習い事':        '例：オンライン英会話、ジム',
+        'D2Cブランド / EC':            '例：アパレルD2Cブランド、越境EC',
+      },
+      brand: {
+        'BtoB SaaS / ITツール':        '例：Salesforce、HubSpot、freee',
+        'コンサルティング / 士業':      '例：マッキンゼー、PwC',
+        '人材サービス / HR Tech':       '例：リクルートエージェント、JAC',
+        'マーケティング支援・広告代理店':'例：電通デジタル、サイバーエージェント',
+        'スクール・資格・習い事':        '例：RIZAP、スタディサプリ',
+        'D2Cブランド / EC':            '例：BOTANIST、SHEIN',
+      },
+    };
+
+    const SUGGESTIONS = {
+      market: {
+        'BtoB SaaS / ITツール':        ['会計システム', '名刺管理ツール', 'CRMツール', 'MAツール', 'プロジェクト管理ツール', '電子署名サービス'],
+        'コンサルティング / 士業':      ['税理士法人', '特許事務所', 'ITコンサル', 'M&Aアドバイザリー', '社会保険労務士事務所', '経営コンサル'],
+        '人材サービス / HR Tech':       ['転職エージェント', '人事評価システム', '採用管理システム', '勤怠管理ツール', '企業研修', '副業マッチング'],
+        'マーケティング支援・広告代理店':['WEB広告代理店', 'SEO支援サービス', 'SNSマーケ代行', 'コンテンツマーケティング', 'インフルエンサーマーケ', 'リスティング広告'],
+        'スクール・資格・習い事':        ['オンライン英会話', 'プログラミングスクール', 'ジム', '塾', '料理教室', 'ビジネス英語スクール'],
+        'D2Cブランド / EC':            ['アパレルD2Cブランド', '越境EC', '決済プラットフォーム', 'フードD2C', 'スキンケアD2C', 'サブスクEC'],
+      },
+      brand: {
+        'BtoB SaaS / ITツール':        ['Salesforce', 'HubSpot', 'freee', 'Slack', 'Notion', 'Sansan'],
+        'コンサルティング / 士業':      ['マッキンゼー', 'PwC', 'デロイト', 'ボストンコンサルティング', 'アクセンチュア', 'EY'],
+        '人材サービス / HR Tech':       ['リクルートエージェント', 'JAC', 'SmartHR', 'マイナビエージェント', 'パーソルキャリア', 'doda'],
+        'マーケティング支援・広告代理店':['電通デジタル', 'サイバーエージェント', '博報堂DYデジタル', 'オプト', 'アイレップ', 'ADK'],
+        'スクール・資格・習い事':        ['RIZAP', 'スタディサプリ', '東進ハイスクール', 'ベルリッツ', 'NOVA', 'ライザップゴルフ'],
+        'D2Cブランド / EC':            ['BOTANIST', 'SHEIN', 'BASE', 'Shopify', 'FABRIC TOKYO', 'Oisix'],
+      },
+    };
+
+    function updateKeywordField() {
+      const category   = $('category').value;
+      const surveyType = document.querySelector('input[name="surveyType"]:checked')?.value || 'market';
+      const ph = (category && PLACEHOLDERS[surveyType]?.[category])
+        ? PLACEHOLDERS[surveyType][category]
+        : 'カテゴリと調査タイプを選ぶとサジェストが表示されます';
+      $('keyword').placeholder = ph;
+      const list = category ? (SUGGESTIONS[surveyType]?.[category] || []) : [];
+      $('keywordSuggestions').innerHTML = list.map(s => `<option value="${s.replace(/"/g, '&quot;')}">`).join('');
+    }
+
+    $('category').addEventListener('change', updateKeywordField);
+
+    // Radio card highlight + keyword field sync
     document.querySelectorAll('input[name="surveyType"]').forEach(radio => {
       radio.addEventListener('change', () => {
         document.querySelectorAll('.radio-card').forEach(c => c.classList.remove('selected'));
         radio.closest('.radio-card').classList.add('selected');
+        updateKeywordField();
       });
     });
 
@@ -653,6 +919,7 @@
         renderResult('result-chatgpt', results.chatgpt);
         renderResult('result-claude',  results.claude);
         renderResult('result-gemini',  results.gemini);
+        renderInsightPanel();
 
         showScreen(3);
       } catch (err) {
@@ -669,6 +936,54 @@
         return;
       }
       el.innerHTML = marked.parse(text);
+      if (state.keyword) highlightKeyword(el, state.keyword);
+    }
+
+    function renderInsightPanel() {
+      // 動的3項目：GAS修正後に更新予定。現時点はプレースホルダー表示
+      ['insight-common', 'insight-difference', 'insight-persona'].forEach(id => {
+        const el = $(id);
+        el.textContent = '分析中...';
+        el.className = 'insight-value placeholder';
+      });
+
+      // 静的2項目：categories.jsonから取得
+      const cat = categoriesData[state.category];
+      if (cat) {
+        const pct = { '高い': 75, '中程度': 50, '低い': 25 }[cat.ai_usage_trend] ?? 50;
+        $('insight-trend').innerHTML =
+          `<div class="trend-bar-wrap">` +
+          `<span class="trend-level">${cat.ai_usage_trend}</span>` +
+          `<div class="trend-bar"><div class="trend-bar-fill" style="width:${pct}%"></div></div>` +
+          `</div>` +
+          `<p class="insight-value-text">${cat.ai_usage_comment}</p>`;
+        $('insight-hint').textContent = cat.aeo_hint;
+      }
+    }
+
+    function highlightKeyword(el, keyword) {
+      const esc   = keyword.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      const regex = new RegExp(`(${esc})`, 'gi');
+      const walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT);
+      const nodes = [];
+      let node;
+      while ((node = walker.nextNode())) nodes.push(node);
+      nodes.forEach(node => {
+        if (!regex.test(node.textContent)) return;
+        regex.lastIndex = 0;
+        const frag = document.createDocumentFragment();
+        let last = 0, m;
+        while ((m = regex.exec(node.textContent)) !== null) {
+          if (m.index > last) frag.appendChild(document.createTextNode(node.textContent.slice(last, m.index)));
+          const span = document.createElement('span');
+          span.className = 'keyword-highlight';
+          span.textContent = m[1];
+          frag.appendChild(span);
+          last = m.index + m[1].length;
+        }
+        if (last < node.textContent.length) frag.appendChild(document.createTextNode(node.textContent.slice(last)));
+        node.parentNode.replaceChild(frag, node);
+      });
     }
   </script>
 </body>
