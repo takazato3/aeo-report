@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AEOレポート 梅プラン</title>
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: "Helvetica Neue", "Hiragino Sans", "Hiragino Kaku Gothic ProN",
+        Arial, "Noto Sans JP", Meiryo, sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      color: #08131a;
+      background: #ffffff;
+    }
+
+    /* ─── Header ─── */
+    .header {
+      background: #ffffff;
+      border-bottom: 1px solid rgba(8,19,26,0.14);
+      height: 56px;
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .header-logo {
+      font-size: 18px;
+      font-weight: 700;
+      color: #1B6CA8;
+      letter-spacing: 0.04em;
+      font-feature-settings: "palt";
+    }
+    .header-plan {
+      font-size: 12px;
+      color: rgba(8,19,26,0.66);
+      background: #f5f8fa;
+      border: 1px solid rgba(8,19,26,0.14);
+      border-radius: 4px;
+      padding: 3px 8px;
+    }
+
+    /* ─── Layout ─── */
+    .main { padding: 2rem 1rem; min-height: calc(100vh - 56px); }
+    .container { max-width: 640px; margin: 0 auto; }
+    .container.wide { max-width: 960px; }
+
+    /* ─── Stepper ─── */
+    .stepper {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      max-width: 640px;
+      margin: 0 auto 2rem;
+    }
+    .step { display: flex; align-items: center; gap: 8px; }
+    .step-circle {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: 500;
+      flex-shrink: 0;
+    }
+    .step-circle.done    { background: #1B6CA8; color: #ffffff; }
+    .step-circle.active  { background: rgba(27,108,168,0.1); color: #1B6CA8; border: 2px solid #1B6CA8; }
+    .step-circle.pending { background: #f5f8fa; color: #9ca7ad; border: 1px solid rgba(8,19,26,0.14); }
+    .step-label          { font-size: 12px; color: rgba(8,19,26,0.66); white-space: nowrap; }
+    .step-label.active   { color: #1B6CA8; font-weight: 500; }
+    .step-connector      { width: 32px; height: 1px; background: rgba(8,19,26,0.14); flex-shrink: 0; margin: 0 8px; }
+
+    /* ─── Section titles ─── */
+    .section-title {
+      font-size: 22px;
+      font-weight: 700;
+      color: #08131a;
+      letter-spacing: 0.04em;
+      font-feature-settings: "palt";
+      margin-bottom: 0.5rem;
+    }
+    .section-subtitle { font-size: 14px; color: rgba(8,19,26,0.66); margin-bottom: 2rem; }
+
+    /* ─── Form ─── */
+    .form-group { margin-bottom: 1.25rem; }
+    .form-label { display: block; font-size: 13px; font-weight: 500; color: #08131a; margin-bottom: 6px; line-height: 1.5; }
+    .form-label .required { color: #b22323; margin-left: 4px; }
+    .form-input,
+    .form-select {
+      width: 100%;
+      padding: 10px 12px;
+      font-size: 16px;
+      color: #08131a;
+      background: #ffffff;
+      border: 1px solid rgba(8,19,26,0.22);
+      border-radius: 6px;
+      outline: none;
+      transition: border-color 0.15s;
+      font-family: inherit;
+    }
+    .form-input:focus,
+    .form-select:focus {
+      border-color: #1B6CA8;
+      box-shadow: 0 0 0 2px rgba(27,108,168,0.15);
+    }
+    .form-input::placeholder { color: #9ca7ad; }
+    .form-hint { font-size: 12px; color: rgba(8,19,26,0.66); margin-top: 4px; }
+
+    /* ─── Radio Cards ─── */
+    .radio-cards { display: flex; flex-direction: column; gap: 8px; }
+    .radio-card {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      border: 1px solid rgba(8,19,26,0.14);
+      border-radius: 8px;
+      padding: 12px 14px;
+      cursor: pointer;
+      transition: border-color 0.15s, background 0.15s;
+      min-height: 44px;
+    }
+    .radio-card:hover              { border-color: rgba(27,108,168,0.4); background: rgba(27,108,168,0.03); }
+    .radio-card.selected           { border: 2px solid #1B6CA8; background: rgba(27,108,168,0.05); }
+    .radio-card input[type="radio"] { margin-top: 2px; accent-color: #1B6CA8; flex-shrink: 0; }
+    .radio-card-content { display: flex; flex-direction: column; }
+    .radio-card-title { font-size: 14px; font-weight: 500; color: #08131a; }
+    .radio-card-desc  { font-size: 12px; color: rgba(8,19,26,0.66); margin-top: 2px; }
+
+    /* ─── Buttons ─── */
+    .btn-primary {
+      background: #1B6CA8;
+      color: #ffffff;
+      border: none;
+      border-radius: 6px;
+      font-size: 15px;
+      font-weight: 500;
+      padding: 13px 24px;
+      width: 100%;
+      cursor: pointer;
+      transition: background 0.15s;
+      min-height: 44px;
+      font-family: inherit;
+    }
+    .btn-primary:hover:not(:disabled) { background: #155a8f; }
+    .btn-primary:disabled { opacity: 0.6; cursor: not-allowed; }
+
+    .btn-secondary {
+      background: transparent;
+      color: #5a656b;
+      border: 1px solid rgba(8,19,26,0.22);
+      border-radius: 6px;
+      font-size: 14px;
+      padding: 11px 24px;
+      width: 100%;
+      cursor: pointer;
+      transition: background 0.15s;
+      min-height: 44px;
+      font-family: inherit;
+    }
+    .btn-secondary:hover { background: #f5f8fa; }
+
+    .btn-text {
+      background: transparent;
+      border: none;
+      color: #1B6CA8;
+      font-size: 14px;
+      cursor: pointer;
+      padding: 4px 0;
+      font-family: inherit;
+      text-decoration: underline;
+    }
+    .btn-text:hover { color: #155a8f; }
+
+    .btn-group { display: flex; flex-direction: column; gap: 10px; margin-top: 2rem; }
+
+    /* ─── Card ─── */
+    .card {
+      background: #ffffff;
+      border: 1px solid rgba(8,19,26,0.14);
+      border-radius: 12px;
+      padding: 16px 20px;
+      box-shadow: 0px 1px 3px 1px rgba(0,0,0,0.08), 0px 1px 2px 0px rgba(0,0,0,0.12);
+    }
+
+    /* ─── Error ─── */
+    .error-box {
+      background: #fdf3f3;
+      border: 1px solid rgba(178,35,35,0.25);
+      border-radius: 8px;
+      padding: 12px 16px;
+      color: #b22323;
+      font-size: 14px;
+      margin-bottom: 1.25rem;
+    }
+
+    /* ─── Loading ─── */
+    .loading-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(255,255,255,0.85);
+      z-index: 200;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .loading-overlay.active { display: flex; }
+    .spinner {
+      width: 40px;
+      height: 40px;
+      border: 3px solid rgba(27,108,168,0.2);
+      border-top-color: #1B6CA8;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .loading-text { font-size: 14px; color: rgba(8,19,26,0.66); }
+
+    /* ─── Screen 2 ─── */
+    .question-box {
+      background: #f5f8fa;
+      border: 1px solid rgba(8,19,26,0.14);
+      border-radius: 8px;
+      padding: 16px;
+      font-size: 16px;
+      color: #08131a;
+      line-height: 1.7;
+      margin-bottom: 10px;
+    }
+    .question-textarea {
+      width: 100%;
+      padding: 12px 14px;
+      font-size: 15px;
+      color: #08131a;
+      background: #ffffff;
+      border: 1px solid rgba(8,19,26,0.22);
+      border-radius: 8px;
+      outline: none;
+      resize: vertical;
+      min-height: 80px;
+      font-family: inherit;
+      line-height: 1.7;
+      transition: border-color 0.15s;
+      margin-bottom: 10px;
+    }
+    .question-textarea:focus { border-color: #1B6CA8; box-shadow: 0 0 0 2px rgba(27,108,168,0.15); }
+
+    /* ─── Screen 3: Results ─── */
+    .result-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-bottom: 2rem;
+    }
+    @media (max-width: 639px)  { .result-grid { grid-template-columns: 1fr; } }
+    @media (min-width: 640px) and (max-width: 959px) { .result-grid { grid-template-columns: repeat(2, 1fr); } }
+
+    .result-card {
+      background: #ffffff;
+      border: 1px solid rgba(8,19,26,0.14);
+      border-radius: 12px;
+      padding: 16px 20px;
+      box-shadow: 0px 1px 3px 1px rgba(0,0,0,0.08), 0px 1px 2px 0px rgba(0,0,0,0.12);
+    }
+    .result-card-header { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; }
+    .ai-dot  { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+    .ai-name { font-size: 14px; font-weight: 600; color: #08131a; }
+
+    .result-content { font-size: 15px; color: #08131a; line-height: 1.7; }
+    .result-content h1,
+    .result-content h2,
+    .result-content h3 { font-size: 15px; font-weight: 600; margin-bottom: 6px; }
+    .result-content p  { margin-bottom: 8px; }
+    .result-content p:last-child { margin-bottom: 0; }
+    .result-content ul,
+    .result-content ol { padding-left: 1.2em; margin-bottom: 8px; }
+    .result-content li { margin-bottom: 4px; }
+    .result-error { color: rgba(8,19,26,0.5); font-size: 14px; font-style: italic; }
+
+    /* ─── Prompt Box ─── */
+    .prompt-section { margin-bottom: 2rem; }
+    .prompt-section-title { font-size: 14px; font-weight: 600; color: rgba(8,19,26,0.66); margin-bottom: 8px; }
+    .prompt-box {
+      background: #f5f8fa;
+      border-radius: 8px;
+      padding: 12px 16px;
+      font-family: SFMono-Regular, Consolas, Menlo, Courier, monospace;
+      font-size: 13px;
+      color: #5a656b;
+      line-height: 1.6;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+
+    /* ─── Upsell ─── */
+    .upsell-banner {
+      background: rgba(27,108,168,0.08);
+      border: 1px solid rgba(27,108,168,0.2);
+      border-radius: 12px;
+      padding: 16px 20px;
+      margin-bottom: 2rem;
+    }
+    .upsell-title { font-size: 15px; font-weight: 600; color: #1B6CA8; margin-bottom: 6px; }
+    .upsell-desc  { font-size: 14px; color: rgba(8,19,26,0.66); }
+
+    /* ─── Misc ─── */
+    .caption { font-size: 12px; color: rgba(8,19,26,0.66); line-height: 1.5; }
+    .divider { border: none; border-top: 1px solid rgba(8,19,26,0.14); margin: 2rem 0; }
+
+    .screen { display: none; }
+    .screen.active { display: block; }
+
+    @media (max-width: 480px) { .step-label { display: none; } }
+  </style>
+</head>
+<body>
+
+  <!-- Loading Overlay -->
+  <div class="loading-overlay" id="loadingOverlay">
+    <div class="spinner"></div>
+    <div class="loading-text" id="loadingText">処理中...</div>
+  </div>
+
+  <!-- Header -->
+  <header class="header">
+    <span class="header-logo">AEOレポート</span>
+    <span class="header-plan">梅プラン ¥300</span>
+  </header>
+
+  <main class="main">
+
+    <!-- Stepper -->
+    <nav class="stepper" aria-label="ステップ">
+      <div class="step">
+        <div class="step-circle active" id="step1-circle">1</div>
+        <span class="step-label active" id="step1-label">情報入力</span>
+      </div>
+      <div class="step-connector"></div>
+      <div class="step">
+        <div class="step-circle pending" id="step2-circle">2</div>
+        <span class="step-label" id="step2-label">質問確認</span>
+      </div>
+      <div class="step-connector"></div>
+      <div class="step">
+        <div class="step-circle pending" id="step3-circle">3</div>
+        <span class="step-label" id="step3-label">調査結果</span>
+      </div>
+    </nav>
+
+    <!-- ━━━ Screen 1: Input Form ━━━ -->
+    <div class="screen active" id="screen1">
+      <div class="container">
+        <h1 class="section-title">AI検索調査を開始する</h1>
+        <p class="section-subtitle">ChatGPT・Claude・Geminiの3つのAIで、あなたのブランド・サービスを調査します。</p>
+
+        <div class="error-box" id="errorBox1" style="display:none;"></div>
+
+        <form id="inputForm" novalidate>
+
+          <div class="form-group">
+            <label class="form-label" for="token">
+              アクセストークン<span class="required">*</span>
+            </label>
+            <input
+              type="text"
+              id="token"
+              class="form-input"
+              placeholder="xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+              autocomplete="off"
+              spellcheck="false"
+            />
+            <p class="form-hint">購入時にメールでお知らせしたトークンを入力してください。</p>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="category">
+              業種・カテゴリ<span class="required">*</span>
+            </label>
+            <select id="category" class="form-select">
+              <option value="">選択してください</option>
+              <option value="BtoB SaaS / ITツール">BtoB SaaS / ITツール</option>
+              <option value="コンサルティング / 士業">コンサルティング / 士業</option>
+              <option value="人材サービス / HR Tech">人材サービス / HR Tech</option>
+              <option value="マーケティング支援・広告代理店">マーケティング支援・広告代理店</option>
+              <option value="スクール・資格・習い事">スクール・資格・習い事</option>
+              <option value="D2Cブランド / EC">D2Cブランド / EC</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="keyword">
+              ブランド名・キーワード<span class="required">*</span>
+            </label>
+            <input
+              type="text"
+              id="keyword"
+              class="form-input"
+              placeholder="例：SmartHR、弁護士ドットコム、JAC Recruitment"
+            />
+            <p class="form-hint">調査したいブランド名またはサービス名を1つ入力してください。</p>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">調査タイプ<span class="required">*</span></label>
+            <div class="radio-cards">
+              <label class="radio-card selected" id="card-market">
+                <input type="radio" name="surveyType" id="type-market" value="market" checked />
+                <div class="radio-card-content">
+                  <span class="radio-card-title">市場での立ち位置を知りたい</span>
+                  <span class="radio-card-desc">AIが回答する「競合他社との比較」や「市場ポジション」を確認</span>
+                </div>
+              </label>
+              <label class="radio-card" id="card-brand">
+                <input type="radio" name="surveyType" id="type-brand" value="brand" />
+                <div class="radio-card-content">
+                  <span class="radio-card-title">このブランド・サービスの評判を知りたい</span>
+                  <span class="radio-card-desc">AIが回答する「特徴・評価・口コミ的な印象」を確認</span>
+                </div>
+              </label>
+            </div>
+          </div>
+
+          <div class="btn-group">
+            <button type="submit" class="btn-primary">次へ → 質問文を生成する</button>
+          </div>
+
+        </form>
+      </div>
+    </div>
+
+    <!-- ━━━ Screen 2: Question Confirm ━━━ -->
+    <div class="screen" id="screen2">
+      <div class="container">
+        <h2 class="section-title">AIへの質問文を確認</h2>
+        <p class="section-subtitle">以下の質問文でChatGPT・Claude・Geminiに問い合わせます。</p>
+
+        <div class="error-box" id="errorBox2" style="display:none;"></div>
+
+        <div class="card" style="margin-bottom:1.25rem;">
+          <div class="question-box" id="questionDisplay"></div>
+          <div id="editArea" style="display:none;">
+            <textarea
+              class="question-textarea"
+              id="questionEdit"
+              rows="4"
+              placeholder="質問文を編集してください"
+            ></textarea>
+          </div>
+          <button class="btn-text" id="editToggleBtn" type="button">質問を修正する</button>
+        </div>
+
+        <p class="caption" style="margin-bottom:1.5rem;">
+          ※ 各AIに同じ質問を送信します。回答は読みやすさのため140文字程度に要約しています。
+        </p>
+
+        <div class="btn-group">
+          <button class="btn-primary" id="runSurveyBtn" type="button">この質問で調査を実行する</button>
+          <button class="btn-secondary" id="backToInputBtn" type="button">← 入力に戻る</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ━━━ Screen 3: Results ━━━ -->
+    <div class="screen" id="screen3">
+      <div class="container wide">
+        <h2 class="section-title">AI調査レポート</h2>
+        <p class="section-subtitle" id="resultSubtitle"></p>
+
+        <p class="caption" style="margin-bottom:1.5rem;">
+          ※ 回答は読みやすさのため140文字程度に要約しています。
+        </p>
+
+        <div class="result-grid">
+          <div class="result-card">
+            <div class="result-card-header">
+              <div class="ai-dot" style="background:#10a37f;"></div>
+              <span class="ai-name">ChatGPT</span>
+            </div>
+            <div class="result-content" id="result-chatgpt"></div>
+          </div>
+          <div class="result-card">
+            <div class="result-card-header">
+              <div class="ai-dot" style="background:#CC785C;"></div>
+              <span class="ai-name">Claude</span>
+            </div>
+            <div class="result-content" id="result-claude"></div>
+          </div>
+          <div class="result-card">
+            <div class="result-card-header">
+              <div class="ai-dot" style="background:#4285F4;"></div>
+              <span class="ai-name">Gemini</span>
+            </div>
+            <div class="result-content" id="result-gemini"></div>
+          </div>
+        </div>
+
+        <hr class="divider" />
+
+        <div class="prompt-section">
+          <div class="prompt-section-title">使用したプロンプト（全文）</div>
+          <div class="prompt-box" id="promptDisplay"></div>
+        </div>
+
+        <hr class="divider" />
+
+        <div class="upsell-banner">
+          <div class="upsell-title">より詳しく調査したい方へ — 竹プラン</div>
+          <div class="upsell-desc">
+            竹プランでは、より詳細な分析レポート・複数キーワードの一括調査・CSVエクスポートが利用できます。
+            AIが自社をどう評価しているか、競合との差別化ポイントを徹底的に把握しましょう。
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <script>
+    const GAS_URL = 'https://script.google.com/macros/s/AKfycbx_rsGMtxez4G17xEbcX46fk8GFs85lEd--eNdI1BZipoPpJf3nXkkxMfHQAOSaRUb3/exec';
+
+    const state = { token: '', category: '', keyword: '', surveyType: 'market', question: '' };
+
+    const $ = id => document.getElementById(id);
+
+    function showScreen(n) {
+      ['screen1', 'screen2', 'screen3'].forEach((id, i) => {
+        $(id).classList.toggle('active', i + 1 === n);
+      });
+      updateStepper(n);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function updateStepper(step) {
+      for (let i = 1; i <= 3; i++) {
+        const circle = $(`step${i}-circle`);
+        const label  = $(`step${i}-label`);
+        circle.className = 'step-circle ' + (i < step ? 'done' : i === step ? 'active' : 'pending');
+        label.className  = 'step-label'   + (i === step ? ' active' : '');
+        circle.textContent = i < step ? '✓' : i;
+      }
+    }
+
+    function showLoading(text = '処理中...') {
+      $('loadingText').textContent = text;
+      $('loadingOverlay').classList.add('active');
+    }
+    function hideLoading() { $('loadingOverlay').classList.remove('active'); }
+
+    function showError(boxId, msg) { const b = $(boxId); b.textContent = msg; b.style.display = 'block'; }
+    function hideError(boxId)      { $(boxId).style.display = 'none'; }
+
+    async function callGAS(payload) {
+      const res = await fetch(GAS_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+      if (!res.ok) throw new Error(`サーバーエラー (${res.status})`);
+      return res.json();
+    }
+
+    // ── Screen 1: Submit ──
+    $('inputForm').addEventListener('submit', async e => {
+      e.preventDefault();
+      hideError('errorBox1');
+
+      const token      = $('token').value.trim();
+      const category   = $('category').value;
+      const keyword    = $('keyword').value.trim();
+      const surveyType = document.querySelector('input[name="surveyType"]:checked')?.value;
+
+      if (!token)      return showError('errorBox1', 'アクセストークンを入力してください。');
+      if (!category)   return showError('errorBox1', 'カテゴリを選択してください。');
+      if (!keyword)    return showError('errorBox1', 'キーワードを入力してください。');
+      if (!surveyType) return showError('errorBox1', '調査タイプを選択してください。');
+
+      Object.assign(state, { token, category, keyword, surveyType });
+
+      showLoading('質問文を生成中...');
+      try {
+        const data = await callGAS({ action: 'generateQuestion', token, category, keyword, type: surveyType });
+        if (!data.success) throw new Error(data.error || '質問文の生成に失敗しました。');
+
+        state.question = data.data.question;
+        $('questionDisplay').textContent = state.question;
+        $('questionEdit').value = state.question;
+        showScreen(2);
+      } catch (err) {
+        showError('errorBox1', err.message || 'ネットワークエラーが発生しました。しばらくしてから再試行してください。');
+      } finally {
+        hideLoading();
+      }
+    });
+
+    // Radio card highlight
+    document.querySelectorAll('input[name="surveyType"]').forEach(radio => {
+      radio.addEventListener('change', () => {
+        document.querySelectorAll('.radio-card').forEach(c => c.classList.remove('selected'));
+        radio.closest('.radio-card').classList.add('selected');
+      });
+    });
+
+    // ── Screen 2: Edit toggle ──
+    let editing = false;
+    $('editToggleBtn').addEventListener('click', () => {
+      editing = !editing;
+      $('editArea').style.display          = editing ? 'block' : 'none';
+      $('questionDisplay').style.display   = editing ? 'none'  : 'block';
+      $('editToggleBtn').textContent       = editing ? '編集を完了する' : '質問を修正する';
+      if (!editing) {
+        const edited = $('questionEdit').value.trim();
+        if (edited) { state.question = edited; $('questionDisplay').textContent = state.question; }
+      }
+    });
+
+    // ── Screen 2: Back ──
+    $('backToInputBtn').addEventListener('click', () => { hideError('errorBox2'); showScreen(1); });
+
+    // ── Screen 2: Run survey ──
+    $('runSurveyBtn').addEventListener('click', async () => {
+      hideError('errorBox2');
+
+      if (editing) {
+        const edited = $('questionEdit').value.trim();
+        if (edited) state.question = edited;
+        editing = false;
+        $('editArea').style.display        = 'none';
+        $('questionDisplay').style.display = 'block';
+        $('questionDisplay').textContent   = state.question;
+        $('editToggleBtn').textContent     = '質問を修正する';
+      }
+
+      if (!state.question) return showError('errorBox2', '質問文を入力してください。');
+
+      showLoading('3つのAIに問い合わせ中...\nしばらくお待ちください。');
+      try {
+        const data = await callGAS({ action: 'runSurvey', token: state.token, question: state.question });
+        if (!data.success) throw new Error(data.error || '調査の実行に失敗しました。');
+
+        const { results, question } = data.data;
+        $('resultSubtitle').textContent = `「${state.keyword}」の調査結果`;
+        $('promptDisplay').textContent  = question || state.question;
+
+        renderResult('result-chatgpt', results.chatgpt);
+        renderResult('result-claude',  results.claude);
+        renderResult('result-gemini',  results.gemini);
+
+        showScreen(3);
+      } catch (err) {
+        showError('errorBox2', err.message || 'ネットワークエラーが発生しました。しばらくしてから再試行してください。');
+      } finally {
+        hideLoading();
+      }
+    });
+
+    function renderResult(id, text) {
+      const el = $(id);
+      if (!text) {
+        el.innerHTML = '<span class="result-error">回答を取得できませんでした。</span>';
+        return;
+      }
+      el.innerHTML = marked.parse(text);
+    }
+  </script>
+</body>
+</html>
