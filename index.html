@@ -236,6 +236,17 @@
       line-height: 1.7;
       margin-bottom: 10px;
     }
+    .edit-hint {
+      font-size: 13px;
+      color: rgba(8,19,26,0.66);
+      background: rgba(27,108,168,0.05);
+      border-left: 3px solid #1B6CA8;
+      padding: 8px 12px;
+      border-radius: 0 4px 4px 0;
+      margin-bottom: 8px;
+      line-height: 1.6;
+    }
+
     .question-textarea {
       width: 100%;
       padding: 12px 14px;
@@ -443,14 +454,15 @@
     <!-- ━━━ Screen 2: Question Confirm ━━━ -->
     <div class="screen" id="screen2">
       <div class="container">
-        <h2 class="section-title">AIへの質問文を確認</h2>
-        <p class="section-subtitle">以下の質問文でChatGPT・Claude・Geminiに問い合わせます。</p>
+        <h2 class="section-title">AIにこんな質問を投げます</h2>
+        <p class="section-subtitle">どんな人がこのキーワードでAIに質問するか、をAIが想定して質問文を作りました。<br>ズレていたら自由に修正できます。</p>
 
         <div class="error-box" id="errorBox2" style="display:none;"></div>
 
         <div class="card" style="margin-bottom:1.25rem;">
           <div class="question-box" id="questionDisplay"></div>
           <div id="editArea" style="display:none;">
+            <p class="edit-hint">想定ユーザーや質問の角度を変えたい場合は自由に書き直してください。<br>例：「40代の人事担当者です。」「競合と比較して教えてください。」</p>
             <textarea
               class="question-textarea"
               id="questionEdit"
@@ -460,10 +472,6 @@
           </div>
           <button class="btn-text" id="editToggleBtn" type="button">質問を修正する</button>
         </div>
-
-        <p class="caption" style="margin-bottom:1.5rem;">
-          ※ 各AIに同じ質問を送信します。回答は読みやすさのため140文字程度に要約しています。
-        </p>
 
         <div class="btn-group">
           <button class="btn-primary" id="runSurveyBtn" type="button">この質問で調査を実行する</button>
