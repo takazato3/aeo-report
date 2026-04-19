@@ -952,14 +952,14 @@
         const data = await callGAS({ action: 'runSurvey', token: state.token, question: state.question });
         if (!data.success) throw new Error(data.error || '調査の実行に失敗しました。');
 
-        const { results, question } = data.data;
+        const { results, question, insight } = data.data;
         $('resultSubtitle').textContent = `「${state.keyword}」の調査結果`;
         $('promptDisplay').textContent  = question || state.question;
 
         renderResult('result-chatgpt', results.chatgpt);
         renderResult('result-claude',  results.claude);
         renderResult('result-gemini',  results.gemini);
-        renderInsightPanel();
+        renderInsightPanel(insight);
 
         showScreen(3);
       } catch (err) {
@@ -979,12 +979,21 @@
       if (state.keyword) highlightKeyword(el, state.keyword);
     }
 
-    function renderInsightPanel() {
-      // 動的3項目：GAS修正後に更新予定。現時点はプレースホルダー表示
-      ['insight-common', 'insight-difference', 'insight-persona'].forEach(id => {
+    function renderInsightPanel(insight) {
+      const dynamicItems = [
+        { id: 'insight-common',     value: insight?.common      },
+        { id: 'insight-difference', value: insight?.difference  },
+        { id: 'insight-persona',    value: insight?.persona     },
+      ];
+      dynamicItems.forEach(({ id, value }) => {
         const el = $(id);
-        el.textContent = '分析中...';
-        el.className = 'insight-value placeholder';
+        if (value) {
+          el.textContent = value;
+          el.className = 'insight-value';
+        } else {
+          el.textContent = '分析中...';
+          el.className = 'insight-value placeholder';
+        }
       });
 
       // 静的2項目：categories.jsonから取得
