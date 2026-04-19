@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>特定商取引法に基づく表記 | AI Brand Insight</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: "Helvetica Neue", "Hiragino Sans", "Hiragino Kaku Gothic ProN",
+        Arial, "Noto Sans JP", Meiryo, sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      color: #08131a;
+      background: #ffffff;
+    }
+
+    /* ─── Header ─── */
+    .header {
+      background: #ffffff;
+      border-bottom: 1px solid rgba(8,19,26,0.14);
+      height: 56px;
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .header-logo {
+      font-size: 18px;
+      font-weight: 700;
+      color: #1B6CA8;
+      letter-spacing: 0.04em;
+      font-feature-settings: "palt";
+      text-decoration: none;
+    }
+    .header-plan {
+      font-size: 12px;
+      color: rgba(8,19,26,0.66);
+      background: #f5f8fa;
+      border: 1px solid rgba(8,19,26,0.14);
+      border-radius: 4px;
+      padding: 3px 8px;
+    }
+
+    /* ─── Layout ─── */
+    .main {
+      padding: 2.5rem 1rem 4rem;
+      max-width: 720px;
+      margin: 0 auto;
+    }
+
+    /* ─── Back link ─── */
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 13px;
+      color: #1B6CA8;
+      text-decoration: none;
+      margin-bottom: 2rem;
+    }
+    .back-link:hover { text-decoration: underline; }
+
+    /* ─── Page title ─── */
+    .page-title {
+      font-size: 22px;
+      font-weight: 700;
+      color: #08131a;
+      letter-spacing: 0.04em;
+      font-feature-settings: "palt";
+      margin-bottom: 0.5rem;
+    }
+    .page-subtitle {
+      font-size: 13px;
+      color: rgba(8,19,26,0.66);
+      margin-bottom: 2rem;
+    }
+
+    /* ─── Table ─── */
+    .legal-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 15px;
+    }
+    .legal-table th,
+    .legal-table td {
+      padding: 14px 16px;
+      text-align: left;
+      vertical-align: top;
+      border-bottom: 1px solid rgba(8,19,26,0.1);
+      line-height: 1.7;
+    }
+    .legal-table th {
+      width: 34%;
+      font-size: 13px;
+      font-weight: 600;
+      color: rgba(8,19,26,0.66);
+      background: #f5f8fa;
+      white-space: nowrap;
+    }
+    .legal-table td {
+      color: #08131a;
+    }
+    .legal-table tr:last-child th,
+    .legal-table tr:last-child td {
+      border-bottom: none;
+    }
+    .legal-table ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .legal-table ul li {
+      padding-left: 1em;
+      position: relative;
+    }
+    .legal-table ul li::before {
+      content: "・";
+      position: absolute;
+      left: 0;
+    }
+
+    /* ─── Table wrapper card ─── */
+    .legal-card {
+      border: 1px solid rgba(8,19,26,0.14);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0px 1px 3px 1px rgba(0,0,0,0.06), 0px 1px 2px 0px rgba(0,0,0,0.08);
+    }
+
+    /* ─── Footer note ─── */
+    .legal-note {
+      font-size: 12px;
+      color: rgba(8,19,26,0.5);
+      margin-top: 1.5rem;
+      line-height: 1.6;
+    }
+
+    @media (max-width: 560px) {
+      .legal-table th { width: auto; white-space: normal; }
+      .legal-table th,
+      .legal-table td { display: block; width: 100%; }
+      .legal-table th { border-bottom: none; padding-bottom: 4px; }
+      .legal-table td { padding-top: 4px; }
+      .legal-table tr { display: block; border-bottom: 1px solid rgba(8,19,26,0.1); }
+      .legal-table tr:last-child { border-bottom: none; }
+      .legal-table th, .legal-table td { border-bottom: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="header">
+    <a class="header-logo" href="index.html">AI Brand Insight</a>
+    <span class="header-plan">Quick Scan ¥300</span>
+  </header>
+
+  <main class="main">
+
+    <a class="back-link" href="index.html">← トップに戻る</a>
+
+    <h1 class="page-title">特定商取引法に基づく表記</h1>
+    <p class="page-subtitle">特定商取引に関する法律第11条に基づき、以下の通り表示します。</p>
+
+    <div class="legal-card">
+      <table class="legal-table">
+        <tbody>
+          <tr>
+            <th>販売事業者名</th>
+            <td>AI Brand Insight</td>
+          </tr>
+          <tr>
+            <th>所在地</th>
+            <td>（準備中）</td>
+          </tr>
+          <tr>
+            <th>電話番号</th>
+            <td>（準備中）</td>
+          </tr>
+          <tr>
+            <th>メールアドレス</th>
+            <td><a href="mailto:opsoctopus.jp@gmail.com" style="color:#1B6CA8;">opsoctopus.jp@gmail.com</a></td>
+          </tr>
+          <tr>
+            <th>販売価格</th>
+            <td>各プランページに表示の価格（消費税込）</td>
+          </tr>
+          <tr>
+            <th>支払方法</th>
+            <td>クレジットカード（Stripe決済）</td>
+          </tr>
+          <tr>
+            <th>商品の引渡し時期</th>
+            <td>
+              <ul>
+                <li>Quick Scan（¥300）：購入後、画面上に即時表示されます。結果はHTMLファイルとしてダウンロード可能です。</li>
+                <li>Deep Scan（¥2,980）／Full Scan（¥9,800）：購入後、レポート生成完了次第メールにてお届けします。通常1〜3営業日以内を予定しています。</li>
+              </ul>
+            </td>
+          </tr>
+          <tr>
+            <th>返品・キャンセルについて</th>
+            <td>デジタルコンテンツの性質上、購入後の返金・キャンセルは原則承っておりません。ただしシステム障害等により調査が完了しない場合はこの限りではありません。</td>
+          </tr>
+          <tr>
+            <th>動作環境</th>
+            <td>インターネット接続環境およびモダンブラウザ（Chrome・Safari・Firefox・Edge）</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p class="legal-note">※ 所在地・電話番号については準備が整い次第掲載します。お問い合わせはメールアドレスよりお願いいたします。</p>
+
+  </main>
+
+</body>
+</html>
