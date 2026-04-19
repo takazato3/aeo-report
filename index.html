@@ -950,6 +950,7 @@
       showLoading('3つのAIに問い合わせ中...\nしばらくお待ちください。');
       try {
         const data = await callGAS({ action: 'runSurvey', token: state.token, question: state.question });
+        console.log('GASレスポンス:', JSON.stringify(data));
         if (!data.success) throw new Error(data.error || '調査の実行に失敗しました。');
 
         const { results, question, insight } = data.data;
