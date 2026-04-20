@@ -143,6 +143,60 @@
       line-height: 1.6;
     }
 
+    /* ─── FAQ ─── */
+    .faq-title {
+      font-size: 18px;
+      font-weight: 600;
+      color: #08131a;
+      letter-spacing: 0.04em;
+      font-feature-settings: "palt";
+      margin: 2.5rem 0 1rem;
+    }
+    .faq-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .faq-item {
+      border: 1px solid rgba(8,19,26,0.14);
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0px 1px 3px 1px rgba(0,0,0,0.04), 0px 1px 2px 0px rgba(0,0,0,0.06);
+    }
+    .faq-q {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 14px 16px;
+      background: #f5f8fa;
+      font-size: 14px;
+      font-weight: 600;
+      color: #08131a;
+      line-height: 1.6;
+    }
+    .faq-q-mark {
+      flex-shrink: 0;
+      font-size: 14px;
+      font-weight: 700;
+      color: #1B6CA8;
+    }
+    .faq-a {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 14px 16px;
+      font-size: 14px;
+      color: rgba(8,19,26,0.8);
+      line-height: 1.7;
+      border-top: 1px solid rgba(8,19,26,0.08);
+    }
+    .faq-a-mark {
+      flex-shrink: 0;
+      font-size: 14px;
+      font-weight: 700;
+      color: rgba(8,19,26,0.4);
+    }
+
     @media (max-width: 560px) {
       .legal-table th { width: auto; white-space: normal; }
       .legal-table th,
@@ -218,6 +272,33 @@
     </div>
 
     <p class="legal-note">※ お問い合わせはメールアドレスよりお願いいたします。</p>
+
+    <h2 class="faq-title">よくあるご質問</h2>
+    <div class="faq-list">
+
+      <div class="faq-item">
+        <div class="faq-q">
+          <span class="faq-q-mark">Q.</span>
+          <span>AIの回答が表示されませんでした。</span>
+        </div>
+        <div class="faq-a">
+          <span class="faq-a-mark">A.</span>
+          <span>大変申し訳ございません。画面のスクリーンショットとともに <a href="mailto:opsoctopus.jp@gmail.com" style="color:#1B6CA8;">opsoctopus.jp@gmail.com</a> までご連絡ください。購入コードを再発行いたします。</span>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q">
+          <span class="faq-q-mark">Q.</span>
+          <span>購入コードのメールが届きません。</span>
+        </div>
+        <div class="faq-a">
+          <span class="faq-a-mark">A.</span>
+          <span>迷惑メールフォルダをご確認ください。それでも届かない場合は購入時のメールアドレスを添えて <a href="mailto:opsoctopus.jp@gmail.com" style="color:#1B6CA8;">opsoctopus.jp@gmail.com</a> までご連絡ください。</span>
+        </div>
+      </div>
+
+    </div>
 
   </main>
 
