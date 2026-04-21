@@ -1,16 +1,13 @@
 # DESIGN.md — AEOレポートサービス
 
-> noteのデザイン言語をベースに、独自サービスとして成立するよう調整したデザイン仕様。
-> noteから遷移したユーザーの違和感を最小化しつつ、別サービスであることを明確に示す。
-
----
-
 ## 1. Visual Theme & Atmosphere
 
-- **デザイン方針**: 読みやすさを優先しながら、マーケター・SEOコンサルタントに刺さる、信頼感とポップさを両立したツール系デザイン
+- **デザイン方針**: マーケター・SEOコンサルタントが「使えるツール」と感じる、
+  信頼感とポップさを両立したデータ系SaaSデザイン
 - **密度**: ゆったりとした余白。フォームとカードが主役
 - **キーワード**: 信頼できる、わかりやすい、親しみやすい、スタートアップ、ツール感
-- **noteとの差別化**: ブランドカラーを露草色（`#1B6CA8`）に変更。ヘッダーデザインで別サービスと明示
+- **ブランド**: 露草色（`#1B6CA8`）をアイデンティティカラーとし、
+  読みやすさと視認性を優先したUIを構築する
 
 ---
 
@@ -68,9 +65,9 @@
 ### フォント
 
 ```css
-/* デフォルト（ゴシック体） */
-font-family: "Helvetica Neue", "Hiragino Sans", "Hiragino Kaku Gothic ProN",
-  Arial, "Noto Sans JP", Meiryo, sans-serif;
+/* デフォルト */
+font-family: "IBM Plex Sans JP", "Hiragino Sans", "Hiragino Kaku Gothic ProN",
+  Arial, Meiryo, sans-serif;
 
 /* 等幅（プロンプト表示用） */
 font-family: SFMono-Regular, Consolas, Menlo, Courier, monospace;
@@ -196,7 +193,8 @@ align-items: center;
 justify-content: space-between;
 ```
 
-ロゴ・サービス名は露草色（`#1B6CA8`）で表示。noteのナビゲーションとは異なるレイアウトにする。
+ロゴ・サービス名は露草色（`#1B6CA8`）で表示。
+左端にロゴ＋サービス名、右端にナビゲーション（ログイン・プラン）を配置する。
 
 ### Upsell Banner（竹プランへの導線）
 
