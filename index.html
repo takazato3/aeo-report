@@ -824,13 +824,25 @@
     function hideError(boxId)      { $(boxId).style.display = 'none'; }
 
     async function callGAS(payload) {
-      const res = await fetch(GAS_URL, {
-        method: 'POST',
-        headers: { 'Content-Type': 'text/plain' },
-        body: JSON.stringify(payload),
-      });
-      if (!res.ok) throw new Error(`サーバーエラー (${res.status})`);
-      return res.json();
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 30000);
+      try {
+        const res = await fetch(GAS_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'text/plain' },
+          body: JSON.stringify(payload),
+          signal: controller.signal,
+        });
+        if (!res.ok) throw new Error(`サーバーエラー (${res.status})`);
+        return res.json();
+      } catch (err) {
+        if (err.name === 'AbortError') {
+          throw new Error('AIへの問い合わせがタイムアウトしました。\nしばらく時間をおいて再度お試しください。\n繰り返し発生する場合は opsoctopus.jp@gmail.com までご連絡ください。');
+        }
+        throw err;
+      } finally {
+        clearTimeout(timeoutId);
+      }
     }
 
     // ── Screen 1: Submit ──
