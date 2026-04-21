@@ -442,6 +442,15 @@
     .screen { display: none; }
     .screen.active { display: block; }
 
+    /* ─── Footer ─── */
+    .footer {
+      border-top: 1px solid rgba(8,19,26,0.14);
+      padding: 1.5rem 1rem;
+      text-align: center;
+      font-size: 12px;
+      color: rgba(8,19,26,0.5);
+    }
+
     @media (max-width: 480px) { .step-label { display: none; } }
   </style>
 </head>
@@ -773,6 +782,10 @@
 
   </main>
 
+  <footer class="footer">
+    © 2026 AI Brand Insight. All rights reserved.
+  </footer>
+
   <script>
     const GAS_URL = 'https://script.google.com/macros/s/AKfycbwRKdjJe9PqZE3Rnh_I4zeRv5ET5PDUkmVkaNUFBX_kTiPHjqCn0NKNpAEReMDJgGOJ/exec';
 
@@ -811,13 +824,25 @@
     function hideError(boxId)      { $(boxId).style.display = 'none'; }
 
     async function callGAS(payload) {
-      const res = await fetch(GAS_URL, {
-        method: 'POST',
-        headers: { 'Content-Type': 'text/plain' },
-        body: JSON.stringify(payload),
-      });
-      if (!res.ok) throw new Error(`サーバーエラー (${res.status})`);
-      return res.json();
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 30000);
+      try {
+        const res = await fetch(GAS_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'text/plain' },
+          body: JSON.stringify(payload),
+          signal: controller.signal,
+        });
+        if (!res.ok) throw new Error(`サーバーエラー (${res.status})`);
+        return res.json();
+      } catch (err) {
+        if (err.name === 'AbortError') {
+          throw new Error('AIへの問い合わせがタイムアウトしました。\nしばらく時間をおいて再度お試しください。\n繰り返し発生する場合は opsoctopus.jp@gmail.com までご連絡ください。');
+        }
+        throw err;
+      } finally {
+        clearTimeout(timeoutId);
+      }
     }
 
     // ── Screen 1: Submit ──
