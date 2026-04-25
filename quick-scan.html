@@ -206,14 +206,26 @@
       display: none;
       position: fixed;
       inset: 0;
-      background: rgba(255,255,255,0.85);
+      background: rgba(255,255,255,0.92);
       z-index: 200;
-      align-items: center;
-      justify-content: center;
       flex-direction: column;
-      gap: 16px;
+      align-items: center;
+      overflow-y: auto;
     }
     .loading-overlay.active { display: flex; }
+    .loading-top {
+      position: sticky;
+      top: 0;
+      width: 100%;
+      background: rgba(255,255,255,0.96);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      padding: 32px 16px 20px;
+      border-bottom: 1px solid rgba(8,19,26,0.08);
+      z-index: 1;
+    }
     .spinner {
       width: 40px;
       height: 40px;
@@ -224,6 +236,52 @@
     }
     @keyframes spin { to { transform: rotate(360deg); } }
     .loading-text { font-size: 14px; color: rgba(8,19,26,0.66); }
+
+    /* ─── Questionnaire ─── */
+    .questionnaire-card {
+      background: #f5f8fa;
+      border: 1px solid rgba(8,19,26,0.14);
+      border-radius: 12px;
+      padding: 20px 24px;
+      max-width: 480px;
+      width: calc(100% - 32px);
+      margin: 24px 16px 40px;
+      box-shadow: 0px 1px 3px 1px rgba(0,0,0,0.06), 0px 1px 2px 0px rgba(0,0,0,0.08);
+    }
+    .questionnaire-lead {
+      font-size: 14px;
+      font-weight: 600;
+      color: #1B6CA8;
+      margin-bottom: 20px;
+      text-align: center;
+      letter-spacing: 0.02em;
+    }
+    .q-block { margin-bottom: 16px; }
+    .q-block:last-child { margin-bottom: 0; }
+    .q-label {
+      font-size: 13px;
+      font-weight: 600;
+      color: #08131a;
+      margin-bottom: 8px;
+    }
+    .q-options { display: flex; flex-direction: column; gap: 6px; }
+    .q-radio-card {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      border: 1px solid rgba(8,19,26,0.14);
+      border-radius: 8px;
+      padding: 10px 12px;
+      cursor: pointer;
+      background: #ffffff;
+      transition: border-color 0.15s, background 0.15s;
+      font-size: 13px;
+      color: #08131a;
+      min-height: 44px;
+    }
+    .q-radio-card:hover { border-color: rgba(27,108,168,0.4); background: rgba(27,108,168,0.03); }
+    .q-radio-card.selected { border: 2px solid #1B6CA8; background: rgba(27,108,168,0.05); }
+    .q-radio-card input[type="radio"] { accent-color: #1B6CA8; flex-shrink: 0; }
 
     /* ─── Screen 2 ─── */
     .question-box {
@@ -458,8 +516,40 @@
 
   <!-- Loading Overlay -->
   <div class="loading-overlay" id="loadingOverlay">
-    <div class="spinner"></div>
-    <div class="loading-text" id="loadingText">処理中...</div>
+    <div class="loading-top">
+      <div class="spinner"></div>
+      <div class="loading-text" id="loadingText">処理中...</div>
+    </div>
+    <div class="questionnaire-card" id="questionnaireCard" style="display:none;">
+      <p class="questionnaire-lead">調査中です...せっかくなので教えてください🐙</p>
+      <div class="q-block">
+        <p class="q-label">Q1. 今回の調査目的は？</p>
+        <div class="q-options">
+          <label class="q-radio-card"><input type="radio" name="q1" value="自社・自分のブランド確認"> 自社・自分のブランド確認</label>
+          <label class="q-radio-card"><input type="radio" name="q1" value="競合調査"> 競合調査</label>
+          <label class="q-radio-card"><input type="radio" name="q1" value="上司・クライアントへの説明用"> 上司・クライアントへの説明用</label>
+          <label class="q-radio-card"><input type="radio" name="q1" value="試しに使ってみた"> 試しに使ってみた</label>
+        </div>
+      </div>
+      <div class="q-block">
+        <p class="q-label">Q2. AEOの改善、どうしたいですか？</p>
+        <div class="q-options">
+          <label class="q-radio-card"><input type="radio" name="q2" value="自分・社内で対応したい"> 自分・社内で対応したい</label>
+          <label class="q-radio-card"><input type="radio" name="q2" value="外部に任せたい・相談したい"> 外部に任せたい・相談したい</label>
+          <label class="q-radio-card"><input type="radio" name="q2" value="まだわからない"> まだわからない</label>
+          <label class="q-radio-card"><input type="radio" name="q2" value="とりあえず現状把握したかっただけ"> とりあえず現状把握したかっただけ</label>
+        </div>
+      </div>
+      <div class="q-block">
+        <p class="q-label">Q3. あなたのお仕事は？</p>
+        <div class="q-options">
+          <label class="q-radio-card"><input type="radio" name="q3" value="会社員（マーケ・広報・Web担当）"> 会社員（マーケ・広報・Web担当）</label>
+          <label class="q-radio-card"><input type="radio" name="q3" value="経営者・個人事業主"> 経営者・個人事業主</label>
+          <label class="q-radio-card"><input type="radio" name="q3" value="マーケ/SEOコンサル・代理店"> マーケ/SEOコンサル・代理店</label>
+          <label class="q-radio-card"><input type="radio" name="q3" value="その他"> その他</label>
+        </div>
+      </div>
+    </div>
   </div>
 
   <!-- Header -->
@@ -815,9 +905,11 @@
       }
     }
 
-    function showLoading(text = '処理中...') {
+    function showLoading(text = '処理中...', showQuestionnaire = false) {
       $('loadingText').textContent = text;
+      $('questionnaireCard').style.display = showQuestionnaire ? 'block' : 'none';
       $('loadingOverlay').classList.add('active');
+      $('loadingOverlay').scrollTop = 0;
     }
     function hideLoading() { $('loadingOverlay').classList.remove('active'); }
 
@@ -973,7 +1065,7 @@
 
       if (!state.question) return showError('errorBox2', '質問文を入力してください。');
 
-      showLoading('3つのAIに問い合わせ中...\nしばらくお待ちください。');
+      showLoading('3つのAIに問い合わせ中...\nしばらくお待ちください。', true);
       try {
         const data = await callGAS({ action: 'runSurvey', token: state.token, question: state.question });
         console.log('GASレスポンス:', JSON.stringify(data));
@@ -988,12 +1080,30 @@
         renderResult('result-gemini',  results.gemini);
         renderInsightPanel(insight);
 
+        // アンケート送信（失敗しても結果表示に影響しない）
+        try {
+          const q1 = document.querySelector('input[name="q1"]:checked')?.value ?? null;
+          const q2 = document.querySelector('input[name="q2"]:checked')?.value ?? null;
+          const q3 = document.querySelector('input[name="q3"]:checked')?.value ?? null;
+          await callGAS({ action: 'saveQuestionnaire', token: state.token, q1, q2, q3 });
+        } catch (_) {}
+
         showScreen(3);
       } catch (err) {
         showError('errorBox2', err.message || 'ネットワークエラーが発生しました。しばらくしてから再試行してください。');
       } finally {
         hideLoading();
       }
+    });
+
+    // アンケートラジオカードの選択スタイル切り替え
+    document.querySelectorAll('.q-radio-card input[type="radio"]').forEach(radio => {
+      radio.addEventListener('change', () => {
+        document.querySelectorAll(`input[name="${radio.name}"]`).forEach(r => {
+          r.closest('.q-radio-card').classList.remove('selected');
+        });
+        radio.closest('.q-radio-card').classList.add('selected');
+      });
     });
 
     function renderResult(id, text) {
