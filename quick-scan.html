@@ -239,30 +239,35 @@
 
     /* ─── Questionnaire ─── */
     .questionnaire-card {
-      background: #f5f8fa;
-      border: 1px solid rgba(8,19,26,0.14);
-      border-radius: 12px;
-      padding: 20px 24px;
-      max-width: 480px;
+      max-width: 900px;
       width: calc(100% - 32px);
       margin: 24px 16px 40px;
-      box-shadow: 0px 1px 3px 1px rgba(0,0,0,0.06), 0px 1px 2px 0px rgba(0,0,0,0.08);
     }
     .questionnaire-lead {
       font-size: 14px;
       font-weight: 600;
       color: #1B6CA8;
-      margin-bottom: 20px;
+      margin-bottom: 16px;
       text-align: center;
       letter-spacing: 0.02em;
     }
-    .q-block { margin-bottom: 16px; }
-    .q-block:last-child { margin-bottom: 0; }
+    .q-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+    .q-block {
+      background: #ffffff;
+      border: 1px solid rgba(8,19,26,0.14);
+      border-radius: 10px;
+      padding: 16px;
+    }
     .q-label {
       font-size: 13px;
       font-weight: 600;
       color: #08131a;
-      margin-bottom: 8px;
+      margin-bottom: 10px;
     }
     .q-options { display: flex; flex-direction: column; gap: 6px; }
     .q-radio-card {
@@ -282,6 +287,16 @@
     .q-radio-card:hover { border-color: rgba(27,108,168,0.4); background: rgba(27,108,168,0.03); }
     .q-radio-card.selected { border: 2px solid #1B6CA8; background: rgba(27,108,168,0.05); }
     .q-radio-card input[type="radio"] { accent-color: #1B6CA8; flex-shrink: 0; }
+    .questionnaire-thanks {
+      font-size: 14px;
+      color: #1B6CA8;
+      text-align: center;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+      margin-top: 4px;
+    }
+    .questionnaire-thanks.visible { opacity: 1; }
+    @media (max-width: 640px) { .q-grid { grid-template-columns: 1fr; } }
 
     /* ─── Screen 2 ─── */
     .question-box {
@@ -522,33 +537,36 @@
     </div>
     <div class="questionnaire-card" id="questionnaireCard" style="display:none;">
       <p class="questionnaire-lead">調査中です...せっかくなので教えてください🐙</p>
-      <div class="q-block">
-        <p class="q-label">Q1. 今回の調査目的は？</p>
-        <div class="q-options">
-          <label class="q-radio-card"><input type="radio" name="q1" value="自社・自分のブランド確認"> 自社・自分のブランド確認</label>
-          <label class="q-radio-card"><input type="radio" name="q1" value="競合調査"> 競合調査</label>
-          <label class="q-radio-card"><input type="radio" name="q1" value="上司・クライアントへの説明用"> 上司・クライアントへの説明用</label>
-          <label class="q-radio-card"><input type="radio" name="q1" value="試しに使ってみた"> 試しに使ってみた</label>
+      <div class="q-grid">
+        <div class="q-block">
+          <p class="q-label">Q1. 今回の調査目的は？</p>
+          <div class="q-options">
+            <label class="q-radio-card"><input type="radio" name="q1" value="自社・自分のブランド確認"> 自社・自分のブランド確認</label>
+            <label class="q-radio-card"><input type="radio" name="q1" value="競合調査"> 競合調査</label>
+            <label class="q-radio-card"><input type="radio" name="q1" value="上司・クライアントへの説明用"> 上司・クライアントへの説明用</label>
+            <label class="q-radio-card"><input type="radio" name="q1" value="試しに使ってみた"> 試しに使ってみた</label>
+          </div>
+        </div>
+        <div class="q-block">
+          <p class="q-label">Q2. AEOの改善、どうしたいですか？</p>
+          <div class="q-options">
+            <label class="q-radio-card"><input type="radio" name="q2" value="自分・社内で対応したい"> 自分・社内で対応したい</label>
+            <label class="q-radio-card"><input type="radio" name="q2" value="外部に任せたい・相談したい"> 外部に任せたい・相談したい</label>
+            <label class="q-radio-card"><input type="radio" name="q2" value="まだわからない"> まだわからない</label>
+            <label class="q-radio-card"><input type="radio" name="q2" value="とりあえず現状把握したかっただけ"> とりあえず現状把握したかっただけ</label>
+          </div>
+        </div>
+        <div class="q-block">
+          <p class="q-label">Q3. あなたのお仕事は？</p>
+          <div class="q-options">
+            <label class="q-radio-card"><input type="radio" name="q3" value="会社員（マーケ・広報・Web担当）"> 会社員（マーケ・広報・Web担当）</label>
+            <label class="q-radio-card"><input type="radio" name="q3" value="経営者・個人事業主"> 経営者・個人事業主</label>
+            <label class="q-radio-card"><input type="radio" name="q3" value="マーケ/SEOコンサル・代理店"> マーケ/SEOコンサル・代理店</label>
+            <label class="q-radio-card"><input type="radio" name="q3" value="その他"> その他</label>
+          </div>
         </div>
       </div>
-      <div class="q-block">
-        <p class="q-label">Q2. AEOの改善、どうしたいですか？</p>
-        <div class="q-options">
-          <label class="q-radio-card"><input type="radio" name="q2" value="自分・社内で対応したい"> 自分・社内で対応したい</label>
-          <label class="q-radio-card"><input type="radio" name="q2" value="外部に任せたい・相談したい"> 外部に任せたい・相談したい</label>
-          <label class="q-radio-card"><input type="radio" name="q2" value="まだわからない"> まだわからない</label>
-          <label class="q-radio-card"><input type="radio" name="q2" value="とりあえず現状把握したかっただけ"> とりあえず現状把握したかっただけ</label>
-        </div>
-      </div>
-      <div class="q-block">
-        <p class="q-label">Q3. あなたのお仕事は？</p>
-        <div class="q-options">
-          <label class="q-radio-card"><input type="radio" name="q3" value="会社員（マーケ・広報・Web担当）"> 会社員（マーケ・広報・Web担当）</label>
-          <label class="q-radio-card"><input type="radio" name="q3" value="経営者・個人事業主"> 経営者・個人事業主</label>
-          <label class="q-radio-card"><input type="radio" name="q3" value="マーケ/SEOコンサル・代理店"> マーケ/SEOコンサル・代理店</label>
-          <label class="q-radio-card"><input type="radio" name="q3" value="その他"> その他</label>
-        </div>
-      </div>
+      <p class="questionnaire-thanks" id="questionnaireThankYou">ありがとうございます！まもなく結果が表示されます 🐙</p>
     </div>
   </div>
 
@@ -646,12 +664,12 @@
               type="text"
               id="keyword"
               class="form-input"
-              placeholder="カテゴリと調査タイプを選ぶとサジェストが表示されます"
+              placeholder="調査したいブランド名・サービス名・キーワードを入力"
               list="keywordSuggestions"
               autocomplete="off"
             />
             <datalist id="keywordSuggestions"></datalist>
-            <p class="form-hint">調査したいキーワードを1つ入力してください。</p>
+            <p class="form-hint">調査したい自社または競合他社のブランド名・キーワードを1つ入力してください。</p>
           </div>
 
           <div class="btn-group">
@@ -972,52 +990,29 @@
       }
     });
 
-    // ── Placeholder / Suggestion data ──
-    const PLACEHOLDERS = {
-      market: {
-        'BtoB SaaS / ITツール':        '例：会計システム、名刺管理ツール',
-        'コンサルティング / 士業':      '例：税理士法人、ITコンサル',
-        '人材サービス / HR Tech':       '例：転職エージェント、人事評価システム',
-        'マーケティング支援・広告代理店':'例：WEB広告代理店、SEO支援サービス',
-        'スクール・資格・習い事':        '例：オンライン英会話、ジム',
-        'D2Cブランド / EC':            '例：アパレルD2Cブランド、越境EC',
-      },
-      brand: {
-        'BtoB SaaS / ITツール':        '例：Salesforce、HubSpot、freee',
-        'コンサルティング / 士業':      '例：マッキンゼー、PwC',
-        '人材サービス / HR Tech':       '例：リクルートエージェント、JAC',
-        'マーケティング支援・広告代理店':'例：電通デジタル、サイバーエージェント',
-        'スクール・資格・習い事':        '例：RIZAP、スタディサプリ',
-        'D2Cブランド / EC':            '例：BOTANIST、SHEIN',
-      },
-    };
-
+    // ── Suggestion data ──
     const SUGGESTIONS = {
       market: {
-        'BtoB SaaS / ITツール':        ['会計システム', '名刺管理ツール', 'CRMツール', 'MAツール', 'プロジェクト管理ツール', '電子署名サービス'],
-        'コンサルティング / 士業':      ['税理士法人', '特許事務所', 'ITコンサル', 'M&Aアドバイザリー', '社会保険労務士事務所', '経営コンサル'],
-        '人材サービス / HR Tech':       ['転職エージェント', '人事評価システム', '採用管理システム', '勤怠管理ツール', '企業研修', '副業マッチング'],
-        'マーケティング支援・広告代理店':['WEB広告代理店', 'SEO支援サービス', 'SNSマーケ代行', 'コンテンツマーケティング', 'インフルエンサーマーケ', 'リスティング広告'],
-        'スクール・資格・習い事':        ['オンライン英会話', 'プログラミングスクール', 'ジム', '塾', '料理教室', 'ビジネス英語スクール'],
-        'D2Cブランド / EC':            ['アパレルD2Cブランド', '越境EC', '決済プラットフォーム', 'フードD2C', 'スキンケアD2C', 'サブスクEC'],
+        'BtoB SaaS / ITツール':        ['プロジェクト管理ツール', 'CRMサービス', '会計ソフト', '電子署名ツール', 'ビジネスチャット'],
+        'コンサルティング / 士業':      ['ITコンサルティング', '税務顧問サービス', '特許申請サポート', 'M&A支援', '経営戦略コンサル'],
+        '人材サービス / HR Tech':       ['転職エージェントサービス', '採用管理システム', '人事評価ツール', '企業研修サービス', '副業マッチングサービス'],
+        'マーケティング支援・広告代理店':['Web広告運用代行', 'SEOコンサルサービス', 'SNS運用代行', 'コンテンツマーケティング支援', 'インフルエンサーマーケティング'],
+        'スクール・資格・習い事':        ['オンライン英会話スクール', 'プログラミングスクール', 'パーソナルトレーニングジム', '英語学習アプリ', '予備校'],
+        'D2Cブランド / EC':            ['ヘアケアD2Cブランド', 'フードサブスクサービス', 'サプリメントD2C', '越境ECプラットフォーム', 'ECサイト構築プラットフォーム'],
       },
       brand: {
-        'BtoB SaaS / ITツール':        ['Salesforce', 'HubSpot', 'freee', 'Slack', 'Notion', 'Sansan'],
-        'コンサルティング / 士業':      ['マッキンゼー', 'PwC', 'デロイト', 'ボストンコンサルティング', 'アクセンチュア', 'EY'],
-        '人材サービス / HR Tech':       ['リクルートエージェント', 'JAC', 'SmartHR', 'マイナビエージェント', 'パーソルキャリア', 'doda'],
-        'マーケティング支援・広告代理店':['電通デジタル', 'サイバーエージェント', '博報堂DYデジタル', 'オプト', 'アイレップ', 'ADK'],
-        'スクール・資格・習い事':        ['RIZAP', 'スタディサプリ', '東進ハイスクール', 'ベルリッツ', 'NOVA', 'ライザップゴルフ'],
-        'D2Cブランド / EC':            ['BOTANIST', 'SHEIN', 'BASE', 'Shopify', 'FABRIC TOKYO', 'Oisix'],
+        'BtoB SaaS / ITツール':        ['自社/ブランド名', '自社プロダクト/サービス名', '競合他社 ブランド/サービス名'],
+        'コンサルティング / 士業':      ['自社事務所/法人名', '自社ブランド/サービス名', '競合他社 法人名/サービス名'],
+        '人材サービス / HR Tech':       ['自社サービス名', '自社エージェント/サイト名', '競合他社 ブランド/サービス名'],
+        'マーケティング支援・広告代理店':['自社代理店/法人名', '自社 支援カテゴリ名', '自社ブランド名', '競合他社 法人名/サービス名'],
+        'スクール・資格・習い事':        ['自社スクール/塾名', '自社通信講座ブランド名/サイト名', '競合他社 サービス名/スクール名'],
+        'D2Cブランド / EC':            ['自社ブランド/商品名', '自社ECサイト名', '競合他社 ブランド/サービス名'],
       },
     };
 
     function updateKeywordField() {
       const category   = $('category').value;
       const surveyType = document.querySelector('input[name="surveyType"]:checked')?.value || 'market';
-      const ph = (category && PLACEHOLDERS[surveyType]?.[category])
-        ? PLACEHOLDERS[surveyType][category]
-        : 'カテゴリと調査タイプを選ぶとサジェストが表示されます';
-      $('keyword').placeholder = ph;
       const list = category ? (SUGGESTIONS[surveyType]?.[category] || []) : [];
       $('keywordSuggestions').innerHTML = list.map(s => `<option value="${s.replace(/"/g, '&quot;')}">`).join('');
     }
@@ -1103,6 +1098,9 @@
           r.closest('.q-radio-card').classList.remove('selected');
         });
         radio.closest('.q-radio-card').classList.add('selected');
+        if (radio.name === 'q3') {
+          $('questionnaireThankYou').classList.add('visible');
+        }
       });
     });
 
