@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Brand Insight | AIブランド調査レポートサービス</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: "Helvetica Neue", "Hiragino Sans", "Hiragino Kaku Gothic ProN",
+        Arial, "Noto Sans JP", Meiryo, sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      color: #08131a;
+      background: #ffffff;
+    }
+
+    /* ─── Header ─── */
+    .header {
+      background: #ffffff;
+      border-bottom: 1px solid rgba(8,19,26,0.14);
+      height: 56px;
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .header-logo {
+      font-size: 18px;
+      font-weight: 700;
+      color: #1B6CA8;
+      letter-spacing: 0.04em;
+      font-feature-settings: "palt";
+    }
+    .header-nav {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+    }
+    .header-nav a {
+      font-size: 14px;
+      color: rgba(8,19,26,0.66);
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+    .header-nav a:hover { color: #1B6CA8; }
+
+    /* ─── Layout ─── */
+    .section-inner {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 72px 24px;
+    }
+    .bg-white    { background: #ffffff; }
+    .bg-secondary { background: #f5f8fa; }
+
+    .section-heading {
+      font-size: 24px;
+      font-weight: 700;
+      color: #08131a;
+      letter-spacing: 0.04em;
+      font-feature-settings: "palt";
+      line-height: 1.5;
+      margin-bottom: 1rem;
+    }
+    .section-body {
+      font-size: 15px;
+      color: rgba(8,19,26,0.8);
+      line-height: 1.9;
+    }
+
+    /* ─── Hero ─── */
+    .hero-inner {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 80px 24px 64px;
+      text-align: center;
+    }
+    .hero-eyebrow {
+      font-size: 13px;
+      color: rgba(8,19,26,0.5);
+      letter-spacing: 0.04em;
+      margin-bottom: 20px;
+    }
+    .hero-catch {
+      font-size: 38px;
+      font-weight: 700;
+      color: #08131a;
+      letter-spacing: 0.04em;
+      font-feature-settings: "palt";
+      line-height: 1.55;
+      margin-bottom: 24px;
+    }
+    .hero-catch .ai-chatgpt { color: #10a37f; }
+    .hero-catch .ai-claude  { color: #CC785C; }
+    .hero-catch .ai-gemini  { color: #4285F4; }
+    .hero-sub {
+      font-size: 15px;
+      color: rgba(8,19,26,0.66);
+      line-height: 1.9;
+      max-width: 560px;
+      margin: 0 auto 40px;
+    }
+
+    /* Hero plan cards */
+    .hero-plans {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-bottom: 32px;
+      text-align: left;
+    }
+    .hero-plan-card {
+      border: 1px solid rgba(8,19,26,0.14);
+      border-radius: 10px;
+      padding: 18px;
+      background: #ffffff;
+    }
+    .hero-plan-card.highlight {
+      border: 2px solid #1B6CA8;
+      background: rgba(27,108,168,0.03);
+    }
+    .hero-plan-label {
+      font-size: 11px;
+      font-weight: 600;
+      color: rgba(8,19,26,0.5);
+      letter-spacing: 0.06em;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .badge-popular {
+      background: #1B6CA8;
+      color: #ffffff;
+      font-size: 10px;
+      font-weight: 700;
+      padding: 1px 7px;
+      border-radius: 10px;
+      letter-spacing: 0.04em;
+    }
+    .hero-plan-price {
+      font-size: 22px;
+      font-weight: 700;
+      color: #08131a;
+      margin-bottom: 4px;
+    }
+    .hero-plan-price .tax {
+      font-size: 12px;
+      font-weight: 400;
+      color: rgba(8,19,26,0.45);
+    }
+    .hero-plan-desc {
+      font-size: 12px;
+      color: rgba(8,19,26,0.6);
+      line-height: 1.6;
+    }
+
+    /* Hero CTA */
+    .hero-cta {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+    }
+    .btn-primary {
+      background: #1B6CA8;
+      color: #ffffff;
+      border: none;
+      border-radius: 6px;
+      font-size: 15px;
+      font-weight: 500;
+      padding: 13px 36px;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      transition: background 0.15s;
+      font-family: inherit;
+    }
+    .btn-primary:hover { background: #155a8f; }
+    .btn-text-link {
+      font-size: 14px;
+      color: #1B6CA8;
+      text-decoration: none;
+    }
+    .btn-text-link:hover { text-decoration: underline; }
+
+    /* ─── Sample images ─── */
+    .sample-list {
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+      margin-top: 40px;
+    }
+    .sample-item img {
+      width: 100%;
+      border-radius: 10px;
+      border: 1px solid rgba(8,19,26,0.10);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.07);
+      display: block;
+    }
+    .sample-caption {
+      font-size: 12px;
+      color: rgba(8,19,26,0.45);
+      margin-top: 8px;
+      line-height: 1.6;
+    }
+
+    /* ─── Value cards ─── */
+    .value-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+      margin-top: 32px;
+    }
+    .value-card {
+      background: #ffffff;
+      border: 1px solid rgba(8,19,26,0.14);
+      border-radius: 10px;
+      padding: 20px 22px;
+      box-shadow: 0px 1px 3px 1px rgba(0,0,0,0.04);
+    }
+    .value-card-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: #08131a;
+      margin-bottom: 6px;
+      letter-spacing: 0.02em;
+    }
+    .value-card-body {
+      font-size: 13px;
+      color: rgba(8,19,26,0.7);
+      line-height: 1.75;
+    }
+
+    /* ─── Plan cards ─── */
+    .plans-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-top: 40px;
+      align-items: start;
+    }
+    .plan-card {
+      border: 1px solid rgba(8,19,26,0.14);
+      border-radius: 12px;
+      padding: 24px;
+      background: #ffffff;
+      box-shadow: 0px 1px 3px 1px rgba(0,0,0,0.05);
+    }
+    .plan-card.highlight {
+      border: 2px solid #1B6CA8;
+      box-shadow: 0 4px 20px rgba(27,108,168,0.14);
+    }
+    .plan-label-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+    .plan-label {
+      font-size: 11px;
+      font-weight: 600;
+      color: rgba(8,19,26,0.45);
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+    }
+    .plan-price {
+      font-size: 28px;
+      font-weight: 700;
+      color: #08131a;
+      margin-bottom: 4px;
+    }
+    .plan-price-tax {
+      font-size: 13px;
+      font-weight: 400;
+      color: rgba(8,19,26,0.45);
+    }
+    .plan-desc {
+      font-size: 13px;
+      color: rgba(8,19,26,0.66);
+      line-height: 1.7;
+      margin: 10px 0 16px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid rgba(8,19,26,0.08);
+    }
+    .plan-features {
+      list-style: none;
+      margin-bottom: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .plan-features li {
+      font-size: 13px;
+      color: #08131a;
+      display: flex;
+      align-items: flex-start;
+      gap: 6px;
+      line-height: 1.5;
+    }
+    .plan-features li::before {
+      content: "✓";
+      color: #1B6CA8;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+    .btn-plan {
+      display: block;
+      width: 100%;
+      text-align: center;
+      padding: 12px 16px;
+      border-radius: 6px;
+      font-size: 14px;
+      font-weight: 500;
+      text-decoration: none;
+      font-family: inherit;
+      border: none;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    .btn-plan-primary {
+      background: #1B6CA8;
+      color: #ffffff;
+    }
+    .btn-plan-primary:hover { background: #155a8f; }
+    .btn-plan-disabled {
+      background: #f5f8fa;
+      color: rgba(8,19,26,0.3);
+      border: 1px solid rgba(8,19,26,0.12);
+      cursor: not-allowed;
+    }
+
+    /* ─── Steps ─── */
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-top: 40px;
+    }
+    .step-card { text-align: center; padding: 16px 8px; }
+    .step-num {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: #1B6CA8;
+      color: #ffffff;
+      font-size: 14px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 12px;
+    }
+    .step-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: #08131a;
+      margin-bottom: 5px;
+      line-height: 1.5;
+    }
+    .step-desc {
+      font-size: 12px;
+      color: rgba(8,19,26,0.45);
+      line-height: 1.6;
+    }
+
+    /* ─── Footer ─── */
+    .footer {
+      background: #ffffff;
+      border-top: 1px solid rgba(8,19,26,0.14);
+      padding: 24px;
+    }
+    .footer-inner {
+      max-width: 960px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .footer-logo {
+      font-size: 15px;
+      font-weight: 700;
+      color: #1B6CA8;
+      letter-spacing: 0.04em;
+      font-feature-settings: "palt";
+    }
+    .footer-link {
+      font-size: 13px;
+      color: rgba(8,19,26,0.5);
+      text-decoration: none;
+    }
+    .footer-link:hover { text-decoration: underline; color: #1B6CA8; }
+    .footer-copy {
+      font-size: 12px;
+      color: rgba(8,19,26,0.4);
+    }
+
+    /* ─── Responsive ─── */
+    @media (max-width: 768px) {
+      .hero-catch { font-size: 28px; }
+      .section-heading { font-size: 20px; }
+      .plans-grid { grid-template-columns: 1fr; max-width: 400px; margin-left: auto; margin-right: auto; }
+      .steps-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 600px) {
+      .hero-inner { padding: 48px 16px 40px; }
+      .section-inner { padding: 48px 16px; }
+      .hero-catch { font-size: 24px; }
+      .hero-plans { grid-template-columns: 1fr; }
+      .value-grid { grid-template-columns: 1fr; }
+      .steps-grid { grid-template-columns: 1fr; }
+      .header-nav { gap: 16px; }
+      .header-nav a { font-size: 13px; }
+      .footer-inner { flex-direction: column; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ナビゲーション（固定ヘッダー） -->
+  <header class="header">
+    <span class="header-logo">AI Brand Insight</span>
+    <nav class="header-nav">
+      <a href="#about">サービス概要</a>
+      <a href="#plans">プラン・料金</a>
+      <a href="#service">サンプル</a>
+    </nav>
+  </header>
+
+  <!-- ① ヒーロー -->
+  <section class="bg-white">
+    <div class="hero-inner">
+      <p class="hero-eyebrow">AI検索のブランド調査を、あなたの代わりに。</p>
+      <h1 class="hero-catch">
+        <span class="ai-chatgpt">ChatGPT</span>に聞いて、<br>
+        <span class="ai-claude">Claude</span>に聞いて、<br>
+        <span class="ai-gemini">Gemini</span>に聞いて、集計して ――<br>
+        全部やっておきました。
+      </h1>
+      <p class="hero-sub">3つのAIへの問い合わせ、回答の集計、競合との比較。あなたは結果を見るだけ。サブスク不要、買い切りのレポートサービスです。</p>
+
+      <div class="hero-plans">
+        <div class="hero-plan-card">
+          <div class="hero-plan-label">おためし</div>
+          <div class="hero-plan-price">¥300<span class="tax">（税込）</span></div>
+          <div class="hero-plan-desc">缶コーヒー2杯分で現状チェック</div>
+        </div>
+        <div class="hero-plan-card highlight">
+          <div class="hero-plan-label">人気 <span class="badge-popular">POPULAR</span></div>
+          <div class="hero-plan-price">¥2,980<span class="tax">（税込）</span></div>
+          <div class="hero-plan-desc">商談もサブスクもなし。90回分の調査インサイトが買い切りで</div>
+        </div>
+        <div class="hero-plan-card">
+          <div class="hero-plan-label">プロ向け</div>
+          <div class="hero-plan-price">¥9,800<span class="tax">（税込）</span></div>
+          <div class="hero-plan-desc">ブラックボックスなし。生データも全部渡します。提案資料の強化に</div>
+        </div>
+      </div>
+
+      <div class="hero-cta">
+        <a class="btn-primary" href="#plans">プラン詳細を見る</a>
+        <a class="btn-text-link" href="https://buy.stripe.com/6oU14ndhZcAR4XR1EKcwg00">まず¥300で試してみる →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ② 課題提起 -->
+  <section id="about" class="bg-secondary">
+    <div class="section-inner">
+      <h2 class="section-heading">AIで検索される時代、あなたのブランドはAIにどう語られているか、知っていますか？</h2>
+      <div class="section-body">
+        <p>SEOの次はAEO（AI Engine Optimization）。ChatGPT・Claude・Geminiなどの生成AIが、ユーザーの質問に答える形で商品・サービスを推薦する時代が始まっています。</p>
+        <br>
+        <p>あなたのブランドは、AIに推薦されていますか？<br>競合他社と比べて、どう語られていますか？</p>
+        <br>
+        <p>まず現状を知ることが、最初の判断材料になります。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ③ プロダクト説明・サンプル -->
+  <section id="service" class="bg-white">
+    <div class="section-inner">
+      <h2 class="section-heading">ChatGPT・Claude・Geminiに実際に聞いて、あなたのブランドのAI上での評判をレポートにします</h2>
+      <div class="sample-list">
+        <div class="sample-item">
+          <img src="assets/images/sample-result-full.png" alt="調査結果画面の全体イメージ">
+          <p class="sample-caption">調査結果画面。3つのAIの回答を横並びで比較できます。</p>
+        </div>
+        <div class="sample-item">
+          <img src="assets/images/sample-result-3ai.png" alt="3AIの回答カラム">
+          <p class="sample-caption">ChatGPT・Claude・Geminiそれぞれの回答を同時に確認。</p>
+        </div>
+        <div class="sample-item">
+          <img src="assets/images/sample-result-insight.png" alt="AIインサイトパネル">
+          <p class="sample-caption">AIインサイトで3AIの共通見解・差異・想定ユーザーを自動分析。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ④ 価値提示 -->
+  <section class="bg-secondary">
+    <div class="section-inner">
+      <h2 class="section-heading">推奨されてるなら安心。されてないなら手を打つ。</h2>
+      <p class="section-body">まず現状を知ることが、最初の判断材料になります。</p>
+      <div class="value-grid">
+        <div class="value-card">
+          <div class="value-card-title">低額買い切り</div>
+          <div class="value-card-body">¥300から。サブスクなし、更新なし。<br>必要な時に必要な分だけ。</div>
+        </div>
+        <div class="value-card">
+          <div class="value-card-title">営業なし</div>
+          <div class="value-card-body">電話？メール？しつこい営業はしません。<br>「今はちょっと知りたいだけ」、ですよね。</div>
+        </div>
+        <div class="value-card">
+          <div class="value-card-title">3AI横断調査</div>
+          <div class="value-card-body">ChatGPT・Claude・Geminiに同時に問い合わせ。<br>1つのAIだけでは見えないブランドの実態が浮かびます。</div>
+        </div>
+        <div class="value-card">
+          <div class="value-card-title">90回調査の信頼性</div>
+          <div class="value-card-body">Deep Scan以上では3AI×30回＝90回試行。<br>1回だけでは見えない回答の傾向が浮かび上がります。</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ⑤ プラン・料金 -->
+  <section id="plans" class="bg-white">
+    <div class="section-inner">
+      <h2 class="section-heading">プランを選ぶ</h2>
+      <div class="plans-grid">
+
+        <!-- Quick Scan -->
+        <div class="plan-card">
+          <div class="plan-label-row">
+            <span class="plan-label">おためし</span>
+          </div>
+          <div class="plan-price">¥300<span class="plan-price-tax">（税込）</span></div>
+          <p class="plan-desc">缶コーヒー2杯分で、AIブランド調査をお試し</p>
+          <ul class="plan-features">
+            <li>3AIに各1回ずつ問い合わせ</li>
+            <li>キーワード1つ</li>
+            <li>画面上に即時表示</li>
+            <li>HTMLダウンロード可</li>
+          </ul>
+          <a class="btn-plan btn-plan-primary" href="https://buy.stripe.com/6oU14ndhZcAR4XR1EKcwg00">Quick Scanを試す（¥300）</a>
+        </div>
+
+        <!-- Deep Scan（強調） -->
+        <div class="plan-card highlight">
+          <div class="plan-label-row">
+            <span class="plan-label">本格調査</span>
+            <span class="badge-popular">人気</span>
+          </div>
+          <div class="plan-price">¥2,980<span class="plan-price-tax">（税込）</span></div>
+          <p class="plan-desc">90回試行の豊富なデータで、信頼性の高いブランド調査を</p>
+          <ul class="plan-features">
+            <li>3AIに各30回ずつ問い合わせ（計90回）</li>
+            <li>キーワード3つまで</li>
+            <li>競合2社との比較</li>
+            <li>統計集計・可視化</li>
+            <li>PDFレポート納品</li>
+          </ul>
+          <button class="btn-plan btn-plan-disabled" disabled>Deep Scanを申し込む（¥2,980）</button>
+        </div>
+
+        <!-- Full Scan -->
+        <div class="plan-card">
+          <div class="plan-label-row">
+            <span class="plan-label">プロ向け</span>
+          </div>
+          <div class="plan-price">¥9,800<span class="plan-price-tax">（税込）</span></div>
+          <p class="plan-desc">生データ＋詳細分析で、提案資料・社内説明に使える本格レポート</p>
+          <ul class="plan-features">
+            <li>Deep Scanの全内容を含む</li>
+            <li>キーワード10個まで</li>
+            <li>競合5社との比較</li>
+            <li>生データ（スプレッドシート）納品</li>
+            <li>詳細分析＋改善提案</li>
+          </ul>
+          <button class="btn-plan btn-plan-disabled" disabled>Full Scanを申し込む（¥9,800）</button>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ⑥ ご利用の流れ -->
+  <section class="bg-secondary">
+    <div class="section-inner">
+      <h2 class="section-heading">あなたがやることはこれだけ</h2>
+      <div class="steps-grid">
+        <div class="step-card">
+          <div class="step-num">1</div>
+          <div class="step-title">プランを選んで購入</div>
+          <div class="step-desc">クレジットカード決済・1分</div>
+        </div>
+        <div class="step-card">
+          <div class="step-num">2</div>
+          <div class="step-title">購入コードをメールで受け取る</div>
+          <div class="step-desc">即時自動送信</div>
+        </div>
+        <div class="step-card">
+          <div class="step-num">3</div>
+          <div class="step-title">調べたいキーワードを入力して調査を実行</div>
+          <div class="step-desc">カテゴリ選択・KW入力・2分</div>
+        </div>
+        <div class="step-card">
+          <div class="step-num">4</div>
+          <div class="step-title">レポートを確認・保存</div>
+          <div class="step-desc">画面表示またはHTMLファイル</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- フッター -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <span class="footer-logo">AI Brand Insight</span>
+      <a class="footer-link" href="legal.html">特定商取引法に基づく表記</a>
+      <span class="footer-copy">© 2026 AI Brand Insight. All rights reserved.</span>
+    </div>
+  </footer>
+
+</body>
+</html>
