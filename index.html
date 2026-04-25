@@ -283,6 +283,149 @@
       .about-heading { font-size: 20px; margin-bottom: 28px; }
       .about-item { font-size: 14px; padding: 14px 16px; }
     }
+
+    /* ─── 共通 section タイポ ─── */
+    .section-heading {
+      font-size: 26px;
+      font-weight: 700;
+      color: var(--text-dark);
+      letter-spacing: 0.04em;
+      font-feature-settings: "palt";
+      text-align: center;
+      margin-bottom: 8px;
+    }
+    .section-sub {
+      font-size: 15px;
+      color: var(--text-muted);
+      text-align: center;
+      margin-bottom: 12px;
+    }
+    .section-desc {
+      font-size: 14px;
+      color: var(--text-muted);
+      text-align: center;
+      max-width: 680px;
+      margin: 0 auto 40px;
+      line-height: 1.75;
+    }
+
+    /* ─── ③ Samples ─── */
+    .samples {
+      background: var(--white);
+      padding: 80px 24px;
+    }
+    .samples-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .samples-scroll {
+      display: flex;
+      gap: 20px;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      padding-bottom: 12px;
+      margin-bottom: 32px;
+      scrollbar-width: thin;
+      scrollbar-color: var(--border) transparent;
+    }
+    .samples-scroll::-webkit-scrollbar { height: 5px; }
+    .samples-scroll::-webkit-scrollbar-track { background: transparent; }
+    .samples-scroll::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+    .sample-slide {
+      flex-shrink: 0;
+      width: clamp(280px, 72vw, 700px);
+      scroll-snap-align: start;
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+      overflow: hidden;
+    }
+    .sample-slide img { width: 100%; display: block; }
+    .sample-caption {
+      font-size: 13px;
+      color: var(--text-muted);
+      padding: 10px 16px;
+      text-align: center;
+    }
+    .samples-cta { text-align: center; }
+    .btn-disabled {
+      background: var(--blue-gray-100);
+      color: var(--text-muted);
+      font-size: 14px;
+      font-weight: 500;
+      padding: 11px 28px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      cursor: not-allowed;
+      font-family: inherit;
+    }
+
+    /* ─── ④ Service ─── */
+    .service {
+      background: var(--blue-gray-50);
+      padding: 80px 24px;
+    }
+    .service-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .service-heading {
+      font-size: 26px;
+      font-weight: 700;
+      color: var(--text-dark);
+      letter-spacing: 0.04em;
+      font-feature-settings: "palt";
+      margin-bottom: 20px;
+      line-height: 1.5;
+    }
+    .service-desc {
+      font-size: 15px;
+      color: var(--text-muted);
+      line-height: 1.85;
+      max-width: 760px;
+      margin-bottom: 40px;
+    }
+    .service-emphasis {
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--text-dark);
+      text-align: center;
+      letter-spacing: 0.04em;
+      font-feature-settings: "palt";
+      line-height: 1.65;
+      margin-bottom: 48px;
+    }
+    .ai-cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+    .ai-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px;
+    }
+    .ai-card-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+    .ai-card-icon { font-size: 24px !important; flex-shrink: 0; }
+    .ai-card-name { font-size: 15px; font-weight: 700; color: var(--text-dark); }
+    .ai-card-desc { font-size: 14px; color: var(--text-muted); line-height: 1.75; }
+
+    @media (max-width: 768px) {
+      .samples { padding: 56px 16px; }
+      .service  { padding: 56px 16px; }
+      .section-heading  { font-size: 20px; }
+      .service-heading  { font-size: 20px; }
+      .service-emphasis { font-size: 17px; }
+      .ai-cards { grid-template-columns: 1fr; }
+    }
   </style>
 </head>
 <body>
@@ -359,6 +502,64 @@
           毎回手作業で聞いて、見比べて、まとめるのは正直しんどい
         </li>
       </ul>
+    </div>
+  </section>
+
+  <!-- ③ 成果物サンプル -->
+  <section id="samples" class="samples">
+    <div class="samples-inner">
+      <h2 class="section-heading">こんなレポートが取得できます</h2>
+      <p class="section-sub">Ops Octopusが最新データを都度取得します。</p>
+      <p class="section-desc">AIの回答をただ並べるだけではなく、推奨度・競合比較・言及キーワード・改善アクションまで、判断材料として見やすく整理します。※一部機能はDeep Scan以上で提供予定です。</p>
+      <div class="samples-scroll">
+        <div class="sample-slide">
+          <img src="assets/images/sample-result-full.png" alt="調査結果画面全体">
+          <p class="sample-caption">調査結果画面全体</p>
+        </div>
+        <div class="sample-slide">
+          <img src="assets/images/sample-result-3ai.png" alt="3AIの回答を横並び比較">
+          <p class="sample-caption">3AIの回答を横並び比較</p>
+        </div>
+        <div class="sample-slide">
+          <img src="assets/images/sample-result-insight.png" alt="AIインサイト自動分析">
+          <p class="sample-caption">AIインサイト自動分析</p>
+        </div>
+      </div>
+      <div class="samples-cta">
+        <button class="btn-disabled" disabled>サンプルレポートを見る</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ④ プロダクト説明 -->
+  <section id="service" class="service">
+    <div class="service-inner">
+      <h2 class="service-heading">3つのAIに聞いて、ブランドの見え方をレポート化します。</h2>
+      <p class="service-desc">OpsOctopusのAIブランド調査レポートは、ChatGPT・Claude・Geminiの3つのAIに同じ条件で問い合わせ、その回答を自動で収集・整理してレポートとして提供します。AIによって回答の傾向が異なるため、3社を横断することで、より実態に近いブランドの見え方が把握できます。</p>
+      <p class="service-emphasis">ChatGPTに聞いて、Claudeに聞いて、Geminiに聞いて、集計して。<br>全部、こちらでやっておきます。</p>
+      <div class="ai-cards">
+        <div class="ai-card">
+          <div class="ai-card-header">
+            <span class="material-icons ai-card-icon" style="color:#10a37f;">smart_toy</span>
+            <span class="ai-card-name">ChatGPT</span>
+          </div>
+          <p class="ai-card-desc">利用者数No.1・ビジネス層に強い。網羅的・構造的な回答を返す傾向。</p>
+        </div>
+        <div class="ai-card">
+          <div class="ai-card-header">
+            <span class="material-icons ai-card-icon" style="color:#CC785C;">psychology</span>
+            <span class="ai-card-name">Claude</span>
+          </div>
+          <p class="ai-card-desc">20〜30代・高関与ユーザー層。文脈を踏まえた分析的な回答が多い。</p>
+        </div>
+        <div class="ai-card">
+          <div class="ai-card-header">
+            <span class="material-icons ai-card-icon" style="color:#4285F4;">auto_awesome</span>
+            <span class="ai-card-name">Gemini</span>
+          </div>
+          <p class="ai-card-desc">Google検索連携・幅広い層。検索エンジンに近い文脈で回答する傾向。</p>
+        </div>
+      </div>
     </div>
   </section>
 
