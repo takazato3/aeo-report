@@ -384,6 +384,7 @@
       margin-left: auto;
       margin-right: auto;
       padding: 0 1.5rem;
+      position: relative;
     }
     .section-header h2 {
       font-size: clamp(1.6rem, 2.5vw, 2.2rem);
@@ -422,20 +423,34 @@
     /* ─── Tentacle dividers ─── */
     .tentacles-divider {
       position: relative;
-      height: 80px;
+      height: 60px;
       overflow: visible;
-      margin-bottom: -40px;
+      margin-bottom: -30px;
       z-index: 10;
-      text-align: center;
+      text-align: right;
+      padding-right: 5%;
     }
-    .tentacles-img {
-      width: 400px;
-      max-width: 80%;
-      position: absolute;
-      bottom: -20px;
-      left: 50%;
-      transform: translateX(-50%);
+    .tentacles-bottom-img {
+      width: 320px;
+      max-width: 50%;
       opacity: 0.85;
+      transform: scaleY(-1);
+    }
+    .tentacles-divider-left {
+      position: relative;
+      height: 60px;
+      overflow: visible;
+      margin-bottom: -20px;
+      z-index: 10;
+      text-align: left;
+      padding-left: 3%;
+    }
+    .tentacles-divider-left .tentacles-side-img {
+      width: 260px;
+      max-width: 40%;
+      opacity: 0.75;
+      position: static;
+      transform: none;
     }
 
     /* ─── ③ Samples ─── */
@@ -523,19 +538,54 @@
 
     /* ─── ⑥ Appeal ─── */
     .appeal { background: var(--blue-gray-50); padding: 80px 0; position: relative; overflow: hidden; }
-    .appeal::before {
-      content: '';
+    .octopus-silhouette {
       position: absolute;
-      right: -60px;
+      right: -40px;
       bottom: -40px;
-      width: 300px;
-      height: 300px;
-      background-image: url('assets/images/octopus-icon.png');
-      background-size: contain;
-      background-repeat: no-repeat;
+      width: 280px;
       opacity: 0.04;
       pointer-events: none;
+      z-index: 0;
     }
+
+    /* ─── Octopus decorations ─── */
+    .octopus-surprise {
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      width: 80px;
+      opacity: 0.9;
+      pointer-events: none;
+    }
+    .octopus-smile {
+      position: absolute;
+      right: 0;
+      top: 0;
+      width: 80px;
+      opacity: 0.9;
+      pointer-events: none;
+    }
+    .octopus-grumpy {
+      position: absolute;
+      right: 0;
+      top: 0;
+      width: 70px;
+      opacity: 0.85;
+      pointer-events: none;
+    }
+    .about-octopus-pair { margin-top: 1.5rem; display: flex; flex-direction: column; }
+    .about-octopus-row { display: flex; align-items: center; gap: 12px; }
+    .about-octopus-spacer { margin: 1.5rem 0; }
+    .octopus-speech {
+      background: var(--white);
+      border-radius: 12px;
+      padding: 8px 12px;
+      font-size: 0.85rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      color: var(--text-dark);
+      line-height: 1.5;
+    }
+    .octopus-speech--amber { border: 1px solid var(--amber-400); }
     .appeal-cards { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
     .appeal-card { background: var(--white); border: 1px solid var(--border); border-radius: 12px; padding: 28px 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
     .appeal-card-header { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
@@ -911,7 +961,7 @@
   </section>
 
   <div class="tentacles-divider">
-    <img src="assets/images/tentacles-bottom.png" alt="" class="tentacles-img"
+    <img src="assets/images/tentacles-bottom.png" alt="" class="tentacles-bottom-img"
       onerror="this.style.display='none'">
   </div>
 
@@ -921,9 +971,19 @@
       <div class="about-section-left">
         <h2 class="about-heading">こんな悩み、ありませんか？</h2>
         <p class="about-section-sub">AEOが気になるマーケターの、よくある課題です。</p>
-        <img src="assets/images/octopus-icon.png" alt="🐙" class="about-octopus-bottom"
-          onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
-        <span class="about-octopus-fallback" style="display:none;font-size:64px;">🐙</span>
+        <div class="about-octopus-pair">
+          <div class="about-octopus-row">
+            <img src="assets/images/octopus-user-worry.png" alt="" style="width:120px;"
+              onerror="this.style.display='none'">
+            <div class="octopus-speech">...このモヤモヤ、あるある</div>
+          </div>
+          <div class="about-octopus-spacer"></div>
+          <div class="about-octopus-row">
+            <img src="assets/images/octopus-confident.png" alt="" style="width:120px;"
+              onerror="this.style.display='none'">
+            <div class="octopus-speech octopus-speech--amber">そのモヤモヤ、Ops Octopusがまとめて代行します。</div>
+          </div>
+        </div>
       </div>
       <div class="about-section-right">
         <div class="about-bubbles">
@@ -949,6 +1009,8 @@
       <h2>こういうレポートが見られます。</h2>
       <p>AIの回答をただ並べるだけではなく、推奨度・競合比較・言及キーワード・改善アクションまで、判断材料として見やすく整理します。<br>※一部機能はDeep Scan以上で提供予定です。</p>
       <a class="samples-link" href="#plans">サンプルレポートをもっと見る →</a>
+      <img src="assets/images/octopus-surprise.png" alt="" class="octopus-surprise"
+        onerror="this.style.display='none'">
     </div>
     <div class="section-content">
       <div class="samples-grid">
@@ -1030,6 +1092,8 @@
 
   <!-- ⑥ アピールポイント -->
   <section class="appeal">
+    <img src="assets/images/octopus-icon.png" class="octopus-silhouette" alt=""
+      onerror="this.style.display='none'">
     <div class="section-header">
       <h2>なぜOps Octopusなのか</h2>
       <p>買い切り・営業なし・いますぐ調査開始。<br>それだけで、十分な理由があります。</p>
@@ -1073,6 +1137,8 @@
     <div class="section-header">
       <h2>プランを選ぶ</h2>
       <p>現在はQuick Scanのみご利用いただけます。Deep Scan / Full Scanは、Quick Scanテスト期間後に順次リリース予定です。</p>
+      <img src="assets/images/octopus-smile.png" alt="" class="octopus-smile"
+        onerror="this.style.display='none'">
     </div>
     <div class="section-content">
       <div class="plan-cards">
@@ -1167,10 +1233,17 @@
       onerror="this.style.display='none'">
   </section>
 
+  <div class="tentacles-divider-left">
+    <img src="assets/images/tentacles-side.png" alt="" class="tentacles-side-img"
+      onerror="this.style.display='none'">
+  </div>
+
   <!-- ⑨ FAQ -->
   <section class="faq">
     <div class="section-header">
       <h2>よくある質問</h2>
+      <img src="assets/images/octopus-grumpy.png" alt="" class="octopus-grumpy"
+        onerror="this.style.display='none'">
     </div>
     <div class="section-content">
       <div class="faq-list">
