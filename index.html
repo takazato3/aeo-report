@@ -45,8 +45,8 @@
     /* ─── Header ─── */
     .header {
       background: var(--navy-900);
-      height: 60px;
-      padding: 0 24px;
+      height: auto;
+      padding: 1.5rem 24px;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -61,7 +61,7 @@
       text-decoration: none;
     }
     .nav-logo-img {
-      height: 48px;
+      height: 56px;
       width: auto;
       display: block;
     }
@@ -106,14 +106,17 @@
     }
     .btn-nav-cta:hover { background: var(--amber-500) !important; }
 
+    .nav-cta-short { display: none; }
+
     @media (max-width: 768px) {
       .header-tagline { display: none; }
       .header-nav { gap: 14px; }
       .header-nav .nav-link-hide { display: none; }
+      .nav-cta-full  { display: none; }
+      .nav-cta-short { display: inline; }
     }
     @media (max-width: 480px) {
       .header-nav { gap: 10px; }
-      .header-logo-text { font-size: 15px; }
     }
 
     /* ─── Section wrapper ─── */
@@ -126,14 +129,14 @@
     /* ─── ① Hero ─── */
     .hero {
       background: var(--navy-950);
-      padding: 5rem 24px 3rem;
+      padding: 3.5rem 24px 2rem;
       min-height: auto;
     }
     .hero-inner {
       max-width: 1100px;
       margin: 0 auto;
       display: grid;
-      grid-template-columns: 55fr 45fr;
+      grid-template-columns: 60fr 40fr;
       gap: 56px;
       align-items: center;
     }
@@ -158,7 +161,7 @@
 
     /* Main copy */
     .hero-catch {
-      font-size: clamp(2.8rem, 4.5vw, 4rem);
+      font-size: clamp(2.2rem, 3.8vw, 3.5rem);
       font-weight: 800;
       color: var(--off-white);
       line-height: 1.2;
@@ -256,10 +259,11 @@
     @media (max-width: 768px) {
       .hero-inner {
         grid-template-columns: 1fr;
-        gap: 36px;
+        gap: 32px;
       }
-      .hero { padding: 3rem 24px 2.5rem; }
-      .hero-right { order: -1; }
+      .hero { padding: 2.5rem 24px 2rem; }
+      .hero-left  { order: 1; }
+      .hero-right { order: 2; }
       .hero-catch { font-size: 28px; line-height: 1.35; }
       .hero-mockup { max-width: 100%; }
     }
@@ -1007,7 +1011,10 @@
       <a class="nav-link-hide" href="#about">サービス概要</a>
       <a class="nav-link-hide" href="#plans">プラン・料金</a>
       <a class="nav-link-hide" href="#samples">サンプル</a>
-      <a class="btn-nav-cta" href="https://buy.stripe.com/6oU14ndhZcAR4XR1EKcwg00">Quick Scanを試す（¥300）</a>
+      <a class="btn-nav-cta" href="https://buy.stripe.com/6oU14ndhZcAR4XR1EKcwg00">
+        <span class="nav-cta-full">Quick Scanを試す（¥300）</span>
+        <span class="nav-cta-short">¥300で試す</span>
+      </a>
     </nav>
   </header>
 
@@ -1026,6 +1033,7 @@
           分からない。
         </h1>
         <p class="hero-sub">
+          商談も月額契約も要らない買い切りサービスです。<br>
           ChatGPT・Claude・Geminiに同じ条件（プロンプト）で問い合わせ、<br>
           AI上でのブランドの推奨状況をレポート化します。<br>
           まずは¥300のお試し調査から。
