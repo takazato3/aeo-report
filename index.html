@@ -28,11 +28,18 @@
     body {
       font-family: 'Inter', 'Noto Sans JP', "Hiragino Sans", "Hiragino Kaku Gothic ProN",
         Arial, Meiryo, sans-serif;
-      font-size: 16px;
+      font-size: 1rem;
       line-height: 1.7;
       color: var(--text-dark);
       background: var(--white);
     }
+
+    /* Global typography */
+    h2 { font-size: clamp(1.8rem, 3vw, 2.6rem); font-weight: 700; }
+    h3 { font-size: 1.4rem; font-weight: 600; }
+    p  { font-size: 1.05rem; line-height: 1.8; }
+    li { font-size: 1.05rem; }
+    .section-subtitle { font-size: 1.1rem; }
 
     /* ─── Header ─── */
     .header {
@@ -46,22 +53,31 @@
       top: 0;
       z-index: 200;
     }
-    .header-left {
+    .nav-logo {
       display: flex;
       align-items: center;
       gap: 10px;
       text-decoration: none;
     }
-    .header-logo-text {
+    .nav-logo-img {
+      height: 48px;
+      width: auto;
+      display: block;
+    }
+    .nav-logo-text {
+      flex-direction: column;
+      gap: 2px;
+    }
+    .nav-logo-name {
       font-size: 17px;
       font-weight: 700;
       color: var(--off-white);
       letter-spacing: 0.02em;
       white-space: nowrap;
     }
-    .header-tagline {
+    .nav-logo-sub {
       font-size: 11px;
-      color: var(--text-muted);
+      color: rgba(251,250,246,0.55);
       white-space: nowrap;
     }
     .header-nav {
@@ -109,13 +125,14 @@
     /* ─── ① Hero ─── */
     .hero {
       background: var(--navy-950);
-      padding: 72px 24px 80px;
+      padding: 5rem 24px 3rem;
+      min-height: auto;
     }
     .hero-inner {
       max-width: 1100px;
       margin: 0 auto;
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: 55fr 45fr;
       gap: 56px;
       align-items: center;
     }
@@ -140,19 +157,21 @@
 
     /* Main copy */
     .hero-catch {
-      font-size: 40px;
-      font-weight: 700;
+      font-size: clamp(2.8rem, 4.5vw, 4rem);
+      font-weight: 800;
       color: var(--off-white);
-      line-height: 1.45;
+      line-height: 1.2;
       letter-spacing: 0.02em;
       font-feature-settings: "palt";
     }
 
     /* Sub copy */
     .hero-sub {
-      font-size: 15px;
-      color: rgba(251,250,246,0.8);
+      font-size: 1.1rem;
+      color: var(--off-white);
+      opacity: 0.85;
       line-height: 1.85;
+      margin-top: 1.5rem;
     }
 
     /* CTA buttons */
@@ -164,9 +183,9 @@
     .btn-primary {
       background: var(--amber-400);
       color: var(--text-dark);
-      font-size: 15px;
+      font-size: 1.1rem;
       font-weight: 600;
-      padding: 13px 24px;
+      padding: 1rem 2rem;
       border-radius: 6px;
       text-decoration: none;
       border: none;
@@ -181,11 +200,11 @@
     .btn-outline {
       background: transparent;
       color: var(--off-white);
-      font-size: 15px;
+      font-size: 1rem;
       font-weight: 500;
-      padding: 12px 24px;
+      padding: 1rem 2rem;
       border-radius: 6px;
-      border: 1.5px solid rgba(251,250,246,0.5);
+      border: 1px solid var(--off-white);
       text-decoration: none;
       cursor: pointer;
       transition: border-color 0.15s, color 0.15s;
@@ -206,14 +225,27 @@
     .hero-mockup {
       background: var(--white);
       border-radius: 12px;
-      box-shadow: 0 8px 40px rgba(0,0,0,0.4), 0 2px 8px rgba(0,0,0,0.2);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.3);
       overflow: hidden;
       width: 100%;
       max-width: 520px;
+      position: relative;
     }
     .hero-mockup img {
       width: 100%;
       display: block;
+    }
+    .hero-mockup-badge {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: var(--amber-400);
+      color: var(--text-dark);
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 4px;
+      z-index: 1;
     }
 
     /* Hero responsive */
@@ -225,8 +257,9 @@
         grid-template-columns: 1fr;
         gap: 36px;
       }
-      .hero { padding: 48px 24px 56px; }
-      .hero-catch { font-size: 28px; }
+      .hero { padding: 3rem 24px 2.5rem; }
+      .hero-right { order: -1; }
+      .hero-catch { font-size: 28px; line-height: 1.35; }
       .hero-mockup { max-width: 100%; }
     }
     @media (max-width: 480px) {
@@ -686,41 +719,44 @@
       padding: 0 8px;
     }
     .step-icon-wrap {
-      width: 64px;
-      height: 64px;
+      width: 88px;
+      height: 88px;
       border-radius: 50%;
       background: var(--white);
       border: 2px solid var(--amber-400);
       display: flex;
       align-items: center;
       justify-content: center;
-      margin: 0 auto 14px;
+      margin: 0 auto 16px;
     }
     .step-icon-wrap .material-icons {
-      font-size: 28px !important;
+      font-size: 3.5rem !important;
       color: var(--amber-500);
     }
     .step-num {
-      font-size: 11px;
+      font-size: 1.5rem;
       font-weight: 700;
       color: var(--amber-500);
-      letter-spacing: 0.08em;
-      margin-bottom: 6px;
+      letter-spacing: 0.04em;
+      margin-bottom: 8px;
     }
     .step-title {
-      font-size: 14px;
-      font-weight: 700;
+      font-size: 1.2rem;
+      font-weight: 600;
       color: var(--text-dark);
-      margin-bottom: 4px;
+      margin-bottom: 6px;
       line-height: 1.5;
     }
     .step-sub {
-      font-size: 12px;
+      font-size: 1rem;
       color: var(--text-muted);
       line-height: 1.6;
     }
+    .step-item {
+      padding: 2rem 1.5rem;
+    }
     .step-arrow {
-      padding-top: 28px;
+      padding-top: 36px;
       color: var(--border);
       font-size: 22px !important;
     }
@@ -888,9 +924,13 @@
 
   <!-- ナビゲーション -->
   <header class="header">
-    <a class="header-left" href="#">
-      <span class="header-logo-text">🐙 Ops Octopus</span>
-      <span class="header-tagline">AIブランド調査レポート</span>
+    <a href="/" class="nav-logo">
+      <img src="assets/images/logo.png" alt="Ops Octopus" class="nav-logo-img"
+        onerror="this.style.display='none'; document.getElementById('nav-logo-text').style.display='flex';">
+      <div id="nav-logo-text" style="display:none;" class="nav-logo-text">
+        <span class="nav-logo-name">🐙 Ops Octopus</span>
+        <span class="nav-logo-sub">AIブランド調査レポート</span>
+      </div>
     </a>
     <nav class="header-nav">
       <a class="nav-link-hide" href="#about">サービス概要</a>
@@ -915,18 +955,20 @@
           分からない。
         </h1>
         <p class="hero-sub">
-          ChatGPT・Claude・Geminiに同じ条件で問い合わせ、<br>
+          ChatGPT・Claude・Geminiに同じ条件（プロンプト）で問い合わせ、<br>
           AI上でのブランドの推奨状況をレポート化します。<br>
           まずは¥300のお試し調査から。
         </p>
         <div class="hero-cta">
-          <a class="btn-primary" href="https://buy.stripe.com/6oU14ndhZcAR4XR1EKcwg00">Quick Scanを試す（¥300）</a>
-          <a class="btn-outline" href="#samples">サンプルレポートを見る</a>
+          <a class="btn-primary" href="https://buy.stripe.com/6oU14ndhZcAR4XR1EKcwg00">Quick Scanを試す（¥300）→</a>
+          <a class="btn-outline" href="#samples">サンプルレポートを見る →</a>
         </div>
       </div>
       <div class="hero-right">
         <div class="hero-mockup">
-          <img src="assets/images/sample-result-full.png" alt="調査レポートのサンプル画面">
+          <span class="hero-mockup-badge">サンプル</span>
+          <img src="assets/images/sample-result-full.png" alt="調査レポートのサンプル画面"
+            onerror="this.outerHTML='<div style=\'padding:3rem 2rem;text-align:center;color:#5f6f85;font-size:14px;background:#f4f7fb;\'>レポートモック画像</div>'">
         </div>
       </div>
     </div>
