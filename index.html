@@ -512,18 +512,375 @@
       line-height: 1.85;
     }
 
+    /* ─── ⑦ Plans ─── */
+    .plans {
+      background: var(--white);
+      padding: 80px 24px;
+    }
+    .plans-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .plans-heading {
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--text-dark);
+      text-align: center;
+      letter-spacing: 0.04em;
+      font-feature-settings: "palt";
+      margin-bottom: 10px;
+    }
+    .plans-note {
+      font-size: 13px;
+      color: var(--text-muted);
+      text-align: center;
+      margin-bottom: 40px;
+      line-height: 1.7;
+    }
+    .plan-cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      align-items: start;
+    }
+    .plan-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 28px 24px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+      position: relative;
+    }
+    .plan-card--featured {
+      border: 2px solid var(--amber-400);
+      box-shadow: 0 4px 16px rgba(251,191,36,0.15);
+    }
+    .plan-badge {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 2px 10px;
+      border-radius: 20px;
+      background: var(--blue-gray-100);
+      color: var(--text-muted);
+      margin-bottom: 12px;
+      letter-spacing: 0.04em;
+    }
+    .plan-badge--featured {
+      background: var(--amber-400);
+      color: var(--text-dark);
+    }
+    .plan-name {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text-dark);
+      margin-bottom: 6px;
+    }
+    .plan-price {
+      font-size: 36px;
+      font-weight: 700;
+      color: var(--text-dark);
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+    }
+    .plan-price-unit {
+      font-size: 14px;
+      font-weight: 400;
+      color: var(--text-muted);
+      margin-left: 2px;
+    }
+    .plan-desc {
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.7;
+      margin: 12px 0 20px;
+    }
+    .plan-features {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 24px;
+    }
+    .plan-features li {
+      font-size: 13px;
+      color: var(--text-dark);
+      display: flex;
+      align-items: flex-start;
+      gap: 6px;
+      line-height: 1.6;
+    }
+    .plan-features li .material-icons {
+      font-size: 16px !important;
+      color: var(--amber-500);
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .plan-cta {
+      display: block;
+      width: 100%;
+      padding: 13px 0;
+      border-radius: 8px;
+      font-size: 15px;
+      font-weight: 600;
+      text-align: center;
+      cursor: pointer;
+      font-family: inherit;
+      border: none;
+      text-decoration: none;
+      transition: opacity 0.15s;
+    }
+    .plan-cta--primary {
+      background: var(--amber-400);
+      color: var(--text-dark);
+    }
+    .plan-cta--primary:hover { opacity: 0.88; }
+    .plan-cta--disabled {
+      background: var(--blue-gray-100);
+      color: var(--text-muted);
+      cursor: not-allowed;
+    }
+    .plan-notify {
+      display: block;
+      text-align: center;
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: 10px;
+      text-decoration: none;
+    }
+    .plan-notify:hover { text-decoration: underline; }
+
+    /* ─── ⑧ Steps ─── */
+    .steps {
+      background: var(--blue-gray-50);
+      padding: 80px 24px;
+    }
+    .steps-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .steps-heading {
+      font-size: 26px;
+      font-weight: 700;
+      color: var(--text-dark);
+      text-align: center;
+      letter-spacing: 0.04em;
+      font-feature-settings: "palt";
+      margin-bottom: 10px;
+    }
+    .steps-sub {
+      font-size: 14px;
+      color: var(--text-muted);
+      text-align: center;
+      line-height: 1.75;
+      margin-bottom: 48px;
+    }
+    .steps-row {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr auto 1fr auto 1fr;
+      align-items: start;
+      gap: 0;
+    }
+    .step-item {
+      text-align: center;
+      padding: 0 8px;
+    }
+    .step-icon-wrap {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: var(--white);
+      border: 2px solid var(--amber-400);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 14px;
+    }
+    .step-icon-wrap .material-icons {
+      font-size: 28px !important;
+      color: var(--amber-500);
+    }
+    .step-num {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--amber-500);
+      letter-spacing: 0.08em;
+      margin-bottom: 6px;
+    }
+    .step-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text-dark);
+      margin-bottom: 4px;
+      line-height: 1.5;
+    }
+    .step-sub {
+      font-size: 12px;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+    .step-arrow {
+      padding-top: 28px;
+      color: var(--border);
+      font-size: 22px !important;
+    }
+
+    /* ─── ⑨ FAQ ─── */
+    .faq {
+      background: var(--white);
+      padding: 80px 24px;
+    }
+    .faq-inner {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    .faq-heading {
+      font-size: 26px;
+      font-weight: 700;
+      color: var(--text-dark);
+      text-align: center;
+      letter-spacing: 0.04em;
+      font-feature-settings: "palt";
+      margin-bottom: 32px;
+    }
+    .faq-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .faq-item {
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    .faq-item summary {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 16px 20px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-dark);
+      line-height: 1.6;
+      list-style: none;
+      background: var(--blue-gray-50);
+      user-select: none;
+    }
+    .faq-item summary::-webkit-details-marker { display: none; }
+    .faq-item summary::after {
+      content: "＋";
+      margin-left: auto;
+      flex-shrink: 0;
+      font-size: 18px;
+      color: var(--text-muted);
+      line-height: 1;
+      margin-top: 1px;
+    }
+    .faq-item[open] summary::after { content: "－"; }
+    .faq-item summary .faq-q-mark {
+      color: var(--amber-500);
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+    .faq-answer {
+      padding: 14px 20px 16px;
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.8;
+      border-top: 1px solid var(--border);
+    }
+    .faq-answer a { color: #1B6CA8; }
+    .faq-answer a:hover { text-decoration: underline; }
+    .faq-disclaimer {
+      margin-top: 32px;
+      font-size: 12px;
+      color: var(--text-muted);
+      line-height: 1.8;
+      padding: 16px 20px;
+      background: var(--blue-gray-50);
+      border-radius: 8px;
+      border: 1px solid var(--border);
+    }
+
+    /* ─── ⑩ Footer ─── */
+    .footer {
+      background: var(--navy-900);
+      padding: 2rem 1.5rem;
+    }
+    .footer-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      gap: 24px;
+    }
+    .footer-brand-name {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--off-white);
+      margin-bottom: 4px;
+    }
+    .footer-brand-sub {
+      font-size: 12px;
+      color: rgba(251,250,246,0.5);
+      line-height: 1.5;
+    }
+    .footer-brand-tagline {
+      font-style: italic;
+    }
+    .footer-links {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+    .footer-link {
+      font-size: 13px;
+      color: var(--off-white);
+      text-decoration: none;
+      opacity: 0.8;
+      transition: opacity 0.15s;
+    }
+    .footer-link:hover { opacity: 1; }
+    .footer-copy {
+      font-size: 12px;
+      color: rgba(251,250,246,0.4);
+      text-align: right;
+    }
+
     @media (max-width: 768px) {
       .samples { padding: 56px 16px; }
       .service  { padding: 56px 16px; }
       .value    { padding: 56px 16px; }
       .appeal   { padding: 56px 16px; }
+      .plans    { padding: 56px 16px; }
+      .steps    { padding: 56px 16px; }
+      .faq      { padding: 56px 16px; }
       .section-heading  { font-size: 20px; }
       .service-heading  { font-size: 20px; }
       .service-emphasis { font-size: 17px; }
       .value-heading    { font-size: 20px; }
-      .ai-cards   { grid-template-columns: 1fr; }
+      .plans-heading    { font-size: 22px; }
+      .steps-heading    { font-size: 20px; }
+      .faq-heading      { font-size: 20px; }
+      .ai-cards     { grid-template-columns: 1fr; }
       .value-cards  { grid-template-columns: repeat(2, 1fr); }
       .appeal-cards { grid-template-columns: 1fr; }
+      .plan-cards   { grid-template-columns: 1fr; }
+      .plan-card--featured { order: -1; }
+      .steps-row {
+        grid-template-columns: 1fr;
+        gap: 24px;
+      }
+      .step-arrow { display: none; }
+      .step-item { padding: 0; }
+      .footer-inner {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+      .footer-copy { text-align: center; }
     }
   </style>
 </head>
@@ -723,6 +1080,167 @@
       </div>
     </div>
   </section>
+
+  <!-- ⑦ プラン・料金 -->
+  <section id="plans" class="plans">
+    <div class="plans-inner">
+      <h2 class="plans-heading">プランを選ぶ</h2>
+      <p class="plans-note">現在はQuick Scanのみご利用いただけます。Deep Scan / Full Scanは、Quick Scanテスト期間後に順次リリース予定です。</p>
+      <div class="plan-cards">
+
+        <!-- Quick Scan -->
+        <div class="plan-card">
+          <span class="plan-badge">おためし</span>
+          <p class="plan-name">Quick Scan</p>
+          <p class="plan-price">¥300<span class="plan-price-unit">（税込）</span></p>
+          <p class="plan-desc">まず現状チェック</p>
+          <ul class="plan-features">
+            <li><span class="material-icons">check</span>3AIに各1回問い合わせ</li>
+            <li><span class="material-icons">check</span>キーワード1つ</li>
+            <li><span class="material-icons">check</span>画面表示・即時確認</li>
+            <li><span class="material-icons">check</span>HTMLダウンロード可</li>
+          </ul>
+          <a class="plan-cta plan-cta--primary" href="https://buy.stripe.com/6oU14ndhZcAR4XR1EKcwg00">Quick Scanを試す（¥300）</a>
+        </div>
+
+        <!-- Deep Scan -->
+        <div class="plan-card plan-card--featured">
+          <span class="plan-badge plan-badge--featured">本命</span>
+          <p class="plan-name">Deep Scan</p>
+          <p class="plan-price">¥2,980<span class="plan-price-unit">（税込）</span></p>
+          <p class="plan-desc">AIの90回分の最新回答を集計レポートに。即決できる1回買い切りプランです。</p>
+          <ul class="plan-features">
+            <li><span class="material-icons">check</span>3AI×各30回=90回問い合わせ</li>
+            <li><span class="material-icons">check</span>キーワード3つ</li>
+            <li><span class="material-icons">check</span>競合2社との比較</li>
+            <li><span class="material-icons">check</span>統計集計・可視化</li>
+            <li><span class="material-icons">check</span>PDFレポート納品</li>
+          </ul>
+          <button class="plan-cta plan-cta--disabled" disabled>Coming Soon</button>
+          <a class="plan-notify" href="mailto:opsoctopus.jp@gmail.com">公開通知を受け取る →</a>
+        </div>
+
+        <!-- Full Scan -->
+        <div class="plan-card">
+          <span class="plan-badge">プロ向け</span>
+          <p class="plan-name">Full Scan</p>
+          <p class="plan-price">¥9,800<span class="plan-price-unit">（税込）</span></p>
+          <p class="plan-desc">ブラックボックスなし。生データも全部渡します。提案資料の強化に</p>
+          <ul class="plan-features">
+            <li><span class="material-icons">check</span>Deep Scanの全内容</li>
+            <li><span class="material-icons">check</span>キーワード10個</li>
+            <li><span class="material-icons">check</span>競合5社との比較</li>
+            <li><span class="material-icons">check</span>生データ納品</li>
+            <li><span class="material-icons">check</span>詳細分析＋改善提案</li>
+          </ul>
+          <button class="plan-cta plan-cta--disabled" disabled>Coming Soon</button>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ⑧ ご利用の流れ -->
+  <section class="steps">
+    <div class="steps-inner">
+      <h2 class="steps-heading">あなたがやることはこれだけ</h2>
+      <p class="steps-sub">最短1分*。調べたいカテゴリを選んで、3AIに投げる質問（プロンプト）をつくるだけ。<br>質問作りもAIがお手伝いします。（*Quick Scanの場合）</p>
+      <div class="steps-row">
+        <div class="step-item">
+          <div class="step-icon-wrap"><span class="material-icons">shopping_cart</span></div>
+          <p class="step-num">STEP 1</p>
+          <p class="step-title">プランを選んで購入</p>
+          <p class="step-sub">クレジットカード決済・1分</p>
+        </div>
+        <span class="material-icons step-arrow">chevron_right</span>
+        <div class="step-item">
+          <div class="step-icon-wrap"><span class="material-icons">mail</span></div>
+          <p class="step-num">STEP 2</p>
+          <p class="step-title">購入コードをメールで受け取る</p>
+          <p class="step-sub">即時自動送信</p>
+        </div>
+        <span class="material-icons step-arrow">chevron_right</span>
+        <div class="step-item">
+          <div class="step-icon-wrap"><span class="material-icons">edit</span></div>
+          <p class="step-num">STEP 3</p>
+          <p class="step-title">ブランド名・キーワードを入力して調査実行</p>
+          <p class="step-sub">カテゴリ選択・2分</p>
+        </div>
+        <span class="material-icons step-arrow">chevron_right</span>
+        <div class="step-item">
+          <div class="step-icon-wrap"><span class="material-icons">description</span></div>
+          <p class="step-num">STEP 4</p>
+          <p class="step-title">レポートを確認・保存</p>
+          <p class="step-sub">画面表示またはHTMLファイル</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ⑨ FAQ -->
+  <section class="faq">
+    <div class="faq-inner">
+      <h2 class="faq-heading">よくある質問</h2>
+      <div class="faq-list">
+
+        <details class="faq-item">
+          <summary><span class="faq-q-mark">Q.</span>AIの回答は変動しますか？</summary>
+          <div class="faq-answer">はい。AIの回答は、調査時点、モデル更新、入力条件などによって変動する可能性があります。本サービスのレポートは、調査時点のスナップショットとしてご利用ください。</div>
+        </details>
+
+        <details class="faq-item">
+          <summary><span class="faq-q-mark">Q.</span>調査結果は成果を保証しますか？</summary>
+          <div class="faq-answer">いいえ。本サービスはAI検索エンジンの回答傾向を調査・集計するものであり、検索順位の改善や特定成果を保証するものではありません。</div>
+        </details>
+
+        <details class="faq-item">
+          <summary><span class="faq-q-mark">Q.</span>ChatGPT / Claude / Geminiの公式サービスですか？</summary>
+          <div class="faq-answer">いいえ。本サービスは各社が公式に提供・認定するものではありません。</div>
+        </details>
+
+        <details class="faq-item">
+          <summary><span class="faq-q-mark">Q.</span>入力したブランド名やキーワードはどう扱われますか？</summary>
+          <div class="faq-answer">調査レポート作成のために使用します。詳細は<a href="privacy.html">プライバシーポリシー</a>をご確認ください。</div>
+        </details>
+
+        <details class="faq-item">
+          <summary><span class="faq-q-mark">Q.</span>Deep Scan / Full Scanはいつ使えますか？</summary>
+          <div class="faq-answer">現在準備中です。Quick Scanテスト期間後、順次リリース予定です。</div>
+        </details>
+
+        <details class="faq-item">
+          <summary><span class="faq-q-mark">Q.</span>AIの回答が取得できなかった場合はどうなりますか？</summary>
+          <div class="faq-answer">画面のスクリーンショットとともに <a href="mailto:opsoctopus.jp@gmail.com">opsoctopus.jp@gmail.com</a> までご連絡ください。購入コードを再発行いたします。</div>
+        </details>
+
+        <details class="faq-item">
+          <summary><span class="faq-q-mark">Q.</span>購入コードのメールが届きません。</summary>
+          <div class="faq-answer">迷惑メールフォルダをご確認ください。それでも届かない場合は購入時のメールアドレスを添えて <a href="mailto:opsoctopus.jp@gmail.com">opsoctopus.jp@gmail.com</a> までご連絡ください。</div>
+        </details>
+
+      </div>
+
+      <div class="faq-disclaimer">
+        本サービスはAI検索エンジンの回答傾向を調査・集計するものであり、検索順位の改善や特定成果を保証するものではありません。ChatGPT / Claude / Gemini、またプロンプトやレポート作成時に表示される名称は各社の商標または登録商標です。本サービスは各社が公式に提供・認定するものではありません。AIの回答は調査時点のスナップショットであり、時期やモデル更新により変動します。各AIのサービス稼働状況により正しく回答が得られない場合があります。出力結果が不足している場合、再調査または返金にて対応いたします。
+      </div>
+    </div>
+  </section>
+
+  <!-- ⑩ フッター -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div>
+        <p class="footer-brand-name">🐙 Ops Octopus</p>
+        <p class="footer-brand-sub">AIブランド調査レポート</p>
+        <p class="footer-brand-sub footer-brand-tagline">「知りたい」に、するっと。</p>
+      </div>
+      <div class="footer-links">
+        <a class="footer-link" href="legal.html">特定商取引法に基づく表記</a>
+        <a class="footer-link" href="privacy.html">プライバシーポリシー</a>
+      </div>
+      <p class="footer-copy">© 2026 Ops Octopus. All rights reserved.</p>
+    </div>
+  </footer>
 
 </body>
 </html>
