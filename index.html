@@ -437,21 +437,21 @@
       transform: rotate(-15deg);
       pointer-events: none;
     }
-    .tentacles-divider-left {
+    .tentacles-cross-divider-left {
       position: relative;
-      height: 60px;
+      height: 0;
       overflow: visible;
-      margin-bottom: -20px;
-      z-index: 10;
-      text-align: left;
-      padding-left: 3%;
+      z-index: 20;
     }
-    .tentacles-divider-left .tentacles-side-img {
+    .tentacles-cross-left-img {
+      position: absolute;
+      left: 5%;
+      top: -50px;
       width: 260px;
-      max-width: 40%;
+      max-width: 35%;
       opacity: 0.75;
-      position: static;
-      transform: none;
+      transform: rotate(10deg) scaleX(-1);
+      pointer-events: none;
     }
 
     /* ─── ③ Samples ─── */
@@ -784,7 +784,7 @@
       gap: 10px;
       padding: 16px 20px;
       cursor: pointer;
-      font-size: 14px;
+      font-size: 1.05rem;
       font-weight: 600;
       color: var(--text-dark);
       line-height: 1.6;
@@ -810,7 +810,8 @@
     }
     .faq-answer {
       padding: 14px 20px 16px;
-      font-size: 14px;
+      font-size: 1.05rem;
+      font-weight: 500;
       color: var(--text-muted);
       line-height: 1.8;
       border-top: 1px solid var(--border);
@@ -1234,8 +1235,8 @@
       onerror="this.style.display='none'">
   </section>
 
-  <div class="tentacles-divider-left">
-    <img src="assets/images/tentacles-side.png" alt="" class="tentacles-side-img"
+  <div class="tentacles-cross-divider-left">
+    <img src="assets/images/tentacles-side.png" alt="" class="tentacles-cross-left-img"
       onerror="this.style.display='none'">
   </div>
 
