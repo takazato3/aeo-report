@@ -616,8 +616,8 @@
     <!-- ━━━ Screen 1: Input Form ━━━ -->
     <div class="screen active" id="screen1">
       <div class="container">
-        <h1 class="section-title">AI検索調査を開始する</h1>
-        <p class="section-subtitle">ChatGPT・Claude・Geminiの3つのAIで、あなたのブランド・サービスを調査します。</p>
+        <h1 class="section-title">ブランドのAI上での見え方を調査する</h1>
+        <p class="section-subtitle">ChatGPT・Claude・Geminiに同じ質問を投げ、AI上でのブランドの推奨状況を確認します。</p>
 
         <div class="error-box" id="errorBox1" style="display:none;"></div>
 
@@ -635,7 +635,7 @@
               autocomplete="off"
               spellcheck="false"
             />
-            <p class="form-hint">購入時にメールでお知らせした購入コードを入力してください。</p>
+            <p class="form-hint">ご購入後にメールでお送りした購入コードを入力してください。</p>
           </div>
 
           <div class="form-group">
@@ -650,6 +650,10 @@
               <option value="マーケティング支援・広告代理店">マーケティング支援・広告代理店</option>
               <option value="スクール・資格・習い事">スクール・資格・習い事</option>
               <option value="D2Cブランド / EC">D2Cブランド / EC</option>
+              <option value="製造業・メーカー">製造業・メーカー</option>
+              <option value="飲食・美容・クリニック">飲食・美容・クリニック</option>
+              <option value="旅行・ホテル・観光">旅行・ホテル・観光</option>
+              <option value="その他">その他</option>
             </select>
           </div>
 
@@ -690,7 +694,7 @@
           </div>
 
           <div class="btn-group">
-            <button type="submit" class="btn-primary">次へ → 質問文を生成する</button>
+            <button type="submit" class="btn-primary">次へ → AIが質問を作成します</button>
           </div>
 
         </form>
@@ -700,8 +704,8 @@
     <!-- ━━━ Screen 2: Question Confirm ━━━ -->
     <div class="screen" id="screen2">
       <div class="container">
-        <h2 class="section-title">AIにこんな質問を投げます</h2>
-        <p class="section-subtitle">どんな人がこのキーワードでAIに質問するか、をAIが想定して質問文を作りました。<br>ズレていたら自由に修正できます。</p>
+        <h2 class="section-title">AIへの質問内容を確認してください</h2>
+        <p class="section-subtitle">入力内容をもとにAIが質問を作成しました。内容を確認し、必要であれば修正してください。</p>
 
         <div class="input-summary-badges">
           <span class="input-badge" id="badge-category"></span>
@@ -726,8 +730,8 @@
         </div>
 
         <div class="btn-group">
-          <button class="btn-primary" id="runSurveyBtn" type="button">この質問で調査を実行する</button>
-          <button class="btn-secondary" id="backToInputBtn" type="button">← 入力に戻る</button>
+          <button class="btn-primary" id="runSurveyBtn" type="button">この内容で調査を開始する</button>
+          <button class="btn-secondary" id="backToInputBtn" type="button">← 前の画面に戻る</button>
         </div>
       </div>
     </div>
@@ -742,7 +746,7 @@
         <!-- タイトル行（ダウンロードボタン A） -->
         <div class="result-title-row">
           <div>
-            <h2 class="section-title">AI調査レポート</h2>
+            <h2 class="section-title">AI調査結果</h2>
             <p class="section-subtitle" id="resultSubtitle"></p>
           </div>
           <button class="btn-secondary btn-download" type="button" onclick="downloadReport()">結果を保存する（HTML）</button>
@@ -1020,6 +1024,10 @@
         'マーケティング支援・広告代理店':'例：Web広告運用代行、SEOコンサルサービスなど',
         'スクール・資格・習い事':        '例：オンライン英会話スクール、プログラミングスクールなど',
         'D2Cブランド / EC':            '例：ヘアケアD2Cブランド、フードサブスクサービスなど',
+        '製造業・メーカー':             '例：産業用ロボット、耐熱素材、建材メーカー',
+        '飲食・美容・クリニック':        '例：脱毛サロン、審美歯科、オーガニックカフェ',
+        '旅行・ホテル・観光':           '例：高級旅館、観光バスツアー、グランピング施設',
+        'その他':                      '例：調査したいサービスのカテゴリ名',
       },
       brand: {
         'BtoB SaaS / ITツール':        '例：自社プロダクト名・サービス名',
@@ -1028,6 +1036,10 @@
         'マーケティング支援・広告代理店':'例：自社代理店名・サービス名',
         'スクール・資格・習い事':        '例：自社スクール名・講座名',
         'D2Cブランド / EC':            '例：自社ブランド名・商品名',
+        '製造業・メーカー':             '例：自社製品名・ブランド名',
+        '飲食・美容・クリニック':        '例：自社サロン名・クリニック名・ブランド名',
+        '旅行・ホテル・観光':           '例：自社施設名・サービス名',
+        'その他':                      '例：自社ブランド名・サービス名',
       },
     };
 
@@ -1038,6 +1050,9 @@
       'マーケティング支援・広告代理店':['Web広告運用代行', 'SEOコンサルサービス', 'SNS運用代行', 'コンテンツマーケティング支援', 'インフルエンサーマーケティング'],
       'スクール・資格・習い事':        ['オンライン英会話スクール', 'プログラミングスクール', 'パーソナルトレーニングジム', '英語学習アプリ', '予備校'],
       'D2Cブランド / EC':            ['ヘアケアD2Cブランド', 'フードサブスクサービス', 'サプリメントD2C', '越境ECプラットフォーム', 'ECサイト構築プラットフォーム'],
+      '製造業・メーカー':             ['産業用ロボット', '耐熱素材', '建材メーカー', '工作機械', '精密部品'],
+      '飲食・美容・クリニック':        ['脱毛サロン', '審美歯科', 'オーガニックカフェ', 'パーソナルジム', 'AGAクリニック'],
+      '旅行・ホテル・観光':           ['高級旅館', '観光バスツアー', 'グランピング施設', 'ペットと泊まれる宿', '体験型観光'],
     };
 
     function updateKeywordField() {
