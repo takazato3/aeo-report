@@ -540,6 +540,58 @@
       to   { opacity: 1; transform: translateY(0); }
     }
 
+    /* ─── Customer Hint ─── */
+    .customer-hint-section {
+      margin-bottom: 1.25rem;
+    }
+    .customer-hint-toggle {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--blue-gray-50);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 10px 14px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--text-dark);
+      cursor: pointer;
+      width: 100%;
+      text-align: left;
+      font-family: inherit;
+      transition: background 0.15s;
+    }
+    .customer-hint-toggle:hover {
+      background: var(--blue-gray-100);
+    }
+    .customer-hint-toggle-icon {
+      font-size: 1rem;
+      color: var(--amber-500);
+      flex-shrink: 0;
+      transition: transform 0.2s;
+    }
+    .customer-hint-toggle.open .customer-hint-toggle-icon {
+      transform: rotate(45deg);
+    }
+    .customer-hint-toggle-sub {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      margin-left: auto;
+      white-space: nowrap;
+    }
+    .customer-hint-fields {
+      border: 1px solid var(--border);
+      border-top: none;
+      border-radius: 0 0 8px 8px;
+      padding: 1rem 1rem 0.25rem;
+      background: var(--white);
+    }
+    .customer-hint-example {
+      color: var(--text-muted);
+      font-size: 0.8rem;
+      margin-top: 3px;
+    }
+
     /* ─── Misc ─── */
     .caption { font-size: 12px; color: rgba(8,19,26,0.66); line-height: 1.5; }
     .divider { border: none; border-top: 1px solid rgba(8,19,26,0.14); margin: 2rem 0; }
@@ -723,6 +775,42 @@
             />
             <datalist id="keywordSuggestions"></datalist>
             <p class="form-hint">調査したいご自身のブランド名・キーワードを入力してください。</p>
+          </div>
+
+          <div class="customer-hint-section" id="customerHintSection" style="display:none;">
+            <button type="button" class="customer-hint-toggle" id="customerHintToggle">
+              <span class="customer-hint-toggle-icon">＋</span>
+              <span>顧客イメージを追加する（任意）</span>
+              <span class="customer-hint-toggle-sub">より的確な調査質問が作れます</span>
+            </button>
+            <div class="customer-hint-fields" id="customerHintFields" style="display:none;">
+              <div class="form-group" style="margin-top:0.75rem;">
+                <label class="form-label" for="customerProfile">
+                  あなたの顧客はどんな人ですか？
+                </label>
+                <input
+                  type="text"
+                  id="customerProfile"
+                  class="form-input"
+                  placeholder=""
+                  autocomplete="off"
+                />
+                <p class="form-hint customer-hint-example" id="customerProfileHint"></p>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="customerIntent">
+                  顧客がAIに聞くときの目的・悩みは？
+                </label>
+                <input
+                  type="text"
+                  id="customerIntent"
+                  class="form-input"
+                  placeholder=""
+                  autocomplete="off"
+                />
+                <p class="form-hint customer-hint-example" id="customerIntentHint"></p>
+              </div>
+            </div>
           </div>
 
           <div class="btn-group">
@@ -957,7 +1045,7 @@
   <script>
     const GAS_URL = 'https://script.google.com/macros/s/AKfycbwRKdjJe9PqZE3Rnh_I4zeRv5ET5PDUkmVkaNUFBX_kTiPHjqCn0NKNpAEReMDJgGOJ/exec';
 
-    const state = { token: '', category: '', keyword: '', surveyType: 'market', question: '' };
+    const state = { token: '', category: '', keyword: '', surveyType: 'market', question: '', customerProfile: '', customerIntent: '' };
 
     let categoriesData = {};
     fetch('data/categories.json').then(r => r.json()).then(d => { categoriesData = d; }).catch(() => {});
@@ -1031,10 +1119,12 @@
       if (!surveyType) return showError('errorBox1', '調査タイプを選択してください。');
 
       Object.assign(state, { token, category, keyword, surveyType });
+      state.customerProfile = $('customerProfile').value.trim();
+      state.customerIntent  = $('customerIntent').value.trim();
 
       showLoading('質問文を生成中...');
       try {
-        const data = await callGAS({ action: 'generateQuestion', token, category, keyword, type: surveyType });
+        const data = await callGAS({ action: 'generateQuestion', token, category, keyword, type: surveyType, customerProfile: state.customerProfile, customerIntent: state.customerIntent });
         if (!data.success) throw new Error(data.error || '質問文の生成に失敗しました。');
 
         state.question = data.data.question;
@@ -1116,6 +1206,55 @@
       },
     };
 
+    const CUSTOMER_HINTS = {
+      market: {
+        'BtoB SaaS / ITツール':         { profile: '例：中小企業の情報システム担当者', intent: '例：コストを抑えてCRMを導入したい' },
+        'コンサルティング / 士業':        { profile: '例：M&Aを検討中の中小企業経営者', intent: '例：信頼できる顧問先を探している' },
+        '人材サービス / HR Tech':         { profile: '例：採用強化を検討中の人事担当者', intent: '例：費用対効果の高い採用ツールを比べたい' },
+        'マーケティング支援・広告代理店':  { profile: '例：Web広告を外注したい担当者', intent: '例：費用対効果の高い代理店を比べたい' },
+        'スクール・資格・習い事':          { profile: '例：英語力を上げたい20代社会人', intent: '例：通いやすくコスパの良いスクールを探したい' },
+        'D2Cブランド / EC':              { profile: '例：スキンケアに関心のある30代女性', intent: '例：自分の肌に合うブランドを探している' },
+        '製造業・メーカー':               { profile: '例：設備投資を検討中の製造業担当者', intent: '例：コスト削減できる機械メーカーを比較したい' },
+        '飲食・美容・クリニック':          { profile: '例：都内在住の20〜30代女性', intent: '例：近くで評判のいいクリニックを探している' },
+        '旅行・ホテル・観光':             { profile: '例：旅行を計画中のカップル', intent: '例：記念日に泊まれる旅館を探したい' },
+        'その他':                        { profile: '例：あなたの顧客の年代・職業・地域など', intent: '例：顧客がAIに質問するときの目的や悩み' }
+      },
+      brand: {
+        'BtoB SaaS / ITツール':         { profile: '例：中小企業の情報システム担当者', intent: '例：既存ツールと比較して乗り換えを検討したい' },
+        'コンサルティング / 士業':        { profile: '例：税務相談を探している個人事業主', intent: '例：信頼できる税理士を探している' },
+        '人材サービス / HR Tech':         { profile: '例：転職を検討中の30代エンジニア', intent: '例：年収アップできるエージェントを探したい' },
+        'マーケティング支援・広告代理店':  { profile: '例：SNS運用を外注したいEC担当者', intent: '例：実績のある代理店に依頼したい' },
+        'スクール・資格・習い事':          { profile: '例：資格取得を目指す30代会社員', intent: '例：短期間で合格できるスクールを探したい' },
+        'D2Cブランド / EC':              { profile: '例：健康志向の30〜40代', intent: '例：安心して買えるブランドを探している' },
+        '製造業・メーカー':               { profile: '例：新規取引先を探している調達担当者', intent: '例：品質と納期が安定したメーカーを探したい' },
+        '飲食・美容・クリニック':          { profile: '例：美容に関心のある20〜30代女性', intent: '例：口コミが良くて通いやすいサロンを探している' },
+        '旅行・ホテル・観光':             { profile: '例：国内旅行を計画中の家族連れ', intent: '例：子連れで楽しめる宿を探したい' },
+        'その他':                        { profile: '例：あなたの顧客の年代・職業・地域など', intent: '例：顧客がAIに質問するときの目的や悩み' }
+      }
+    };
+
+    $('customerHintToggle').addEventListener('click', () => {
+      const fields  = $('customerHintFields');
+      const toggle  = $('customerHintToggle');
+      const isOpen  = fields.style.display !== 'none';
+      fields.style.display = isOpen ? 'none' : 'block';
+      toggle.classList.toggle('open', !isOpen);
+    });
+
+    function updateCustomerHints() {
+      const category   = $('category').value;
+      const surveyType = document.querySelector('input[name="surveyType"]:checked')?.value || 'market';
+      const hint       = CUSTOMER_HINTS[surveyType]?.[category];
+
+      if (hint) {
+        $('customerProfileHint').textContent = hint.profile;
+        $('customerIntentHint').textContent  = hint.intent;
+        $('customerHintSection').style.display = 'block';
+      } else {
+        $('customerHintSection').style.display = 'none';
+      }
+    }
+
     function updateKeywordHint() {
       const category   = $('category').value;
       const surveyType = document.querySelector('input[name="surveyType"]:checked')?.value || 'market';
@@ -1141,7 +1280,7 @@
       $('keywordSuggestions').innerHTML = list.map(s => `<option value="${s.replace(/"/g, '&quot;')}">` ).join('');
     }
 
-    $('category').addEventListener('change', () => { updateKeywordField(); updateKeywordHint(); });
+    $('category').addEventListener('change', () => { updateKeywordField(); updateKeywordHint(); updateCustomerHints(); });
 
     // Radio card highlight + keyword field sync
     document.querySelectorAll('input[name="surveyType"]').forEach(radio => {
@@ -1150,6 +1289,7 @@
         radio.closest('.radio-card').classList.add('selected');
         updateKeywordField();
         updateKeywordHint();
+        updateCustomerHints();
       });
     });
 
