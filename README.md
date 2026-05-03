@@ -1,2 +1,2 @@
-# aeo-report-ume
-AEOレポートを出します-かんたん-
+# aeo-report
+AEOレポートを出します

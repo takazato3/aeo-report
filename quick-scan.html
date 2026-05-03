@@ -5,12 +5,27 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>AI Brand Insight Quick Scan</title>
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
+    :root {
+      --navy-950: #061426;
+      --navy-900: #081b33;
+      --navy-800: #102a4a;
+      --blue-gray-50: #f4f7fb;
+      --blue-gray-100: #eaf0f7;
+      --off-white: #fbfaf6;
+      --white: #ffffff;
+      --amber-400: #fbbf24;
+      --amber-500: #f59e0b;
+      --text-dark: #132033;
+      --text-muted: #5f6f85;
+      --border: #dce4ef;
+    }
+
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
-      font-family: "Helvetica Neue", "Hiragino Sans", "Hiragino Kaku Gothic ProN",
-        Arial, "Noto Sans JP", Meiryo, sans-serif;
+      font-family: 'Inter', 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', sans-serif;
       font-size: 16px;
       line-height: 1.7;
       color: #08131a;
@@ -19,8 +34,8 @@
 
     /* ─── Header ─── */
     .header {
-      background: #ffffff;
-      border-bottom: 1px solid rgba(8,19,26,0.14);
+      background: #0d2340;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
       height: 56px;
       padding: 0 24px;
       display: flex;
@@ -30,18 +45,13 @@
       top: 0;
       z-index: 100;
     }
-    .header-logo {
-      font-size: 18px;
-      font-weight: 700;
-      color: #1B6CA8;
-      letter-spacing: 0.04em;
-      font-feature-settings: "palt";
-    }
+    .header-logo-link { display:flex; align-items:center; text-decoration:none; }
+    .header-logo-img { height:44px; width:auto; }
     .header-plan {
       font-size: 12px;
-      color: rgba(8,19,26,0.66);
-      background: #f5f8fa;
-      border: 1px solid rgba(8,19,26,0.14);
+      color: rgba(255,255,255,0.7);
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.2);
       border-radius: 4px;
       padding: 3px 8px;
     }
@@ -71,11 +81,11 @@
       font-weight: 500;
       flex-shrink: 0;
     }
-    .step-circle.done    { background: #1B6CA8; color: #ffffff; }
-    .step-circle.active  { background: rgba(27,108,168,0.1); color: #1B6CA8; border: 2px solid #1B6CA8; }
+    .step-circle.done    { background: var(--amber-400); color: var(--text-dark); }
+    .step-circle.active  { background: rgba(16,42,74,0.1); color: var(--navy-800); border: 2px solid var(--navy-800); }
     .step-circle.pending { background: #f5f8fa; color: #9ca7ad; border: 1px solid rgba(8,19,26,0.14); }
     .step-label          { font-size: 12px; color: rgba(8,19,26,0.66); white-space: nowrap; }
-    .step-label.active   { color: #1B6CA8; font-weight: 500; }
+    .step-label.active   { color: var(--navy-800); font-weight: 500; }
     .step-connector      { width: 32px; height: 1px; background: rgba(8,19,26,0.14); flex-shrink: 0; margin: 0 8px; }
 
     /* ─── Section titles ─── */
@@ -108,8 +118,8 @@
     }
     .form-input:focus,
     .form-select:focus {
-      border-color: #1B6CA8;
-      box-shadow: 0 0 0 2px rgba(27,108,168,0.15);
+      border-color: var(--navy-800);
+      box-shadow: 0 0 0 2px rgba(16,42,74,0.15);
     }
     .form-input::placeholder { color: #9ca7ad; }
     .form-hint { font-size: 12px; color: rgba(8,19,26,0.66); margin-top: 4px; }
@@ -127,17 +137,17 @@
       transition: border-color 0.15s, background 0.15s;
       min-height: 44px;
     }
-    .radio-card:hover              { border-color: rgba(27,108,168,0.4); background: rgba(27,108,168,0.03); }
-    .radio-card.selected           { border: 2px solid #1B6CA8; background: rgba(27,108,168,0.05); }
-    .radio-card input[type="radio"] { margin-top: 2px; accent-color: #1B6CA8; flex-shrink: 0; }
+    .radio-card:hover              { border-color: rgba(16,42,74,0.4); background: rgba(16,42,74,0.03); }
+    .radio-card.selected           { border: 2px solid var(--navy-800); background: rgba(16,42,74,0.05); }
+    .radio-card input[type="radio"] { margin-top: 2px; accent-color: var(--navy-800); flex-shrink: 0; }
     .radio-card-content { display: flex; flex-direction: column; }
     .radio-card-title { font-size: 14px; font-weight: 500; color: #08131a; }
     .radio-card-desc  { font-size: 12px; color: rgba(8,19,26,0.66); margin-top: 2px; }
 
     /* ─── Buttons ─── */
     .btn-primary {
-      background: #1B6CA8;
-      color: #ffffff;
+      background: var(--amber-400);
+      color: var(--text-dark);
       border: none;
       border-radius: 6px;
       font-size: 15px;
@@ -149,7 +159,7 @@
       min-height: 44px;
       font-family: inherit;
     }
-    .btn-primary:hover:not(:disabled) { background: #155a8f; }
+    .btn-primary:hover:not(:disabled) { background: var(--amber-500); }
     .btn-primary:disabled { opacity: 0.6; cursor: not-allowed; }
 
     .btn-secondary {
@@ -170,14 +180,14 @@
     .btn-text {
       background: transparent;
       border: none;
-      color: #1B6CA8;
+      color: var(--navy-800);
       font-size: 14px;
       cursor: pointer;
       padding: 4px 0;
       font-family: inherit;
       text-decoration: underline;
     }
-    .btn-text:hover { color: #155a8f; }
+    .btn-text:hover { color: var(--navy-800); }
 
     .btn-group { display: flex; flex-direction: column; gap: 10px; margin-top: 2rem; }
 
@@ -229,8 +239,8 @@
     .spinner {
       width: 40px;
       height: 40px;
-      border: 3px solid rgba(27,108,168,0.2);
-      border-top-color: #1B6CA8;
+      border: 3px solid rgba(16,42,74,0.2);
+      border-top-color: var(--navy-800);
       border-radius: 50%;
       animation: spin 0.8s linear infinite;
     }
@@ -246,7 +256,7 @@
     .questionnaire-lead {
       font-size: 14px;
       font-weight: 600;
-      color: #1B6CA8;
+      color: var(--navy-800);
       margin-bottom: 16px;
       text-align: center;
       letter-spacing: 0.02em;
@@ -284,12 +294,12 @@
       color: #08131a;
       min-height: 44px;
     }
-    .q-radio-card:hover { border-color: rgba(27,108,168,0.4); background: rgba(27,108,168,0.03); }
-    .q-radio-card.selected { border: 2px solid #1B6CA8; background: rgba(27,108,168,0.05); }
-    .q-radio-card input[type="radio"] { accent-color: #1B6CA8; flex-shrink: 0; }
+    .q-radio-card:hover { border-color: rgba(16,42,74,0.4); background: rgba(16,42,74,0.03); }
+    .q-radio-card.selected { border: 2px solid var(--navy-800); background: rgba(16,42,74,0.05); }
+    .q-radio-card input[type="radio"] { accent-color: var(--navy-800); flex-shrink: 0; }
     .questionnaire-thanks {
       font-size: 14px;
-      color: #1B6CA8;
+      color: var(--navy-800);
       text-align: center;
       opacity: 0;
       transition: opacity 0.5s ease;
@@ -312,8 +322,8 @@
     .edit-hint {
       font-size: 13px;
       color: rgba(8,19,26,0.66);
-      background: rgba(27,108,168,0.05);
-      border-left: 3px solid #1B6CA8;
+      background: rgba(16,42,74,0.05);
+      border-left: 3px solid var(--navy-800);
       padding: 8px 12px;
       border-radius: 0 4px 4px 0;
       margin-bottom: 8px;
@@ -336,7 +346,7 @@
       transition: border-color 0.15s;
       margin-bottom: 10px;
     }
-    .question-textarea:focus { border-color: #1B6CA8; box-shadow: 0 0 0 2px rgba(27,108,168,0.15); }
+    .question-textarea:focus { border-color: var(--navy-800); box-shadow: 0 0 0 2px rgba(16,42,74,0.15); }
 
     /* ─── Screen 3: Why 3 AIs ─── */
     .why-3ai {
@@ -348,7 +358,7 @@
     .why-3ai-title {
       font-size: 16px;
       font-weight: 600;
-      color: #1B6CA8;
+      color: var(--navy-800);
       letter-spacing: 0.04em;
       font-feature-settings: "palt";
       margin-bottom: 10px;
@@ -360,12 +370,12 @@
     .why-3ai-table-wrap { overflow-x: auto; margin-bottom: 14px; }
     .why-3ai-table { width: 100%; border-collapse: collapse; font-size: 13px; }
     .why-3ai-table th {
-      background: rgba(27,108,168,0.08);
-      color: #1B6CA8;
+      background: rgba(16,42,74,0.08);
+      color: var(--navy-800);
       font-weight: 600;
       padding: 8px 12px;
       text-align: left;
-      border-bottom: 2px solid rgba(27,108,168,0.2);
+      border-bottom: 2px solid rgba(16,42,74,0.2);
       white-space: nowrap;
     }
     .why-3ai-table td {
@@ -379,7 +389,7 @@
     .why-3ai-footer { font-size: 13px; color: rgba(8,19,26,0.66); line-height: 1.7; }
 
     /* ─── Keyword highlight ─── */
-    .keyword-highlight { color: #1B6CA8; font-weight: 500; }
+    .keyword-highlight { color: var(--navy-800); font-weight: 500; }
 
     /* ─── Screen 3: Results ─── */
     .result-grid {
@@ -432,11 +442,11 @@
     .insight-panel {
       border-radius: 10px;
       overflow: hidden;
-      border: 1px solid rgba(27,108,168,0.2);
+      border: 1px solid rgba(16,42,74,0.2);
       margin-bottom: 2rem;
     }
     .insight-panel-header {
-      background: #1B6CA8;
+      background: var(--navy-800);
       color: #ffffff;
       padding: 12px 16px;
       display: flex;
@@ -445,22 +455,22 @@
     }
     .insight-panel-title  { font-size: 15px; font-weight: 600; letter-spacing: 0.04em; }
     .insight-panel-badge  { font-size: 11px; background: rgba(255,255,255,0.2); padding: 2px 8px; border-radius: 10px; }
-    .insight-panel-body   { background: rgba(27,108,168,0.04); }
-    .insight-item         { padding: 14px 16px; border-bottom: 1px solid rgba(27,108,168,0.1); }
+    .insight-panel-body   { background: rgba(16,42,74,0.04); }
+    .insight-item         { padding: 14px 16px; border-bottom: 1px solid rgba(16,42,74,0.1); }
     .insight-item:last-child { border-bottom: none; }
-    .insight-label        { font-size: 12px; font-weight: 600; color: #1B6CA8; margin-bottom: 5px; }
+    .insight-label        { font-size: 12px; font-weight: 600; color: var(--navy-800); margin-bottom: 5px; }
     .insight-value        { font-size: 14px; color: #08131a; line-height: 1.6; }
     .insight-value.placeholder { color: rgba(8,19,26,0.35); font-style: italic; }
-    .insight-section-label { padding: 6px 16px; font-size: 11px; font-weight: 600; color: rgba(27,108,168,0.7); background: rgba(27,108,168,0.08); letter-spacing: 0.06em; text-transform: uppercase; }
+    .insight-section-label { padding: 6px 16px; font-size: 11px; font-weight: 600; color: rgba(16,42,74,0.7); background: rgba(16,42,74,0.08); letter-spacing: 0.06em; text-transform: uppercase; }
     .trend-bar-wrap       { display: flex; align-items: center; gap: 10px; margin-bottom: 6px; }
-    .trend-level          { font-size: 12px; font-weight: 600; color: #1B6CA8; min-width: 3.5em; }
-    .trend-bar            { flex: 1; height: 8px; background: rgba(27,108,168,0.15); border-radius: 4px; overflow: hidden; max-width: 160px; }
-    .trend-bar-fill       { height: 100%; background: #1B6CA8; border-radius: 4px; transition: width 0.6s ease; }
+    .trend-level          { font-size: 12px; font-weight: 600; color: var(--navy-800); min-width: 3.5em; }
+    .trend-bar            { flex: 1; height: 8px; background: rgba(16,42,74,0.15); border-radius: 4px; overflow: hidden; max-width: 160px; }
+    .trend-bar-fill       { height: 100%; background: var(--navy-800); border-radius: 4px; transition: width 0.6s ease; }
     .insight-value-text   { font-size: 13px; color: rgba(8,19,26,0.7); line-height: 1.6; }
 
     /* ─── Upsell Block ─── */
-    .upsell-block { border: 1px solid rgba(27,108,168,0.2); border-radius: 12px; overflow: hidden; margin-bottom: 2rem; }
-    .upsell-block-header { background: rgba(27,108,168,0.06); padding: 16px 20px; border-bottom: 1px solid rgba(27,108,168,0.12); }
+    .upsell-block { border: 1px solid rgba(16,42,74,0.2); border-radius: 12px; overflow: hidden; margin-bottom: 2rem; }
+    .upsell-block-header { background: rgba(16,42,74,0.06); padding: 16px 20px; border-bottom: 1px solid rgba(16,42,74,0.12); }
     .upsell-block-title  { font-size: 16px; font-weight: 700; color: #08131a; letter-spacing: 0.04em; font-feature-settings: "palt"; margin-bottom: 6px; }
     .upsell-block-desc   { font-size: 13px; color: rgba(8,19,26,0.66); line-height: 1.6; }
     .upsell-block-body   { padding: 16px 20px; background: #ffffff; }
@@ -472,10 +482,10 @@
     .locked-preview-content { padding: 10px 14px 12px; filter: blur(4px); user-select: none; pointer-events: none; }
     .locked-row { display: flex; align-items: center; gap: 8px; padding: 5px 0; border-bottom: 1px solid rgba(8,19,26,0.07); font-size: 13px; }
     .locked-row:last-child { border-bottom: none; }
-    .locked-rank { font-weight: 600; color: #1B6CA8; min-width: 2em; }
+    .locked-rank { font-weight: 600; color: var(--navy-800); min-width: 2em; }
     .locked-name { flex: 1; color: #08131a; }
     .locked-bar  { width: 80px; height: 7px; background: #dce0e3; border-radius: 4px; overflow: hidden; }
-    .locked-bar-fill { height: 100%; background: #1B6CA8; border-radius: 4px; }
+    .locked-bar-fill { height: 100%; background: var(--navy-800); border-radius: 4px; }
     .locked-pct  { font-size: 12px; color: rgba(8,19,26,0.5); min-width: 2.5em; text-align: right; }
     .locked-overlay {
       position: absolute;
@@ -486,19 +496,19 @@
       justify-content: center;
       background: rgba(255,255,255,0.72);
       gap: 6px;
-      color: #1B6CA8;
+      color: var(--navy-800);
     }
     .locked-overlay svg  { display: block; }
-    .locked-overlay span { font-size: 13px; font-weight: 600; color: #1B6CA8; }
+    .locked-overlay span { font-size: 13px; font-weight: 600; color: var(--navy-800); }
 
     /* ─── Feature List ─── */
     .feature-list { list-style: none; margin-bottom: 16px; display: flex; flex-direction: column; gap: 6px; }
     .feature-list li { display: flex; align-items: center; gap: 8px; font-size: 14px; color: #08131a; }
-    .feature-check { color: #1B6CA8; font-weight: 700; font-size: 15px; flex-shrink: 0; }
+    .feature-check { color: var(--navy-800); font-weight: 700; font-size: 15px; flex-shrink: 0; }
 
     /* ─── Input Summary Badges (Screen 2) ─── */
     .input-summary-badges { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 1.25rem; }
-    .input-badge { font-size: 12px; color: #1B6CA8; background: #f5f8fa; border: 1px solid rgba(27,108,168,0.2); border-radius: 4px; padding: 3px 10px; white-space: nowrap; }
+    .input-badge { font-size: 12px; color: var(--navy-800); background: #f5f8fa; border: 1px solid rgba(16,42,74,0.2); border-radius: 4px; padding: 3px 10px; white-space: nowrap; }
 
     /* ─── Warn Banner (Screen 3) ─── */
     .warn-banner { background: #FFF3CD; border: 1px solid #FFCC00; border-radius: 8px; padding: 12px 16px; font-size: 14px; color: #856404; margin-bottom: 1.5rem; line-height: 1.6; }
@@ -594,7 +604,14 @@
 
   <!-- Header -->
   <header class="header">
-    <a class="header-logo" href="/index.html">AI Brand Insight</a>
+    <a href="/" class="header-logo-link">
+      <img src="assets/images/logo.png" alt="Ops Octopus"
+        class="header-logo-img"
+        onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+      <div class="header-logo-fallback" style="display:none;">
+        <span style="color:var(--off-white);font-weight:700;font-size:16px;">Ops Octopus</span>
+      </div>
+    </a>
     <span class="header-plan">Quick Scan ¥300</span>
   </header>
 
@@ -621,8 +638,8 @@
     <!-- ━━━ Screen 1: Input Form ━━━ -->
     <div class="screen active" id="screen1">
       <div class="container">
-        <h1 class="section-title">AI検索調査を開始する</h1>
-        <p class="section-subtitle">ChatGPT・Claude・Geminiの3つのAIで、あなたのブランド・サービスを調査します。</p>
+        <h1 class="section-title">ブランドのAI上での見え方を調査する</h1>
+        <p class="section-subtitle">ChatGPT・Claude・Geminiに同じ質問を投げ、AI上でのブランドの推奨状況を確認します。</p>
 
         <div class="error-box" id="errorBox1" style="display:none;"></div>
 
@@ -640,7 +657,7 @@
               autocomplete="off"
               spellcheck="false"
             />
-            <p class="form-hint">購入時にメールでお知らせした購入コードを入力してください。</p>
+            <p class="form-hint">ご購入後にメールでお送りした購入コードを入力してください。</p>
           </div>
 
           <div class="form-group">
@@ -655,6 +672,10 @@
               <option value="マーケティング支援・広告代理店">マーケティング支援・広告代理店</option>
               <option value="スクール・資格・習い事">スクール・資格・習い事</option>
               <option value="D2Cブランド / EC">D2Cブランド / EC</option>
+              <option value="製造業・メーカー">製造業・メーカー</option>
+              <option value="飲食・美容・クリニック">飲食・美容・クリニック</option>
+              <option value="旅行・ホテル・観光">旅行・ホテル・観光</option>
+              <option value="その他">その他</option>
             </select>
           </div>
 
@@ -705,7 +726,7 @@
           </div>
 
           <div class="btn-group">
-            <button type="submit" class="btn-primary">次へ → 質問文を生成する</button>
+            <button type="submit" class="btn-primary">次へ → AIが質問を作成します</button>
           </div>
 
         </form>
@@ -715,8 +736,8 @@
     <!-- ━━━ Screen 2: Question Confirm ━━━ -->
     <div class="screen" id="screen2">
       <div class="container">
-        <h2 class="section-title">AIにこんな質問を投げます</h2>
-        <p class="section-subtitle">どんな人がこのキーワードでAIに質問するか、をAIが想定して質問文を作りました。<br>ズレていたら自由に修正できます。</p>
+        <h2 class="section-title">AIへの質問内容を確認してください</h2>
+        <p class="section-subtitle">入力内容をもとにAIが質問を作成しました。内容を確認し、必要であれば修正してください。</p>
 
         <div class="input-summary-badges">
           <span class="input-badge" id="badge-category"></span>
@@ -741,8 +762,8 @@
         </div>
 
         <div class="btn-group">
-          <button class="btn-primary" id="runSurveyBtn" type="button">この質問で調査を実行する</button>
-          <button class="btn-secondary" id="backToInputBtn" type="button">← 入力に戻る</button>
+          <button class="btn-primary" id="runSurveyBtn" type="button">この内容で調査を開始する</button>
+          <button class="btn-secondary" id="backToInputBtn" type="button">← 前の画面に戻る</button>
         </div>
       </div>
     </div>
@@ -757,7 +778,7 @@
         <!-- タイトル行（ダウンロードボタン A） -->
         <div class="result-title-row">
           <div>
-            <h2 class="section-title">AI調査レポート</h2>
+            <h2 class="section-title">AI調査結果</h2>
             <p class="section-subtitle" id="resultSubtitle"></p>
           </div>
           <button class="btn-secondary btn-download" type="button" onclick="downloadReport()">結果を保存する（HTML）</button>
@@ -1037,6 +1058,10 @@
         'マーケティング支援・広告代理店':'例：Web広告運用代行、SEOコンサルサービスなど',
         'スクール・資格・習い事':        '例：オンライン英会話スクール、プログラミングスクールなど',
         'D2Cブランド / EC':            '例：ヘアケアD2Cブランド、フードサブスクサービスなど',
+        '製造業・メーカー':             '例：産業用ロボット、耐熱素材、建材メーカー',
+        '飲食・美容・クリニック':        '例：脱毛サロン、審美歯科、オーガニックカフェ',
+        '旅行・ホテル・観光':           '例：高級旅館、観光バスツアー、グランピング施設',
+        'その他':                      '例：調査したいサービスのカテゴリ名',
       },
       brand: {
         'BtoB SaaS / ITツール':        '例：自社プロダクト名・サービス名',
@@ -1045,6 +1070,10 @@
         'マーケティング支援・広告代理店':'例：自社代理店名・サービス名',
         'スクール・資格・習い事':        '例：自社スクール名・講座名',
         'D2Cブランド / EC':            '例：自社ブランド名・商品名',
+        '製造業・メーカー':             '例：自社製品名・ブランド名',
+        '飲食・美容・クリニック':        '例：自社サロン名・クリニック名・ブランド名',
+        '旅行・ホテル・観光':           '例：自社施設名・サービス名',
+        'その他':                      '例：自社ブランド名・サービス名',
       },
     };
 
@@ -1055,6 +1084,9 @@
       'マーケティング支援・広告代理店':['Web広告運用代行', 'SEOコンサルサービス', 'SNS運用代行', 'コンテンツマーケティング支援', 'インフルエンサーマーケティング'],
       'スクール・資格・習い事':        ['オンライン英会話スクール', 'プログラミングスクール', 'パーソナルトレーニングジム', '英語学習アプリ', '予備校'],
       'D2Cブランド / EC':            ['ヘアケアD2Cブランド', 'フードサブスクサービス', 'サプリメントD2C', '越境ECプラットフォーム', 'ECサイト構築プラットフォーム'],
+      '製造業・メーカー':             ['産業用ロボット', '耐熱素材', '建材メーカー', '工作機械', '精密部品'],
+      '飲食・美容・クリニック':        ['脱毛サロン', '審美歯科', 'オーガニックカフェ', 'パーソナルジム', 'AGAクリニック'],
+      '旅行・ホテル・観光':           ['高級旅館', '観光バスツアー', 'グランピング施設', 'ペットと泊まれる宿', '体験型観光'],
     };
 
     const KEYWORD_HINTS = {
@@ -1274,8 +1306,8 @@
 <title>AI Brand Insight_${escapeHtml(state.keyword)}_${dateStr}</title>
 <style>
 body{font-family:"Helvetica Neue","Hiragino Sans","Hiragino Kaku Gothic ProN",Arial,"Noto Sans JP",Meiryo,sans-serif;max-width:940px;margin:0 auto;padding:2rem 1rem;color:#08131a;line-height:1.7;}
-h1{font-size:22px;color:#1B6CA8;margin-bottom:.25rem;}
-h2{font-size:15px;font-weight:600;border-bottom:2px solid #1B6CA8;padding-bottom:4px;margin:1.75rem 0 .75rem;color:#1B6CA8;}
+h1{font-size:22px;color:#102a4a;margin-bottom:.25rem;}
+h2{font-size:15px;font-weight:600;border-bottom:2px solid #102a4a;padding-bottom:4px;margin:1.75rem 0 .75rem;color:#102a4a;}
 .meta{font-size:13px;color:#5a656b;margin-bottom:1.75rem;display:flex;flex-wrap:wrap;gap:6px;}
 .badge{background:#f5f8fa;border:1px solid #dce0e3;border-radius:4px;padding:2px 8px;}
 .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:.5rem;}
@@ -1284,11 +1316,11 @@ h2{font-size:15px;font-weight:600;border-bottom:2px solid #1B6CA8;padding-bottom
 .dot{width:10px;height:10px;border-radius:50%;display:inline-block;flex-shrink:0;}
 .card p{margin-bottom:8px;font-size:15px;}
 .card ul,.card ol{padding-left:1.2em;margin-bottom:8px;font-size:15px;}
-.insight-panel{border:1px solid rgba(27,108,168,.2);border-radius:10px;overflow:hidden;margin-bottom:1.5rem;}
-.insight-header{background:#1B6CA8;color:#fff;padding:10px 14px;font-size:14px;font-weight:600;}
-.insight-item{padding:12px 14px;border-bottom:1px solid rgba(27,108,168,.1);}
+.insight-panel{border:1px solid rgba(16,42,74,.2);border-radius:10px;overflow:hidden;margin-bottom:1.5rem;}
+.insight-header{background:#102a4a;color:#fff;padding:10px 14px;font-size:14px;font-weight:600;}
+.insight-item{padding:12px 14px;border-bottom:1px solid rgba(16,42,74,.1);}
 .insight-item:last-child{border-bottom:none;}
-.insight-label{font-size:11px;font-weight:600;color:#1B6CA8;margin-bottom:4px;}
+.insight-label{font-size:11px;font-weight:600;color:#102a4a;margin-bottom:4px;}
 .insight-value{font-size:13px;}
 .prompt-box{background:#f5f8fa;border-radius:8px;padding:12px 16px;font-family:SFMono-Regular,Consolas,Menlo,Courier,monospace;font-size:13px;color:#5a656b;white-space:pre-wrap;word-break:break-word;}
 .footer{margin-top:2rem;padding-top:1rem;border-top:1px solid #dce0e3;font-size:12px;color:#9ca7ad;}
