@@ -434,6 +434,11 @@
     .result-content ol { padding-left: 1.2em; margin-bottom: 8px; }
     .result-content li { margin-bottom: 4px; }
     .result-error { color: rgba(8,19,26,0.5); font-size: 14px; font-style: italic; }
+    .result-card strong {
+      font-weight: inherit;
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
 
     /* ─── Prompt Box ─── */
     .prompt-section { margin-bottom: 2rem; }
@@ -951,7 +956,42 @@
           ※ 回答は読みやすさのため140文字程度に要約しています。1回の調査のため結果にブレが生じる場合があります。
         </p>
 
-        <!-- ② なぜ3つのAIに聞くのか -->
+        <!-- ② AIインサイトパネル -->
+        <div class="insight-panel">
+          <div class="insight-panel-header">
+            <span class="insight-panel-title">AIインサイト</span>
+            <span class="insight-panel-badge">このレポート専用</span>
+          </div>
+          <div class="insight-panel-body">
+            <div class="insight-item">
+              <div class="insight-label">3AIの共通見解</div>
+              <div class="insight-value placeholder" id="insight-common">分析中...</div>
+            </div>
+            <div class="insight-item">
+              <div class="insight-label">AIによる言及の差</div>
+              <div class="insight-value placeholder" id="insight-difference">分析中...</div>
+            </div>
+            <div class="insight-item">
+              <div class="insight-label">このキーワードを検索する想定ユーザー</div>
+              <div class="insight-value placeholder" id="insight-persona">分析中...</div>
+            </div>
+            <div class="insight-item">
+              <div class="insight-label">AI回答に現れた注目ワード</div>
+              <div class="insight-value placeholder" id="insight-keywords">分析中...</div>
+            </div>
+            <div class="insight-section-label">この業界の傾向（固定情報）</div>
+            <div class="insight-item">
+              <div class="insight-label">この業界のAI検索利用傾向</div>
+              <div class="insight-value" id="insight-trend"></div>
+            </div>
+            <div class="insight-item">
+              <div class="insight-label">AEO改善のヒント</div>
+              <div class="insight-value" id="insight-hint"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ③ なぜ3つのAIに聞くのか -->
         <div class="why-3ai">
 
           <div class="why-3ai-block">
@@ -998,41 +1038,6 @@
 
           <p class="why-3ai-footer">1つのAIだけに聞いた結果は、そのAIのユーザー層や学習データのクセが反映されます。3つ横断することで、より多くの潜在顧客が実際に目にしているブランド像が浮かび上がります。</p>
 
-        </div>
-
-        <!-- ③ AIインサイトパネル -->
-        <div class="insight-panel">
-          <div class="insight-panel-header">
-            <span class="insight-panel-title">AIインサイト</span>
-            <span class="insight-panel-badge">このレポート専用</span>
-          </div>
-          <div class="insight-panel-body">
-            <div class="insight-item">
-              <div class="insight-label">3AIの共通見解</div>
-              <div class="insight-value placeholder" id="insight-common">分析中...</div>
-            </div>
-            <div class="insight-item">
-              <div class="insight-label">AIによる言及の差</div>
-              <div class="insight-value placeholder" id="insight-difference">分析中...</div>
-            </div>
-            <div class="insight-item">
-              <div class="insight-label">このキーワードを検索する想定ユーザー</div>
-              <div class="insight-value placeholder" id="insight-persona">分析中...</div>
-            </div>
-            <div class="insight-item">
-              <div class="insight-label">AI回答に現れた注目ワード</div>
-              <div class="insight-value placeholder" id="insight-keywords">分析中...</div>
-            </div>
-            <div class="insight-section-label">この業界の傾向（固定情報）</div>
-            <div class="insight-item">
-              <div class="insight-label">この業界のAI検索利用傾向</div>
-              <div class="insight-value" id="insight-trend"></div>
-            </div>
-            <div class="insight-item">
-              <div class="insight-label">AEO改善のヒント</div>
-              <div class="insight-value" id="insight-hint"></div>
-            </div>
-          </div>
         </div>
 
         <!-- ④ Deep Scanへの飢餓感ブロック -->
