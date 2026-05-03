@@ -540,6 +540,39 @@
       to   { opacity: 1; transform: translateY(0); }
     }
 
+    /* ─── Disclaimer ─── */
+    .disclaimer-section {
+      margin-top: 2rem;
+      padding: 16px 20px;
+      background: var(--blue-gray-50);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+    }
+    .disclaimer-title {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+    .disclaimer-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .disclaimer-list li {
+      font-size: 11px;
+      color: var(--text-muted);
+      line-height: 1.7;
+      padding-left: 1em;
+      position: relative;
+    }
+    .disclaimer-list li::before {
+      content: "・";
+      position: absolute;
+      left: 0;
+    }
+
     /* ─── Customer Hint ─── */
     .customer-hint-section {
       margin-bottom: 1.25rem;
@@ -1028,6 +1061,17 @@
           <div class="prompt-box" id="promptDisplay"></div>
         </div>
 
+        <!-- 免責事項 -->
+        <div class="disclaimer-section">
+          <p class="disclaimer-title">免責事項</p>
+          <ul class="disclaimer-list">
+            <li>本レポートはChatGPT / Claude / GeminiのAPIを通じて自動取得した回答を集計・表示したものです。回答内容はAIが生成したものであり、Ops Octopusが内容を監修・保証するものではありません。</li>
+            <li>AIの回答には誤りが含まれる場合があります。第三者への公開・引用・営業利用の際は、購入者の責任で内容をご確認ください。</li>
+            <li>本レポートは調査時点のスナップショットです。時期やモデル更新により回答内容は変動します。</li>
+            <li>本サービスはChatGPT / Claude / Geminiの公式・認定サービスではありません。各名称および回答内容で表示された企業名・商品名等は各社の商標または登録商標です。</li>
+          </ul>
+        </div>
+
         <!-- ダウンロードボタン C（最下部） -->
         <div style="margin-bottom:2rem;">
           <button class="btn-secondary btn-download" type="button" onclick="downloadReport()">結果を保存する（HTML）</button>
@@ -1495,6 +1539,16 @@ h2{font-size:15px;font-weight:600;border-bottom:2px solid #102a4a;padding-bottom
 
 <h2>使用したプロンプト（全文）</h2>
 <div class="prompt-box">${escapeHtml(prompt)}</div>
+
+<div style="margin-top:2rem;padding:16px 20px;background:#f4f7fb;border:1px solid #dce4ef;border-radius:8px;">
+  <p style="font-size:12px;font-weight:600;color:#5f6f85;margin-bottom:8px;">免責事項</p>
+  <ul style="list-style:none;display:flex;flex-direction:column;gap:6px;">
+    <li style="font-size:11px;color:#5f6f85;line-height:1.7;padding-left:1em;position:relative;"><span style="position:absolute;left:0;">・</span>本レポートはChatGPT / Claude / GeminiのAPIを通じて自動取得した回答を集計・表示したものです。回答内容はAIが生成したものであり、Ops Octopusが内容を監修・保証するものではありません。</li>
+    <li style="font-size:11px;color:#5f6f85;line-height:1.7;padding-left:1em;position:relative;"><span style="position:absolute;left:0;">・</span>AIの回答には誤りが含まれる場合があります。第三者への公開・引用・営業利用の際は、購入者の責任で内容をご確認ください。</li>
+    <li style="font-size:11px;color:#5f6f85;line-height:1.7;padding-left:1em;position:relative;"><span style="position:absolute;left:0;">・</span>本レポートは調査時点のスナップショットです。時期やモデル更新により回答内容は変動します。</li>
+    <li style="font-size:11px;color:#5f6f85;line-height:1.7;padding-left:1em;position:relative;"><span style="position:absolute;left:0;">・</span>本サービスはChatGPT / Claude / Geminiの公式・認定サービスではありません。各名称および回答内容で表示された企業名・商品名等は各社の商標または登録商標です。</li>
+  </ul>
+</div>
 
 <div class="footer">AI Brand Insight Quick Scan ／ 本レポートは生成AIの回答を集計・要約したものです。</div>
 </body>
