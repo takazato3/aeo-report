@@ -355,18 +355,17 @@
       padding: 20px 24px;
       margin-bottom: 2rem;
     }
-    .why-3ai-title {
-      font-size: 16px;
-      font-weight: 600;
-      color: var(--navy-800);
-      letter-spacing: 0.04em;
-      font-feature-settings: "palt";
-      margin-bottom: 10px;
+    .why-3ai-block { margin-bottom: 1.5rem; }
+    .why-3ai-heading {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text-dark);
+      margin-bottom: 8px;
+      line-height: 1.5;
     }
-    .why-3ai-body { font-size: 14px; color: rgba(8,19,26,0.8); line-height: 1.7; margin-bottom: 4px; }
-    .why-3ai-cite { font-size: 11px; color: rgba(8,19,26,0.5); margin-bottom: 12px; }
-    .why-3ai-cite a { color: rgba(8,19,26,0.5); }
-    .why-3ai-emphasis { font-size: 14px; font-weight: 600; color: #08131a; margin-bottom: 14px; }
+    .why-3ai-body { font-size: 14px; color: rgba(8,19,26,0.8); line-height: 1.8; margin-bottom: 6px; }
+    .why-3ai-cite { font-size: 11px; color: var(--text-muted); line-height: 1.6; }
+    .why-3ai-cite a { color: var(--text-muted); word-break: break-all; }
     .why-3ai-table-wrap { overflow-x: auto; margin-bottom: 14px; }
     .why-3ai-table { width: 100%; border-collapse: collapse; font-size: 13px; }
     .why-3ai-table th {
@@ -941,10 +940,24 @@
 
         <!-- ② なぜ3つのAIに聞くのか -->
         <div class="why-3ai">
-          <div class="why-3ai-title">なぜ3つのAIに聞くのか</div>
-          <p class="why-3ai-body">日本国内の生成AIアシスタント利用者数は、ChatGPTが約931万人でトップ、Geminiが約261万人で続きます。ChatGPTとClaudeは20〜30代のビジネス職の利用割合が高く、Geminiはより幅広い年代に使われています。</p>
-          <p class="why-3ai-cite">※ 2025年3月ニールセン デジタルの発表。<a href="https://markezine.jp/news/detail/49204" target="_blank" rel="noopener">MarkeZine記事</a></p>
-          <p class="why-3ai-emphasis">つまり、あなたのブランドを検索する人によって、使うAIが違います。</p>
+
+          <div class="why-3ai-block">
+            <p class="why-3ai-heading">AIを使っている消費者は、今や「2人に1人」の時代へ</p>
+            <p class="why-3ai-body">「AIはまだ一部の人が使うもの」という認識は、過去のものになりつつあります。最新の調査によれば、日本国内の生成AIサービス利用者数は急増しており、2026年末には3,553万人に達する見込みです。普段からネットやスマホを利用する層の過半数（54.7%）が日常的にAIを利用しており、消費者の「検索」や「お店選び」のスタイルは根本から変わり始めています。</p>
+            <p class="why-3ai-cite">出典：2026年2月 ICT総研調査　<a href="https://ictr.co.jp/report/20260220.html/" target="_blank" rel="noopener">https://ictr.co.jp/report/20260220.html/</a></p>
+          </div>
+
+          <div class="why-3ai-block">
+            <p class="why-3ai-heading">なぜ3つのAIで回答が異なるのか</p>
+            <p class="why-3ai-body">ChatGPT / Gemini / Claudeは、それぞれ異なるデータや仕組みで動いている「別々の知能」です。そのため、同じ質問を投げても「推薦されるブランド」や「勧める理由」が異なることがよくあります。1つのAIの結果だけを見ていると、そのAI特有の「偏り」を、市場全体の評価だと誤認してしまうリスクがあります。3つのAIを横断してチェックすることで、初めて「デジタル上の評判」を多角的に、正しく把握することが可能になります。</p>
+          </div>
+
+          <div class="why-3ai-block">
+            <p class="why-3ai-heading">お客様の属性により、主戦場となるAIは変わる</p>
+            <p class="why-3ai-body">国内のAI利用経験率は48.5%に達し、若者、ビジネス層を中心に浸透が進んでいます。さらに、お客様（消費者）の年齢や仕事、利用シーンによって、よく使われるAIは異なります。カバー率の高いChatGPTでの評価を軸にしつつ、検索行動に直結するGeminiなど、お客様の属性に合わせてどのAIを重視すべきかを判断することが重要です。</p>
+            <p class="why-3ai-cite">出典：2026年3月 日本リサーチセンター（NRC）調査　<a href="https://www.nrc.co.jp/report/260410.html" target="_blank" rel="noopener">https://www.nrc.co.jp/report/260410.html</a></p>
+          </div>
+
           <div class="why-3ai-table-wrap">
             <table class="why-3ai-table">
               <thead>
@@ -953,23 +966,25 @@
               <tbody>
                 <tr>
                   <td><div class="why-3ai-ai-cell"><div class="ai-dot" style="background:#10a37f;"></div>ChatGPT</div></td>
-                  <td>利用者数No.1・ビジネス層に強い</td>
-                  <td>網羅的・構造的な回答を返す傾向</td>
-                </tr>
-                <tr>
-                  <td><div class="why-3ai-ai-cell"><div class="ai-dot" style="background:#CC785C;"></div>Claude</div></td>
-                  <td>20〜30代・高関与ユーザー層</td>
-                  <td>文脈を踏まえた分析的な回答が多い</td>
+                  <td>圧倒的な知名度と普及率。ビジネス層を中心に幅広く支持。</td>
+                  <td>情報を整理して分かりやすく答えるのが得意</td>
                 </tr>
                 <tr>
                   <td><div class="why-3ai-ai-cell"><div class="ai-dot" style="background:#4285F4;"></div>Gemini</div></td>
-                  <td>Google検索連携・幅広い層</td>
-                  <td>検索エンジンに近い文脈で回答する傾向</td>
+                  <td>Google検索やAndroid、Chromeへの統合により急進中。全世代で浸透が進む。</td>
+                  <td>最新情報や検索エンジンに近い文脈で回答する傾向</td>
+                </tr>
+                <tr>
+                  <td><div class="why-3ai-ai-cell"><div class="ai-dot" style="background:#CC785C;"></div>Claude</div></td>
+                  <td>20〜30代、エンジニアやクリエーター、専門職など特定の職域に強い支持。</td>
+                  <td>文脈を踏まえた自然な対話や、深い分析が得意</td>
                 </tr>
               </tbody>
             </table>
           </div>
+
           <p class="why-3ai-footer">1つのAIだけに聞いた結果は、そのAIのユーザー層や学習データのクセが反映されます。3つ横断することで、より多くの潜在顧客が実際に目にしているブランド像が浮かび上がります。</p>
+
         </div>
 
         <!-- ③ AIインサイトパネル -->
