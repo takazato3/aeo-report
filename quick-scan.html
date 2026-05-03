@@ -390,6 +390,19 @@
     /* ─── Keyword highlight ─── */
     .keyword-highlight { color: var(--navy-800); font-weight: 500; }
 
+    /* ─── Keyword tag ─── */
+    .keyword-tag {
+      display: inline-block;
+      background: var(--blue-gray-50);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 2px 8px;
+      font-size: 12px;
+      color: var(--text-dark);
+      margin: 2px 3px 2px 0;
+      line-height: 1.6;
+    }
+
     /* ─── Screen 3: Results ─── */
     .result-grid {
       display: grid;
@@ -1006,6 +1019,10 @@
               <div class="insight-label">このキーワードを検索する想定ユーザー</div>
               <div class="insight-value placeholder" id="insight-persona">分析中...</div>
             </div>
+            <div class="insight-item">
+              <div class="insight-label">AI回答に現れた注目ワード</div>
+              <div class="insight-value placeholder" id="insight-keywords">分析中...</div>
+            </div>
             <div class="insight-section-label">この業界の傾向（固定情報）</div>
             <div class="insight-item">
               <div class="insight-label">この業界のAI検索利用傾向</div>
@@ -1455,6 +1472,18 @@
         }
       });
 
+      const keywordsEl = $('insight-keywords');
+      if (insight?.keywords) {
+        const tags = insight.keywords.split(',').map(k => k.trim()).filter(k => k);
+        keywordsEl.innerHTML = tags.map(tag =>
+          `<span class="keyword-tag">${tag}</span>`
+        ).join('');
+        keywordsEl.className = 'insight-value';
+      } else {
+        keywordsEl.textContent = '分析中...';
+        keywordsEl.className = 'insight-value placeholder';
+      }
+
       // 静的2項目：categories.jsonから取得
       const cat = categoriesData[state.category];
       if (cat) {
@@ -1494,6 +1523,7 @@
       const iCommon    = $('insight-common').textContent    || '';
       const iDiff      = $('insight-difference').textContent || '';
       const iPersona   = $('insight-persona').textContent   || '';
+      const iKeywords  = $('insight-keywords').innerHTML    || '';
       const iTrend     = $('insight-trend').textContent     || '';
       const iHint      = $('insight-hint').textContent      || '';
 
@@ -1521,6 +1551,7 @@ h2{font-size:15px;font-weight:600;border-bottom:2px solid #102a4a;padding-bottom
 .insight-item:last-child{border-bottom:none;}
 .insight-label{font-size:11px;font-weight:600;color:#102a4a;margin-bottom:4px;}
 .insight-value{font-size:13px;}
+.keyword-tag { display:inline-block; background:#f4f7fb; border:1px solid #dce4ef; border-radius:4px; padding:2px 8px; font-size:12px; color:#132033; margin:2px 3px 2px 0; }
 .prompt-box{background:#f5f8fa;border-radius:8px;padding:12px 16px;font-family:SFMono-Regular,Consolas,Menlo,Courier,monospace;font-size:13px;color:#5a656b;white-space:pre-wrap;word-break:break-word;}
 .footer{margin-top:2rem;padding-top:1rem;border-top:1px solid #dce0e3;font-size:12px;color:#9ca7ad;}
 @media(max-width:640px){.grid{grid-template-columns:1fr;}}
@@ -1548,6 +1579,7 @@ h2{font-size:15px;font-weight:600;border-bottom:2px solid #102a4a;padding-bottom
   <div class="insight-item"><div class="insight-label">3AIの共通見解</div><div class="insight-value">${escapeHtml(iCommon)}</div></div>
   <div class="insight-item"><div class="insight-label">AIによる言及の差</div><div class="insight-value">${escapeHtml(iDiff)}</div></div>
   <div class="insight-item"><div class="insight-label">このキーワードを検索する想定ユーザー</div><div class="insight-value">${escapeHtml(iPersona)}</div></div>
+  <div class="insight-item"><div class="insight-label">AI回答に現れた注目ワード</div><div class="insight-value">${iKeywords}</div></div>
   <div class="insight-item"><div class="insight-label">この業界のAI検索利用傾向</div><div class="insight-value">${escapeHtml(iTrend)}</div></div>
   <div class="insight-item"><div class="insight-label">AEO改善のヒント</div><div class="insight-value">${escapeHtml(iHint)}</div></div>
 </div>
