@@ -403,13 +403,13 @@
 
     /* ── 3AI cards ── */
     .result-grid { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 14px; margin-bottom: .5rem; }
-    .card { border: 1px solid #b9c7d8; background: #fff; display: flex; flex-direction: column; }
+    .card { border: 1px solid #b9c7d8; background: #fff; display: flex; flex-direction: column; border-radius: 0; }
     .card-header { display: flex; align-items: center; gap: 8px; font-weight: 760; font-size: 13px; padding: 11px 14px; border-bottom: 1px solid var(--border); background: #fbfcfe; color: var(--navy-800); }
     .dot { width: 9px; height: 9px; border-radius: 50%; display: inline-block; flex-shrink: 0; }
     .result-content { padding: 14px; font-size: 13px; color: #243143; flex: 1; }
     .result-content p { margin: 0 0 8px; }
     .result-content p:last-child { margin-bottom: 0; }
-    .keyword-highlight { background: linear-gradient(transparent 60%, rgba(251,191,36,.28) 60%); }
+    .keyword-highlight { }
 
     /* ── insight panel ── */
     .insight-panel { border: 1px solid #b9c7d8; background: #fff; overflow: hidden; margin-bottom: 1.5rem; }
@@ -851,7 +851,12 @@
 
     <!-- ━━━ Screen 3: Results ━━━ -->
     <div class="screen" id="screen3">
-      <div class="warn-banner">⚠️ このページを閉じると結果は消えます。今すぐ「結果を保存する」ボタンで保存してください。</div>
+      <div class="warn-banner">
+        ⚠️ このページを閉じると結果は消えます。今すぐ保存してください。
+        <div style="margin-top:8px;">
+          <button class="btn-secondary btn-download" type="button" onclick="downloadReport()">結果を保存する（HTML）</button>
+        </div>
+      </div>
 
       <div class="report-shell">
 
@@ -871,7 +876,7 @@
             <p class="cover-note">※ 回答は読みやすさのため140文字程度に要約しています。</p>
           </div>
           <div class="cover-side">
-            <div class="document-label">Survey Report</div>
+            <div class="document-label">Report Profile</div>
             <div class="meta">
               <div class="meta-row-label">調査日時</div>
               <div class="meta-row-value" id="reportDateTime">—</div>
@@ -882,7 +887,6 @@
               <div class="meta-row-label">キーワード</div>
               <div class="meta-row-value" id="reportKeyword">—</div>
             </div>
-            <button class="btn-secondary btn-download" type="button" onclick="downloadReport()">結果を保存する（HTML）</button>
           </div>
         </div><!-- /report-cover -->
 
@@ -895,21 +899,29 @@
               <div class="section-number">01</div>
               <h2 class="section-heading">3AI回答</h2>
             </div>
+            <p class="section-lead">同一の質問（プロンプト）に対する3AIの回答を比較します。</p>
             <div class="result-grid">
               <div class="card">
                 <div class="card-header"><span class="dot" style="background:#10a37f;"></span>ChatGPT</div>
                 <div class="result-content" id="result-chatgpt"></div>
               </div>
               <div class="card">
-                <div class="card-header"><span class="dot" style="background:#CC785C;"></span>Claude</div>
-                <div class="result-content" id="result-claude"></div>
-              </div>
-              <div class="card">
                 <div class="card-header"><span class="dot" style="background:#4285F4;"></span>Gemini</div>
                 <div class="result-content" id="result-gemini"></div>
               </div>
+              <div class="card">
+                <div class="card-header"><span class="dot" style="background:#CC785C;"></span>Claude</div>
+                <div class="result-content" id="result-claude"></div>
+              </div>
             </div>
             <p style="font-size:12px;color:var(--text-muted);margin-top:.5rem;">※ 回答は読みやすさのため140文字程度に要約しています。1回の調査のため結果にブレが生じる場合があります。</p>
+          </div>
+
+          <div class="warn-banner">
+            ⚠️ このページを閉じると結果は消えます。今すぐ保存してください。
+            <div style="margin-top:8px;">
+              <button class="btn-secondary btn-download" type="button" onclick="downloadReport()">結果を保存する（HTML）</button>
+            </div>
           </div>
 
           <!-- 02: AIインサイト -->
@@ -1000,6 +1012,13 @@
             </div>
           </div>
 
+          <div class="warn-banner">
+            ⚠️ このページを閉じると結果は消えます。今すぐ保存してください。
+            <div style="margin-top:8px;">
+              <button class="btn-secondary btn-download" type="button" onclick="downloadReport()">結果を保存する（HTML）</button>
+            </div>
+          </div>
+
           <!-- 04: Deep Scan -->
           <div class="report-section">
             <div class="section-kicker">
@@ -1077,10 +1096,16 @@
             </ul>
           </div>
 
+          <div class="warn-banner">
+            ⚠️ このページを閉じると結果は消えます。今すぐ保存してください。
+            <div style="margin-top:8px;">
+              <button class="btn-secondary btn-download" type="button" onclick="downloadReport()">結果を保存する（HTML）</button>
+            </div>
+          </div>
+
           <!-- Report Footer -->
           <div class="report-footer">
             <span>Ops Octopus – AI Brand Insight Quick Scan</span>
-            <button class="btn-secondary btn-download" type="button" onclick="downloadReport()">結果を保存する（HTML）</button>
           </div>
 
         </div><!-- /report-body -->
