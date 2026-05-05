@@ -348,246 +348,189 @@
     }
     .question-textarea:focus { border-color: var(--navy-800); box-shadow: 0 0 0 2px rgba(16,42,74,0.15); }
 
-    /* ─── Screen 3: Why 3 AIs ─── */
-    .why-3ai {
-      background: #f5f8fa;
-      border-radius: 12px;
-      padding: 20px 24px;
-      margin-bottom: 2rem;
+    /* ── report shell ── */
+    .report-shell {
+      width: min(1080px, calc(100% - 32px));
+      margin: 32px auto;
+      background: var(--white);
+      border: 1px solid #b9c7d8;
+      box-shadow: 0 18px 42px rgba(6,20,38,.10);
     }
+
+    /* ── cover ── */
+    .report-cover {
+      display: grid;
+      grid-template-columns: 1.1fr .9fr;
+      min-height: 190px;
+      border-bottom: 1px solid #b9c7d8;
+    }
+    .cover-main {
+      padding: 34px 42px 30px;
+      background: var(--navy-900);
+      color: var(--off-white);
+      position: relative;
+      overflow: hidden;
+    }
+    .cover-main::after {
+      content: "";
+      position: absolute;
+      right: -80px; top: -120px;
+      width: 300px; height: 300px;
+      border: 1px solid rgba(251,191,36,.22);
+      transform: rotate(18deg);
+    }
+    .brand-lockup { display: flex; align-items: center; gap: 10px; margin-bottom: 26px; position: relative; z-index: 1; }
+    .brand-mark { width: 28px; height: 28px; border-radius: 9px; background: var(--amber-400); display: grid; place-items: center; font-size: 16px; filter: grayscale(1); }
+    .brand-text { font-size: 13px; font-weight: 700; letter-spacing: .04em; }
+    .brand-sub { font-size: 11px; color: rgba(251,250,246,.72); margin-top: 1px; }
+    .report-title { margin: 0; font-size: clamp(22px,3vw,30px); line-height: 1.25; font-weight: 760; color: var(--off-white); position: relative; z-index: 1; }
+    .cover-note { margin-top: 14px; color: rgba(251,250,246,.76); font-size: 13px; position: relative; z-index: 1; }
+    .cover-side { padding: 34px 34px 30px; background: linear-gradient(180deg,#fff 0%,#f7f9fc 100%); display: flex; flex-direction: column; }
+    .document-label { display: inline-flex; align-items: center; gap: 7px; font-size: 11px; letter-spacing: .12em; font-weight: 800; color: var(--navy-800); text-transform: uppercase; margin-bottom: 18px; }
+    .document-label::before { content: ""; width: 28px; height: 3px; background: var(--amber-400); display: inline-block; }
+    .meta { display: grid; grid-template-columns: 96px 1fr; border-top: 1px solid var(--border); border-left: 1px solid var(--border); font-size: 12px; margin-bottom: 16px; }
+    .meta-row-label, .meta-row-value { padding: 9px 10px; border-right: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    .meta-row-label { background: #f8fafc; color: var(--text-muted); font-weight: 700; }
+    .meta-row-value { background: #fff; color: var(--text-dark); }
+
+    /* ── report body ── */
+    .report-body { padding: 34px 42px 42px; }
+    .report-section { margin: 0 0 34px; }
+    .section-kicker { display: flex; align-items: center; gap: 12px; margin: 0 0 14px; }
+    .section-number { width: 34px; height: 24px; background: var(--navy-800); color: #fff; display: grid; place-items: center; font-size: 11px; font-weight: 800; letter-spacing: .06em; flex-shrink: 0; }
+    .section-heading { margin: 0; font-size: 18px; line-height: 1.4; font-weight: 760; color: var(--navy-800); }
+    .section-lead { margin: -6px 0 16px 46px; font-size: 12px; color: var(--text-muted); }
+
+    /* ── 3AI cards ── */
+    .result-grid { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 14px; margin-bottom: .5rem; }
+    .card { border: 1px solid #b9c7d8; background: #fff; display: flex; flex-direction: column; }
+    .card-header { display: flex; align-items: center; gap: 8px; font-weight: 760; font-size: 13px; padding: 11px 14px; border-bottom: 1px solid var(--border); background: #fbfcfe; color: var(--navy-800); }
+    .dot { width: 9px; height: 9px; border-radius: 50%; display: inline-block; flex-shrink: 0; }
+    .result-content { padding: 14px; font-size: 13px; color: #243143; flex: 1; }
+    .result-content p { margin: 0 0 8px; }
+    .result-content p:last-child { margin-bottom: 0; }
+    .keyword-highlight { background: linear-gradient(transparent 60%, rgba(251,191,36,.28) 60%); }
+
+    /* ── insight panel ── */
+    .insight-panel { border: 1px solid #b9c7d8; background: #fff; overflow: hidden; margin-bottom: 1.5rem; }
+    .insight-header { background: var(--navy-800); color: #fff; padding: 12px 16px; font-size: 13px; font-weight: 760; letter-spacing: .02em; }
+    .insight-item { display: grid; grid-template-columns: 210px 1fr; border-bottom: 1px solid var(--border); }
+    .insight-item:last-child { border-bottom: none; }
+    .insight-label { font-size: 11px; font-weight: 760; color: var(--navy-800); padding: 13px 14px; background: #f8fafc; border-right: 1px solid var(--border); }
+    .insight-value { padding: 13px 15px; font-size: 13px; color: #243143; }
+    .insight-value.placeholder { color: var(--text-muted); font-style: italic; }
+    .keyword-tag { display: inline-block; background: #fff; border: 1px solid #b9c7d8; padding: 2px 8px; font-size: 11px; color: #243143; margin: 2px 3px 2px 0; }
+
+    /* ── why-3ai ── */
+    .why-3ai { border: 1px solid #b9c7d8; background: #fff; padding: 24px 28px; margin-bottom: 1.5rem; }
     .why-3ai-block { margin-bottom: 1.5rem; }
-    .why-3ai-heading {
-      font-size: 15px;
-      font-weight: 700;
-      color: var(--text-dark);
-      margin-bottom: 8px;
-      line-height: 1.5;
-    }
-    .why-3ai-body { font-size: 14px; color: rgba(8,19,26,0.8); line-height: 1.8; margin-bottom: 6px; }
-    .why-3ai-cite { font-size: 11px; color: var(--text-muted); line-height: 1.6; }
+    .why-3ai-heading { font-size: 14px; font-weight: 760; color: var(--navy-800); margin: 0 0 6px; }
+    .why-3ai-body { font-size: 13px; color: #243143; line-height: 1.8; margin: 0 0 6px; }
+    .why-3ai-cite { font-size: 11px; color: var(--text-muted); line-height: 1.6; margin: 0; }
     .why-3ai-cite a { color: var(--text-muted); word-break: break-all; }
     .why-3ai-table-wrap { overflow-x: auto; margin-bottom: 14px; }
     .why-3ai-table { width: 100%; border-collapse: collapse; font-size: 13px; }
-    .why-3ai-table th {
-      background: rgba(16,42,74,0.08);
-      color: var(--navy-800);
-      font-weight: 600;
-      padding: 8px 12px;
-      text-align: left;
-      border-bottom: 2px solid rgba(16,42,74,0.2);
-      white-space: nowrap;
-    }
-    .why-3ai-table td {
-      padding: 8px 12px;
-      border-bottom: 1px solid rgba(8,19,26,0.08);
-      color: rgba(8,19,26,0.8);
-      vertical-align: top;
-    }
-    .why-3ai-table tr:last-child td { border-bottom: none; }
-    .why-3ai-ai-cell { display: flex; align-items: center; gap: 6px; font-weight: 500; color: #08131a; white-space: nowrap; }
-    .why-3ai-footer { font-size: 13px; color: rgba(8,19,26,0.66); line-height: 1.7; }
+    .why-3ai-table th { background: #f8fafc; padding: 9px 12px; border: 1px solid var(--border); font-weight: 760; color: var(--navy-800); text-align: left; }
+    .why-3ai-table td { padding: 9px 12px; border: 1px solid var(--border); color: #243143; vertical-align: top; }
+    .why-3ai-ai-cell { display: flex; align-items: center; gap: 6px; font-weight: 500; white-space: nowrap; }
+    .why-3ai-footer { font-size: 12px; color: var(--text-muted); line-height: 1.7; margin: 0; }
 
-    /* ─── Keyword highlight ─── */
-    .keyword-highlight { color: var(--navy-800); font-weight: 500; }
+    /* ── upsell ── */
+    .upsell-block { border: 1px solid rgba(16,42,74,.2); overflow: hidden; margin-bottom: 2rem; }
+    .upsell-block-header { background: rgba(16,42,74,.06); padding: 16px 20px; border-bottom: 1px solid rgba(16,42,74,.12); }
+    .upsell-block-title { font-size: 16px; font-weight: 700; color: #08131a; margin-bottom: 6px; }
+    .upsell-block-desc { font-size: 13px; color: rgba(8,19,26,.66); line-height: 1.6; margin: 0; }
+    .upsell-block-body { padding: 16px 20px; background: #fff; }
 
-    /* ─── Keyword tag ─── */
-    .keyword-tag {
-      display: inline-block;
-      background: var(--blue-gray-50);
-      border: 1px solid var(--border);
-      border-radius: 4px;
-      padding: 2px 8px;
-      font-size: 12px;
-      color: var(--text-dark);
-      margin: 2px 3px 2px 0;
-      line-height: 1.6;
-    }
+    /* ── prompt ── */
+    .prompt-box { background: #fbfcfe; border: 1px solid #b9c7d8; border-left: 4px solid var(--navy-800); padding: 14px 16px; font-family: SFMono-Regular,Consolas,Menlo,Courier,monospace; font-size: 12px; color: #3e4a5c; white-space: pre-wrap; word-break: break-word; }
 
-    /* ─── Screen 3: Results ─── */
-    .result-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 16px;
-      margin-bottom: 2rem;
-    }
-    @media (max-width: 639px)  { .result-grid { grid-template-columns: 1fr; } }
-    @media (min-width: 640px) and (max-width: 959px) { .result-grid { grid-template-columns: repeat(2, 1fr); } }
+    /* ── disclaimer ── */
+    .disclaimer { margin-top: 2rem; padding: 16px 18px; background: #fbfcfe; border: 1px solid #b9c7d8; }
+    .disclaimer p { font-size: 12px; font-weight: 760; color: var(--navy-800); margin: 0 0 8px; }
+    .disclaimer ul { list-style: none; display: flex; flex-direction: column; gap: 6px; margin: 0; padding: 0; }
+    .disclaimer li { font-size: 11px; color: var(--text-muted); line-height: 1.75; padding-left: 1em; position: relative; }
+    .disclaimer li span { position: absolute; left: 0; }
 
-    .result-card {
-      background: #ffffff;
-      border: 1px solid rgba(8,19,26,0.14);
-      border-radius: 12px;
-      padding: 16px 20px;
-      box-shadow: 0px 1px 3px 1px rgba(0,0,0,0.08), 0px 1px 2px 0px rgba(0,0,0,0.12);
-    }
-    .result-card-header { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; }
-    .ai-dot  { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
-    .ai-name { font-size: 14px; font-weight: 600; color: #08131a; }
+    /* ── report footer ── */
+    .report-footer { margin-top: 2rem; padding-top: 1rem; border-top: 1px solid #b9c7d8; font-size: 11px; color: var(--text-muted); display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; }
 
-    .result-content { font-size: 15px; color: #08131a; line-height: 1.7; }
-    .result-content h1,
-    .result-content h2,
-    .result-content h3 { font-size: 15px; font-weight: 600; margin-bottom: 6px; }
-    .result-content p  { margin-bottom: 8px; }
-    .result-content p:last-child { margin-bottom: 0; }
-    .result-content ul,
-    .result-content ol { padding-left: 1.2em; margin-bottom: 8px; }
-    .result-content li { margin-bottom: 4px; }
-    .result-error { color: rgba(8,19,26,0.5); font-size: 14px; font-style: italic; }
-    .result-card strong {
-      font-weight: inherit;
-      text-decoration: underline;
-      text-underline-offset: 2px;
+    /* ── responsive ── */
+    @media (max-width: 780px) {
+      .report-shell { width: 100%; margin: 0; border-left: none; border-right: none; }
+      .report-cover { grid-template-columns: 1fr; }
+      .cover-main, .cover-side, .report-body { padding: 26px 20px; }
+      .result-grid { grid-template-columns: 1fr; }
+      .insight-item { grid-template-columns: 1fr; }
+      .insight-label { border-right: none; border-bottom: 1px solid var(--border); }
+      .section-lead { margin-left: 0; }
+      .report-footer { flex-direction: column; align-items: flex-start; }
     }
 
-    /* ─── Prompt Box ─── */
-    .prompt-section { margin-bottom: 2rem; }
-    .prompt-section-title { font-size: 14px; font-weight: 600; color: rgba(8,19,26,0.66); margin-bottom: 8px; }
-    .prompt-box {
-      background: #f5f8fa;
-      border-radius: 8px;
-      padding: 12px 16px;
-      font-family: SFMono-Regular, Consolas, Menlo, Courier, monospace;
-      font-size: 13px;
-      color: #5a656b;
-      line-height: 1.6;
-      white-space: pre-wrap;
-      word-break: break-word;
+    @media print {
+      html, body { background: #fff; }
+      .report-shell { width: 100%; margin: 0; border: none; box-shadow: none; }
+      .report-body { padding: 26px 32px; }
+      .card, .insight-panel, .prompt-box, .disclaimer { break-inside: avoid; }
+      .warn-banner, .btn-download { display: none; }
     }
 
-    /* ─── Insight Panel ─── */
-    .insight-panel {
-      border-radius: 10px;
-      overflow: hidden;
-      border: 1px solid rgba(16,42,74,0.2);
-      margin-bottom: 2rem;
-    }
-    .insight-panel-header {
-      background: var(--navy-800);
-      color: #ffffff;
-      padding: 12px 16px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-    .insight-panel-title  { font-size: 15px; font-weight: 600; letter-spacing: 0.04em; }
-    .insight-panel-badge  { font-size: 11px; background: rgba(255,255,255,0.2); padding: 2px 8px; border-radius: 10px; }
-    .insight-panel-body   { background: rgba(16,42,74,0.04); }
-    .insight-item         { padding: 14px 16px; border-bottom: 1px solid rgba(16,42,74,0.1); }
-    .insight-item:last-child { border-bottom: none; }
-    .insight-label        { font-size: 12px; font-weight: 600; color: var(--navy-800); margin-bottom: 5px; }
-    .insight-value        { font-size: 14px; color: #08131a; line-height: 1.6; }
-    .insight-value.placeholder { color: rgba(8,19,26,0.35); font-style: italic; }
-    .insight-section-label { padding: 6px 16px; font-size: 11px; font-weight: 600; color: rgba(16,42,74,0.7); background: rgba(16,42,74,0.08); letter-spacing: 0.06em; text-transform: uppercase; }
-    .trend-bar-wrap       { display: flex; align-items: center; gap: 10px; margin-bottom: 6px; }
-    .trend-level          { font-size: 12px; font-weight: 600; color: var(--navy-800); min-width: 3.5em; }
-    .trend-bar            { flex: 1; height: 8px; background: rgba(16,42,74,0.15); border-radius: 4px; overflow: hidden; max-width: 160px; }
-    .trend-bar-fill       { height: 100%; background: var(--navy-800); border-radius: 4px; transition: width 0.6s ease; }
-    .insight-value-text   { font-size: 13px; color: rgba(8,19,26,0.7); line-height: 1.6; }
 
-    /* ─── Upsell Block ─── */
-    .upsell-block { border: 1px solid rgba(16,42,74,0.2); border-radius: 12px; overflow: hidden; margin-bottom: 2rem; }
-    .upsell-block-header { background: rgba(16,42,74,0.06); padding: 16px 20px; border-bottom: 1px solid rgba(16,42,74,0.12); }
-    .upsell-block-title  { font-size: 16px; font-weight: 700; color: #08131a; letter-spacing: 0.04em; font-feature-settings: "palt"; margin-bottom: 6px; }
-    .upsell-block-desc   { font-size: 13px; color: rgba(8,19,26,0.66); line-height: 1.6; }
-    .upsell-block-body   { padding: 16px 20px; background: #ffffff; }
+    /* ── result error ── */
+    .result-error { color: rgba(8,19,26,.5); font-size: 14px; font-style: italic; }
+    .result-content strong { font-weight: inherit; text-decoration: underline; text-underline-offset: 2px; }
 
-    /* ─── Locked Preview ─── */
-    .locked-preview { border: 1px solid rgba(8,19,26,0.14); border-radius: 10px; overflow: hidden; margin-bottom: 16px; }
-    .locked-preview-label { font-size: 12px; font-weight: 600; color: rgba(8,19,26,0.66); padding: 9px 14px; background: #f5f8fa; border-bottom: 1px solid rgba(8,19,26,0.08); }
-    .locked-preview-body  { position: relative; }
+    /* ── trend bar (JS-rendered) ── */
+    .trend-bar-wrap { display: flex; align-items: center; gap: 10px; margin-bottom: 6px; }
+    .trend-level { font-size: 12px; font-weight: 600; color: var(--navy-800); min-width: 3.5em; }
+    .trend-bar { flex: 1; height: 8px; background: rgba(16,42,74,.15); border-radius: 4px; overflow: hidden; max-width: 160px; }
+    .trend-bar-fill { height: 100%; background: var(--navy-800); border-radius: 4px; transition: width .6s ease; }
+    .insight-value-text { font-size: 13px; color: rgba(8,19,26,.7); line-height: 1.6; margin-bottom: 0; }
+
+    /* ── locked preview (upsell) ── */
+    .locked-preview { border: 1px solid rgba(8,19,26,.14); border-radius: 10px; overflow: hidden; margin-bottom: 16px; }
+    .locked-preview-label { font-size: 12px; font-weight: 600; color: rgba(8,19,26,.66); padding: 9px 14px; background: #f5f8fa; border-bottom: 1px solid rgba(8,19,26,.08); }
+    .locked-preview-body { position: relative; }
     .locked-preview-content { padding: 10px 14px 12px; filter: blur(4px); user-select: none; pointer-events: none; }
-    .locked-row { display: flex; align-items: center; gap: 8px; padding: 5px 0; border-bottom: 1px solid rgba(8,19,26,0.07); font-size: 13px; }
+    .locked-row { display: flex; align-items: center; gap: 8px; padding: 5px 0; border-bottom: 1px solid rgba(8,19,26,.07); font-size: 13px; }
     .locked-row:last-child { border-bottom: none; }
     .locked-rank { font-weight: 600; color: var(--navy-800); min-width: 2em; }
     .locked-name { flex: 1; color: #08131a; }
     .locked-bar  { width: 80px; height: 7px; background: #dce0e3; border-radius: 4px; overflow: hidden; }
     .locked-bar-fill { height: 100%; background: var(--navy-800); border-radius: 4px; }
-    .locked-pct  { font-size: 12px; color: rgba(8,19,26,0.5); min-width: 2.5em; text-align: right; }
-    .locked-overlay {
-      position: absolute;
-      inset: 0;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      background: rgba(255,255,255,0.72);
-      gap: 6px;
-      color: var(--navy-800);
-    }
-    .locked-overlay svg  { display: block; }
+    .locked-pct  { font-size: 12px; color: rgba(8,19,26,.5); min-width: 2.5em; text-align: right; }
+    .locked-overlay { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; background: rgba(255,255,255,.72); gap: 6px; color: var(--navy-800); }
+    .locked-overlay svg { display: block; }
     .locked-overlay span { font-size: 13px; font-weight: 600; color: var(--navy-800); }
 
-    /* ─── Feature List ─── */
+    /* ── feature list ── */
     .feature-list { list-style: none; margin-bottom: 16px; display: flex; flex-direction: column; gap: 6px; }
     .feature-list li { display: flex; align-items: center; gap: 8px; font-size: 14px; color: #08131a; }
     .feature-check { color: var(--navy-800); font-weight: 700; font-size: 15px; flex-shrink: 0; }
 
-    /* ─── Input Summary Badges (Screen 2) ─── */
-    .input-summary-badges { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 1.25rem; }
-    .input-badge { font-size: 12px; color: var(--navy-800); background: #f5f8fa; border: 1px solid rgba(16,42,74,0.2); border-radius: 4px; padding: 3px 10px; white-space: nowrap; }
+    /* ── warn banner ── */
+    .warn-banner { background: #FFF3CD; border: 1px solid #FFCC00; padding: 12px 16px; font-size: 14px; color: #856404; margin: 16px auto; line-height: 1.6; width: min(1080px, calc(100% - 32px)); }
 
-    /* ─── Warn Banner (Screen 3) ─── */
-    .warn-banner { background: #FFF3CD; border: 1px solid #FFCC00; border-radius: 8px; padding: 12px 16px; font-size: 14px; color: #856404; margin-bottom: 1.5rem; line-height: 1.6; }
-
-    /* ─── Result Title Row (Screen 3) ─── */
-    .result-title-row { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; margin-bottom: 0.5rem; flex-wrap: wrap; }
-    .result-title-row .section-title { margin-bottom: 0; }
+    /* ── btn-download ── */
     .btn-download { width: auto !important; padding: 9px 16px !important; font-size: 13px !important; }
 
-    /* ─── Deep Scan Notify ─── */
-    .deep-scan-notify { margin-top: 0.75rem; text-align: center; }
+    /* ── deep scan notify ── */
+    .deep-scan-notify { margin-top: .75rem; text-align: center; }
     .deep-scan-notify a { font-size: 13px; color: #1B6CA8; text-decoration: underline; }
 
-    /* ─── Keyword Hint ─── */
-    .keyword-hint {
-      background: rgba(251,191,36,0.08);
-      border: 1px solid rgba(251,191,36,0.3);
-      border-radius: 10px;
-      padding: 12px 16px;
-      margin-bottom: 0.75rem;
-      animation: fadeIn 0.2s ease;
-    }
+    /* ── input summary (screen 2) ── */
+    .input-summary-badges { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 1.25rem; }
+    .input-badge { font-size: 12px; color: var(--navy-800); background: #f5f8fa; border: 1px solid rgba(16,42,74,.2); border-radius: 4px; padding: 3px 10px; white-space: nowrap; }
+
+    /* ── keyword hint (screen 2) ── */
+    .keyword-hint { background: rgba(251,191,36,.08); border: 1px solid rgba(251,191,36,.3); border-radius: 10px; padding: 12px 16px; margin-bottom: .75rem; animation: fadeIn .2s ease; }
     .keyword-hint-inner { display: flex; align-items: flex-start; gap: 10px; }
     .keyword-hint-icon  { font-size: 1.1rem; flex-shrink: 0; margin-top: 1px; }
-    .keyword-hint-title { font-size: 0.85rem; font-weight: 600; color: #132033; margin-bottom: 3px; }
-    .keyword-hint-body  { font-size: 0.85rem; color: #5f6f85; line-height: 1.6; }
+    .keyword-hint-title { font-size: .85rem; font-weight: 600; color: #132033; margin-bottom: 3px; }
+    .keyword-hint-body  { font-size: .85rem; color: #5f6f85; line-height: 1.6; }
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(-4px); }
       to   { opacity: 1; transform: translateY(0); }
-    }
-
-    /* ─── Disclaimer ─── */
-    .disclaimer-section {
-      margin-top: 2rem;
-      padding: 16px 20px;
-      background: var(--blue-gray-50);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-    }
-    .disclaimer-title {
-      font-size: 12px;
-      font-weight: 600;
-      color: var(--text-muted);
-      margin-bottom: 8px;
-    }
-    .disclaimer-list {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
-    .disclaimer-list li {
-      font-size: 11px;
-      color: var(--text-muted);
-      line-height: 1.7;
-      padding-left: 1em;
-      position: relative;
-    }
-    .disclaimer-list li::before {
-      content: "・";
-      position: absolute;
-      left: 0;
     }
 
     /* ─── Customer Hint ─── */
@@ -908,212 +851,240 @@
 
     <!-- ━━━ Screen 3: Results ━━━ -->
     <div class="screen" id="screen3">
-      <div class="container wide">
+      <div class="warn-banner">⚠️ このページを閉じると結果は消えます。今すぐ「結果を保存する」ボタンで保存してください。</div>
 
-        <!-- 警告バナー -->
-        <div class="warn-banner">⚠️ このページを閉じると結果は消えます。今すぐ「結果を保存する」ボタンで保存してください。</div>
+      <div class="report-shell">
 
-        <!-- タイトル行（ダウンロードボタン A） -->
-        <div class="result-title-row">
-          <div>
-            <h2 class="section-title">AI調査結果</h2>
-            <p class="section-subtitle" id="resultSubtitle"></p>
-          </div>
-          <button class="btn-secondary btn-download" type="button" onclick="downloadReport()">結果を保存する（HTML）</button>
-        </div>
+        <span id="resultSubtitle" style="display:none;"></span>
 
-        <!-- ① 3AI回答カラム -->
-        <div class="result-grid">
-          <div class="result-card">
-            <div class="result-card-header">
-              <div class="ai-dot" style="background:#10a37f;"></div>
-              <span class="ai-name">ChatGPT</span>
+        <!-- Cover -->
+        <div class="report-cover">
+          <div class="cover-main">
+            <div class="brand-lockup">
+              <div class="brand-mark">🐙</div>
+              <div>
+                <div class="brand-text">Ops Octopus</div>
+                <div class="brand-sub">AI Brand Insight</div>
+              </div>
             </div>
-            <div class="result-content" id="result-chatgpt"></div>
+            <h1 class="report-title">AIブランド調査<br>Quick Scan レポート</h1>
+            <p class="cover-note">※ 回答は読みやすさのため140文字程度に要約しています。</p>
           </div>
-          <div class="result-card">
-            <div class="result-card-header">
-              <div class="ai-dot" style="background:#CC785C;"></div>
-              <span class="ai-name">Claude</span>
+          <div class="cover-side">
+            <div class="document-label">Survey Report</div>
+            <div class="meta">
+              <div class="meta-row-label">調査日時</div>
+              <div class="meta-row-value" id="reportDateTime">—</div>
+              <div class="meta-row-label">カテゴリ</div>
+              <div class="meta-row-value" id="reportCategory">—</div>
+              <div class="meta-row-label">調査タイプ</div>
+              <div class="meta-row-value" id="reportType">—</div>
+              <div class="meta-row-label">キーワード</div>
+              <div class="meta-row-value" id="reportKeyword">—</div>
             </div>
-            <div class="result-content" id="result-claude"></div>
+            <button class="btn-secondary btn-download" type="button" onclick="downloadReport()">結果を保存する（HTML）</button>
           </div>
-          <div class="result-card">
-            <div class="result-card-header">
-              <div class="ai-dot" style="background:#4285F4;"></div>
-              <span class="ai-name">Gemini</span>
+        </div><!-- /report-cover -->
+
+        <!-- Body -->
+        <div class="report-body">
+
+          <!-- 01: 3AI回答 -->
+          <div class="report-section">
+            <div class="section-kicker">
+              <div class="section-number">01</div>
+              <h2 class="section-heading">3AI回答</h2>
             </div>
-            <div class="result-content" id="result-gemini"></div>
-          </div>
-        </div>
-
-        <!-- ダウンロードボタン B（3AI直下・注釈の上） -->
-        <div style="margin-bottom:1rem;">
-          <button class="btn-secondary btn-download" type="button" onclick="downloadReport()">結果を保存する（HTML）</button>
-        </div>
-
-        <p class="caption" style="margin-bottom:2rem;">
-          ※ 回答は読みやすさのため140文字程度に要約しています。1回の調査のため結果にブレが生じる場合があります。
-        </p>
-
-        <!-- ② AIインサイトパネル -->
-        <div class="insight-panel">
-          <div class="insight-panel-header">
-            <span class="insight-panel-title">AIインサイト</span>
-            <span class="insight-panel-badge">このレポート専用</span>
-          </div>
-          <div class="insight-panel-body">
-            <div class="insight-item">
-              <div class="insight-label">3AIの共通見解</div>
-              <div class="insight-value placeholder" id="insight-common">分析中...</div>
+            <div class="result-grid">
+              <div class="card">
+                <div class="card-header"><span class="dot" style="background:#10a37f;"></span>ChatGPT</div>
+                <div class="result-content" id="result-chatgpt"></div>
+              </div>
+              <div class="card">
+                <div class="card-header"><span class="dot" style="background:#CC785C;"></span>Claude</div>
+                <div class="result-content" id="result-claude"></div>
+              </div>
+              <div class="card">
+                <div class="card-header"><span class="dot" style="background:#4285F4;"></span>Gemini</div>
+                <div class="result-content" id="result-gemini"></div>
+              </div>
             </div>
-            <div class="insight-item">
-              <div class="insight-label">AIによる言及の差</div>
-              <div class="insight-value placeholder" id="insight-difference">分析中...</div>
+            <p style="font-size:12px;color:var(--text-muted);margin-top:.5rem;">※ 回答は読みやすさのため140文字程度に要約しています。1回の調査のため結果にブレが生じる場合があります。</p>
+          </div>
+
+          <!-- 02: AIインサイト -->
+          <div class="report-section">
+            <div class="section-kicker">
+              <div class="section-number">02</div>
+              <h2 class="section-heading">AIインサイト</h2>
             </div>
-            <div class="insight-item">
-              <div class="insight-label">このキーワードを検索する想定ユーザー</div>
-              <div class="insight-value placeholder" id="insight-persona">分析中...</div>
+            <p class="section-lead">このレポート専用の分析結果</p>
+            <div class="insight-panel">
+              <div class="insight-header">3AIの分析</div>
+              <div class="insight-item">
+                <div class="insight-label">3AIの共通見解</div>
+                <div class="insight-value placeholder" id="insight-common">分析中...</div>
+              </div>
+              <div class="insight-item">
+                <div class="insight-label">AIによる言及の差</div>
+                <div class="insight-value placeholder" id="insight-difference">分析中...</div>
+              </div>
+              <div class="insight-item">
+                <div class="insight-label">このキーワードを検索する想定ユーザー</div>
+                <div class="insight-value placeholder" id="insight-persona">分析中...</div>
+              </div>
+              <div class="insight-item">
+                <div class="insight-label">AI回答に現れた注目ワード</div>
+                <div class="insight-value placeholder" id="insight-keywords">分析中...</div>
+              </div>
             </div>
-            <div class="insight-item">
-              <div class="insight-label">AI回答に現れた注目ワード</div>
-              <div class="insight-value placeholder" id="insight-keywords">分析中...</div>
-            </div>
-            <div class="insight-section-label">この業界の傾向（固定情報）</div>
-            <div class="insight-item">
-              <div class="insight-label">この業界のAI検索利用傾向</div>
-              <div class="insight-value" id="insight-trend"></div>
-            </div>
-            <div class="insight-item">
-              <div class="insight-label">AEO改善のヒント</div>
-              <div class="insight-value" id="insight-hint"></div>
+            <div class="insight-panel">
+              <div class="insight-header">この業界の傾向（固定情報）</div>
+              <div class="insight-item">
+                <div class="insight-label">この業界のAI検索利用傾向</div>
+                <div class="insight-value" id="insight-trend"></div>
+              </div>
+              <div class="insight-item">
+                <div class="insight-label">AEO改善のヒント</div>
+                <div class="insight-value" id="insight-hint"></div>
+              </div>
             </div>
           </div>
-        </div>
 
-        <!-- ③ なぜ3つのAIに聞くのか -->
-        <div class="why-3ai">
-
-          <div class="why-3ai-block">
-            <p class="why-3ai-heading">AIを使っている消費者は、今や「2人に1人」の時代へ</p>
-            <p class="why-3ai-body">「AIはまだ一部の人が使うもの」という認識は、過去のものになりつつあります。最新の調査によれば、日本国内の生成AIサービス利用者数は急増しており、2026年末には3,553万人に達する見込みです。普段からネットやスマホを利用する層の過半数（54.7%）が日常的にAIを利用しており、消費者の「検索」や「お店選び」のスタイルは根本から変わり始めています。</p>
-            <p class="why-3ai-cite">出典：2026年2月 ICT総研調査　<a href="https://ictr.co.jp/report/20260220.html/" target="_blank" rel="noopener">https://ictr.co.jp/report/20260220.html/</a></p>
+          <!-- 03: なぜ3AI -->
+          <div class="report-section">
+            <div class="section-kicker">
+              <div class="section-number">03</div>
+              <h2 class="section-heading">なぜ3つのAIに聞くのか</h2>
+            </div>
+            <div class="why-3ai">
+              <div class="why-3ai-block">
+                <p class="why-3ai-heading">AIを使っている消費者は、今や「2人に1人」の時代へ</p>
+                <p class="why-3ai-body">「AIはまだ一部の人が使うもの」という認識は、過去のものになりつつあります。最新の調査によれば、日本国内の生成AIサービス利用者数は急増しており、2026年末には3,553万人に達する見込みです。普段からネットやスマホを利用する層の過半数（54.7%）が日常的にAIを利用しており、消費者の「検索」や「お店選び」のスタイルは根本から変わり始めています。</p>
+                <p class="why-3ai-cite">出典：2026年2月 ICT総研調査　<a href="https://ictr.co.jp/report/20260220.html/" target="_blank" rel="noopener">https://ictr.co.jp/report/20260220.html/</a></p>
+              </div>
+              <div class="why-3ai-block">
+                <p class="why-3ai-heading">なぜ3つのAIで回答が異なるのか</p>
+                <p class="why-3ai-body">ChatGPT / Gemini / Claudeは、それぞれ異なるデータや仕組みで動いている「別々の知能」です。そのため、同じ質問を投げても「推薦されるブランド」や「勧める理由」が異なることがよくあります。1つのAIの結果だけを見ていると、そのAI特有の「偏り」を、市場全体の評価だと誤認してしまうリスクがあります。3つのAIを横断してチェックすることで、初めて「デジタル上の評判」を多角的に、正しく把握することが可能になります。</p>
+              </div>
+              <div class="why-3ai-block">
+                <p class="why-3ai-heading">お客様の属性により、主戦場となるAIは変わる</p>
+                <p class="why-3ai-body">国内のAI利用経験率は48.5%に達し、若者、ビジネス層を中心に浸透が進んでいます。さらに、お客様（消費者）の年齢や仕事、利用シーンによって、よく使われるAIは異なります。カバー率の高いChatGPTでの評価を軸にしつつ、検索行動に直結するGeminiなど、お客様の属性に合わせてどのAIを重視すべきかを判断することが重要です。</p>
+                <p class="why-3ai-cite">出典：2026年3月 日本リサーチセンター（NRC）調査　<a href="https://www.nrc.co.jp/report/260410.html" target="_blank" rel="noopener">https://www.nrc.co.jp/report/260410.html</a></p>
+              </div>
+              <div class="why-3ai-table-wrap">
+                <table class="why-3ai-table">
+                  <thead>
+                    <tr><th>AI</th><th>日本での位置づけ</th><th>特徴</th></tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><div class="why-3ai-ai-cell"><span class="dot" style="background:#10a37f;"></span>ChatGPT</div></td>
+                      <td>圧倒的な知名度と普及率。ビジネス層を中心に幅広く支持。</td>
+                      <td>情報を整理して分かりやすく答えるのが得意</td>
+                    </tr>
+                    <tr>
+                      <td><div class="why-3ai-ai-cell"><span class="dot" style="background:#4285F4;"></span>Gemini</div></td>
+                      <td>Google検索やAndroid、Chromeへの統合により急進中。全世代で浸透が進む。</td>
+                      <td>最新情報や検索エンジンに近い文脈で回答する傾向</td>
+                    </tr>
+                    <tr>
+                      <td><div class="why-3ai-ai-cell"><span class="dot" style="background:#CC785C;"></span>Claude</div></td>
+                      <td>20〜30代、エンジニアやクリエーター、専門職など特定の職域に強い支持。</td>
+                      <td>文脈を踏まえた自然な対話や、深い分析が得意</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <p class="why-3ai-footer">1つのAIだけに聞いた結果は、そのAIのユーザー層や学習データのクセが反映されます。3つ横断することで、より多くの潜在顧客が実際に目にしているブランド像が浮かび上がります。</p>
+            </div>
           </div>
 
-          <div class="why-3ai-block">
-            <p class="why-3ai-heading">なぜ3つのAIで回答が異なるのか</p>
-            <p class="why-3ai-body">ChatGPT / Gemini / Claudeは、それぞれ異なるデータや仕組みで動いている「別々の知能」です。そのため、同じ質問を投げても「推薦されるブランド」や「勧める理由」が異なることがよくあります。1つのAIの結果だけを見ていると、そのAI特有の「偏り」を、市場全体の評価だと誤認してしまうリスクがあります。3つのAIを横断してチェックすることで、初めて「デジタル上の評判」を多角的に、正しく把握することが可能になります。</p>
-          </div>
-
-          <div class="why-3ai-block">
-            <p class="why-3ai-heading">お客様の属性により、主戦場となるAIは変わる</p>
-            <p class="why-3ai-body">国内のAI利用経験率は48.5%に達し、若者、ビジネス層を中心に浸透が進んでいます。さらに、お客様（消費者）の年齢や仕事、利用シーンによって、よく使われるAIは異なります。カバー率の高いChatGPTでの評価を軸にしつつ、検索行動に直結するGeminiなど、お客様の属性に合わせてどのAIを重視すべきかを判断することが重要です。</p>
-            <p class="why-3ai-cite">出典：2026年3月 日本リサーチセンター（NRC）調査　<a href="https://www.nrc.co.jp/report/260410.html" target="_blank" rel="noopener">https://www.nrc.co.jp/report/260410.html</a></p>
-          </div>
-
-          <div class="why-3ai-table-wrap">
-            <table class="why-3ai-table">
-              <thead>
-                <tr><th>AI</th><th>日本での位置づけ</th><th>特徴</th></tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td><div class="why-3ai-ai-cell"><div class="ai-dot" style="background:#10a37f;"></div>ChatGPT</div></td>
-                  <td>圧倒的な知名度と普及率。ビジネス層を中心に幅広く支持。</td>
-                  <td>情報を整理して分かりやすく答えるのが得意</td>
-                </tr>
-                <tr>
-                  <td><div class="why-3ai-ai-cell"><div class="ai-dot" style="background:#4285F4;"></div>Gemini</div></td>
-                  <td>Google検索やAndroid、Chromeへの統合により急進中。全世代で浸透が進む。</td>
-                  <td>最新情報や検索エンジンに近い文脈で回答する傾向</td>
-                </tr>
-                <tr>
-                  <td><div class="why-3ai-ai-cell"><div class="ai-dot" style="background:#CC785C;"></div>Claude</div></td>
-                  <td>20〜30代、エンジニアやクリエーター、専門職など特定の職域に強い支持。</td>
-                  <td>文脈を踏まえた自然な対話や、深い分析が得意</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-
-          <p class="why-3ai-footer">1つのAIだけに聞いた結果は、そのAIのユーザー層や学習データのクセが反映されます。3つ横断することで、より多くの潜在顧客が実際に目にしているブランド像が浮かび上がります。</p>
-
-        </div>
-
-        <!-- ④ Deep Scanへの飢餓感ブロック -->
-        <div class="upsell-block">
-          <div class="upsell-block-header">
-            <div class="upsell-block-title">より精度の高い調査はDeep Scanで</div>
-            <p class="upsell-block-desc">Quick Scanは1回の試行のため、回答にブレが生じることがあります。Deep Scanでは30回試行した結果を統計的に集計するため、より信頼性の高いインサイトが得られます。</p>
-          </div>
-          <div class="upsell-block-body">
-            <div class="locked-preview">
-              <div class="locked-preview-label">AI推薦頻度ランキング（競合2社との比較）</div>
-              <div class="locked-preview-body">
-                <div class="locked-preview-content">
-                  <div class="locked-row">
-                    <span class="locked-rank">1位</span>
-                    <span class="locked-name">競合A社名</span>
-                    <div class="locked-bar"><div class="locked-bar-fill" style="width:83%"></div></div>
-                    <span class="locked-pct">83%</span>
-                  </div>
-                  <div class="locked-row">
-                    <span class="locked-rank">2位</span>
-                    <span class="locked-name">あなたのブランド</span>
-                    <div class="locked-bar"><div class="locked-bar-fill" style="width:61%"></div></div>
-                    <span class="locked-pct">61%</span>
-                  </div>
-                  <div class="locked-row">
-                    <span class="locked-rank">3位</span>
-                    <span class="locked-name">競合B社名</span>
-                    <div class="locked-bar"><div class="locked-bar-fill" style="width:42%"></div></div>
-                    <span class="locked-pct">42%</span>
+          <!-- 04: Deep Scan -->
+          <div class="report-section">
+            <div class="section-kicker">
+              <div class="section-number">04</div>
+              <h2 class="section-heading">より精度の高い調査はDeep Scanで</h2>
+            </div>
+            <div class="upsell-block">
+              <div class="upsell-block-header">
+                <p class="upsell-block-desc">Quick Scanは1回の試行のため、回答にブレが生じることがあります。Deep Scanでは30回試行した結果を統計的に集計するため、より信頼性の高いインサイトが得られます。</p>
+              </div>
+              <div class="upsell-block-body">
+                <div class="locked-preview">
+                  <div class="locked-preview-label">AI推薦頻度ランキング（競合2社との比較）</div>
+                  <div class="locked-preview-body">
+                    <div class="locked-preview-content">
+                      <div class="locked-row">
+                        <span class="locked-rank">1位</span>
+                        <span class="locked-name">競合A社名</span>
+                        <div class="locked-bar"><div class="locked-bar-fill" style="width:83%"></div></div>
+                        <span class="locked-pct">83%</span>
+                      </div>
+                      <div class="locked-row">
+                        <span class="locked-rank">2位</span>
+                        <span class="locked-name">あなたのブランド</span>
+                        <div class="locked-bar"><div class="locked-bar-fill" style="width:61%"></div></div>
+                        <span class="locked-pct">61%</span>
+                      </div>
+                      <div class="locked-row">
+                        <span class="locked-rank">3位</span>
+                        <span class="locked-name">競合B社名</span>
+                        <div class="locked-bar"><div class="locked-bar-fill" style="width:42%"></div></div>
+                        <span class="locked-pct">42%</span>
+                      </div>
+                    </div>
+                    <div class="locked-overlay">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                      <span>Deep Scanで確認する</span>
+                    </div>
                   </div>
                 </div>
-                <div class="locked-overlay">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
-                  <span>Deep Scanで確認する</span>
+                <ul class="feature-list">
+                  <li><span class="feature-check">✓</span>30回試行・統計集計</li>
+                  <li><span class="feature-check">✓</span>キーワード3つまで対応</li>
+                  <li><span class="feature-check">✓</span>競合2社との比較</li>
+                  <li><span class="feature-check">✓</span>PDFレポート納品</li>
+                </ul>
+                <button class="btn-primary" style="max-width:280px;" type="button">Deep Scanを見る（¥2,980）</button>
+                <div class="deep-scan-notify">
+                  <a href="https://docs.google.com/forms/d/e/1FAIpQLScNqIDUBU42Rx8B5OGZYrKnGLLB9ZADPNWcJ0eQVkBIW1FNUw/viewform"
+                    target="_blank" rel="noopener">
+                    Deep Scanのリリース通知を受け取る →
+                  </a>
                 </div>
               </div>
             </div>
-            <ul class="feature-list">
-              <li><span class="feature-check">✓</span>30回試行・統計集計</li>
-              <li><span class="feature-check">✓</span>キーワード3つまで対応</li>
-              <li><span class="feature-check">✓</span>競合2社との比較</li>
-              <li><span class="feature-check">✓</span>PDFレポート納品</li>
-            </ul>
-            <button class="btn-primary" style="max-width:280px;" type="button">Deep Scanを見る（¥2,980）</button>
-            <div class="deep-scan-notify">
-              <a href="https://docs.google.com/forms/d/e/1FAIpQLScNqIDUBU42Rx8B5OGZYrKnGLLB9ZADPNWcJ0eQVkBIW1FNUw/viewform"
-                target="_blank" rel="noopener">
-                Deep Scanのリリース通知を受け取る →
-              </a>
-            </div>
           </div>
-        </div>
 
-        <!-- ⑤ プロンプト全文 -->
-        <div class="prompt-section">
-          <div class="prompt-section-title">使用したプロンプト（全文）</div>
-          <div class="prompt-box" id="promptDisplay"></div>
-        </div>
+          <!-- 05: プロンプト全文 -->
+          <div class="report-section">
+            <div class="section-kicker">
+              <div class="section-number">05</div>
+              <h2 class="section-heading">使用したプロンプト（全文）</h2>
+            </div>
+            <div class="prompt-box" id="promptDisplay"></div>
+          </div>
 
-        <!-- 免責事項 -->
-        <div class="disclaimer-section">
-          <p class="disclaimer-title">免責事項</p>
-          <ul class="disclaimer-list">
-            <li>本レポートはChatGPT / Claude / GeminiのAPIを通じて自動取得した回答を集計・表示したものです。回答内容はAIが生成したものであり、Ops Octopusが内容を監修・保証するものではありません。</li>
-            <li>AIの回答には誤りが含まれる場合があります。第三者への公開・引用・営業利用の際は、購入者の責任で内容をご確認ください。</li>
-            <li>本レポートは調査時点のスナップショットです。時期やモデル更新により回答内容は変動します。</li>
-            <li>本サービスはChatGPT / Claude / Geminiの公式・認定サービスではありません。各名称および回答内容で表示された企業名・商品名等は各社の商標または登録商標です。</li>
-          </ul>
-        </div>
+          <!-- Disclaimer -->
+          <div class="disclaimer">
+            <p>免責事項</p>
+            <ul>
+              <li><span>・</span>本レポートはChatGPT / Claude / GeminiのAPIを通じて自動取得した回答を集計・表示したものです。回答内容はAIが生成したものであり、Ops Octopusが内容を監修・保証するものではありません。</li>
+              <li><span>・</span>AIの回答には誤りが含まれる場合があります。第三者への公開・引用・営業利用の際は、購入者の責任で内容をご確認ください。</li>
+              <li><span>・</span>本レポートは調査時点のスナップショットです。時期やモデル更新により回答内容は変動します。</li>
+              <li><span>・</span>本サービスはChatGPT / Claude / Geminiの公式・認定サービスではありません。各名称および回答内容で表示された企業名・商品名等は各社の商標または登録商標です。</li>
+            </ul>
+          </div>
 
-        <!-- ダウンロードボタン C（最下部） -->
-        <div style="margin-bottom:2rem;">
-          <button class="btn-secondary btn-download" type="button" onclick="downloadReport()">結果を保存する（HTML）</button>
-        </div>
-      </div>
+          <!-- Report Footer -->
+          <div class="report-footer">
+            <span>Ops Octopus – AI Brand Insight Quick Scan</span>
+            <button class="btn-secondary btn-download" type="button" onclick="downloadReport()">結果を保存する（HTML）</button>
+          </div>
+
+        </div><!-- /report-body -->
+      </div><!-- /report-shell -->
     </div>
 
   </main>
