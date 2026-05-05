@@ -1387,6 +1387,12 @@
         $('resultSubtitle').textContent = `「${state.keyword}」の調査結果`;
         $('promptDisplay').textContent  = question || state.question;
 
+        const now = new Date();
+        $('reportDateTime').textContent = now.toLocaleString('ja-JP');
+        $('reportCategory').textContent = state.category;
+        $('reportType').textContent     = state.surveyType === 'market' ? 'A 市場調査' : 'B ブランド調査';
+        $('reportKeyword').textContent  = state.keyword;
+
         renderResult('result-chatgpt', results.chatgpt);
         renderResult('result-claude',  results.claude);
         renderResult('result-gemini',  results.gemini);
