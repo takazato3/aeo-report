@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>AI Brand Insight_プロジェクト管理ツール_20260505</title>
+<style>
+:root{
+  --navy-950:#061426;
+  --navy-900:#081b33;
+  --navy-800:#102a4a;
+  --blue-gray-50:#f4f7fb;
+  --blue-gray-100:#eaf0f7;
+  --off-white:#fbfaf6;
+  --white:#ffffff;
+  --amber-400:#fbbf24;
+  --amber-500:#f59e0b;
+  --text-dark:#132033;
+  --text-muted:#5f6f85;
+  --border:#dce4ef;
+  --border-strong:#b9c7d8;
+}
+*{box-sizing:border-box;}
+html{background:#eef3f8;}
+body{
+  margin:0;
+  font-family:"Inter","Noto Sans JP",sans-serif;
+  color:var(--text-dark);
+  line-height:1.72;
+  background:
+    linear-gradient(90deg,rgba(8,27,51,.06) 0,rgba(8,27,51,.06) 1px,transparent 1px,transparent 72px),
+    #eef3f8;
+  -webkit-font-smoothing:antialiased;
+}
+.report-shell{
+  width:min(1080px,calc(100% - 32px));
+  margin:32px auto;
+  background:var(--white);
+  border:1px solid var(--border-strong);
+  box-shadow:0 18px 42px rgba(6,20,38,.10);
+}
+.report-cover{
+  display:grid;
+  grid-template-columns:1.1fr .9fr;
+  min-height:190px;
+  border-bottom:1px solid var(--border-strong);
+}
+.cover-main{
+  padding:34px 42px 30px;
+  background:var(--navy-900);
+  color:var(--off-white);
+  position:relative;
+  overflow:hidden;
+}
+.cover-main:after{
+  content:"";
+  position:absolute;
+  right:-80px;
+  top:-120px;
+  width:300px;
+  height:300px;
+  border:1px solid rgba(251,191,36,.22);
+  transform:rotate(18deg);
+}
+.brand-lockup{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin-bottom:26px;
+  position:relative;
+  z-index:1;
+}
+.brand-mark{
+  width:28px;
+  height:28px;
+  border-radius:9px;
+  background:var(--amber-400);
+  display:grid;
+  place-items:center;
+  color:var(--navy-900);
+  font-weight:800;
+  letter-spacing:-.05em;
+}
+.brand-text{font-size:13px;font-weight:700;letter-spacing:.04em;}
+.brand-sub{font-size:11px;color:rgba(251,250,246,.72);margin-top:1px;}
+h1{
+  margin:0;
+  font-size:30px;
+  line-height:1.25;
+  font-weight:760;
+  letter-spacing:.01em;
+  color:var(--off-white);
+  position:relative;
+  z-index:1;
+}
+.cover-note{
+  margin-top:14px;
+  color:rgba(251,250,246,.76);
+  font-size:13px;
+  position:relative;
+  z-index:1;
+}
+.cover-side{
+  padding:34px 34px 30px;
+  background:linear-gradient(180deg,#fff 0%,#f7f9fc 100%);
+}
+.document-label{
+  display:inline-flex;
+  align-items:center;
+  gap:7px;
+  font-size:11px;
+  letter-spacing:.12em;
+  font-weight:800;
+  color:var(--navy-800);
+  text-transform:uppercase;
+  margin-bottom:18px;
+}
+.document-label:before{
+  content:"";
+  width:28px;
+  height:3px;
+  background:var(--amber-400);
+  display:inline-block;
+}
+.meta{
+  display:grid;
+  grid-template-columns:96px 1fr;
+  gap:0;
+  border-top:1px solid var(--border);
+  border-left:1px solid var(--border);
+  font-size:12px;
+}
+.badge{
+  display:contents;
+}
+.badge:before{
+  content:"項目";
+  display:none;
+}
+.meta-row-label,
+.meta-row-value{
+  padding:9px 10px;
+  border-right:1px solid var(--border);
+  border-bottom:1px solid var(--border);
+}
+.meta-row-label{
+  background:#f8fafc;
+  color:var(--text-muted);
+  font-weight:700;
+}
+.meta-row-value{background:#fff;color:var(--text-dark);}
+.report-body{padding:34px 42px 42px;}
+.section-kicker{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  margin:0 0 14px;
+}
+h2{
+  margin:0;
+  font-size:18px;
+  line-height:1.4;
+  font-weight:760;
+  color:var(--navy-800);
+}
+.section-number{
+  width:34px;
+  height:24px;
+  background:var(--navy-800);
+  color:#fff;
+  display:grid;
+  place-items:center;
+  font-size:11px;
+  font-weight:800;
+  letter-spacing:.06em;
+}
+.section{margin:0 0 34px;}
+.section-lead{
+  margin:-6px 0 16px 46px;
+  font-size:12px;
+  color:var(--text-muted);
+}
+.grid{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:14px;
+  margin-bottom:.5rem;
+}
+.card{
+  border:1px solid var(--border-strong);
+  background:#fff;
+  min-height:100%;
+  display:flex;
+  flex-direction:column;
+}
+.card-header{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  font-weight:760;
+  font-size:13px;
+  padding:11px 14px;
+  border-bottom:1px solid var(--border);
+  background:#fbfcfe;
+  color:var(--navy-800);
+}
+.dot{width:9px;height:9px;border-radius:50%;display:inline-block;flex-shrink:0;}
+.card p,.card ul,.card ol{
+  margin:0;
+  padding:14px 14px 0;
+  font-size:13px;
+  color:#243143;
+}
+.card p + p{padding-top:10px;}
+.card p:last-child,.card ul:last-child,.card ol:last-child{padding-bottom:14px;}
+.card h1{
+  margin:0;
+  padding:14px 14px 0;
+  font-size:13px;
+  line-height:1.6;
+  color:var(--navy-800);
+  font-weight:760;
+}
+.keyword-highlight{background:linear-gradient(transparent 60%,rgba(251,191,36,.28) 60%);}
+.insight-panel{
+  border:1px solid var(--border-strong);
+  background:#fff;
+  overflow:hidden;
+  margin-bottom:1.5rem;
+}
+.insight-header{
+  background:var(--navy-800);
+  color:#fff;
+  padding:12px 16px;
+  font-size:13px;
+  font-weight:760;
+  letter-spacing:.02em;
+}
+.insight-item{
+  display:grid;
+  grid-template-columns:210px 1fr;
+  border-bottom:1px solid var(--border);
+}
+.insight-item:last-child{border-bottom:none;}
+.insight-label{
+  font-size:11px;
+  font-weight:760;
+  color:var(--navy-800);
+  padding:13px 14px;
+  background:#f8fafc;
+  border-right:1px solid var(--border);
+}
+.insight-value{
+  padding:13px 15px;
+  font-size:13px;
+  color:#243143;
+}
+.keyword-tag{
+  display:inline-block;
+  background:#fff;
+  border:1px solid var(--border-strong);
+  padding:2px 8px;
+  font-size:11px;
+  color:#243143;
+  margin:2px 3px 2px 0;
+}
+.prompt-box{
+  background:#fbfcfe;
+  border:1px solid var(--border-strong);
+  border-left:4px solid var(--navy-800);
+  padding:14px 16px;
+  font-family:SFMono-Regular,Consolas,Menlo,Courier,monospace;
+  font-size:12px;
+  color:#3e4a5c;
+  white-space:pre-wrap;
+  word-break:break-word;
+}
+.disclaimer{
+  margin-top:2rem;
+  padding:16px 18px;
+  background:#fbfcfe;
+  border:1px solid var(--border-strong);
+}
+.disclaimer p{
+  font-size:12px;
+  font-weight:760;
+  color:var(--navy-800);
+  margin:0 0 8px;
+}
+.disclaimer ul{
+  list-style:none;
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+  margin:0;
+  padding:0;
+}
+.disclaimer li{
+  font-size:11px;
+  color:var(--text-muted);
+  line-height:1.75;
+  padding-left:1em;
+  position:relative;
+}
+.disclaimer li span{position:absolute;left:0;}
+.footer{
+  margin-top:2rem;
+  padding-top:1rem;
+  border-top:1px solid var(--border-strong);
+  font-size:11px;
+  color:var(--text-muted);
+  display:flex;
+  justify-content:space-between;
+  gap:16px;
+}
+.footer:after{content:"CONFIDENTIAL SAMPLE";letter-spacing:.12em;color:#9aa8b9;}
+@media(max-width:780px){
+  .report-shell{width:100%;margin:0;border-left:none;border-right:none;}
+  .report-cover{grid-template-columns:1fr;}
+  .cover-main,.cover-side,.report-body{padding:26px 20px;}
+  .grid{grid-template-columns:1fr;}
+  .insight-item{grid-template-columns:1fr;}
+  .insight-label{border-right:none;border-bottom:1px solid var(--border);}
+  .section-lead{margin-left:0;}
+  .footer{display:block;}
+  .footer:after{display:block;margin-top:8px;}
+}
+@media print{
+  html,body{background:#fff;}
+  body{background:#fff;}
+  .report-shell{width:100%;margin:0;border:none;box-shadow:none;}
+  .report-body{padding:26px 32px;}
+  .card,.insight-panel,.prompt-box,.disclaimer{break-inside:avoid;}
+}
+</style>
+</head>
+<body>
+<main class="report-shell">
+  <header class="report-cover">
+    <div class="cover-main">
+      <div class="brand-lockup">
+        <div class="brand-mark">O</div>
+        <div>
+          <div class="brand-text">Ops Octopus</div>
+          <div class="brand-sub">AIブランド調査レポート</div>
+        </div>
+      </div>
+      <h1>AI Brand Insight Quick Scan</h1>
+      <div class="cover-note">ChatGPT / Claude / Gemini の回答を横断し、AI上での見え方を営業・マーケティングの判断材料として整理します。</div>
+    </div>
+    <aside class="cover-side">
+      <div class="document-label">Report Profile</div>
+      <div class="meta">
+        <div class="meta-row-label">調査日時</div><div class="meta-row-value">2026/5/5 20:16:03</div>
+        <div class="meta-row-label">カテゴリ</div><div class="meta-row-value">BtoB SaaS / ITツール</div>
+        <div class="meta-row-label">目的</div><div class="meta-row-value">A 市場調査</div>
+        <div class="meta-row-label">キーワード</div><div class="meta-row-value">プロジェクト管理ツール</div>
+      </div>
+    </aside>
+  </header>
+
+  <div class="report-body">
+    <section class="section">
+      <div class="section-kicker"><span class="section-number">01</span><h2>3AIの回答</h2></div>
+      <p class="section-lead">同一プロンプトに対する主要AIの回答を比較し、推奨傾向と論点の違いを確認します。</p>
+      <div class="grid">
+        <div class="card"><div class="card-header"><span class="dot" style="background:#10a37f;"></span>ChatGPT</div><p>Asanaは直感的でタスク管理に優れ、Trelloは視覚的なボード形式が特徴。Jiraは開発チーム向けに強力なトラッキング機能があり、ClickUpはカスタマイズ性が高い。プロジェクトの特性に応じて選択をおすすめします。</p>
+</div>
+        <div class="card"><div class="card-header"><span class="dot" style="background:#CC785C;"></span>Claude</div><h1><span class="keyword-highlight">プロジェクト管理ツール</span>選択のポイント</h1>
+<p>主流ツール（Asana、Monday.com、Notionなど）は、<strong>Asanaは高機能で大規模チーム向け、Monday.comは直感的で中規模向け、Notionは汎用性が高い</strong>が複雑です。チームサイズ、予算、既存システム連携を考慮して選定してください。シンプル重視ならMonday.com、柔軟性ならNotionをおすすめします。</p>
+</div>
+        <div class="card"><div class="card-header"><span class="dot" style="background:#4285F4;"></span>Gemini</div><p>主流ツールでは、<strong>Jira</strong>は開発・アジャイル向け高機能、<strong>Asana</strong>や<strong>monday.com</strong>は直感的な操作と多様な業務に対応し、ワークフロー自動化も得意です。</p>
+<p>業務効率化が主眼であれば、視覚的で幅広いタスク・進捗管理が可能な<strong>Asana</strong>か<strong>monday.com</strong>をおすすめします。チーム規模や、タスク管理・進捗管理・リソース管理など求める機能で最適なものを選びましょう。</p>
+</div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-kicker"><span class="section-number">02</span><h2>AIインサイト</h2></div>
+      <p class="section-lead">3AIの回答をもとに、共通見解・差分・想定ユーザー・改善論点を整理します。</p>
+      <div class="insight-panel">
+        <div class="insight-header">AIインサイト</div>
+        <div class="insight-item"><div class="insight-label">3AIの共通見解</div><div class="insight-value">Asanaが複数のAIで推奨されており、プロジェクト管理ツール選択にはチームサイズや機能要件による使い分けが重要とされている。</div></div>
+        <div class="insight-item"><div class="insight-label">AIによる言及の差</div><div class="insight-value">ChatGPTはTrelloやClickUpも言及し選択肢を広げ、ClaudeはNotionの汎用性と複雑性に言及し、GeminiはJiraのアジャイル向け特性を強調している。</div></div>
+        <div class="insight-item"><div class="insight-label">このキーワードを検索する想定ユーザー</div><div class="insight-value">複数のプロジェクト管理ツールの比較検討を行っており、自社のチーム規模や業務特性に最適なツール導入を検討中の経営層やプロジェクトマネージャー。</div></div>
+        <div class="insight-item"><div class="insight-label">AI回答に現れた注目ワード</div><div class="insight-value"><span class="keyword-tag">Asana</span><span class="keyword-tag">Trello</span><span class="keyword-tag">Jira</span><span class="keyword-tag">ClickUp</span><span class="keyword-tag">Monday.com</span><span class="keyword-tag">Notion</span><span class="keyword-tag">タスク管理</span><span class="keyword-tag">直感的</span><span class="keyword-tag">カスタマイズ性</span><span class="keyword-tag">高機能</span><span class="keyword-tag">アジャイル</span><span class="keyword-tag">視覚的</span><span class="keyword-tag">ワークフロー自動化</span><span class="keyword-tag">チームサイズ</span><span class="keyword-tag">業務効率化</span></div></div>
+        <div class="insight-item"><div class="insight-label">この業界のAI検索利用傾向</div><div class="insight-value">高い従来の「おすすめCRM」「名刺管理ツール比較」等の情報収集の場が検索結果からAIO(AI Overview), AIへの相談に移行が進んでいます。ツール選定担当者は「上司への報告」や「比較表の作成」の効率化を目的としてAIを活用しています。AIの回答候補から漏れることは、検討の土俵に上がれないリスクを意味します。ユーザーは公式サイトを直接見るよりも、AIが要約してくれる「自社の課題を解決できるか」「他社と何が違うのか」という実利的な比較材料を求めています。</div></div>
+        <div class="insight-item"><div class="insight-label">AEO改善のヒント</div><div class="insight-value">導入事例・対応業種・価格帯をテキストで明示することがAI推薦頻度向上に有効です。まずは、担当者の報告資料にそのまま使えるような「整理された情報」をAIが拾える状態か確認しましょう。・比較軸の明文化: 自社の強みだけでなく、「どんな企業に向いているか」という適合条件がテキストで明記されているか・導入事例の「成果」を強調: 「工数削減」や「売上向上」など、上司が納得しやすい「導入効果」を具体的な言葉で記載されているか・信頼性情報の掲載: 会社概要、導入社数、サポート体制など、組織として安心して発注できる「信頼の裏付け」がテキストで分かりやすく表記されているか</div></div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-kicker"><span class="section-number">03</span><h2>使用したプロンプト（全文）</h2></div>
+      <div class="prompt-box">「チームの業務効率化を進めているプロジェクトマネージャーです。主流のプロジェクト管理ツールの特徴と違いを比較した上で、おすすめを教えてください。」</div>
+    </section>
+
+    <div class="disclaimer">
+      <p>免責事項</p>
+      <ul>
+        <li><span>・</span>本レポートはChatGPT / Claude / GeminiのAPIを通じて自動取得した回答を集計・表示したものです。回答内容はAIが生成したものであり、Ops Octopusが内容を監修・保証するものではありません。</li>
+        <li><span>・</span>AIの回答には誤りが含まれる場合があります。第三者への公開・引用・営業利用の際は、購入者の責任で内容をご確認ください。</li>
+        <li><span>・</span>本レポートは調査時点のスナップショットです。時期やモデル更新により回答内容は変動します。</li>
+        <li><span>・</span>本サービスはChatGPT / Claude / Geminiの公式・認定サービスではありません。各名称および回答内容で表示された企業名・商品名等は各社の商標または登録商標です。</li>
+      </ul>
+    </div>
+
+    <div class="footer"><span>AI Brand Insight Quick Scan ／ 本レポートは生成AIの回答を集計・要約したものです。</span></div>
+  </div>
+</main>
+</body>
+</html>
