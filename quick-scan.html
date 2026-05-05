@@ -1498,88 +1498,200 @@
       const dateStr    = `${now.getFullYear()}${String(now.getMonth()+1).padStart(2,'0')}${String(now.getDate()).padStart(2,'0')}`;
       const dateTime   = now.toLocaleString('ja-JP');
       const typeLabel  = state.surveyType === 'market' ? 'A 市場調査' : 'B ブランド調査';
-      const chatgpt    = $('result-chatgpt').innerHTML || '';
-      const claude     = $('result-claude').innerHTML  || '';
-      const gemini     = $('result-gemini').innerHTML  || '';
+      const chatgpt    = $('result-chatgpt').innerHTML  || '';
+      const claude     = $('result-claude').innerHTML   || '';
+      const gemini     = $('result-gemini').innerHTML   || '';
       const prompt     = $('promptDisplay').textContent || '';
       const iCommon    = $('insight-common').textContent    || '';
       const iDiff      = $('insight-difference').textContent || '';
       const iPersona   = $('insight-persona').textContent   || '';
       const iKeywords  = $('insight-keywords').innerHTML    || '';
-      const iTrend     = $('insight-trend').textContent     || '';
-      const iHint      = $('insight-hint').textContent      || '';
+      const iTrend     = $('insight-trend').innerHTML       || '';
+      const iHint      = $('insight-hint').innerHTML        || '';
 
       const html = `<!DOCTYPE html>
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>AI Brand Insight_${escapeHtml(state.keyword)}_${dateStr}</title>
+<title>Ops Octopus_${escapeHtml(state.keyword)}_${dateStr}</title>
 <style>
-body{font-family:"Helvetica Neue","Hiragino Sans","Hiragino Kaku Gothic ProN",Arial,"Noto Sans JP",Meiryo,sans-serif;max-width:940px;margin:0 auto;padding:2rem 1rem;color:#08131a;line-height:1.7;}
-h1{font-size:22px;color:#102a4a;margin-bottom:.25rem;}
-h2{font-size:15px;font-weight:600;border-bottom:2px solid #102a4a;padding-bottom:4px;margin:1.75rem 0 .75rem;color:#102a4a;}
-.meta{font-size:13px;color:#5a656b;margin-bottom:1.75rem;display:flex;flex-wrap:wrap;gap:6px;}
-.badge{background:#f5f8fa;border:1px solid #dce0e3;border-radius:4px;padding:2px 8px;}
-.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:.5rem;}
-.card{border:1px solid #dce0e3;border-radius:10px;padding:14px 16px;}
-.card-header{display:flex;align-items:center;gap:6px;font-weight:600;font-size:14px;margin-bottom:10px;}
-.dot{width:10px;height:10px;border-radius:50%;display:inline-block;flex-shrink:0;}
-.card p{margin-bottom:8px;font-size:15px;}
-.card ul,.card ol{padding-left:1.2em;margin-bottom:8px;font-size:15px;}
-.insight-panel{border:1px solid rgba(16,42,74,.2);border-radius:10px;overflow:hidden;margin-bottom:1.5rem;}
-.insight-header{background:#102a4a;color:#fff;padding:10px 14px;font-size:14px;font-weight:600;}
-.insight-item{padding:12px 14px;border-bottom:1px solid rgba(16,42,74,.1);}
+:root{--navy-950:#061426;--navy-900:#081b33;--navy-800:#102a4a;--blue-gray-50:#f4f7fb;--off-white:#fbfaf6;--white:#ffffff;--amber-400:#fbbf24;--amber-500:#f59e0b;--text-dark:#132033;--text-muted:#5f6f85;--border:#dce4ef;}
+*{box-sizing:border-box;}
+html{background:#eef3f8;}
+body{margin:0;font-family:"Inter","Noto Sans JP",sans-serif;color:var(--text-dark);line-height:1.72;background:linear-gradient(90deg,rgba(8,27,51,.06) 0,rgba(8,27,51,.06) 1px,transparent 1px,transparent 72px),#eef3f8;-webkit-font-smoothing:antialiased;}
+.report-shell{width:min(1080px,calc(100% - 32px));margin:32px auto;background:#fff;border:1px solid #b9c7d8;box-shadow:0 18px 42px rgba(6,20,38,.10);}
+.report-cover{display:grid;grid-template-columns:1.1fr .9fr;min-height:190px;border-bottom:1px solid #b9c7d8;}
+.cover-main{padding:34px 42px 30px;background:var(--navy-900);color:var(--off-white);position:relative;overflow:hidden;}
+.cover-main::after{content:"";position:absolute;right:-80px;top:-120px;width:300px;height:300px;border:1px solid rgba(251,191,36,.22);transform:rotate(18deg);}
+.brand-lockup{display:flex;align-items:center;gap:10px;margin-bottom:26px;position:relative;z-index:1;}
+.brand-mark{width:28px;height:28px;border-radius:9px;background:var(--amber-400);display:grid;place-items:center;font-size:16px;filter:grayscale(1);}
+.brand-text{font-size:13px;font-weight:700;letter-spacing:.04em;}
+.brand-sub{font-size:11px;color:rgba(251,250,246,.72);margin-top:1px;}
+.report-title{margin:0;font-size:30px;line-height:1.25;font-weight:760;color:var(--off-white);position:relative;z-index:1;}
+.cover-note{margin-top:14px;color:rgba(251,250,246,.76);font-size:13px;position:relative;z-index:1;}
+.cover-side{padding:34px 34px 30px;background:linear-gradient(180deg,#fff 0%,#f7f9fc 100%);}
+.document-label{display:inline-flex;align-items:center;gap:7px;font-size:11px;letter-spacing:.12em;font-weight:800;color:var(--navy-800);text-transform:uppercase;margin-bottom:18px;}
+.document-label::before{content:"";width:28px;height:3px;background:var(--amber-400);display:inline-block;}
+.meta{display:grid;grid-template-columns:96px 1fr;border-top:1px solid var(--border);border-left:1px solid var(--border);font-size:12px;}
+.meta-row-label,.meta-row-value{padding:9px 10px;border-right:1px solid var(--border);border-bottom:1px solid var(--border);}
+.meta-row-label{background:#f8fafc;color:var(--text-muted);font-weight:700;}
+.meta-row-value{background:#fff;color:var(--text-dark);}
+.report-body{padding:34px 42px 42px;}
+.report-section{margin:0 0 34px;}
+.section-kicker{display:flex;align-items:center;gap:12px;margin:0 0 14px;}
+.section-number{width:34px;height:24px;background:var(--navy-800);color:#fff;display:grid;place-items:center;font-size:11px;font-weight:800;letter-spacing:.06em;flex-shrink:0;}
+.section-heading{margin:0;font-size:18px;font-weight:760;color:var(--navy-800);}
+.section-lead{margin:-6px 0 16px 46px;font-size:12px;color:var(--text-muted);}
+.result-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-bottom:.5rem;}
+.card{border:1px solid #b9c7d8;background:#fff;display:flex;flex-direction:column;}
+.card-header{display:flex;align-items:center;gap:8px;font-weight:760;font-size:13px;padding:11px 14px;border-bottom:1px solid var(--border);background:#fbfcfe;color:var(--navy-800);}
+.dot{width:9px;height:9px;border-radius:50%;display:inline-block;flex-shrink:0;}
+.card p,.card ul,.card ol{margin:0;padding:14px 14px 0;font-size:13px;color:#243143;}
+.card p:last-child,.card ul:last-child,.card ol:last-child{padding-bottom:14px;}
+.insight-panel{border:1px solid #b9c7d8;background:#fff;overflow:hidden;margin-bottom:1.5rem;}
+.insight-header{background:var(--navy-800);color:#fff;padding:12px 16px;font-size:13px;font-weight:760;letter-spacing:.02em;}
+.insight-item{display:grid;grid-template-columns:210px 1fr;border-bottom:1px solid var(--border);}
 .insight-item:last-child{border-bottom:none;}
-.insight-label{font-size:11px;font-weight:600;color:#102a4a;margin-bottom:4px;}
-.insight-value{font-size:13px;}
-.keyword-tag { display:inline-block; background:#f4f7fb; border:1px solid #dce4ef; border-radius:4px; padding:2px 8px; font-size:12px; color:#132033; margin:2px 3px 2px 0; }
-.prompt-box{background:#f5f8fa;border-radius:8px;padding:12px 16px;font-family:SFMono-Regular,Consolas,Menlo,Courier,monospace;font-size:13px;color:#5a656b;white-space:pre-wrap;word-break:break-word;}
-.footer{margin-top:2rem;padding-top:1rem;border-top:1px solid #dce0e3;font-size:12px;color:#9ca7ad;}
-@media(max-width:640px){.grid{grid-template-columns:1fr;}}
+.insight-label{font-size:11px;font-weight:760;color:var(--navy-800);padding:13px 14px;background:#f8fafc;border-right:1px solid var(--border);}
+.insight-value{padding:13px 15px;font-size:13px;color:#243143;}
+.keyword-tag{display:inline-block;background:#fff;border:1px solid #b9c7d8;padding:2px 8px;font-size:11px;color:#243143;margin:2px 3px 2px 0;}
+.why-3ai{border:1px solid #b9c7d8;background:#fff;padding:24px 28px;margin-bottom:1.5rem;}
+.why-3ai-block{margin-bottom:1.5rem;}
+.why-3ai-heading{font-size:14px;font-weight:760;color:var(--navy-800);margin:0 0 6px;}
+.why-3ai-body{font-size:13px;color:#243143;line-height:1.8;margin:0 0 6px;}
+.why-3ai-cite{font-size:11px;color:var(--text-muted);line-height:1.6;margin:0;}
+.why-3ai-cite a{color:var(--text-muted);word-break:break-all;}
+.why-3ai-table-wrap{overflow-x:auto;margin-bottom:14px;}
+.why-3ai-table{width:100%;border-collapse:collapse;font-size:13px;}
+.why-3ai-table th{background:#f8fafc;padding:9px 12px;border:1px solid var(--border);font-weight:760;color:var(--navy-800);text-align:left;}
+.why-3ai-table td{padding:9px 12px;border:1px solid var(--border);color:#243143;vertical-align:top;}
+.why-3ai-ai-cell{display:flex;align-items:center;gap:6px;font-weight:500;white-space:nowrap;}
+.why-3ai-footer{font-size:12px;color:var(--text-muted);line-height:1.7;margin:0;}
+.upsell{border:1px solid #b9c7d8;padding:20px 24px;margin-bottom:2rem;background:#fbfcfe;}
+.upsell-title{font-size:14px;font-weight:760;color:var(--navy-800);margin:0 0 6px;}
+.upsell-desc{font-size:12px;color:var(--text-muted);line-height:1.7;margin:0 0 12px;}
+.upsell-link{font-size:12px;color:var(--navy-800);text-decoration:none;border-bottom:1px solid var(--navy-800);}
+.prompt-box{background:#fbfcfe;border:1px solid #b9c7d8;border-left:4px solid var(--navy-800);padding:14px 16px;font-family:SFMono-Regular,Consolas,Menlo,Courier,monospace;font-size:12px;color:#3e4a5c;white-space:pre-wrap;word-break:break-word;}
+.disclaimer{margin-top:2rem;padding:16px 18px;background:#fbfcfe;border:1px solid #b9c7d8;}
+.disclaimer p{font-size:12px;font-weight:760;color:var(--navy-800);margin:0 0 8px;}
+.disclaimer ul{list-style:none;display:flex;flex-direction:column;gap:6px;margin:0;padding:0;}
+.disclaimer li{font-size:11px;color:var(--text-muted);line-height:1.75;padding-left:1em;position:relative;}
+.disclaimer li span{position:absolute;left:0;}
+.report-footer{margin-top:2rem;padding-top:1rem;border-top:1px solid #b9c7d8;font-size:11px;color:var(--text-muted);}
+.report-footer::after{content:"CONFIDENTIAL";letter-spacing:.12em;color:#9aa8b9;float:right;}
+@media(max-width:780px){.report-shell{width:100%;margin:0;border-left:none;border-right:none;}.report-cover{grid-template-columns:1fr;}.cover-main,.cover-side,.report-body{padding:26px 20px;}.result-grid{grid-template-columns:1fr;}.insight-item{grid-template-columns:1fr;}.insight-label{border-right:none;border-bottom:1px solid var(--border);}.section-lead{margin-left:0;}}
+@media print{html,body{background:#fff;}.report-shell{width:100%;margin:0;border:none;box-shadow:none;}.report-body{padding:26px 32px;}.card,.insight-panel,.prompt-box,.disclaimer{break-inside:avoid;}}
 </style>
 </head>
 <body>
-<h1>AI Brand Insight Quick Scan</h1>
-<div class="meta">
-  <span class="badge">調査日時：${dateTime}</span>
-  <span class="badge">${escapeHtml(state.category)}</span>
-  <span class="badge">${escapeHtml(typeLabel)}</span>
-  <span class="badge">${escapeHtml(state.keyword)}</span>
-</div>
+<main class="report-shell">
+  <header class="report-cover">
+    <div class="cover-main">
+      <div class="brand-lockup">
+        <div class="brand-mark">🐙</div>
+        <div>
+          <div class="brand-text">Ops Octopus</div>
+          <div class="brand-sub">AIブランド調査レポート</div>
+        </div>
+      </div>
+      <h1 class="report-title">Ops Octopus - Quick Scan</h1>
+      <div class="cover-note">ChatGPT / Claude / Gemini の回答を横断し、AI上での見え方を営業・マーケティングの判断材料として整理します。</div>
+    </div>
+    <aside class="cover-side">
+      <div class="document-label">Report Profile</div>
+      <div class="meta">
+        <div class="meta-row-label">調査日時</div><div class="meta-row-value">${dateTime}</div>
+        <div class="meta-row-label">カテゴリ</div><div class="meta-row-value">${escapeHtml(state.category)}</div>
+        <div class="meta-row-label">目的</div><div class="meta-row-value">${escapeHtml(typeLabel)}</div>
+        <div class="meta-row-label">キーワード</div><div class="meta-row-value">${escapeHtml(state.keyword)}</div>
+      </div>
+    </aside>
+  </header>
 
-<h2>3AIの回答</h2>
-<div class="grid">
-  <div class="card"><div class="card-header"><span class="dot" style="background:#10a37f;"></span>ChatGPT</div>${chatgpt}</div>
-  <div class="card"><div class="card-header"><span class="dot" style="background:#CC785C;"></span>Claude</div>${claude}</div>
-  <div class="card"><div class="card-header"><span class="dot" style="background:#4285F4;"></span>Gemini</div>${gemini}</div>
-</div>
+  <div class="report-body">
+    <section class="report-section">
+      <div class="section-kicker"><span class="section-number">01</span><h2 class="section-heading">3AIの回答</h2></div>
+      <p class="section-lead">同一プロンプトに対する主要AIの回答を比較し、推奨傾向と論点の違いを確認します。</p>
+      <div class="result-grid">
+        <div class="card"><div class="card-header"><span class="dot" style="background:#10a37f;"></span>ChatGPT</div>${chatgpt}</div>
+        <div class="card"><div class="card-header"><span class="dot" style="background:#CC785C;"></span>Claude</div>${claude}</div>
+        <div class="card"><div class="card-header"><span class="dot" style="background:#4285F4;"></span>Gemini</div>${gemini}</div>
+      </div>
+    </section>
 
-<h2>AIインサイト</h2>
-<div class="insight-panel">
-  <div class="insight-header">AIインサイト</div>
-  <div class="insight-item"><div class="insight-label">3AIの共通見解</div><div class="insight-value">${escapeHtml(iCommon)}</div></div>
-  <div class="insight-item"><div class="insight-label">AIによる言及の差</div><div class="insight-value">${escapeHtml(iDiff)}</div></div>
-  <div class="insight-item"><div class="insight-label">このキーワードを検索する想定ユーザー</div><div class="insight-value">${escapeHtml(iPersona)}</div></div>
-  <div class="insight-item"><div class="insight-label">AI回答に現れた注目ワード</div><div class="insight-value">${iKeywords}</div></div>
-  <div class="insight-item"><div class="insight-label">この業界のAI検索利用傾向</div><div class="insight-value">${escapeHtml(iTrend)}</div></div>
-  <div class="insight-item"><div class="insight-label">AEO改善のヒント</div><div class="insight-value">${escapeHtml(iHint)}</div></div>
-</div>
+    <section class="report-section">
+      <div class="section-kicker"><span class="section-number">02</span><h2 class="section-heading">AIインサイト</h2></div>
+      <p class="section-lead">3AIの回答をもとに、共通見解・差分・想定ユーザー・改善論点を整理します。</p>
+      <div class="insight-panel">
+        <div class="insight-header">AIインサイト</div>
+        <div class="insight-item"><div class="insight-label">3AIの共通見解</div><div class="insight-value">${escapeHtml(iCommon)}</div></div>
+        <div class="insight-item"><div class="insight-label">AIによる言及の差</div><div class="insight-value">${escapeHtml(iDiff)}</div></div>
+        <div class="insight-item"><div class="insight-label">このキーワードを検索する想定ユーザー</div><div class="insight-value">${escapeHtml(iPersona)}</div></div>
+        <div class="insight-item"><div class="insight-label">AI回答に現れた注目ワード</div><div class="insight-value">${iKeywords}</div></div>
+        <div class="insight-item"><div class="insight-label">この業界のAI検索利用傾向</div><div class="insight-value">${iTrend}</div></div>
+        <div class="insight-item"><div class="insight-label">AEO改善のヒント</div><div class="insight-value">${iHint}</div></div>
+      </div>
+    </section>
 
-<h2>使用したプロンプト（全文）</h2>
-<div class="prompt-box">${escapeHtml(prompt)}</div>
+    <section class="report-section">
+      <div class="section-kicker"><span class="section-number">03</span><h2 class="section-heading">なぜ3つのAIに聞くのか</h2></div>
+      <div class="why-3ai">
+        <div class="why-3ai-block">
+          <p class="why-3ai-heading">AIを使っている消費者は、今や「2人に1人」の時代へ</p>
+          <p class="why-3ai-body">「AIはまだ一部の人が使うもの」という認識は、過去のものになりつつあります。最新の調査によれば、日本国内の生成AIサービス利用者数は急増しており、2026年末には3,553万人に達する見込みです。普段からネットやスマホを利用する層の過半数（54.7%）が日常的にAIを利用しており、消費者の「検索」や「お店選び」のスタイルは根本から変わり始めています。</p>
+          <p class="why-3ai-cite">出典：2026年2月 ICT総研調査　<a href="https://ictr.co.jp/report/20260220.html/" target="_blank" rel="noopener">https://ictr.co.jp/report/20260220.html/</a></p>
+        </div>
+        <div class="why-3ai-block">
+          <p class="why-3ai-heading">なぜ3つのAIで回答が異なるのか</p>
+          <p class="why-3ai-body">ChatGPT / Gemini / Claudeは、それぞれ異なるデータや仕組みで動いている「別々の知能」です。そのため、同じ質問を投げても「推薦されるブランド」や「勧める理由」が異なることがよくあります。1つのAIの結果だけを見ていると、そのAI特有の「偏り」を、市場全体の評価だと誤認してしまうリスクがあります。3つのAIを横断してチェックすることで、初めて「デジタル上の評判」を多角的に、正しく把握することが可能になります。</p>
+        </div>
+        <div class="why-3ai-block">
+          <p class="why-3ai-heading">お客様の属性により、主戦場となるAIは変わる</p>
+          <p class="why-3ai-body">国内のAI利用経験率は48.5%に達し、若者、ビジネス層を中心に浸透が進んでいます。さらに、お客様（消費者）の年齢や仕事、利用シーンによって、よく使われるAIは異なります。カバー率の高いChatGPTでの評価を軸にしつつ、検索行動に直結するGeminiなど、お客様の属性に合わせてどのAIを重視すべきかを判断することが重要です。</p>
+          <p class="why-3ai-cite">出典：2026年3月 日本リサーチセンター（NRC）調査　<a href="https://www.nrc.co.jp/report/260410.html" target="_blank" rel="noopener">https://www.nrc.co.jp/report/260410.html</a></p>
+        </div>
+        <div class="why-3ai-table-wrap">
+          <table class="why-3ai-table">
+            <thead><tr><th>AI</th><th>日本での位置づけ</th><th>特徴</th></tr></thead>
+            <tbody>
+              <tr><td><div class="why-3ai-ai-cell"><span style="width:9px;height:9px;border-radius:50%;background:#10a37f;display:inline-block;"></span>ChatGPT</div></td><td>圧倒的な知名度と普及率。ビジネス層を中心に幅広く支持。</td><td>情報を整理して分かりやすく答えるのが得意</td></tr>
+              <tr><td><div class="why-3ai-ai-cell"><span style="width:9px;height:9px;border-radius:50%;background:#4285F4;display:inline-block;"></span>Gemini</div></td><td>Google検索やAndroid、Chromeへの統合により急進中。全世代で浸透が進む。</td><td>最新情報や検索エンジンに近い文脈で回答する傾向</td></tr>
+              <tr><td><div class="why-3ai-ai-cell"><span style="width:9px;height:9px;border-radius:50%;background:#CC785C;display:inline-block;"></span>Claude</div></td><td>20〜30代、エンジニアやクリエーター、専門職など特定の職域に強い支持。</td><td>文脈を踏まえた自然な対話や、深い分析が得意</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="why-3ai-footer">1つのAIだけに聞いた結果は、そのAIのユーザー層や学習データのクセが反映されます。3つ横断することで、より多くの潜在顧客が実際に目にしているブランド像が浮かび上がります。</p>
+      </div>
+    </section>
 
-<div style="margin-top:2rem;padding:16px 20px;background:#f4f7fb;border:1px solid #dce4ef;border-radius:8px;">
-  <p style="font-size:12px;font-weight:600;color:#5f6f85;margin-bottom:8px;">免責事項</p>
-  <ul style="list-style:none;display:flex;flex-direction:column;gap:6px;">
-    <li style="font-size:11px;color:#5f6f85;line-height:1.7;padding-left:1em;position:relative;"><span style="position:absolute;left:0;">・</span>本レポートはChatGPT / Claude / GeminiのAPIを通じて自動取得した回答を集計・表示したものです。回答内容はAIが生成したものであり、Ops Octopusが内容を監修・保証するものではありません。</li>
-    <li style="font-size:11px;color:#5f6f85;line-height:1.7;padding-left:1em;position:relative;"><span style="position:absolute;left:0;">・</span>AIの回答には誤りが含まれる場合があります。第三者への公開・引用・営業利用の際は、購入者の責任で内容をご確認ください。</li>
-    <li style="font-size:11px;color:#5f6f85;line-height:1.7;padding-left:1em;position:relative;"><span style="position:absolute;left:0;">・</span>本レポートは調査時点のスナップショットです。時期やモデル更新により回答内容は変動します。</li>
-    <li style="font-size:11px;color:#5f6f85;line-height:1.7;padding-left:1em;position:relative;"><span style="position:absolute;left:0;">・</span>本サービスはChatGPT / Claude / Geminiの公式・認定サービスではありません。各名称および回答内容で表示された企業名・商品名等は各社の商標または登録商標です。</li>
-  </ul>
-</div>
+    <section class="report-section">
+      <div class="section-kicker"><span class="section-number">04</span><h2 class="section-heading">より精度の高い調査はDeep Scanで</h2></div>
+      <div class="upsell">
+        <p class="upsell-title">Quick Scanは1回試行のスナップショットです</p>
+        <p class="upsell-desc">回答のブレを統計的に排除し、競合比較・推薦頻度ランキングを得るにはDeep Scanをご利用ください。30回試行・競合2社比較・PDFレポート納品に対応します。</p>
+        <a class="upsell-link" href="https://app.ops-octopus.com/detail.html" target="_blank" rel="noopener">Deep Scanの詳細を見る →</a>
+      </div>
+    </section>
 
-<div class="footer">AI Brand Insight Quick Scan ／ 本レポートは生成AIの回答を集計・要約したものです。</div>
+    <section class="report-section">
+      <div class="section-kicker"><span class="section-number">05</span><h2 class="section-heading">使用したプロンプト（全文）</h2></div>
+      <div class="prompt-box">${escapeHtml(prompt)}</div>
+    </section>
+
+    <div class="disclaimer">
+      <p>免責事項</p>
+      <ul>
+        <li><span>・</span>本レポートはChatGPT / Claude / GeminiのAPIを通じて自動取得した回答を集計・表示したものです。回答内容はAIが生成したものであり、Ops Octopusが内容を監修・保証するものではありません。</li>
+        <li><span>・</span>AIの回答には誤りが含まれる場合があります。第三者への公開・引用・営業利用の際は、購入者の責任で内容をご確認ください。</li>
+        <li><span>・</span>本レポートは調査時点のスナップショットです。時期やモデル更新により回答内容は変動します。</li>
+        <li><span>・</span>本サービスはChatGPT / Claude / Geminiの公式・認定サービスではありません。各名称および回答内容で表示された企業名・商品名等は各社の商標または登録商標です。</li>
+      </ul>
+    </div>
+
+    <div class="report-footer">Ops Octopus - Quick Scan ／ 本レポートは生成AIの回答を集計・要約したものです。</div>
+  </div>
+</main>
 </body>
 </html>`;
 
@@ -1587,7 +1699,7 @@ h2{font-size:15px;font-weight:600;border-bottom:2px solid #102a4a;padding-bottom
       const url  = URL.createObjectURL(blob);
       const a    = document.createElement('a');
       a.href     = url;
-      a.download = `AI Brand Insight_${state.keyword}_${dateStr}.html`;
+      a.download = `OpsOctopus_QuickScan_${state.keyword}_${dateStr}.html`;
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);
