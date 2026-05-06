@@ -409,8 +409,6 @@
     .result-content { padding: 14px; font-size: 13px; color: #243143; flex: 1; }
     .result-content p { margin: 0 0 8px; }
     .result-content p:last-child { margin-bottom: 0; }
-    .keyword-highlight { }
-
     /* ── insight panel ── */
     .insight-panel { border: 1px solid #b9c7d8; background: #fff; overflow: hidden; margin-bottom: 1.5rem; }
     .insight-header { background: var(--navy-800); color: #fff; padding: 12px 16px; font-size: 13px; font-weight: 760; letter-spacing: .02em; }
@@ -478,8 +476,9 @@
 
     /* ── result error ── */
     .result-error { color: rgba(8,19,26,.5); font-size: 14px; font-style: italic; }
-    .result-content strong { font-weight: inherit; text-decoration: underline; text-underline-offset: 2px; }
-
+    .result-content strong { font-weight: inherit; text-decoration: underline; text-underline-offset: 2px; background: none; color: inherit; }
+    .result-content em { font-style: normal; }
+    .keyword-highlight { background: none; color: inherit; }
     /* ── trend bar (JS-rendered) ── */
     .trend-bar-wrap { display: flex; align-items: center; gap: 10px; margin-bottom: 6px; }
     .trend-level { font-size: 12px; font-weight: 600; color: var(--navy-800); min-width: 3.5em; }
@@ -930,7 +929,7 @@
               <div class="section-number">02</div>
               <h2 class="section-heading">AIインサイト</h2>
             </div>
-            <p class="section-lead">このレポート専用の分析結果</p>
+            <p class="section-lead">3AIの回答をもとに、共通見解・差分・想定ユーザー・改善論点を整理します。</p>
             <div class="insight-panel">
               <div class="insight-header">3AIの分析</div>
               <div class="insight-item">
@@ -1459,8 +1458,20 @@
         el.innerHTML = '<span class="result-error">回答を取得できませんでした。</span>';
         return;
       }
-      el.innerHTML = marked.parse(text);
+      let html = marked.parse(text);
+      html = html.replace(/<mark>(.*?)<\/mark>/g, '$1');
+      html = html.replace(/<em>(.*?)<\/em>/g, '$1');
+      el.innerHTML = html;
       if (state.keyword) highlightKeyword(el, state.keyword);
+    }
+
+    function createTrendBar(level) {
+      const pctMap = { '高い': 100, '中程度': 60, '低い': 30 };
+      const pct = pctMap[level] ?? 0;
+      return `<div class="trend-bar-wrap">` +
+        `<span class="trend-level">${level}</span>` +
+        `<div class="trend-bar"><div class="trend-bar-fill" style="width:${pct}%;"></div></div>` +
+        `</div>`;
     }
 
     function renderInsightPanel(insight) {
@@ -1495,12 +1506,8 @@
       // 静的2項目：categories.jsonから取得
       const cat = categoriesData[state.category];
       if (cat) {
-        const pct = { '高い': 75, '中程度': 50, '低い': 25 }[cat.ai_usage_trend] ?? 50;
         $('insight-trend').innerHTML =
-          `<div class="trend-bar-wrap">` +
-          `<span class="trend-level">${cat.ai_usage_trend}</span>` +
-          `<div class="trend-bar"><div class="trend-bar-fill" style="width:${pct}%"></div></div>` +
-          `</div>` +
+          createTrendBar(cat.ai_usage_trend) +
           `<p class="insight-value-text">${cat.ai_usage_comment_quick.replace(/\n/g, '<br>')}</p>`;
         $('insight-hint').innerHTML = cat.aeo_hint_quick.replace(/\n/g, '<br>');
       }
@@ -1534,6 +1541,11 @@
       const iKeywords  = $('insight-keywords').innerHTML    || '';
       const iTrend     = $('insight-trend').innerHTML       || '';
       const iHint      = $('insight-hint').innerHTML        || '';
+      const cat        = categoriesData[state.category];
+      const iTrendWithBar = cat?.ai_usage_trend
+        ? createTrendBar(cat.ai_usage_trend) +
+          `<p class="insight-value-text">${cat.ai_usage_comment_quick.replace(/\n/g, '<br>')}</p>`
+        : iTrend;
 
       const html = `<!DOCTYPE html>
 <html lang="ja">
@@ -1575,7 +1587,13 @@ body{margin:0;font-family:"Inter","Noto Sans JP",sans-serif;color:var(--text-dar
 .dot{width:9px;height:9px;border-radius:50%;display:inline-block;flex-shrink:0;}
 .card p,.card ul,.card ol{margin:0;padding:14px 14px 0;font-size:14px;color:#243143;}
 .card p:last-child,.card ul:last-child,.card ol:last-child{padding-bottom:14px;}
-.card strong{font-weight:inherit;text-decoration:underline;}
+.card strong{font-weight:inherit;text-decoration:underline;background:none;color:inherit;}
+.card em{font-style:normal;}
+.trend-bar-wrap{display:flex;align-items:center;gap:10px;margin-bottom:6px;}
+.trend-level{font-size:12px;font-weight:600;color:var(--navy-800);min-width:3.5em;}
+.trend-bar{flex:1;height:8px;background:rgba(16,42,74,.15);border-radius:4px;overflow:hidden;max-width:160px;}
+.trend-bar-fill{height:100%;background:var(--navy-800);border-radius:4px;}
+.insight-value-text{font-size:13px;color:rgba(8,19,26,.7);line-height:1.6;margin-bottom:0;}
 .insight-panel{border:1px solid #b9c7d8;background:#fff;overflow:hidden;margin-bottom:1.5rem;}
 .insight-header{background:var(--navy-800);color:#fff;padding:12px 16px;font-size:13px;font-weight:760;letter-spacing:.02em;}
 .insight-item{display:grid;grid-template-columns:210px 1fr;border-bottom:1px solid var(--border);}
@@ -1660,7 +1678,7 @@ body{margin:0;font-family:"Inter","Noto Sans JP",sans-serif;color:var(--text-dar
       </div>
       <div class="insight-panel" style="margin-top:12px;">
         <div class="insight-header">この業界の傾向</div>
-        <div class="insight-item"><div class="insight-label">この業界のAI検索利用傾向</div><div class="insight-value">${iTrend}</div></div>
+        <div class="insight-item"><div class="insight-label">この業界のAI検索利用傾向</div><div class="insight-value">${iTrendWithBar}</div></div>
         <div class="insight-item"><div class="insight-label">AEO改善のヒント</div><div class="insight-value">${iHint}</div></div>
       </div>
     </section>
