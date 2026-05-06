@@ -1465,6 +1465,15 @@
       if (state.keyword) highlightKeyword(el, state.keyword);
     }
 
+    function createTrendBar(level) {
+      const pctMap = { '高い': 100, '中程度': 60, '低い': 30 };
+      const pct = pctMap[level] ?? 0;
+      return `<div class="trend-bar-wrap">` +
+        `<span class="trend-level">${level}</span>` +
+        `<div class="trend-bar"><div class="trend-bar-fill" style="width:${pct}%;"></div></div>` +
+        `</div>`;
+    }
+
     function renderInsightPanel(insight) {
       const dynamicItems = [
         { id: 'insight-common',     value: insight?.common      },
@@ -1497,12 +1506,8 @@
       // 静的2項目：categories.jsonから取得
       const cat = categoriesData[state.category];
       if (cat) {
-        const pct = { '高い': 75, '中程度': 50, '低い': 25 }[cat.ai_usage_trend] ?? 50;
         $('insight-trend').innerHTML =
-          `<div class="trend-bar-wrap">` +
-          `<span class="trend-level">${cat.ai_usage_trend}</span>` +
-          `<div class="trend-bar"><div class="trend-bar-fill" style="width:${pct}%"></div></div>` +
-          `</div>` +
+          createTrendBar(cat.ai_usage_trend) +
           `<p class="insight-value-text">${cat.ai_usage_comment_quick.replace(/\n/g, '<br>')}</p>`;
         $('insight-hint').innerHTML = cat.aeo_hint_quick.replace(/\n/g, '<br>');
       }
@@ -1536,6 +1541,11 @@
       const iKeywords  = $('insight-keywords').innerHTML    || '';
       const iTrend     = $('insight-trend').innerHTML       || '';
       const iHint      = $('insight-hint').innerHTML        || '';
+      const cat        = categoriesData[state.category];
+      const iTrendWithBar = cat?.ai_usage_trend
+        ? createTrendBar(cat.ai_usage_trend) +
+          `<p class="insight-value-text">${cat.ai_usage_comment_quick.replace(/\n/g, '<br>')}</p>`
+        : iTrend;
 
       const html = `<!DOCTYPE html>
 <html lang="ja">
@@ -1668,7 +1678,7 @@ body{margin:0;font-family:"Inter","Noto Sans JP",sans-serif;color:var(--text-dar
       </div>
       <div class="insight-panel" style="margin-top:12px;">
         <div class="insight-header">この業界の傾向</div>
-        <div class="insight-item"><div class="insight-label">この業界のAI検索利用傾向</div><div class="insight-value">${iTrend}</div></div>
+        <div class="insight-item"><div class="insight-label">この業界のAI検索利用傾向</div><div class="insight-value">${iTrendWithBar}</div></div>
         <div class="insight-item"><div class="insight-label">AEO改善のヒント</div><div class="insight-value">${iHint}</div></div>
       </div>
     </section>
