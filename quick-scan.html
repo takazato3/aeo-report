@@ -1228,6 +1228,17 @@
   <script>
     const GAS_URL = 'https://script.google.com/macros/s/AKfycbwRKdjJe9PqZE3Rnh_I4zeRv5ET5PDUkmVkaNUFBX_kTiPHjqCn0NKNpAEReMDJgGOJ/exec';
 
+    // ═══════════════════════════════════════
+    // プラン判定（トークン頭2桁）
+    // ═══════════════════════════════════════
+    const PLAN_MAP = { 'QK': 'quick', 'DP': 'deep', 'FL': 'full' };
+
+    function getPlanFromToken(token) {
+      if (!token || token.length < 2) return null;
+      const prefix = token.substring(0, 2).toUpperCase();
+      return PLAN_MAP[prefix] || null;
+    }
+
     const state = { token: '', category: '', keyword: '', surveyType: 'market', question: '', customerProfile: '', customerIntent: '' };
 
     let categoriesData = {};
@@ -1283,6 +1294,125 @@
         throw err;
       } finally {
         clearTimeout(timeoutId);
+      }
+    }
+
+    // ═══════════════════════════════════════
+    // サジェスト更新
+    // ═══════════════════════════════════════
+    document.getElementById('category-select').addEventListener('change', (e) => {
+      const category = e.target.value;
+      updateSubcategorySuggestions(category);
+      updateKeywordSuggestions(category);
+    });
+
+    function updateSubcategorySuggestions(category) {
+      const datalist = document.getElementById('subcategory-suggestions');
+      datalist.innerHTML = '';
+      if (!SUGGESTIONS[category]) return;
+      SUGGESTIONS[category].forEach(s => {
+        const opt = document.createElement('option');
+        opt.value = s;
+        datalist.appendChild(opt);
+      });
+    }
+
+    function updateKeywordSuggestions(category) {
+      const datalist = document.getElementById('keyword-suggestions');
+      datalist.innerHTML = '';
+      if (!SUGGESTIONS[category]) return;
+      SUGGESTIONS[category].forEach(s => {
+        const opt = document.createElement('option');
+        opt.value = s;
+        datalist.appendChild(opt);
+      });
+    }
+
+    // ═══════════════════════════════════════
+    // 「次へ進む」ボタンの処理
+    // ═══════════════════════════════════════
+    document.getElementById('next-button').addEventListener('click', async (e) => {
+      e.preventDefault();
+
+      const errorEl = document.getElementById('error-message');
+      errorEl.style.display = 'none';
+      errorEl.textContent = '';
+
+      const token      = document.getElementById('token-input').value.trim();
+      const category   = document.getElementById('category-select').value.trim();
+      const subcategory = document.getElementById('subcategory-input').value.trim();
+      const keyword    = document.getElementById('keyword-input').value.trim();
+
+      if (!token)       { showErrorInline(errorEl, '購入トークンを入力してください'); return; }
+      if (!category)    { showErrorInline(errorEl, '大カテゴリを選択してください'); return; }
+      if (!subcategory) { showErrorInline(errorEl, '中カテゴリを入力してください'); return; }
+      if (!keyword)     { showErrorInline(errorEl, 'ターゲットKW/社名を入力してください'); return; }
+
+      const plan = getPlanFromToken(token);
+      if (!plan) {
+        showErrorInline(errorEl, 'トークン形式が無効です。メールを確認してください。');
+        return;
+      }
+
+      try {
+        const result = await callGAS({ action: 'validateToken', token });
+        if (result.success) {
+          Object.assign(state, {
+            token,
+            category,
+            subcategory,
+            keyword,
+            surveyType:      'market',
+            customerProfile: document.getElementById('customer-profile-input').value.trim(),
+            customerIntent:  document.getElementById('customer-intent-input').value.trim(),
+          });
+
+          sessionStorage.setItem('currentPlan',     plan);
+          sessionStorage.setItem('currentToken',    token);
+          sessionStorage.setItem('category',        category);
+          sessionStorage.setItem('subcategory',     subcategory);
+          sessionStorage.setItem('keyword',         keyword);
+          sessionStorage.setItem('customerProfile', state.customerProfile);
+          sessionStorage.setItem('customerIntent',  state.customerIntent);
+
+          await transitionToScreen2();
+        } else {
+          showErrorInline(errorEl, result.error || 'トークンが無効です');
+        }
+      } catch (err) {
+        showErrorInline(errorEl, 'エラーが発生しました: ' + err.message);
+      }
+    });
+
+    function showErrorInline(errorEl, message) {
+      errorEl.textContent = message;
+      errorEl.style.display = 'block';
+    }
+
+    async function transitionToScreen2() {
+      showLoading('質問文を生成中...');
+      try {
+        const data = await callGAS({
+          action:          'generateQuestion',
+          token:           state.token,
+          category:        state.category,
+          subcategory:     state.subcategory,
+          keyword:         state.keyword,
+          type:            state.surveyType,
+          customerProfile: state.customerProfile,
+          customerIntent:  state.customerIntent,
+        });
+        if (!data.success) throw new Error(data.error || '質問文の生成に失敗しました。');
+        state.question = data.data.question;
+        $('questionDisplay').textContent = state.question;
+        $('questionEdit').value = state.question;
+        showScreen(2);
+        updateInputBadges();
+      } catch (err) {
+        const errorEl = document.getElementById('error-message');
+        showErrorInline(errorEl, err.message || 'ネットワークエラーが発生しました。');
+      } finally {
+        hideLoading();
       }
     }
 
