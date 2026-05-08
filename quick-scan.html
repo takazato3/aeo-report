@@ -1385,9 +1385,8 @@
     });
 
     function updateCustomerHints() {
-      const category   = $('category').value;
-      const surveyType = document.querySelector('input[name="surveyType"]:checked')?.value || 'market';
-      const hint       = CUSTOMER_HINTS[surveyType]?.[category];
+      const category = $('category').value;
+      const hint     = CUSTOMER_HINTS['brand']?.[category];
 
       if (hint) {
         $('customerProfileHint').textContent = hint.profile;
@@ -1399,10 +1398,9 @@
     }
 
     function updateKeywordHint() {
-      const category   = $('category').value;
-      const surveyType = document.querySelector('input[name="surveyType"]:checked')?.value || 'market';
-      const hint       = KEYWORD_HINTS[surveyType]?.[category];
-      const hintBox    = $('keywordHint');
+      const category = $('category').value;
+      const hint     = KEYWORD_HINTS['brand']?.[category];
+      const hintBox  = $('keywordHint');
       if (hint && category) {
         $('keywordHintTitle').textContent = hint.title;
         $('keywordHintBody').textContent  = hint.body;
@@ -1429,14 +1427,12 @@
     }
 
     function updateKeywordField() {
-      const category   = $('category').value;
-      const surveyType = document.querySelector('input[name="surveyType"]:checked')?.value || 'market';
-      const ph = (category && PLACEHOLDERS[surveyType]?.[category])
-        ? PLACEHOLDERS[surveyType][category]
-        : '調査したいブランド名・サービス名・キーワードを入力';
+      const category = $('category').value;
+      const ph = (category && PLACEHOLDERS['brand']?.[category])
+        ? PLACEHOLDERS['brand'][category]
+        : '例：自社ブランド名・サービス名';
       $('keyword').placeholder = ph;
-      const list = (surveyType === 'market' && category) ? (SUGGESTIONS[category] || []) : [];
-      $('keywordSuggestions').innerHTML = list.map(s => `<option value="${s.replace(/"/g, '&quot;')}">` ).join('');
+      $('keywordSuggestions').innerHTML = '';
     }
 
     $('category').addEventListener('change', () => {
@@ -1445,6 +1441,13 @@
       updateKeywordHint();
       updateCustomerHints();
     });
+
+    (function initFields() {
+      updateSubcategoryField();
+      updateKeywordField();
+      updateKeywordHint();
+      updateCustomerHints();
+    })();
 
     // Radio card highlight + keyword field sync
     document.querySelectorAll('input[name="surveyType"]').forEach(radio => {
