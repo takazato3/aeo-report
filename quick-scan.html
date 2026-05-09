@@ -634,6 +634,105 @@
       color: rgba(8,19,26,0.5);
     }
 
+    /* ── 確認モーダル ── */
+    .confirm-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.5);
+      z-index: 300;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+    }
+    .confirm-modal {
+      background: #ffffff;
+      border-radius: 12px;
+      padding: 24px 24px 20px;
+      width: 100%;
+      max-width: 520px;
+      max-height: 90vh;
+      overflow-y: auto;
+      box-shadow: 0 8px 32px rgba(6,20,38,0.18);
+    }
+    .confirm-title {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--navy-950);
+      margin-bottom: 6px;
+    }
+    .confirm-caution {
+      font-size: 13px;
+      color: #b22323;
+      margin-bottom: 20px;
+      padding: 8px 12px;
+      background: #fdf3f3;
+      border-radius: 6px;
+      border-left: 3px solid #b22323;
+    }
+    .confirm-section {
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+      margin-bottom: 14px;
+    }
+    .confirm-section-title {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-muted);
+      padding: 8px 12px;
+      background: #f5f8fa;
+      border-bottom: 1px solid var(--border);
+      margin: 0;
+    }
+    .confirm-row {
+      display: grid;
+      grid-template-columns: 120px 1fr;
+      border-bottom: 1px solid var(--border);
+      font-size: 13px;
+    }
+    .confirm-row:last-child { border-bottom: none; }
+    .confirm-label {
+      padding: 10px 12px;
+      background: #f8fafc;
+      color: var(--text-muted);
+      font-weight: 600;
+      font-size: 12px;
+      border-right: 1px solid var(--border);
+    }
+    .confirm-value {
+      padding: 10px 12px;
+      color: var(--text-dark);
+    }
+    .confirm-question-card {
+      padding: 10px 14px;
+      border-bottom: 1px solid var(--border);
+    }
+    .confirm-question-card:last-child { border-bottom: none; }
+    .confirm-question-badge {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--navy-800);
+      background: rgba(16,42,74,0.07);
+      border: 1px solid rgba(16,42,74,0.15);
+      border-radius: 4px;
+      padding: 2px 8px;
+      margin-bottom: 6px;
+    }
+    .confirm-question-text {
+      font-size: 13px;
+      color: var(--text-dark);
+      line-height: 1.6;
+      margin: 0;
+    }
+    .confirm-btn-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-top: 20px;
+    }
+
     @media (max-width: 480px) { .step-label { display: none; } }
 
     /* ── 質問カード (Screen 2) ── */
@@ -691,6 +790,50 @@
   </style>
 </head>
 <body>
+
+  <!-- 確認モーダル -->
+  <div class="confirm-overlay" id="confirmOverlay" style="display:none;">
+    <div class="confirm-modal">
+      <h3 class="confirm-title">この内容で調査を開始しますか？</h3>
+      <p class="confirm-caution">購入コードを消費します。開始後のキャンセルはできません。</p>
+
+      <div class="confirm-section">
+        <div class="confirm-row">
+          <span class="confirm-label">業種・カテゴリ</span>
+          <span class="confirm-value" id="confirm-category"></span>
+        </div>
+        <div class="confirm-row">
+          <span class="confirm-label">中カテゴリ</span>
+          <span class="confirm-value" id="confirm-subcategory"></span>
+        </div>
+        <div class="confirm-row">
+          <span class="confirm-label">キーワード</span>
+          <span class="confirm-value" id="confirm-keyword"></span>
+        </div>
+      </div>
+
+      <div class="confirm-section">
+        <p class="confirm-section-title">調査する質問</p>
+        <div class="confirm-question-card">
+          <span class="confirm-question-badge">【指名評判】</span>
+          <p class="confirm-question-text" id="confirm-q-reputation"></p>
+        </div>
+        <div class="confirm-question-card" id="confirm-q-competitive-card" style="display:none;">
+          <span class="confirm-question-badge">【競合比較】</span>
+          <p class="confirm-question-text" id="confirm-q-competitive"></p>
+        </div>
+        <div class="confirm-question-card" id="confirm-q-solution-card" style="display:none;">
+          <span class="confirm-question-badge">【課題解決】</span>
+          <p class="confirm-question-text" id="confirm-q-solution"></p>
+        </div>
+      </div>
+
+      <div class="confirm-btn-group">
+        <button class="btn-primary" id="confirmRunBtn" type="button">調査を開始する</button>
+        <button class="btn-secondary" id="confirmCancelBtn" type="button">キャンセル</button>
+      </div>
+    </div>
+  </div>
 
   <!-- Loading Overlay -->
   <div class="loading-overlay" id="loadingOverlay">
@@ -1599,16 +1742,35 @@
       });
     }
 
-    // ── Screen 2: Run survey ──
-    $('runSurveyBtn').addEventListener('click', async () => {
-      hideError('errorBox2');
+    // ── 確認モーダル ──
+    function showConfirmModal() {
+      const plan = sessionStorage.getItem('currentPlan') || 'quick';
 
-      // Quick の場合は指名評判のみ実行
-      const q = sanitizeInput($('q-reputation-text').value, 200);
-      if (!q.value) return showError('errorBox2', '質問文を入力してください。');
-      if (q.error)  return showError('errorBox2', `質問文：${q.error}`);
-      state.question = q.value;
+      $('confirm-category').textContent    = state.category + (state.subcategory ? ` / ${state.subcategory}` : '');
+      $('confirm-subcategory').textContent = state.subcategory;
+      $('confirm-keyword').textContent     = state.keyword;
 
+      $('confirm-q-reputation').textContent = $('q-reputation-text').value.trim();
+
+      if (plan !== 'quick') {
+        $('confirm-q-competitive').textContent = $('q-competitive-text').value.trim();
+        $('confirm-q-solution').textContent    = $('q-solution-text').value.trim();
+        $('confirm-q-competitive-card').style.display = 'block';
+        $('confirm-q-solution-card').style.display    = 'block';
+      } else {
+        $('confirm-q-competitive-card').style.display = 'none';
+        $('confirm-q-solution-card').style.display    = 'none';
+      }
+
+      $('confirmOverlay').style.display = 'flex';
+    }
+
+    function hideConfirmModal() {
+      $('confirmOverlay').style.display = 'none';
+    }
+
+    // ── 調査実行 ──
+    async function executeSurvey() {
       showLoading('3つのAIに問い合わせ中...\nしばらくお待ちください。', true);
       try {
         const data = await callGAS({
@@ -1650,6 +1812,27 @@
       } finally {
         hideLoading();
       }
+    }
+
+    // ── Screen 2: Run survey ──
+    $('runSurveyBtn').addEventListener('click', () => {
+      hideError('errorBox2');
+
+      const q = sanitizeInput($('q-reputation-text').value, 200);
+      if (!q.value) return showError('errorBox2', '質問文を入力してください。');
+      if (q.error)  return showError('errorBox2', `質問文：${q.error}`);
+      state.question = q.value;
+
+      showConfirmModal();
+    });
+
+    $('confirmRunBtn').addEventListener('click', async () => {
+      hideConfirmModal();
+      await executeSurvey();
+    });
+
+    $('confirmCancelBtn').addEventListener('click', () => {
+      hideConfirmModal();
     });
 
     // アンケートラジオカードの選択スタイル切り替え
