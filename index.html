@@ -132,7 +132,7 @@
       max-width: 1100px;
       margin: 0 auto;
       display: grid;
-      grid-template-columns: 40fr 60fr;
+      grid-template-columns: 60fr 40fr;
       gap: 56px;
       align-items: center;
     }
@@ -1295,5 +1295,14 @@
     </div>
   </footer>
 
+<script>
+  const heroVideo = document.querySelector('.hero-media-video');
+  if (heroVideo) {
+    heroVideo.addEventListener('loadedmetadata', () => {
+      heroVideo.currentTime = 4;    // 4秒から再生開始
+      heroVideo.playbackRate = 0.3; // 0.3倍速
+    });
+  }
+</script>
 </body>
 </html>
