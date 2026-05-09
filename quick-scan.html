@@ -999,8 +999,6 @@
               <div class="meta-row-value" id="reportDateTime">—</div>
               <div class="meta-row-label">カテゴリ</div>
               <div class="meta-row-value" id="reportCategory">—</div>
-              <div class="meta-row-label">調査タイプ</div>
-              <div class="meta-row-value" id="reportType">—</div>
               <div class="meta-row-label">キーワード</div>
               <div class="meta-row-value" id="reportKeyword">—</div>
             </div>
@@ -1251,7 +1249,7 @@
       return PLAN_MAP[prefix] || null;
     }
 
-    const state = { token: '', category: '', subcategory: '', keyword: '', surveyType: 'brand', question: '', questions: null, customerProfile: '', customerIntent: '' };
+    const state = { token: '', category: '', subcategory: '', keyword: '', question: '', questions: null, customerProfile: '', customerIntent: '' };
 
     let categoriesData = {};
     fetch('data/categories.json').then(r => r.json()).then(d => { categoriesData = d; }).catch(() => {});
@@ -1332,7 +1330,7 @@
         category,
         subcategory,
         keyword,
-        surveyType: 'brand',
+
       });
       state.customerProfile = $('customerProfile').value.trim();
       state.customerIntent  = $('customerIntent').value.trim();
@@ -1544,16 +1542,6 @@
       updateCustomerHints();
     })();
 
-    // Radio card highlight + keyword field sync
-    document.querySelectorAll('input[name="surveyType"]').forEach(radio => {
-      radio.addEventListener('change', () => {
-        document.querySelectorAll('.radio-card').forEach(c => c.classList.remove('selected'));
-        radio.closest('.radio-card').classList.add('selected');
-        updateKeywordField();
-        updateKeywordHint();
-        updateCustomerHints();
-      });
-    });
 
     // ── Screen 2: Back ──
     $('backToInputBtn').addEventListener('click', () => { hideError('errorBox2'); showScreen(1); });
@@ -1599,7 +1587,6 @@
         const now = new Date();
         $('reportDateTime').textContent = now.toLocaleString('ja-JP');
         $('reportCategory').textContent = state.category;
-        $('reportType').textContent     = state.surveyType === 'market' ? 'A 市場調査' : 'B ブランド調査';
         $('reportKeyword').textContent  = state.keyword;
 
         renderResult('result-chatgpt', results.chatgpt);
@@ -1712,7 +1699,6 @@
       const now        = new Date();
       const dateStr    = `${now.getFullYear()}${String(now.getMonth()+1).padStart(2,'0')}${String(now.getDate()).padStart(2,'0')}`;
       const dateTime   = now.toLocaleString('ja-JP');
-      const typeLabel  = state.surveyType === 'market' ? 'A 市場調査' : 'B ブランド調査';
       const chatgpt    = $('result-chatgpt').innerHTML  || '';
       const claude     = $('result-claude').innerHTML   || '';
       const gemini     = $('result-gemini').innerHTML   || '';
@@ -1833,7 +1819,6 @@ body{margin:0;font-family:"Inter","Noto Sans JP",sans-serif;color:var(--text-dar
       <div class="meta">
         <div class="meta-row-label">調査日時</div><div class="meta-row-value">${dateTime}</div>
         <div class="meta-row-label">カテゴリ</div><div class="meta-row-value">${escapeHtml(state.category)}</div>
-        <div class="meta-row-label">目的</div><div class="meta-row-value">${escapeHtml(typeLabel)}</div>
         <div class="meta-row-label">キーワード</div><div class="meta-row-value">${escapeHtml(state.keyword)}</div>
       </div>
     </aside>
