@@ -1249,10 +1249,8 @@
       return PLAN_MAP[prefix] || null;
     }
 
-    const state = { token: '', category: '', subcategory: '', keyword: '', question: '', questions: null, customerProfile: '', customerIntent: '' };
+    const state = { token: '', category: '', subcategory: '', keyword: '', question: '', questions: null, customerProfile: '', customerIntent: '', categoryData: null };
 
-    let categoriesData = {};
-    fetch('data/categories.json').then(r => r.json()).then(d => { categoriesData = d; }).catch(() => {});
 
     const $ = id => document.getElementById(id);
 
@@ -1585,7 +1583,8 @@
         console.log('GASレスポンス:', JSON.stringify(data));
         if (!data.success) throw new Error(data.error || '調査の実行に失敗しました。');
 
-        const { results, question, insight } = data.data;
+        const { results, question, insight, categoryData } = data.data;
+        state.categoryData = categoryData || null;
         $('resultSubtitle').textContent = `「${state.keyword}」の調査結果`;
         $('promptDisplay').textContent  = question || state.question;
 
@@ -1679,8 +1678,7 @@
         keywordsEl.className = 'insight-value placeholder';
       }
 
-      // 静的2項目：categories.jsonから取得
-      const cat = categoriesData[state.category];
+      const cat = state.categoryData;
       if (cat) {
         $('insight-trend').innerHTML =
           createTrendBar(cat.ai_usage_trend) +
@@ -1714,7 +1712,7 @@
       const iKeywords  = $('insight-keywords').innerHTML    || '';
       const iTrend     = $('insight-trend').innerHTML       || '';
       const iHint      = $('insight-hint').innerHTML        || '';
-      const cat        = categoriesData[state.category];
+      const cat        = state.categoryData;
       const iTrendWithBar = cat?.ai_usage_trend
         ? createTrendBar(cat.ai_usage_trend) +
           `<p class="insight-value-text">${cat.ai_usage_comment_quick.replace(/\n/g, '<br>')}</p>`
