@@ -132,7 +132,7 @@
       max-width: 1100px;
       margin: 0 auto;
       display: grid;
-      grid-template-columns: 65fr 35fr;
+      grid-template-columns: 40fr 60fr;
       gap: 56px;
       align-items: center;
     }
@@ -157,7 +157,7 @@
 
     /* Main copy */
     .hero-catch {
-      font-size: clamp(2.2rem, 3.8vw, 3.5rem);
+      font-size: clamp(1.6rem, 2.8vw, 2.4rem);
       font-weight: 800;
       color: var(--off-white);
       line-height: 1.2;
@@ -232,6 +232,32 @@
     .hero-right {
       display: flex;
       justify-content: center;
+    }
+    .hero-media-wrapper {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 863 / 865;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    }
+    .hero-media-image {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .hero-media-video {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
     }
     .hero-mockup {
       background: var(--white);
@@ -860,8 +886,7 @@
         </div>
         <h1 class="hero-catch">
           AEO、気になる。<br>
-          でも、何から見ればいいのか<br>
-          分からない。
+          でも何から見ればいいのか分からない。
         </h1>
         <div class="hero-sub-group">
           <p class="hero-lead">AEO / GEO / LLMO —— AI検索最適化が<br>マーケターの新しい課題になっています。</p>
@@ -877,10 +902,22 @@
         </div>
       </div>
       <div class="hero-right">
-        <div class="hero-mockup">
-          <span class="hero-mockup-badge">サンプル</span>
-          <img src="assets/images/sample-result-full.png" alt="調査レポートのサンプル画面"
-            onerror="this.outerHTML='<div style=\'padding:3rem 2rem;text-align:center;color:#5f6f85;font-size:14px;background:#f4f7fb;\'>レポートモック画像</div>'">
+        <div class="hero-media-wrapper">
+          <img
+            src="assets/images/sample-result-full.png"
+            alt="調査レポートのサンプル画面"
+            class="hero-media-image"
+            onerror="this.style.display='none'"
+          />
+          <video
+            class="hero-media-video"
+            autoplay
+            muted
+            loop
+            playsinline
+          >
+            <source src="assets/videos/report-animation.mp4" type="video/mp4">
+          </video>
         </div>
       </div>
     </div>
