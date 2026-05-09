@@ -823,7 +823,7 @@
               autocomplete="off"
             />
             <datalist id="subcategorySuggestions"></datalist>
-            <p class="form-hint">💡 サジェスト例が表示されます。自由に指定できます</p>
+            <p class="form-hint">💡 サジェスト例が表示されます。自由に指定できます（50文字以内）</p>
           </div>
 
           <div class="keyword-hint" id="keywordHint" style="display:none;">
@@ -849,7 +849,7 @@
               autocomplete="off"
             />
             <datalist id="keywordSuggestions"></datalist>
-            <p class="form-hint">調査したいご自身のブランド名・キーワードを入力してください。</p>
+            <p class="form-hint">調査したいご自身のブランド名・キーワードを入力してください。（50文字以内）</p>
           </div>
 
           <div class="customer-hint-section" id="customerHintSection" style="display:none;">
@@ -870,6 +870,7 @@
                   placeholder=""
                   autocomplete="off"
                 />
+                <p class="form-hint">100文字以内</p>
                 <p class="form-hint customer-hint-example" id="customerProfileHint"></p>
               </div>
               <div class="form-group">
@@ -883,6 +884,7 @@
                   placeholder=""
                   autocomplete="off"
                 />
+                <p class="form-hint">200文字以内</p>
                 <p class="form-hint customer-hint-example" id="customerIntentHint"></p>
               </div>
             </div>
@@ -920,7 +922,9 @@
             id="q-reputation-text"
             rows="3"
             placeholder="質問文を編集できます"
+            maxlength="200"
           ></textarea>
+          <p class="form-hint" style="margin: 4px 14px 10px;">200文字以内</p>
         </div>
 
         <!-- 【競合比較】Quick はロック -->
@@ -1243,6 +1247,31 @@
     // ═══════════════════════════════════════
     const PLAN_MAP = { 'QK': 'quick', 'DP': 'deep', 'FL': 'full' };
 
+    // ═══════════════════════════════════════
+    // プロンプトインジェクション対策
+    // ═══════════════════════════════════════
+    const INJECTION_PATTERNS = [
+      /\<script/i,
+      /javascript:/i,
+      /jailbreak/i,
+      /ignore (previous|above|all)/i,
+      /\[system\]/i,
+      /user\:/i,
+      /assistant\:/i,
+      /repeat (the|everything|above)/i,
+    ];
+
+    function sanitizeInput(value, limit) {
+      let v = String(value).trim().slice(0, limit);
+      v = v.replace(/[\r\n]+/g, ' ');
+      for (const pattern of INJECTION_PATTERNS) {
+        if (pattern.test(v)) {
+          return { value: v, error: '使用できない文字列が含まれています。' };
+        }
+      }
+      return { value: v, error: null };
+    }
+
     function getPlanFromToken(token) {
       if (!token || token.length < 2) return null;
       const prefix = token.substring(0, 2).toUpperCase();
@@ -1310,36 +1339,44 @@
       e.preventDefault();
       hideError('errorBox1');
 
-      const token       = $('token').value.trim();
-      const category    = $('category').value;
-      const subcategory = $('subcategory').value.trim();
-      const keyword     = $('keyword').value.trim();
+      const token    = $('token').value.trim();
+      const category = $('category').value;
 
       const plan = getPlanFromToken(token);
 
-      if (!token)       return showError('errorBox1', '購入コードを入力してください。');
-      if (!plan)        return showError('errorBox1', 'トークン形式が無効です。メールを確認してください。');
-      if (!category)    return showError('errorBox1', 'カテゴリを選択してください。');
-      if (!subcategory) return showError('errorBox1', '中カテゴリを入力してください。');
-      if (!keyword)     return showError('errorBox1', 'キーワードを入力してください。');
+      if (!token)    return showError('errorBox1', '購入コードを入力してください。');
+      if (!plan)     return showError('errorBox1', 'トークン形式が無効です。メールを確認してください。');
+      if (!category) return showError('errorBox1', 'カテゴリを選択してください。');
+
+      // サニタイズ
+      const sc = sanitizeInput($('subcategory').value,     50);
+      const kw = sanitizeInput($('keyword').value,         50);
+      const cp = sanitizeInput($('customerProfile').value, 100);
+      const ci = sanitizeInput($('customerIntent').value,  200);
+
+      if (!sc.value) return showError('errorBox1', '中カテゴリを入力してください。');
+      if (sc.error)  return showError('errorBox1', `中カテゴリ：${sc.error}`);
+      if (!kw.value) return showError('errorBox1', 'キーワードを入力してください。');
+      if (kw.error)  return showError('errorBox1', `キーワード：${kw.error}`);
+      if (cp.error)  return showError('errorBox1', `顧客属性：${cp.error}`);
+      if (ci.error)  return showError('errorBox1', `解決したい悩み：${ci.error}`);
 
       Object.assign(state, {
         token,
         category,
-        subcategory,
-        keyword,
-
+        subcategory:     sc.value,
+        keyword:         kw.value,
+        customerProfile: cp.value,
+        customerIntent:  ci.value,
       });
-      state.customerProfile = $('customerProfile').value.trim();
-      state.customerIntent  = $('customerIntent').value.trim();
 
       sessionStorage.setItem('currentPlan',     plan);
       sessionStorage.setItem('currentToken',    token);
       sessionStorage.setItem('category',        category);
-      sessionStorage.setItem('subcategory',     subcategory);
-      sessionStorage.setItem('keyword',         keyword);
-      sessionStorage.setItem('customerProfile', state.customerProfile);
-      sessionStorage.setItem('customerIntent',  state.customerIntent);
+      sessionStorage.setItem('subcategory',     sc.value);
+      sessionStorage.setItem('keyword',         kw.value);
+      sessionStorage.setItem('customerProfile', cp.value);
+      sessionStorage.setItem('customerIntent',  ci.value);
 
       showLoading('質問文を生成中...');
       try {
@@ -1567,16 +1604,17 @@
       hideError('errorBox2');
 
       // Quick の場合は指名評判のみ実行
-      const activeQuestion = $('q-reputation-text').value.trim();
-      if (!activeQuestion) return showError('errorBox2', '質問文を入力してください。');
-      state.question = activeQuestion; // promptDisplay 用に保持
+      const q = sanitizeInput($('q-reputation-text').value, 200);
+      if (!q.value) return showError('errorBox2', '質問文を入力してください。');
+      if (q.error)  return showError('errorBox2', `質問文：${q.error}`);
+      state.question = q.value;
 
       showLoading('3つのAIに問い合わせ中...\nしばらくお待ちください。', true);
       try {
         const data = await callGAS({
           action:   'runSurvey',
           token:    state.token,
-          question: activeQuestion,
+          question: state.question,
           keyword:  state.keyword,
           category: state.category,
         });
