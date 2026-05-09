@@ -1066,7 +1066,7 @@
               </div>
             </div>
             <div class="insight-panel" style="margin-top: 12px;">
-              <div class="insight-header">この業界の傾向</div>
+              <div class="insight-header" id="insight-industry-header">この業界の傾向</div>
               <div class="insight-item">
                 <div class="insight-label">この業界のAI検索利用傾向</div>
                 <div class="insight-value" id="insight-trend"></div>
@@ -1680,6 +1680,7 @@
 
       const cat = state.categoryData;
       if (cat) {
+        $('insight-industry-header').textContent = `${state.category}業界の傾向`;
         $('insight-trend').innerHTML =
           createTrendBar(cat.ai_usage_trend) +
           `<p class="insight-value-text">${cat.ai_usage_comment_quick.replace(/\n/g, '<br>')}</p>`;
@@ -1850,7 +1851,7 @@ body{margin:0;font-family:"Inter","Noto Sans JP",sans-serif;color:var(--text-dar
         <div class="insight-item"><div class="insight-label">AI回答に現れた注目ワード</div><div class="insight-value">${iKeywords}</div></div>
       </div>
       <div class="insight-panel" style="margin-top:12px;">
-        <div class="insight-header">この業界の傾向</div>
+        <div class="insight-header">${escapeHtml(state.category)}業界の傾向</div>
         <div class="insight-item"><div class="insight-label">この業界のAI検索利用傾向</div><div class="insight-value">${iTrendWithBar}</div></div>
         <div class="insight-item"><div class="insight-label">AEO改善のヒント</div><div class="insight-value">${iHint}</div></div>
       </div>
