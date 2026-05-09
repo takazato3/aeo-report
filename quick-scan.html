@@ -1356,12 +1356,17 @@
         });
         if (!data.success) throw new Error(data.error || '質問文の生成に失敗しました。');
 
-        state.questions = data.data.questions;
+        const questions = data.data?.questions;
+        if (!questions || typeof questions !== 'object') {
+          console.error('GASレスポンス(generateQuestion):', JSON.stringify(data));
+          throw new Error('質問文の取得に失敗しました。しばらくしてから再試行してください。');
+        }
+        state.questions = questions;
 
         // 画面②の質問カードに値をセット
-        $('q-reputation-text').value  = state.questions.reputation  || '';
-        $('q-competitive-text').value = state.questions.competitive || '';
-        $('q-solution-text').value    = state.questions.solution    || '';
+        $('q-reputation-text').value  = questions.reputation  || '';
+        $('q-competitive-text').value = questions.competitive || '';
+        $('q-solution-text').value    = questions.solution    || '';
 
         // プランに応じてロック制御
         applyPlanLock(sessionStorage.getItem('currentPlan') || 'quick');
