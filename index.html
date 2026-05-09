@@ -233,28 +233,31 @@
       display: flex;
       justify-content: center;
     }
-    /* ─── Hero report image animation ─── */
-    .hero-report-wrapper {
+    .hero-media-wrapper {
+      position: relative;
       width: 100%;
+      aspect-ratio: 863 / 865;
+      border-radius: 12px;
       overflow: hidden;
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
     }
-    .hero-report-img {
+    .hero-media-image {
+      position: absolute;
+      top: 0;
+      left: 0;
       width: 100%;
+      height: 100%;
+      object-fit: cover;
       display: block;
-      animation:
-        heroScrollUp 20s linear infinite,
-        heroShadowPulse 4s ease-in-out infinite;
-      transform-origin: top center;
     }
-    @keyframes heroScrollUp {
-      0%   { transform: translateY(0); }
-      100% { transform: translateY(-40%); }
-    }
-    @keyframes heroShadowPulse {
-      0%   { filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.15)); }
-      50%  { filter: drop-shadow(0 12px 32px rgba(0, 0, 0, 0.35)); }
-      100% { filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.15)); }
+    .hero-media-video {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
     }
     .hero-mockup {
       background: var(--white);
@@ -899,13 +902,22 @@
         </div>
       </div>
       <div class="hero-right">
-        <div class="hero-report-wrapper">
+        <div class="hero-media-wrapper">
           <img
             src="assets/images/sample-result-full.png"
             alt="調査レポートのサンプル画面"
-            class="hero-report-img"
-            onerror="this.outerHTML='<div style=\'padding:3rem 2rem;text-align:center;color:#5f6f85;font-size:14px;background:#f4f7fb;\'>レポートモック画像</div>'"
+            class="hero-media-image"
+            onerror="this.style.display='none'"
           />
+          <video
+            class="hero-media-video"
+            autoplay
+            muted
+            loop
+            playsinline
+          >
+            <source src="assets/videos/report-animation.mp4" type="video/mp4">
+          </video>
         </div>
       </div>
     </div>
@@ -1283,5 +1295,14 @@
     </div>
   </footer>
 
+<script>
+  const heroVideo = document.querySelector('.hero-media-video');
+  if (heroVideo) {
+    heroVideo.addEventListener('loadedmetadata', () => {
+      heroVideo.currentTime = 4;    // 4秒から再生開始
+      heroVideo.playbackRate = 0.3; // 0.3倍速
+    });
+  }
+</script>
 </body>
 </html>
