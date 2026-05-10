@@ -1274,6 +1274,54 @@
       cursor: not-allowed;
     }
 
+    /* ─── Steps Preview Grid ─── */
+    .steps-preview-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+    @media (max-width: 768px) {
+      .steps-preview-grid { grid-template-columns: 1fr; }
+    }
+    .steps-preview-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+    }
+    .steps-preview-card-header {
+      background: var(--navy-800);
+      color: var(--off-white);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      padding: 8px 16px;
+    }
+    .steps-preview-card-body {
+      padding: 16px 20px 10px;
+    }
+    .steps-preview-card-desc {
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.75;
+      margin-top: 12px;
+      padding-top: 12px;
+      border-top: 1px solid var(--border);
+      margin-bottom: 10px;
+    }
+
+    /* ─── Plan Notify Link ─── */
+    .plan-notify {
+      display: block;
+      text-align: center;
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: 10px;
+      text-decoration: none;
+    }
+    .plan-notify:hover { text-decoration: underline; }
+
     /* ─────────────────────────────────────
     @media (max-width: 640px) {
       .content-section { padding: 40px 16px; }
@@ -1415,139 +1463,170 @@
       </div>
       <h2 class="section-title">各ステップの画面イメージ</h2>
 
-        <!-- Step 1: Stripe -->
-        <div class="screen-card">
-          <div class="screen-chrome">
-            <div class="chrome-dot"></div>
-            <div class="chrome-dot"></div>
-            <div class="chrome-dot"></div>
-            <div class="chrome-url">checkout.stripe.com</div>
-          </div>
-          <div class="screen-body">
-            <div class="screen-label">STEP 01 — 購入</div>
-            <div class="mock-stripe">
-              <div class="mock-stripe-header">
-                <span class="mock-stripe-logo">🐙 Ops Octopus</span>
-                <span class="mock-stripe-lock">
-                  <span class="material-icons-round" style="font-size:11px;">lock</span>
-                  Secure
-                </span>
+      <div class="steps-preview-grid">
+
+        <!-- STEP 01 -->
+        <div class="steps-preview-card">
+          <div class="steps-preview-card-header">STEP 01 — 購入</div>
+          <div class="steps-preview-card-body">
+            <div class="screen-card">
+              <div class="screen-chrome">
+                <div class="chrome-dot"></div>
+                <div class="chrome-dot"></div>
+                <div class="chrome-dot"></div>
+                <div class="chrome-url">checkout.stripe.com</div>
               </div>
-              <div class="mock-stripe-body">
-                <div class="mock-item-row">
-                  <div>
-                    <div class="mock-item-name">Quick Scan</div>
-                    <div class="mock-item-desc">AIブランド調査レポート</div>
+              <div class="screen-body">
+                <div class="mock-stripe">
+                  <div class="mock-stripe-header">
+                    <span class="mock-stripe-logo">🐙 Ops Octopus</span>
+                    <span class="mock-stripe-lock">
+                      <span class="material-icons-round" style="font-size:11px;">lock</span>
+                      Secure
+                    </span>
                   </div>
-                  <div class="mock-item-price">¥2980</div>
+                  <div class="mock-stripe-body">
+                    <div class="mock-item-row">
+                      <div>
+                        <div class="mock-item-name">Quick Scan</div>
+                        <div class="mock-item-desc">AIブランド調査レポート</div>
+                      </div>
+                      <div class="mock-item-price">¥300</div>
+                    </div>
+                    <button class="mock-btn">カードで支払う</button>
+                  </div>
                 </div>
-                <button class="mock-btn">カードで支払う</button>
               </div>
             </div>
+            <p class="steps-preview-card-desc">
+              Stripeの安全な決済画面でクレジットカード払い。会員登録不要・サブスク不要で、1回きりの買い切り購入です。
+            </p>
           </div>
         </div>
 
-        <!-- Step 2: Token email -->
-        <div class="screen-card">
-          <div class="screen-chrome">
-            <div class="chrome-dot"></div>
-            <div class="chrome-dot"></div>
-            <div class="chrome-dot"></div>
-            <div class="chrome-url">メールボックス</div>
-          </div>
-          <div class="screen-body">
-            <div class="screen-label">STEP 02 — コード受取</div>
-            <div class="mock-email">
-              <div class="mock-email-header">
-                <div class="mock-email-from">from: noreply@ops-octopus.com</div>
-                <div class="mock-email-subject">【Ops Octopus】購入コードのご案内</div>
+        <!-- STEP 02 -->
+        <div class="steps-preview-card">
+          <div class="steps-preview-card-header">STEP 02 — コード受取</div>
+          <div class="steps-preview-card-body">
+            <div class="screen-card">
+              <div class="screen-chrome">
+                <div class="chrome-dot"></div>
+                <div class="chrome-dot"></div>
+                <div class="chrome-dot"></div>
+                <div class="chrome-url">メールボックス</div>
               </div>
-              <div class="mock-email-body" style="font-size:11px; line-height:1.7;">
-                <p>ご購入ありがとうございます。</p>
-                <p style="margin-top:6px;">以下のコードをお使いください：</p>
-                <div class="mock-token-box">XX-XXXX-XXXX-XXXX</div>
-                <p style="font-size:10px; color: var(--text-muted);">※コードは1回のみ使用可能です。</p>
+              <div class="screen-body">
+                <div class="mock-email">
+                  <div class="mock-email-header">
+                    <div class="mock-email-from">from: noreply@ops-octopus.com</div>
+                    <div class="mock-email-subject">【Ops Octopus】購入コードのご案内</div>
+                  </div>
+                  <div class="mock-email-body" style="font-size:11px; line-height:1.7;">
+                    <p>ご購入ありがとうございます。</p>
+                    <p style="margin-top:6px;">以下のコードをお使いください：</p>
+                    <div class="mock-token-box">XX-XXXX-XXXX-XXXX</div>
+                    <p style="font-size:10px; color: var(--text-muted);">※コードは1回のみ使用可能です。</p>
+                  </div>
+                </div>
               </div>
             </div>
+            <p class="steps-preview-card-desc">
+              購入後すぐに自動でメールが届きます。メール内の購入コードをコピーして、調査ページで使います。
+            </p>
           </div>
         </div>
 
-        <!-- Step 3: Input -->
-        <div class="screen-card">
-          <div class="screen-chrome">
-            <div class="chrome-dot"></div>
-            <div class="chrome-dot"></div>
-            <div class="chrome-dot"></div>
-            <div class="chrome-url">app.ops-octopus.com</div>
-          </div>
-          <div class="screen-body">
-            <div class="screen-label">STEP 03 — キーワード入力</div>
-            <div class="mock-survey">
-              <div class="mock-survey-top">
-                <span class="material-icons-round" style="font-size:13px;">psychology</span>
-                Quick Scan 調査設定
+        <!-- STEP 03 -->
+        <div class="steps-preview-card">
+          <div class="steps-preview-card-header">STEP 03 — キーワード入力</div>
+          <div class="steps-preview-card-body">
+            <div class="screen-card">
+              <div class="screen-chrome">
+                <div class="chrome-dot"></div>
+                <div class="chrome-dot"></div>
+                <div class="chrome-dot"></div>
+                <div class="chrome-url">app.ops-octopus.com</div>
               </div>
-              <div class="mock-survey-body">
-                <div class="mock-field">
-                  <div class="mock-field-label">カテゴリ</div>
-                  <div class="mock-field-value"><span class="mock-tag">BtoB SaaS</span></div>
-                </div>
-                <div class="mock-field">
-                  <div class="mock-field-label">ブランド名</div>
-                  <div class="mock-field-value" style="font-size:12px;">自社サービス名</div>
-                </div>
-                <div class="mock-field">
-                  <div class="mock-field-label">調査の目的</div>
-                  <div class="mock-field-value" style="font-size:12px;">AIでの推奨状況を確認したい</div>
+              <div class="screen-body">
+                <div class="mock-survey">
+                  <div class="mock-survey-top">
+                    <span class="material-icons-round" style="font-size:13px;">psychology</span>
+                    Quick Scan 調査設定
+                  </div>
+                  <div class="mock-survey-body">
+                    <div class="mock-field">
+                      <div class="mock-field-label">カテゴリ</div>
+                      <div class="mock-field-value"><span class="mock-tag">BtoB SaaS</span></div>
+                    </div>
+                    <div class="mock-field">
+                      <div class="mock-field-label">ブランド名</div>
+                      <div class="mock-field-value" style="font-size:12px;">自社サービス名</div>
+                    </div>
+                    <div class="mock-field">
+                      <div class="mock-field-label">調査の目的</div>
+                      <div class="mock-field-value" style="font-size:12px;">AIでの推奨状況を確認したい</div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
+            <p class="steps-preview-card-desc">
+              調査したいブランド名・カテゴリを入力するだけ。AIが調査用の質問文を自動で提案するので、プロンプトの知識は不要です。
+            </p>
           </div>
         </div>
 
-        <!-- Step 4: Report -->
-        <div class="screen-card">
-          <div class="screen-chrome">
-            <div class="chrome-dot"></div>
-            <div class="chrome-dot"></div>
-            <div class="chrome-dot"></div>
-            <div class="chrome-url">app.ops-octopus.com/result</div>
-          </div>
-          <div class="screen-body">
-            <div class="screen-label">STEP 04 — レポート確認</div>
-            <p style="font-size:10px; color: var(--text-muted);"※Deep, Full Scanにおける画面イメージです。</p>
-            <div class="mock-report">
-              <div class="mock-report-header">
-                <span class="mock-report-title">🐙 Quick Scan レポート</span>
-                <span class="mock-report-badge">調査完了</span>
+        <!-- STEP 04 -->
+        <div class="steps-preview-card">
+          <div class="steps-preview-card-header">STEP 04 — レポート確認</div>
+          <div class="steps-preview-card-body">
+            <div class="screen-card">
+              <div class="screen-chrome">
+                <div class="chrome-dot"></div>
+                <div class="chrome-dot"></div>
+                <div class="chrome-dot"></div>
+                <div class="chrome-url">app.ops-octopus.com/result</div>
               </div>
-              <div class="mock-report-body">
-                <div style="font-size:10px; color: var(--text-muted); margin-bottom:10px; font-family:'Noto Sans JP',sans-serif;">推奨言及スコア（回答傾向）</div>
-                <div class="mock-score-row">
-                  <span class="mock-score-label">ChatGPT</span>
-                  <div class="mock-score-bar-wrap"><div class="mock-score-bar" style="width:67%; background: linear-gradient(90deg,#19a974,#0d7a56);"></div></div>
-                  <span class="mock-score-val">67%</span>
+              <div class="screen-body">
+                <div class="mock-report">
+                  <div class="mock-report-header">
+                    <span class="mock-report-title">🐙 Quick Scan レポート</span>
+                    <span class="mock-report-badge">調査完了</span>
+                  </div>
+                  <div class="mock-report-body">
+                    <div style="font-size:10px; color: var(--text-muted); margin-bottom:10px; font-family:'Noto Sans JP',sans-serif;">推奨言及スコア（回答傾向）</div>
+                    <div class="mock-score-row">
+                      <span class="mock-score-label">ChatGPT</span>
+                      <div class="mock-score-bar-wrap"><div class="mock-score-bar" style="width:67%; background: linear-gradient(90deg,#19a974,#0d7a56);"></div></div>
+                      <span class="mock-score-val">67%</span>
+                    </div>
+                    <div class="mock-score-row">
+                      <span class="mock-score-label">Gemini</span>
+                      <div class="mock-score-bar-wrap"><div class="mock-score-bar" style="width:61%; background: linear-gradient(90deg,#1a6eba,#0e4e8a);"></div></div>
+                      <span class="mock-score-val">61%</span>
+                    </div>
+                    <div class="mock-score-row">
+                      <span class="mock-score-label">Claude</span>
+                      <div class="mock-score-bar-wrap"><div class="mock-score-bar" style="width:58%;"></div></div>
+                      <span class="mock-score-val">58%</span>
+                    </div>
+                    <div class="mock-tags">
+                      <span class="mock-tag">使いやすい</span>
+                      <span class="mock-tag">コスパが良い</span>
+                      <span class="mock-tag">導入しやすい</span>
+                    </div>
+                    <p style="font-size:13px; color:var(--text-muted); font-family:'Noto Sans JP',sans-serif; margin-bottom:28px;"> ※ 画面はイメージです </p>
+                  </div>
                 </div>
-                <div class="mock-score-row">
-                  <span class="mock-score-label">Claude</span>
-                  <div class="mock-score-bar-wrap"><div class="mock-score-bar" style="width:58%;"></div></div>
-                  <span class="mock-score-val">58%</span>
-                </div>
-                <div class="mock-score-row">
-                  <span class="mock-score-label">Gemini</span>
-                  <div class="mock-score-bar-wrap"><div class="mock-score-bar" style="width:61%; background: linear-gradient(90deg,#1a6eba,#0e4e8a);"></div></div>
-                  <span class="mock-score-val">61%</span>
-                </div>
-                <div class="mock-tags">
-                  <span class="mock-tag">使いやすい</span>
-                  <span class="mock-tag">コスパが良い</span>
-                  <span class="mock-tag">導入しやすい</span>
-                </div>
-                <p style="font-size:13px; color:var(--text-muted); font-family:'Noto Sans JP',sans-serif; margin-bottom:28px;"> ※ 画面はイメージです </p>
               </div>
             </div>
+            <p class="steps-preview-card-desc">
+              3AIの回答をその場で確認。HTMLファイルでのダウンロード保存にも対応。会議や提案資料の補強材料として使えます。
+            </p>
           </div>
         </div>
+
+      </div>
 
       </div>
     </div>
@@ -1574,7 +1653,8 @@
       <div class="plans-grid">
 
         <!-- Quick Scan -->
-        <div class="plan-card">
+        <div class="plan-card featured">
+          <div class="featured-badge">おすすめ</div>
           <div class="plan-header">
             <div class="plan-name-row">
               <span class="plan-name">Quick Scan</span>
@@ -1592,7 +1672,7 @@
             <ul class="plan-features">
               <li>
                 <span class="material-icons-round feat-check">check_circle</span>
-                3AI（ChatGPT・Claude・Gemini）横断調査
+                3AI（ChatGPT・Gemini・Claude）横断調査
               </li>
               <li>
                 <span class="material-icons-round feat-check">check_circle</span>
@@ -1622,8 +1702,7 @@
         </div>
 
         <!-- Deep Scan -->
-        <div class="plan-card featured">
-          <div class="featured-badge">本命プラン</div>
+        <div class="plan-card">
           <div class="plan-header">
             <div class="plan-name-row">
               <span class="plan-name">Deep Scan</span>
@@ -1661,6 +1740,7 @@
               </li>
             </ul>
             <button class="plan-cta cta-disabled" disabled>Coming Soon</button>
+            <a href="https://docs.google.com/forms/d/e/1FAIpQLScNqIDUBU42Rx8B5OGZYrKnGLLB9ZADPNWcJ0eQVkBIW1FNUw/viewform" target="_blank" rel="noopener" class="plan-notify">公開通知を受け取る →</a>
           </div>
         </div>
 
@@ -1805,7 +1885,7 @@
       <div class="report-image-cards">
 
         <!-- Quick Scan -->
-        <div class="report-img-card">
+        <div class="report-img-card report-img-featured">
           <div class="report-img-card-header">
             <span class="report-img-plan-name">Quick Scan</span>
             <span class="report-img-plan-price">¥300</span>
@@ -1844,7 +1924,7 @@
         </div>
 
         <!-- Deep Scan -->
-        <div class="report-img-card report-img-featured">
+        <div class="report-img-card">
           <div class="report-img-card-header">
             <span class="report-img-plan-name">Deep Scan</span>
             <span class="report-img-plan-price" style="color:var(--text-muted);">¥2,980</span>
@@ -1879,6 +1959,7 @@
           </div>
           <div class="report-img-card-footer">
             <button class="report-img-cta cta-disabled-sm" disabled>Coming Soon</button>
+            <a href="https://docs.google.com/forms/d/e/1FAIpQLScNqIDUBU42Rx8B5OGZYrKnGLLB9ZADPNWcJ0eQVkBIW1FNUw/viewform" target="_blank" rel="noopener" class="plan-notify">公開通知を受け取る →</a>
           </div>
         </div>
 
