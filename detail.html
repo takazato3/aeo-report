@@ -8,6 +8,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&family=DM+Sans:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
   <style>
     :root {
@@ -1345,6 +1346,114 @@
     .page-hero > *:nth-child(1) { animation-delay: 0.05s; }
     .page-hero > *:nth-child(2) { animation-delay: 0.12s; }
     .page-hero > *:nth-child(3) { animation-delay: 0.19s; }
+
+    /* ─── Plans section (index.html style) ─── */
+    .plans-index { background: var(--white); padding: 56px 0; }
+    .section-header {
+      text-align: left;
+      margin-bottom: 2.5rem;
+      max-width: 1100px;
+      margin-left: auto;
+      margin-right: auto;
+      padding: 0 1.5rem;
+    }
+    .section-header h2 {
+      font-size: clamp(1.6rem, 2.5vw, 2.2rem);
+      font-weight: 700;
+      color: var(--text-dark);
+      letter-spacing: 0.04em;
+      font-feature-settings: "palt";
+      line-height: 1.4;
+      margin-bottom: 10px;
+    }
+    .section-header p { font-size: 1rem; color: var(--text-muted); line-height: 1.75; }
+    .section-content { max-width: 1100px; margin: 0 auto; padding: 0 1.5rem; }
+    .plan-cards-index { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; align-items: start; }
+    .plan-card-index {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 28px 24px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+      position: relative;
+    }
+    .plan-card-index--featured {
+      border: 2px solid var(--amber-400);
+      box-shadow: 0 4px 16px rgba(251,191,36,0.15);
+    }
+    .plan-badge-index {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 2px 10px;
+      border-radius: 20px;
+      background: var(--blue-gray-100);
+      color: var(--text-muted);
+      margin-bottom: 12px;
+      letter-spacing: 0.04em;
+    }
+    .plan-badge-index--featured { background: var(--amber-400); color: var(--text-dark); }
+    .plan-name-index { font-size: 18px; font-weight: 700; color: var(--text-dark); margin-bottom: 6px; }
+    .plan-price-index {
+      font-size: 36px;
+      font-weight: 700;
+      color: var(--text-dark);
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+    }
+    .plan-price-unit-index { font-size: 14px; font-weight: 400; color: var(--text-muted); margin-left: 2px; }
+    .plan-desc-index { font-size: 13px; color: var(--text-muted); line-height: 1.7; margin: 12px 0 20px; }
+    .plan-features-index {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 24px;
+    }
+    .plan-features-index li {
+      font-size: 13px;
+      color: var(--text-dark);
+      display: flex;
+      align-items: flex-start;
+      gap: 6px;
+      line-height: 1.6;
+    }
+    .plan-features-index li .material-icons {
+      font-size: 16px !important;
+      color: var(--amber-500);
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .plan-cta-index {
+      display: block;
+      width: 100%;
+      padding: 13px 0;
+      border-radius: 8px;
+      font-size: 15px;
+      font-weight: 600;
+      text-align: center;
+      cursor: pointer;
+      font-family: inherit;
+      border: none;
+      text-decoration: none;
+      transition: opacity 0.15s;
+    }
+    .plan-cta-index--primary { background: var(--amber-400); color: var(--text-dark); }
+    .plan-cta-index--primary:hover { opacity: 0.88; }
+    .plan-cta-index--disabled { background: var(--blue-gray-100); color: var(--text-muted); cursor: not-allowed; }
+    .plan-notify-index {
+      display: block;
+      text-align: center;
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: 10px;
+      text-decoration: none;
+    }
+    .plan-notify-index:hover { text-decoration: underline; }
+    @media (max-width: 768px) {
+      .plan-cards-index { grid-template-columns: 1fr; }
+      .plan-card-index--featured { order: -1; }
+    }
   </style>
 </head>
 
@@ -1638,149 +1747,60 @@
   <!-- ════════════════════════
        SECTION 3: PLANS
   ════════════════════════ -->
-  <section class="plans-section" style="padding: 56px 24px;">
-    <div style="max-width: 860px; margin: 0 auto;">
-      <div class="section-label">
-        <span class="material-icons-round">layers</span>
-        Pricing Plans
-      </div>
-      <h2 class="section-title">プランを選ぶ</h2>
-
-      <div class="plans-note">
-        <span class="material-icons-round">info</span>
-        <span>現在は <strong>Quick Scan のみ</strong>ご利用いただけます。Deep Scan・Full ScanはQuick Scanテスト期間後、順次リリース予定です。</span>
-      </div>
-
-      <div class="plans-grid">
+  <section class="plans-index">
+    <div class="section-header">
+      <h2>プランを選ぶ</h2>
+      <p>現在はQuick Scanのみご利用いただけます。Deep Scan / Full Scanは、Quick Scanテスト期間後に順次リリース予定です。</p>
+    </div>
+    <div class="section-content">
+      <div class="plan-cards-index">
 
         <!-- Quick Scan -->
-        <div class="plan-card featured">
-          <div class="featured-badge">おすすめ</div>
-          <div class="plan-header">
-            <div class="plan-name-row">
-              <span class="plan-name">Quick Scan</span>
-              <span class="plan-badge badge-available">利用可能</span>
-            </div>
-            <p class="plan-tagline">まず現状をチェック</p>
-            <div class="plan-price">
-              <span class="price-currency">¥</span>
-              <span class="price-num">300</span>
-              <span class="price-unit">/ 1回買い切り</span>
-            </div>
-          </div>
-          <div class="plan-body">
-            <p class="plan-desc">AEOが気になる、まず自社の状況を見てみたい。そんな方向けのお試しプランです。</p>
-            <ul class="plan-features">
-              <li>
-                <span class="material-icons-round feat-check">check_circle</span>
-                3AI（ChatGPT・Gemini・Claude）横断調査
-              </li>
-              <li>
-                <span class="material-icons-round feat-check">check_circle</span>
-                推奨言及スコアのサマリー
-              </li>
-              <li>
-                <span class="material-icons-round feat-check">check_circle</span>
-                よく言及されたキーワード
-              </li>
-              <li>
-                <span class="material-icons-round feat-check">check_circle</span>
-                改善アクション提案（固定文）
-              </li>
-              <li>
-                <span class="material-icons-round feat-check">check_circle</span>
-                使用プロンプト全文掲載
-              </li>
-              <li>
-                <span class="material-icons-round feat-check">check_circle</span>
-                HTMLダウンロード対応
-              </li>
-            </ul>
-            <a href="https://buy.stripe.com/6oU14ndhZcAR4XR1EKcwg00" class="plan-cta cta-primary">
-              Quick Scanを試す（¥300）
-            </a>
-          </div>
+        <div class="plan-card-index plan-card-index--featured">
+          <span class="plan-badge-index plan-badge-index--featured">おすすめ</span>
+          <p class="plan-name-index">Quick Scan</p>
+          <p class="plan-price-index">¥300<span class="plan-price-unit-index">（税込）</span></p>
+          <p class="plan-desc-index">ドリンク1杯分でまずは現状チェック</p>
+          <ul class="plan-features-index">
+            <li><span class="material-icons">check</span>3AIに同一の質問を問い合わせ（各1回）</li>
+            <li><span class="material-icons">check</span>AIに投げる質問は1つ</li>
+            <li><span class="material-icons">check</span>画面表示・即時確認</li>
+            <li><span class="material-icons">check</span>HTMLダウンロード可</li>
+          </ul>
+          <a class="plan-cta-index plan-cta-index--primary" href="https://buy.stripe.com/6oU14ndhZcAR4XR1EKcwg00">Quick Scanを試す（¥300）</a>
         </div>
 
         <!-- Deep Scan -->
-        <div class="plan-card">
-          <div class="plan-header">
-            <div class="plan-name-row">
-              <span class="plan-name">Deep Scan</span>
-              <span class="plan-badge badge-soon">Coming Soon</span>
-            </div>
-            <p class="plan-tagline">会議に出せる、信頼度の高いレポート</p>
-            <div class="plan-price">
-              <span class="price-currency" style="color:var(--text-muted);">¥</span>
-              <span class="price-num" style="color:var(--text-muted);">2,980</span>
-              <span class="price-unit">/ 1回買い切り</span>
-            </div>
-          </div>
-          <div class="plan-body">
-            <p class="plan-desc" style="color:var(--text-muted);">3AI × 各30回 = 計90回の回答を集計。推薦率・傾向・競合比較を含む本格レポート。</p>
-            <ul class="plan-features">
-              <li>
-                <span class="material-icons-round feat-check">check_circle</span>
-                Quick Scanの全機能
-              </li>
-              <li>
-                <span class="material-icons-round feat-soon">schedule</span>
-                3AI × 30回 = 90回調査（Coming Soon）
-              </li>
-              <li>
-                <span class="material-icons-round feat-soon">schedule</span>
-                推薦率の集計グラフ（Coming Soon）
-              </li>
-              <li>
-                <span class="material-icons-round feat-soon">schedule</span>
-                競合比較（Coming Soon）
-              </li>
-              <li>
-                <span class="material-icons-round feat-soon">schedule</span>
-                PDFレポート出力（Coming Soon）
-              </li>
-            </ul>
-            <button class="plan-cta cta-disabled" disabled>Coming Soon</button>
-            <a href="https://docs.google.com/forms/d/e/1FAIpQLScNqIDUBU42Rx8B5OGZYrKnGLLB9ZADPNWcJ0eQVkBIW1FNUw/viewform" target="_blank" rel="noopener" class="plan-notify">公開通知を受け取る →</a>
-          </div>
+        <div class="plan-card-index">
+          <span class="plan-badge-index">Coming Soon</span>
+          <p class="plan-name-index">Deep Scan</p>
+          <p class="plan-price-index">¥2,980<span class="plan-price-unit-index">（税込）</span></p>
+          <p class="plan-desc-index">本2冊分でAIの最新回答90回分を集計レポートで。1回買い切りプランです</p>
+          <ul class="plan-features-index">
+            <li><span class="material-icons">check</span>3AI×各30回=90回問い合わせ</li>
+            <li><span class="material-icons">check</span>AIに投げる質問は3つ</li>
+            <li><span class="material-icons">check</span>競合2社との比較</li>
+            <li><span class="material-icons">check</span>集計・可視化</li>
+            <li><span class="material-icons">check</span>PDFレポート納品</li>
+          </ul>
+          <button class="plan-cta-index plan-cta-index--disabled" disabled>Coming Soon</button>
+          <a class="plan-notify-index" href="https://docs.google.com/forms/d/e/1FAIpQLScNqIDUBU42Rx8B5OGZYrKnGLLB9ZADPNWcJ0eQVkBIW1FNUw/viewform" target="_blank" rel="noopener">公開通知を受け取る →</a>
         </div>
 
         <!-- Full Scan -->
-        <div class="plan-card coming-soon">
-          <div class="plan-header">
-            <div class="plan-name-row">
-              <span class="plan-name">Full Scan</span>
-              <span class="plan-badge badge-soon">Coming Soon</span>
-            </div>
-            <p class="plan-tagline">提案資料・社内共有にも使えるプロ仕様</p>
-            <div class="plan-price">
-              <span class="price-currency">¥</span>
-              <span class="price-num">9,800</span>
-              <span class="price-unit">/ 1回買い切り</span>
-            </div>
-          </div>
-          <div class="plan-body">
-            <p class="plan-desc">キーワード複数・競合複数比較・生データ付き。ブラックボックスなし、全データ渡します。</p>
-            <ul class="plan-features">
-              <li>
-                <span class="material-icons-round feat-soon">schedule</span>
-                Deep Scanの全機能（Coming Soon）
-              </li>
-              <li>
-                <span class="material-icons-round feat-soon">schedule</span>
-                複数キーワード対応（Coming Soon）
-              </li>
-              <li>
-                <span class="material-icons-round feat-soon">schedule</span>
-                競合複数社比較（Coming Soon）
-              </li>
-              <li>
-                <span class="material-icons-round feat-soon">schedule</span>
-                AI回答ローデータ(CSV)付き（Coming Soon）
-              </li>
-            </ul>
-            <button class="plan-cta cta-disabled" disabled>Coming Soon</button>
-          </div>
+        <div class="plan-card-index">
+          <span class="plan-badge-index">プロ向け</span>
+          <p class="plan-name-index">Full Scan</p>
+          <p class="plan-price-index">¥9,800<span class="plan-price-unit-index">（税込）</span></p>
+          <p class="plan-desc-index">ブラックボックスなし。プロンプト、モデル、回答生データ、全部お渡しします。提案資料の強化に</p>
+          <ul class="plan-features-index">
+            <li><span class="material-icons">check</span>Deep Scanの全内容</li>
+            <li><span class="material-icons">check</span>AIに投げる質問は5つ</li>
+            <li><span class="material-icons">check</span>競合2社との比較</li>
+            <li><span class="material-icons">check</span>PDFレポート＋生データ納品</li>
+            <li><span class="material-icons">check</span>詳細分析＋改善提案</li>
+          </ul>
+          <button class="plan-cta-index plan-cta-index--disabled" disabled>Coming Soon</button>
         </div>
 
       </div>
