@@ -1144,8 +1144,10 @@
             <div class="meta">
               <div class="meta-row-label">調査日時</div>
               <div class="meta-row-value" id="reportDateTime">—</div>
-              <div class="meta-row-label">カテゴリ</div>
+              <div class="meta-row-label">業種・大カテゴリ</div>
               <div class="meta-row-value" id="reportCategory">—</div>
+              <div class="meta-row-label">中カテゴリ</div>
+              <div class="meta-row-value" id="reportSubcategory">—</div>
               <div class="meta-row-label">キーワード</div>
               <div class="meta-row-value" id="reportKeyword">—</div>
             </div>
@@ -1789,9 +1791,10 @@
         $('promptDisplay').textContent  = question || state.question;
 
         const now = new Date();
-        $('reportDateTime').textContent = now.toLocaleString('ja-JP');
-        $('reportCategory').textContent = state.category;
-        $('reportKeyword').textContent  = state.keyword;
+        $('reportDateTime').textContent    = now.toLocaleString('ja-JP');
+        $('reportCategory').textContent    = state.category;
+        $('reportSubcategory').textContent = state.subcategory;
+        $('reportKeyword').textContent     = state.keyword;
 
         renderResult('result-chatgpt', results.chatgpt);
         renderResult('result-claude',  results.claude);
@@ -2043,7 +2046,8 @@ body{margin:0;font-family:"Inter","Noto Sans JP",sans-serif;color:var(--text-dar
       <div class="document-label">Report Profile</div>
       <div class="meta">
         <div class="meta-row-label">調査日時</div><div class="meta-row-value">${dateTime}</div>
-        <div class="meta-row-label">カテゴリ</div><div class="meta-row-value">${escapeHtml(state.category)}</div>
+        <div class="meta-row-label">業種・大カテゴリ</div><div class="meta-row-value">${escapeHtml(state.category)}</div>
+        <div class="meta-row-label">中カテゴリ</div><div class="meta-row-value">${escapeHtml(state.subcategory)}</div>
         <div class="meta-row-label">キーワード</div><div class="meta-row-value">${escapeHtml(state.keyword)}</div>
       </div>
     </aside>
