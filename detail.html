@@ -674,227 +674,114 @@
     /* ─────────────────────────────────────
        PLANS SECTION
     ───────────────────────────────────── */
-    .plans-section { background: var(--white); }
-
-    .plans-note {
-      background: var(--blue-gray-50);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 12px 16px;
-      font-size: 13px;
-      color: var(--text-mid);
-      margin-bottom: 32px;
-      display: flex;
-      align-items: flex-start;
-      gap: 8px;
-      font-family: "Noto Sans JP", sans-serif;
-    }
-
-    .plans-note .material-icons-round {
-      font-size: 16px;
-      color: var(--amber-500);
-      flex-shrink: 0;
-      margin-top: 1px;
-    }
-
-    .plans-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 20px;
-    }
-
+    .plans { background: var(--white); padding: 80px 0; }
+    .plan-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; align-items: start; }
     .plan-card {
-      border-radius: 16px;
-      border: 1.5px solid var(--border);
-      overflow: hidden;
       background: var(--white);
-      transition: box-shadow 0.2s, border-color 0.2s;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 28px 24px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.06);
       position: relative;
     }
-
-    .plan-card:hover {
-      box-shadow: 0 8px 24px rgba(6,20,38,0.1);
+    .plan-card--featured {
+      border: 2px solid var(--amber-400);
+      box-shadow: 0 4px 16px rgba(251,191,36,0.15);
     }
-
-    .plan-card.featured {
-      border-color: var(--navy-800);
-      box-shadow: 0 4px 20px rgba(6,20,38,0.12);
-    }
-
-    .plan-card.coming-soon {
-      background: var(--coming-soon-bg);
-      border-color: var(--coming-soon-border);
-    }
-
-    .featured-badge {
-      position: absolute;
-      top: -1px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: var(--navy-950);
-      color: var(--amber-400);
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      padding: 4px 16px;
-      border-radius: 0 0 8px 8px;
-    }
-
-    .plan-header {
-      padding: 28px 24px 20px;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .plan-card.coming-soon .plan-header {
-      border-bottom-color: var(--coming-soon-border);
-    }
-
-    .plan-name-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 6px;
-    }
-
-    .plan-name {
-      font-family: "DM Sans", sans-serif;
-      font-weight: 700;
-      font-size: 18px;
-      color: var(--text-dark);
-    }
-
-    .plan-card.coming-soon .plan-name { color: var(--text-muted); }
-
     .plan-badge {
-      font-size: 10px;
+      display: inline-block;
+      font-size: 11px;
       font-weight: 700;
-      padding: 3px 10px;
-      border-radius: 999px;
-      font-family: "DM Sans", sans-serif;
-    }
-
-    .badge-available {
-      background: rgba(251,191,36,0.15);
-      color: var(--amber-600);
-      border: 1px solid rgba(251,191,36,0.4);
-    }
-
-    .badge-soon {
+      padding: 2px 10px;
+      border-radius: 20px;
       background: var(--blue-gray-100);
       color: var(--text-muted);
-      border: 1px solid var(--border-strong);
+      margin-bottom: 12px;
+      letter-spacing: 0.04em;
     }
-
-    .plan-tagline {
-      font-size: 12px;
-      color: var(--text-muted);
-      font-family: "Noto Sans JP", sans-serif;
-      margin-bottom: 16px;
+    .plan-badge--featured {
+      background: var(--amber-400);
+      color: var(--text-dark);
     }
-
-    .plan-price {
-      display: flex;
-      align-items: baseline;
-      gap: 4px;
-    }
-
-    .price-currency {
-      font-size: 16px;
+    .plan-name {
+      font-size: 18px;
       font-weight: 700;
-      color: var(--text-muted);
-      font-family: "DM Mono", monospace;
+      color: var(--text-dark);
+      margin-bottom: 6px;
     }
-
-    .price-num {
-      font-family: "DM Mono", monospace;
+    .plan-price {
       font-size: 36px;
       font-weight: 700;
       color: var(--text-dark);
-      line-height: 1;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
     }
-
-    .plan-card.coming-soon .price-num { color: var(--text-muted); }
-
-    .price-unit {
-      font-size: 12px;
+    .plan-price-unit {
+      font-size: 14px;
+      font-weight: 400;
       color: var(--text-muted);
-      font-family: "Noto Sans JP", sans-serif;
+      margin-left: 2px;
     }
-
-    .plan-body {
-      padding: 20px 24px;
-    }
-
     .plan-desc {
       font-size: 13px;
-      color: var(--text-mid);
-      font-family: "Noto Sans JP", sans-serif;
+      color: var(--text-muted);
       line-height: 1.7;
-      margin-bottom: 16px;
+      margin: 12px 0 20px;
     }
-
-    .plan-card.coming-soon .plan-desc { color: var(--text-muted); }
-
     .plan-features {
       list-style: none;
-      margin-bottom: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 24px;
     }
-
     .plan-features li {
+      font-size: 13px;
+      color: var(--text-dark);
       display: flex;
       align-items: flex-start;
-      gap: 8px;
-      font-size: 13px;
-      color: var(--text-mid);
-      font-family: "Noto Sans JP", sans-serif;
-      padding: 5px 0;
-      border-bottom: 1px solid var(--blue-gray-50);
+      gap: 6px;
+      line-height: 1.6;
     }
-
-    .plan-card.coming-soon .plan-features li { color: var(--text-muted); }
-
-    .plan-features li .material-icons-round {
-      font-size: 15px;
+    .plan-features li .material-icons {
+      font-size: 16px !important;
+      color: var(--amber-500);
       flex-shrink: 0;
       margin-top: 2px;
     }
-
-    .feat-check { color: var(--navy-800); }
-    .feat-soon { color: var(--text-muted); }
-
     .plan-cta {
       display: block;
       width: 100%;
+      padding: 13px 0;
+      border-radius: 8px;
+      font-size: 15px;
+      font-weight: 600;
       text-align: center;
-      padding: 13px;
-      border-radius: 10px;
-      font-weight: 700;
-      font-size: 14px;
-      text-decoration: none;
-      transition: all 0.15s;
-      font-family: "DM Sans", "Noto Sans JP", sans-serif;
       cursor: pointer;
-    }
-
-    .cta-primary {
-      background: var(--amber-500);
-      color: var(--navy-950);
+      font-family: inherit;
       border: none;
+      text-decoration: none;
+      transition: opacity 0.15s;
     }
-
-    .cta-primary:hover {
+    .plan-cta--primary {
       background: var(--amber-400);
-      box-shadow: 0 4px 12px rgba(251,191,36,0.35);
-      transform: translateY(-1px);
+      color: var(--text-dark);
     }
-
-    .cta-disabled {
+    .plan-cta--primary:hover { opacity: 0.88; }
+    .plan-cta--disabled {
       background: var(--blue-gray-100);
       color: var(--text-muted);
-      border: 1px solid var(--border);
       cursor: not-allowed;
     }
+    .plan-notify {
+      display: block;
+      text-align: center;
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: 10px;
+      text-decoration: none;
+    }
+    .plan-notify:hover { text-decoration: underline; }
 
     /* ─────────────────────────────────────
        PLAN COMPARISON TABLE
@@ -1310,29 +1197,6 @@
       line-height: 1.75;
     }
 
-    /* ─── Plan Notify Link ─── */
-    .plan-notify {
-      display: block;
-      text-align: center;
-      font-size: 12px;
-      color: var(--text-muted);
-      margin-top: 10px;
-      text-decoration: none;
-    }
-    .plan-notify:hover { text-decoration: underline; }
-
-    /* ─────────────────────────────────────
-    @media (max-width: 640px) {
-      .content-section { padding: 40px 16px; }
-      .flow-steps { grid-template-columns: 1fr 1fr; }
-      .flow-step:nth-child(2)::after { display: none; }
-      .flow-step:nth-child(odd):not(:last-child)::after { display: none; }
-      .plans-grid { grid-template-columns: 1fr; }
-      .screens-grid { grid-template-columns: 1fr; }
-      .footer-links { justify-content: center; }
-      .plan-card.featured { order: -1; }
-    }
-
     /* Fade in */
     @keyframes fadeUp {
       from { opacity: 0; transform: translateY(16px); }
@@ -1347,8 +1211,6 @@
     .page-hero > *:nth-child(2) { animation-delay: 0.12s; }
     .page-hero > *:nth-child(3) { animation-delay: 0.19s; }
 
-    /* ─── Plans section (index.html style) ─── */
-    .plans-index { background: var(--white); padding: 56px 0; }
     .section-header {
       text-align: left;
       margin-bottom: 2.5rem;
@@ -1368,91 +1230,9 @@
     }
     .section-header p { font-size: 1rem; color: var(--text-muted); line-height: 1.75; }
     .section-content { max-width: 1100px; margin: 0 auto; padding: 0 1.5rem; }
-    .plan-cards-index { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; align-items: start; }
-    .plan-card-index {
-      background: var(--white);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 28px 24px;
-      box-shadow: 0 1px 4px rgba(0,0,0,0.06);
-      position: relative;
-    }
-    .plan-card-index--featured {
-      border: 2px solid var(--amber-400);
-      box-shadow: 0 4px 16px rgba(251,191,36,0.15);
-    }
-    .plan-badge-index {
-      display: inline-block;
-      font-size: 11px;
-      font-weight: 700;
-      padding: 2px 10px;
-      border-radius: 20px;
-      background: var(--blue-gray-100);
-      color: var(--text-muted);
-      margin-bottom: 12px;
-      letter-spacing: 0.04em;
-    }
-    .plan-badge-index--featured { background: var(--amber-400); color: var(--text-dark); }
-    .plan-name-index { font-size: 18px; font-weight: 700; color: var(--text-dark); margin-bottom: 6px; }
-    .plan-price-index {
-      font-size: 36px;
-      font-weight: 700;
-      color: var(--text-dark);
-      letter-spacing: -0.02em;
-      line-height: 1.1;
-    }
-    .plan-price-unit-index { font-size: 14px; font-weight: 400; color: var(--text-muted); margin-left: 2px; }
-    .plan-desc-index { font-size: 13px; color: var(--text-muted); line-height: 1.7; margin: 12px 0 20px; }
-    .plan-features-index {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      margin-bottom: 24px;
-    }
-    .plan-features-index li {
-      font-size: 13px;
-      color: var(--text-dark);
-      display: flex;
-      align-items: flex-start;
-      gap: 6px;
-      line-height: 1.6;
-    }
-    .plan-features-index li .material-icons {
-      font-size: 16px !important;
-      color: var(--amber-500);
-      flex-shrink: 0;
-      margin-top: 2px;
-    }
-    .plan-cta-index {
-      display: block;
-      width: 100%;
-      padding: 13px 0;
-      border-radius: 8px;
-      font-size: 15px;
-      font-weight: 600;
-      text-align: center;
-      cursor: pointer;
-      font-family: inherit;
-      border: none;
-      text-decoration: none;
-      transition: opacity 0.15s;
-    }
-    .plan-cta-index--primary { background: var(--amber-400); color: var(--text-dark); }
-    .plan-cta-index--primary:hover { opacity: 0.88; }
-    .plan-cta-index--disabled { background: var(--blue-gray-100); color: var(--text-muted); cursor: not-allowed; }
-    .plan-notify-index {
-      display: block;
-      text-align: center;
-      font-size: 12px;
-      color: var(--text-muted);
-      margin-top: 10px;
-      text-decoration: none;
-    }
-    .plan-notify-index:hover { text-decoration: underline; }
     @media (max-width: 768px) {
-      .plan-cards-index { grid-template-columns: 1fr; }
-      .plan-card-index--featured { order: -1; }
+      .plan-cards { grid-template-columns: 1fr; }
+      .plan-card--featured { order: -1; }
     }
   </style>
 </head>
@@ -1747,7 +1527,7 @@
   <!-- ════════════════════════
        SECTION 3: PLANS
   ════════════════════════ -->
-  <section class="plans-index">
+  <section id="plans" class="plans">
     <div class="section-header">
       <h2>プランを選ぶ</h2>
       <p>現在は<strong>Quick Scan（β版）</strong> のみご利用いただけます。Deep Scan / Full Scanは、Quick Scanテスト期間後に順次リリース予定です。</p>
@@ -1767,7 +1547,7 @@
             <li><span class="material-icons">check</span><strong>画面表示ですぐに結果を確認</strong></li>
             <li><span class="material-icons">check</span>レポートはボタン一つでダウンロード可能（HTML）</li>
           </ul>
-          <a class="plan-cta plan-cta--primary" href="detail.html#cta">Quick Scanを購入（¥300）</a>
+          <a class="plan-cta plan-cta--primary" href="#cta">Quick Scanを購入（¥300）</a>
         </div>
 
         <!-- Deep Scan -->
@@ -1777,7 +1557,7 @@
           <p class="plan-price">¥2,980<span class="plan-price-unit">（税込）</span></p>
           <p class="plan-desc">専門書2冊分で、自社ブランドのAI評価90回分を集計レポート。1回買い切りプランです</p>
           <ul class="plan-features">
-            <li><span class="material-icons">check</span>AIへの質問：<strong>深掘り3パターン</strong></li>          
+            <li><span class="material-icons">check</span>AIへの質問：<strong>深掘り3パターン</strong></li>
             <li><span class="material-icons">check</span>3AIに3種の質問を各10回=90回分の回答を集計・可視化</li>
             <li><span class="material-icons">check</span>競合との比較分析</li>
             <li><span class="material-icons">check</span>詳細なPDFレポートを24時間以内にメール納品</li>
