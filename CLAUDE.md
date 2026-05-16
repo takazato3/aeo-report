@@ -23,7 +23,7 @@ AEO（AI検索最適化）調査レポートサービスの「Quick Scan（¥300
 ## GAS WebアプリURL
 
 ```
-https://script.google.com/macros/s/AKfycbwRKdjJe9PqZE3Rnh_I4zeRv5ET5PDUkmVkaNUFBX_kTiPHjqCn0NKNpAEReMDJgGOJ/exec
+https://script.google.com/macros/s/AKfycbzYeiBAv2CY5zqLjx2kbHTRegNRkdz2dAecGwa2MDH_c6_5NpIocr9xpVP3ItwT7m-0-Q/exec
 ```
 
 ## 画面構成（シングルページ・3ステップ）
