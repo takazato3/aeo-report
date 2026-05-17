@@ -262,52 +262,77 @@
       list-style: none;
       display: flex;
       flex-direction: column;
-      border-top: 1px solid var(--border);
     }
+
     .sample-log-item {
-      display: grid;
-      grid-template-columns: 180px 1fr auto;
-      align-items: center;
-      gap: 20px;
-      padding: 22px 0;
+      display: flex;
+      align-items: baseline;
+      gap: 32px;
+      padding: 28px 20px;
       border-bottom: 1px solid var(--border);
+      border-radius: 8px;
+      text-decoration: none;
       transition: background 0.15s;
+      cursor: pointer;
     }
+
     .sample-log-item:hover {
       background: var(--blue-gray-50);
-      margin: 0 -16px;
-      padding-left: 16px;
-      padding-right: 16px;
     }
-    .sample-log-meta {
+
+    .sample-log-body {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .sample-log-title-row {
       display: flex;
-      flex-direction: column;
-      gap: 4px;
-      flex-shrink: 0;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 6px;
+      flex-wrap: wrap;
     }
-    .sample-log-date {
-      font-size: 12px;
-      color: var(--text-muted);
-      font-family: "DM Sans", sans-serif;
-    }
-    .sample-log-plan {
-      font-size: 11px;
-      font-weight: 700;
-      color: var(--amber-500);
-      letter-spacing: 0.04em;
-    }
+
     .sample-log-title {
-      font-size: 15px;
+      font-size: 16px;
       font-weight: 700;
       color: var(--text-dark);
-      margin-bottom: 4px;
+      line-height: 1.4;
     }
+
+    .sample-log-meta-inline {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+
+    .sample-log-date {
+      font-size: 11px;
+      color: var(--text-muted);
+      font-family: "DM Sans", sans-serif;
+      white-space: nowrap;
+    }
+
+    .sample-log-plan {
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--amber-500);
+      background: rgba(251,191,36,0.1);
+      border: 1px solid rgba(251,191,36,0.25);
+      padding: 2px 8px;
+      border-radius: 999px;
+      letter-spacing: 0.04em;
+      white-space: nowrap;
+    }
+
     .sample-log-summary {
       font-size: 13px;
       color: var(--text-muted);
-      line-height: 1.7;
+      line-height: 1.75;
       font-family: "Noto Sans JP", sans-serif;
     }
+
     .sample-log-link {
       font-size: 13px;
       font-weight: 600;
@@ -315,9 +340,29 @@
       text-decoration: none;
       white-space: nowrap;
       flex-shrink: 0;
-      transition: color 0.15s;
+      opacity: 0;
+      transition: opacity 0.15s, color 0.15s;
     }
-    .sample-log-link:hover { color: var(--amber-500); }
+
+    .sample-log-item:hover .sample-log-link {
+      opacity: 1;
+    }
+
+    .sample-log-link:hover {
+      color: var(--amber-500);
+    }
+
+    @media (max-width: 768px) {
+      .sample-log-item {
+        flex-direction: column;
+        gap: 12px;
+        padding: 24px 12px;
+      }
+      .sample-log-link {
+        opacity: 1;
+        font-size: 12px;
+      }
+    }
 
     /* ─── Coming soon text ─── */
     .coming-soon-text {
@@ -363,6 +408,11 @@
       width: fit-content;
     }
     .coming-soon-notify:hover { color: var(--text-dark); }
+
+    /* ─── Coming soon section ─── */
+    .coming-soon-section {
+      padding: 64px 24px;
+    }
 
     /* ─── HR divider ─── */
     .section-divider {
@@ -420,13 +470,6 @@
 
     /* ─── Responsive ─── */
     @media (max-width: 768px) {
-      .sample-log-item {
-        grid-template-columns: 1fr;
-        gap: 8px;
-      }
-      .sample-log-link {
-        font-size: 12px;
-      }
       .footer-inner {
         grid-template-columns: 1fr;
         text-align: center;
@@ -474,7 +517,7 @@
     <div class="disclaimer-inner">
       <p class="disclaimer-heading">本レポートのスタンスと免責事項</p>
       <p class="disclaimer-body">
-        本ページは、主要AI（ChatGPT / Gemini / Claude）が各ブランドをどのように認識・言及するかを調査した「AIの回答記録」です。掲載されている企業名・製品名・サービス名は各社の商標または登録商標です。Ops Octopusはこれら権利者とは無関係であり、公式な推奨や提携を示すものではありません。レポートの内容は特定のプロンプトに対するAIの生成結果をまとめたものであり、運営者がサービスの品質を保証または毀損する意図はございません。万一、権利者様より掲載の取り下げ依頼をいただいた場合は速やかに対応いたします。→ <a href="https://docs.google.com/forms/d/e/1FAIpQLScNqIDUBU42Rx8B5OGZYrKnGLLB9ZADPNWcJ0eQVkBIW1FNUw/viewform" target="_blank" rel="noopener">お問い合わせフォーム</a>
+        本ページは、主要AI（ChatGPT / Gemini / Claude）が各ブランドをどのように認識・言及するかを調査した「AIの回答記録」です。掲載されている企業名・製品名・サービス名は各社の商標または登録商標です。Ops Octopusはこれら権利者とは無関係であり、公式な推奨や提携を示すものではありません。レポートの内容は特定のプロンプトに対するAIの生成結果をまとめたものであり、運営者がサービスの品質を保証または毀損する意図はございません。万一、権利者様より掲載の取り下げ依頼をいただいた場合は速やかに対応いたします。→ <a href="https://docs.google.com/forms/d/e/1FAIpQLScxpFCrlX5bj-WrfcHRWMqQcTZwH_ex5u8thodpH1eMEWpNEg/viewform" target="_blank" rel="noopener">お問い合わせフォーム</a>
       </p>
     </div>
   </section>
@@ -488,36 +531,42 @@
       <ul class="sample-log">
 
         <li class="sample-log-item">
-          <div class="sample-log-meta">
-            <span class="sample-log-date">2025年12月</span>
-            <span class="sample-log-plan">Quick Scan（n=1）</span>
-          </div>
           <div class="sample-log-body">
-            <p class="sample-log-title">転職エージェント｜JAC Recruitment</p>
+            <div class="sample-log-title-row">
+              <p class="sample-log-title">転職エージェント｜JAC Recruitment</p>
+              <div class="sample-log-meta-inline">
+                <span class="sample-log-date">2026年5月</span>
+                <span class="sample-log-plan">Quick Scan（n=1）</span>
+              </div>
+            </div>
             <p class="sample-log-summary">「外資系企業への転職を考えています。JACリクルートメントの強みや評判について教えてください。」と直接たずねた際の、3AIの回答を記録。</p>
           </div>
           <a class="sample-log-link" href="assets/sample_reports/OpsOctopus_QuickScan_JAC_20260517.html" target="_blank">AIの回答結果を確認 →</a>
         </li>
 
         <li class="sample-log-item">
-          <div class="sample-log-meta">
-            <span class="sample-log-date">2025年12月</span>
-            <span class="sample-log-plan">Quick Scan（n=1）</span>
-          </div>
           <div class="sample-log-body">
-            <p class="sample-log-title">観光バス｜はとバス</p>
+            <div class="sample-log-title-row">
+              <p class="sample-log-title">観光バス｜はとバス</p>
+              <div class="sample-log-meta-inline">
+                <span class="sample-log-date">2026年5月</span>
+                <span class="sample-log-plan">Quick Scan（n=1）</span>
+              </div>
+            </div>
             <p class="sample-log-summary">「初めて観光バスツアーを利用する予定です。はとバスのツアーはどんな特徴がありますか？利用者の評判も知りたいです。」と直接たずねた際の、3AIの回答を記録。</p>
           </div>
           <a class="sample-log-link" href="assets/sample_reports/OpsOctopus_QuickScan_hatobus_20260517.html" target="_blank">AIの回答結果を確認 →</a>
         </li>
 
         <li class="sample-log-item">
-          <div class="sample-log-meta">
-            <span class="sample-log-date">2025年12月</span>
-            <span class="sample-log-plan">Quick Scan（n=1）</span>
-          </div>
           <div class="sample-log-body">
-            <p class="sample-log-title">英語学習アプリ｜Duolingo</p>
+            <div class="sample-log-title-row">
+              <p class="sample-log-title">英語学習アプリ｜Duolingo</p>
+              <div class="sample-log-meta-inline">
+                <span class="sample-log-date">2026年5月</span>
+                <span class="sample-log-plan">Quick Scan（n=1）</span>
+              </div>
+            </div>
             <p class="sample-log-summary">「Duolingoに興味があります。Duolingoのどんな点がユーザーに評価されていますか？特徴や強みも教えてください。」と直接たずねた際の、3AIの回答を記録。</p>
           </div>
           <a class="sample-log-link" href="assets/sample_reports/OpsOctopus_QuickScan_Duolingo_20260517.html" target="_blank">AIの回答結果を確認 →</a>
@@ -543,7 +592,7 @@
           <li>競合ブランドとの比較分析</li>
           <li>Full Scanでは全90回の生データ（AIの回答原文）もすべて提供</li>
         </ul>
-        <a class="coming-soon-notify" href="https://docs.google.com/forms/d/e/1FAIpQLScNqIDUBU42Rx8B5OGZYrKnGLLB9ZADPNWcJ0eQVkBIW1FNUw/viewform" target="_blank" rel="noopener">公開通知を受け取る →</a>
+        <a class="coming-soon-notify" href="https://docs.google.com/forms/d/e/1FAIpQLScxpFCrlX5bj-WrfcHRWMqQcTZwH_ex5u8thodpH1eMEWpNEg/viewform" target="_blank" rel="noopener">公開通知を受け取る →</a>
       </div>
     </div>
   </section>
