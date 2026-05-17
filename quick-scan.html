@@ -1547,6 +1547,17 @@
       sessionStorage.setItem('customerIntent',  ci.value);
 
       showLoading('質問文を生成中...');
+      
+      // ← ここに追加
+      console.log("=== GAS sendingData ===");
+      console.log("token:", state.token);
+      console.log("category:", state.category);
+      console.log("subcategory:", state.subcategory);
+      console.log("keyword:", state.keyword);
+      console.log("customerProfile:", state.customerProfile);
+      console.log("customerIntent:", state.customerIntent);
+
+      
       try {
         const data = await callGAS({
           action:          'generateQuestion',
