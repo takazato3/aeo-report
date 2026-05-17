@@ -8,6 +8,14 @@
   <meta property="og:title" content="サンプルレポート | Ops Octopus">
   <meta property="og:description" content="Ops OctopusのAIブランド調査レポートのサンプルです。実際の調査画面と同じ形式で出力しています。">
   <meta property="og:type" content="website">
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-DNTX6D35RB"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-DNTX6D35RB');
+  </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -504,7 +512,7 @@
       <a class="nav-link-hide" href="detail.html">プラン・料金</a>
       <a class="nav-link-hide" href="samples.html">サンプル</a>
       <a class="nav-link-hide" href="faq.html">よくある質問</a>
-      <a class="btn-nav-cta" href="https://buy.stripe.com/6oU14ndhZcAR4XR1EKcwg00">
+      <a class="btn-nav-cta" href="https://buy.stripe.com/6oU14ndhZcAR4XR1EKcwg00" onclick="gtag('event', 'cta_click_header', { page: location.pathname })">
         <span class="nav-cta-full">¥300<span class="nav-cta-tax">（税込）</span>で購入</span>
         <span class="nav-cta-short">¥300<span class="nav-cta-tax">（税込）</span>で購入</span>
       </a>

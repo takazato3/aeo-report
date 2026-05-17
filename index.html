@@ -9,6 +9,14 @@
   <meta property="og:description" content="ChatGPT・Gemini・ClaudeのAI検索であなたのブランドがどう推薦されているか調査するレポートサービス。AEO・GEO・LLMO対策の現状把握に。買い切り¥300から。">
   <meta property="og:url" content="https://app.ops-octopus.com/">
   <meta property="og:type" content="website">
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-DNTX6D35RB"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-DNTX6D35RB');
+  </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -870,7 +878,7 @@
       <a class="nav-link-hide" href="detail.html">プラン・料金</a>
       <a class="nav-link-hide" href="samples.html">サンプル</a>
       <a class="nav-link-hide" href="faq.html">よくある質問</a>
-      <a class="btn-nav-cta" href="https://buy.stripe.com/6oU14ndhZcAR4XR1EKcwg00">
+      <a class="btn-nav-cta" href="https://buy.stripe.com/6oU14ndhZcAR4XR1EKcwg00" onclick="gtag('event', 'cta_click_header', { page: location.pathname })">
         <span class="nav-cta-full">¥300<span class="nav-cta-tax">（税込）</span>で購入</span>
         <span class="nav-cta-short">¥300<span class="nav-cta-tax">（税込）</span>で購入</span>
       </a>
@@ -899,7 +907,7 @@
           </p>
         </div>
         <div class="hero-cta">
-          <a class="btn-primary" href="detail.html#cta">Quick Scanを試す（¥300）→</a>
+          <a class="btn-primary" href="detail.html#cta" onclick="gtag('event', 'cta_click_hero', { page: 'index.html' })">Quick Scanを試す（¥300）→</a>
         </div>
       </div>
       <div class="hero-right">
@@ -987,7 +995,7 @@
     <div class="section-header">
       <h2>こんなレポートが見られます。</h2>
       <p>AIの回答をただ並べるだけではなく、推奨度・競合比較・言及キーワード・改善アクションまで、判断材料として見やすく整理します。<br>※一部機能はDeep Scan以上で提供予定</p>
-      <a class="samples-link" href="samples.html">サンプルレポートをもっと見る →</a>
+      <a class="samples-link" href="samples.html" onclick="gtag('event', 'cta_click_samples', { page: 'index.html' })">サンプルレポートをもっと見る →</a>
     </div>
     <div class="section-content">
       <div class="samples-grid">
@@ -1103,7 +1111,7 @@
             <li><span class="material-icons">check</span><strong>画面表示ですぐに結果を確認</strong></li>
             <li><span class="material-icons">check</span>レポートはボタン一つでダウンロード可能（HTML）</li>
           </ul>
-          <a class="plan-cta plan-cta--primary" href="detail.html#cta">Quick Scanを購入（¥300）</a>
+          <a class="plan-cta plan-cta--primary" href="detail.html#cta" onclick="gtag('event', 'cta_click_plan', { page: 'index.html' })">Quick Scanを購入（¥300）</a>
         </div>
 
         <!-- Deep Scan -->

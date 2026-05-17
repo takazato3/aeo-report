@@ -4,6 +4,14 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>AI Brand Insight Quick Scan</title>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-DNTX6D35RB"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-DNTX6D35RB');
+  </script>
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
@@ -1034,7 +1042,7 @@
           </div>
 
           <div class="btn-group">
-            <button type="submit" class="btn-primary">次へ → AIが質問を作成します</button>
+            <button type="submit" class="btn-primary" onclick="gtag('event', 'scan_step1_next', { page: 'quick-scan.html' })">次へ → AIが質問を作成します</button>
           </div>
 
         </form>
@@ -1107,7 +1115,7 @@
         </div>
 
         <div class="btn-group">
-          <button class="btn-primary" id="runSurveyBtn" type="button">この内容で調査を開始する</button>
+          <button class="btn-primary" id="runSurveyBtn" type="button" onclick="gtag('event', 'scan_step2_start', { page: 'quick-scan.html' })">この内容で調査を開始する</button>
           <button class="btn-secondary" id="backToInputBtn" type="button">← 前の画面に戻る</button>
         </div>
       </div>
@@ -1925,6 +1933,7 @@
     }
 
     function downloadReport() {
+      gtag('event', 'scan_step3_download', { page: 'quick-scan.html' });
       const now        = new Date();
       const dateStr    = `${now.getFullYear()}${String(now.getMonth()+1).padStart(2,'0')}${String(now.getDate()).padStart(2,'0')}`;
       const dateTime   = now.toLocaleString('ja-JP');
