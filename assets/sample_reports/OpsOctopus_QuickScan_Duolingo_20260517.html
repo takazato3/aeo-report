@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Ops Octopus_Duolingo_20260517</title>
+<style>
+:root{--navy-950:#061426;--navy-900:#081b33;--navy-800:#102a4a;--blue-gray-50:#f4f7fb;--off-white:#fbfaf6;--white:#ffffff;--amber-400:#fbbf24;--amber-500:#f59e0b;--text-dark:#132033;--text-muted:#5f6f85;--border:#dce4ef;}
+*{box-sizing:border-box;}
+html{background:#eef3f8;}
+body{margin:0;font-family:"Inter","Noto Sans JP",sans-serif;color:var(--text-dark);line-height:1.72;background:linear-gradient(90deg,rgba(8,27,51,.06) 0,rgba(8,27,51,.06) 1px,transparent 1px,transparent 72px),#eef3f8;-webkit-font-smoothing:antialiased;}
+.report-shell{width:min(1080px,calc(100% - 32px));margin:32px auto;background:#fff;border:1px solid #b9c7d8;box-shadow:0 18px 42px rgba(6,20,38,.10);}
+.report-cover{display:grid;grid-template-columns:1.1fr .9fr;min-height:190px;border-bottom:1px solid #b9c7d8;}
+.cover-main{padding:34px 42px 30px;background:var(--navy-900);color:var(--off-white);position:relative;overflow:hidden;}
+.cover-main::after{content:"";position:absolute;right:-80px;top:-120px;width:300px;height:300px;border:1px solid rgba(251,191,36,.22);transform:rotate(18deg);}
+.brand-lockup{display:flex;align-items:center;gap:10px;margin-bottom:26px;position:relative;z-index:1;}
+.brand-mark{width:28px;height:28px;border-radius:9px;background:var(--amber-400);display:grid;place-items:center;font-size:16px;filter:grayscale(1);}
+.brand-text{font-size:13px;font-weight:700;letter-spacing:.04em;}
+.brand-sub{font-size:11px;color:rgba(251,250,246,.72);margin-top:1px;}
+.report-title{margin:0;font-size:30px;line-height:1.25;font-weight:760;color:var(--off-white);position:relative;z-index:1;}
+.cover-note{margin-top:14px;color:rgba(251,250,246,.76);font-size:13px;position:relative;z-index:1;}
+.cover-side{padding:34px 34px 30px;background:linear-gradient(180deg,#fff 0%,#f7f9fc 100%);}
+.document-label{display:inline-flex;align-items:center;gap:7px;font-size:11px;letter-spacing:.12em;font-weight:800;color:var(--navy-800);text-transform:uppercase;margin-bottom:18px;}
+.document-label::before{content:"";width:28px;height:3px;background:var(--amber-400);display:inline-block;}
+.meta{display:grid;grid-template-columns:96px 1fr;border-top:1px solid var(--border);border-left:1px solid var(--border);font-size:12px;}
+.meta-row-label,.meta-row-value{padding:9px 10px;border-right:1px solid var(--border);border-bottom:1px solid var(--border);}
+.meta-row-label{background:#f8fafc;color:var(--text-muted);font-weight:700;}
+.meta-row-value{background:#fff;color:var(--text-dark);}
+.report-body{padding:34px 42px 42px;}
+.report-section{margin:0 0 34px;}
+.section-kicker{display:flex;align-items:center;gap:12px;margin:0 0 14px;}
+.section-number{width:34px;height:24px;background:var(--navy-800);color:#fff;display:grid;place-items:center;font-size:11px;font-weight:800;letter-spacing:.06em;flex-shrink:0;}
+.section-heading{margin:0;font-size:18px;font-weight:760;color:var(--navy-800);}
+.section-lead{margin:-6px 0 16px 46px;font-size:12px;color:var(--text-muted);}
+.result-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-bottom:.5rem;}
+.card{border:1px solid #b9c7d8;background:#fff;display:flex;flex-direction:column;font-size:14px;color:#243143;}
+.card-header{display:flex;align-items:center;gap:8px;font-weight:760;font-size:13px;padding:11px 14px;border-bottom:1px solid var(--border);background:#fbfcfe;color:var(--navy-800);}
+.dot{width:9px;height:9px;border-radius:50%;display:inline-block;flex-shrink:0;}
+.card p,.card h1,.card h2,.card h3,.card h4,.card h5,.card h6{margin:0 0 8px;padding:14px 14px 0;font-size:14px;color:#243143;}
+.card h1,.card h2,.card h3,.card h4,.card h5,.card h6{font-weight:600;line-height:1.5;}
+.card p:last-child,.card ul:last-child,.card ol:last-child,.card h1:last-child,.card h2:last-child,.card h3:last-child,.card h4:last-child,.card h5:last-child,.card h6:last-child{padding-bottom:14px;}
+.card strong{font-weight:inherit;text-decoration:underline;background:none;color:inherit;}
+.card em{font-style:normal;}
+.card ul,.card ol{margin:0 0 8px;padding:14px calc(14px + 1.4em) 0 calc(14px + 1.4em);font-size:14px;color:#243143;}
+.card li{margin-bottom:2px;}
+.trend-bar-wrap{display:flex;align-items:center;gap:10px;margin-bottom:6px;}
+.trend-level{font-size:12px;font-weight:600;color:var(--navy-800);min-width:3.5em;}
+.trend-bar{flex:1;height:8px;background:rgba(16,42,74,.15);border-radius:4px;overflow:hidden;max-width:160px;}
+.trend-bar-fill{height:100%;background:var(--navy-800);border-radius:4px;}
+.insight-value-text{font-size:13px;color:rgba(8,19,26,.7);line-height:1.6;margin-bottom:0;}
+.insight-panel{border:1px solid #b9c7d8;background:#fff;overflow:hidden;margin-bottom:1.5rem;}
+.insight-header{background:var(--navy-800);color:#fff;padding:12px 16px;font-size:13px;font-weight:760;letter-spacing:.02em;}
+.insight-item{display:grid;grid-template-columns:210px 1fr;border-bottom:1px solid var(--border);}
+.insight-item:last-child{border-bottom:none;}
+.insight-label{font-size:11px;font-weight:760;color:var(--navy-800);padding:13px 14px;background:#f8fafc;border-right:1px solid var(--border);}
+.insight-value{padding:13px 15px;font-size:13px;color:#243143;}
+.keyword-tag{display:inline-block;background:#fff;border:1px solid #b9c7d8;padding:2px 8px;font-size:11px;color:#243143;margin:2px 3px 2px 0;}
+.why-3ai{border:1px solid #b9c7d8;background:#fff;padding:24px 28px;margin-bottom:1.5rem;}
+.why-3ai-block{margin-bottom:1.5rem;}
+.why-3ai-heading{font-size:14px;font-weight:760;color:var(--navy-800);margin:0 0 6px;}
+.why-3ai-body{font-size:13px;color:#243143;line-height:1.8;margin:0 0 6px;}
+.why-3ai-cite{font-size:11px;color:var(--text-muted);line-height:1.6;margin:0;}
+.why-3ai-cite a{color:var(--text-muted);word-break:break-all;}
+.why-3ai-table-wrap{overflow-x:auto;margin-bottom:14px;}
+.why-3ai-table{width:100%;border-collapse:collapse;font-size:13px;}
+.why-3ai-table th{background:#f8fafc;padding:9px 12px;border:1px solid var(--border);font-weight:760;color:var(--navy-800);text-align:left;}
+.why-3ai-table td{padding:9px 12px;border:1px solid var(--border);color:#243143;vertical-align:top;}
+.why-3ai-ai-cell{display:flex;align-items:center;gap:6px;font-weight:500;white-space:nowrap;}
+.why-3ai-footer{font-size:12px;color:var(--text-muted);line-height:1.7;margin:0;}
+.upsell{border:1px solid #b9c7d8;padding:20px 24px;margin-bottom:2rem;background:#fbfcfe;}
+.upsell-title{font-size:14px;font-weight:760;color:var(--navy-800);margin:0 0 6px;}
+.upsell-desc{font-size:12px;color:var(--text-muted);line-height:1.7;margin:0 0 12px;}
+.upsell-link{font-size:12px;color:var(--navy-800);text-decoration:none;border-bottom:1px solid var(--navy-800);}
+.prompt-box{background:#fbfcfe;border:1px solid #b9c7d8;border-left:4px solid var(--navy-800);padding:14px 16px;font-family:SFMono-Regular,Consolas,Menlo,Courier,monospace;font-size:12px;color:#3e4a5c;white-space:pre-wrap;word-break:break-word;}
+.disclaimer{margin-top:2rem;padding:16px 18px;background:#fbfcfe;border:1px solid #b9c7d8;}
+.disclaimer p{font-size:12px;font-weight:760;color:var(--navy-800);margin:0 0 8px;}
+.disclaimer ul{list-style:none;display:flex;flex-direction:column;gap:6px;margin:0;padding:0;}
+.disclaimer li{font-size:11px;color:var(--text-muted);line-height:1.75;padding-left:1em;position:relative;}
+.disclaimer li span{position:absolute;left:0;}
+.report-footer{margin-top:2rem;padding-top:1rem;border-top:1px solid #b9c7d8;font-size:11px;color:var(--text-muted);}
+.report-footer::after{content:"FOR INFORMATIONAL PURPOSES ONLY";letter-spacing:.08em;color:#9aa8b9;float:right;}
+@media(max-width:780px){.report-shell{width:100%;margin:0;border-left:none;border-right:none;}.report-cover{grid-template-columns:1fr;}.cover-main,.cover-side,.report-body{padding:26px 20px;}.result-grid{grid-template-columns:1fr;}.insight-item{grid-template-columns:1fr;}.insight-label{border-right:none;border-bottom:1px solid var(--border);}.section-lead{margin-left:0;}}
+@media print{html,body{background:#fff;}.report-shell{width:100%;margin:0;border:none;box-shadow:none;}.report-body{padding:26px 32px;}.card,.insight-panel,.prompt-box,.disclaimer{break-inside:avoid;}}
+</style>
+</head>
+<body>
+<main class="report-shell">
+  <header class="report-cover">
+    <div class="cover-main">
+      <div class="brand-lockup">
+        <div class="brand-mark">🐙</div>
+        <div>
+          <div class="brand-text">Ops Octopus</div>
+          <div class="brand-sub">AIブランド調査レポート</div>
+        </div>
+      </div>
+      <h1 class="report-title">AIブランド調査<br>Quick Scan レポート</h1>
+      <div class="cover-note">ChatGPT / Gemini / Claude の回答を横断し、AI上での見え方を営業・マーケティングの判断材料として整理します。</div>
+    </div>
+    <aside class="cover-side">
+      <div class="document-label">Report Profile</div>
+      <div class="meta">
+        <div class="meta-row-label">調査日時</div><div class="meta-row-value">2026/5/17 12:42:16</div>
+        <div class="meta-row-label">業種・大カテゴリ</div><div class="meta-row-value">スクール・資格・習い事</div>
+        <div class="meta-row-label">中カテゴリ</div><div class="meta-row-value">英語学習アプリ</div>
+        <div class="meta-row-label">キーワード</div><div class="meta-row-value">Duolingo</div>
+      </div>
+    </aside>
+  </header>
+
+  <div class="report-body">
+    <section class="report-section">
+      <div class="section-kicker"><span class="section-number">01</span><h2 class="section-heading">3AIの回答</h2></div>
+      <p class="section-lead">同一の質問（プロンプト）に対する3AIの回答を比較します。</p>
+      <div class="result-grid">
+        <div class="card"><div class="card-header"><span class="dot" style="background:#10a37f;"></span>ChatGPT</div><p><span class="keyword-highlight">Duolingo</span>は、ゲーム感覚で楽しく学べる点が評価されています。短いレッスン形式で手軽に学べ、進捗を可視化する機能も魅力です。多様な言語コースやコミュニティ機能も強みです。</p>
+</div>
+        <div class="card"><div class="card-header"><span class="dot" style="background:#4285F4;"></span>Gemini</div><p><span class="keyword-highlight">Duolingo</span>は、<strong>ゲーム感覚で楽しく学べる</strong>点が最大の魅力です。短いレッスンを積み重ねる<strong>マイクロラーニング</strong>と、ストリーク、リーグ、報酬などの<strong>ゲーミフィケーション要素</strong>が、学習継続のモチベーションを高めます。AIが個々に合わせて学習を最適化し、<strong>無料で手軽に多言語学習を始められる</strong>強みも高く評価されています。</p>
+</div>
+        <div class="card"><div class="card-header"><span class="dot" style="background:#CC785C;"></span>Claude</div><h1><span class="keyword-highlight">Duolingo</span>の評価される点と強み</h1>
+<p><span class="keyword-highlight">Duolingo</span>は以下の点でユーザーに評価されています：</p>
+<p><strong>主な強み：</strong></p>
+<ul>
+<li><strong>ゲーム感覚の学習</strong>：ポイント獲得やレベルアップで継続性が高い</li>
+<li><strong>短時間学習</strong>：1レッスン5分程度で隙間時間での学習が可能</li>
+<li><strong>無料で利用可能</strong>：基本機能は無料で、コスト負担が少ない</li>
+<li><strong>多言語対応</strong>：40言語以上に対応し、選択肢が豊富</li>
+<li><strong>直感的なUI</strong>：初心者でも使いやすいインターフェース</li>
+</ul>
+<p>これらが、気軽に言語学習を始めたいユーザーから高く評価されています。</p>
+</div>
+      </div>
+      <p style="font-size:11px; color:var(--text-muted); margin: 8px 0 0;">※ 回答は読みやすさのため要約しています。1回の調査のため結果にブレが生じる場合があります。</p>
+    </section>
+
+    <section class="report-section">
+      <div class="section-kicker"><span class="section-number">02</span><h2 class="section-heading">AIインサイト</h2></div>
+      <p class="section-lead">3AIの回答をもとに、共通見解・差分・想定ユーザー・改善論点を整理します。</p>
+      <div class="insight-panel">
+        <div class="insight-header">3AIの分析（このレポート専用）</div>
+        <div class="insight-item"><div class="insight-label">3AIの共通見解</div><div class="insight-value">3つのAIとも、Duolingoの最大の特徴として「ゲーム感覚で楽しく学べる」点と「短時間での学習が可能」という利便性を強調している。また、無料で利用できることも共通して評価されている。</div></div>
+        <div class="insight-item"><div class="insight-label">AIによる言及の差</div><div class="insight-value">Claudeは無料性と多言語対応数（40言語以上）を具体的に数値化して述べており、Geminiはゲーミフィケーション要素の詳細（ストリーク、リーグ、報酬）とAIによる最適化機能を言及している一方、ChatGPTは回答が最も簡潔で具体性に欠ける。</div></div>
+        <div class="insight-item"><div class="insight-label">このキーワードを検索する想定ユーザー</div><div class="insight-value">言語学習に興味があるが、時間や費用に制限のあるユーザー。継続的な学習よりも気軽に始められることを重視し、ゲーム的な楽しさを求めている人物。</div></div>
+        <div class="insight-item"><div class="insight-label">AI回答に現れた注目ワード</div><div class="insight-value"><span class="keyword-tag">ゲーム感覚</span><span class="keyword-tag">マイクロラーニング</span><span class="keyword-tag">ゲーミフィケーション</span><span class="keyword-tag">無料</span><span class="keyword-tag">継続性</span><span class="keyword-tag">多言語</span><span class="keyword-tag">ストリーク</span><span class="keyword-tag">リーグ</span><span class="keyword-tag">報酬</span><span class="keyword-tag">モチベーション</span><span class="keyword-tag">進捗可視化</span><span class="keyword-tag">コミュニティ機能</span><span class="keyword-tag">隙間時間</span><span class="keyword-tag">UI</span><span class="keyword-tag">初心者</span></div></div>
+      </div>
+      <div class="insight-panel" style="margin-top:12px;">
+        <div class="insight-header">スクール・資格・習い事業界の傾向</div>
+        <div class="insight-item"><div class="insight-label">この業界のAI検索利用傾向</div><div class="insight-value"><div class="trend-bar-wrap"><span class="trend-level">中程度</span><div class="trend-bar"><div class="trend-bar-fill" style="width:60%;"></div></div></div><p class="insight-value-text">ユーザーは「初心者におすすめの英会話」や「最短で取れるIT資格」など、AIを「自分に合った学習方法の絞り込み」に活用しています。受講料が数万〜数十万円と高額になるため、AIに「評判」や「特徴」を整理させ、失敗のリスクを減らそうとする傾向があります。AIの推薦候補に残ることは、膨大な選択肢の中から「信頼できる候補」として認識されるための必須条件です。</p></div></div>
+        <div class="insight-item"><div class="insight-label">AEO改善のヒント</div><div class="insight-value">まずはAIが「誰が、何を、どう学べるか」をデータとして正しく理解できる状態を作りましょう。<br><br>・受講形式とターゲットの明文化: 「完全オンライン」「週1回の通学」「社会人向け」など、AIが検索ユーザーの属性と照合しやすいキーワードを必ず含めます<br>・カリキュラムのテキスト化: 学習内容を画像（パンフレット等）の中だけで終わらせず、見出しとテキスト（HTML）で詳細に記述し、AIが「何が学べるか」を具体的に認識できるようにします<br>・価格とサポート体制の明示: 「分割払い可」「24時間チャット質問OK」など、比較の決め手となる情報を整理して配置します</div></div>
+      </div>
+    </section>
+
+    <section class="report-section">
+      <div class="section-kicker"><span class="section-number">03</span><h2 class="section-heading">なぜ3つのAIに聞くのか</h2></div>
+      <div class="why-3ai">
+        <div class="why-3ai-block">
+          <p class="why-3ai-heading">なぜ3つのAIで回答が異なるのか</p>
+          <p class="why-3ai-body">ChatGPT / Gemini / Claudeは、それぞれ異なるデータや仕組みで動いている「別々の知能」です。そのため、同じ質問を投げても「推薦されるブランド」や「勧める理由」が異なることがよくあります。1つのAIの結果だけを見ていると、そのAI特有の「偏り」を、市場全体の評価だと誤認してしまうリスクがあります。3つのAIを横断してチェックすることで、初めて「デジタル上の評判」を多角的に、正しく把握することが可能になります。</p>
+        </div>
+        <div class="why-3ai-block">
+          <p class="why-3ai-heading">お客様の属性により、主戦場となるAIは変わる</p>
+          <p class="why-3ai-body">国内のAI利用経験率は48.5%に達し、若者、ビジネス層を中心に浸透が進んでいます。さらに、お客様（消費者）の年齢や仕事、利用シーンによって、よく使われるAIは異なります。カバー率の高いChatGPTでの評価を軸にしつつ、検索行動に直結するGeminiなど、お客様の属性に合わせてどのAIを重視すべきかを判断することが重要です。</p>
+          <p class="why-3ai-cite">出典：2026年3月 日本リサーチセンター（NRC）調査　<a href="https://www.nrc.co.jp/report/260410.html" target="_blank" rel="noopener">https://www.nrc.co.jp/report/260410.html</a></p>
+        </div>
+        <div class="why-3ai-block">
+          <p class="why-3ai-heading">AIを使っている消費者は、今や「2人に1人」の時代へ</p>
+          <p class="why-3ai-body">「AIはまだ一部の人が使うもの」という認識は、過去のものになりつつあります。最新の調査によれば、日本国内の生成AIサービス利用者数は急増しており、2026年末には3,553万人に達する見込みです。普段からネットやスマホを利用する層の過半数（54.7%）が日常的にAIを利用しており、消費者の「検索」や「お店選び」のスタイルは根本から変わり始めています。</p>
+          <p class="why-3ai-cite">出典：2026年2月 ICT総研調査　<a href="https://ictr.co.jp/report/20260220.html/" target="_blank" rel="noopener">https://ictr.co.jp/report/20260220.html/</a></p>
+        </div>
+        <div class="why-3ai-table-wrap">
+          <table class="why-3ai-table">
+            <thead><tr><th>AI</th><th>日本での位置づけ</th><th>特徴</th></tr></thead>
+            <tbody>
+              <tr><td><div class="why-3ai-ai-cell"><span style="width:9px;height:9px;border-radius:50%;background:#10a37f;display:inline-block;"></span>ChatGPT</div></td><td>圧倒的な知名度と普及率。ビジネス層を中心に幅広く支持。</td><td>情報を整理して分かりやすく答えるのが得意</td></tr>
+              <tr><td><div class="why-3ai-ai-cell"><span style="width:9px;height:9px;border-radius:50%;background:#4285F4;display:inline-block;"></span>Gemini</div></td><td>Google検索やAndroid、Chromeへの統合により急進中。全世代で浸透が進む。</td><td>最新情報や検索エンジンに近い文脈で回答する傾向</td></tr>
+              <tr><td><div class="why-3ai-ai-cell"><span style="width:9px;height:9px;border-radius:50%;background:#CC785C;display:inline-block;"></span>Claude</div></td><td>20〜30代、エンジニアやクリエーター、専門職など特定の職域に強い支持。</td><td>文脈を踏まえた自然な対話や、深い分析が得意</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="why-3ai-footer">1つのAIだけに聞いた結果は、そのAIのユーザー層や学習データのクセが反映されます。3つ横断することで、より多くの潜在顧客が実際に目にしているブランド像が浮かび上がります。</p>
+      </div>
+    </section>
+
+    <section class="report-section">
+      <div class="section-kicker"><span class="section-number">04</span><h2 class="section-heading">より精度の高い調査はDeep Scanで</h2></div>
+      <div class="upsell">
+        <p class="upsell-title">Quick Scanは1回試行のスナップショットです</p>
+        <p class="upsell-desc">回答のブレを統計的に排除し、競合比較・推薦頻度ランキングを得るにはDeep Scanをご利用ください。30回試行・競合2社比較・PDFレポート納品に対応します。</p>
+        <a class="upsell-link" href="https://app.ops-octopus.com/detail.html" target="_blank" rel="noopener">Deep Scanの詳細を見る →</a>
+      </div>
+    </section>
+
+    <section class="report-section">
+      <div class="section-kicker"><span class="section-number">05</span><h2 class="section-heading">使用したプロンプト（全文）</h2></div>
+      <div class="prompt-box">Duolingoに興味があります。Duolingoのどんな点がユーザーに評価されていますか？特徴や強みも教えてください。</div>
+    </section>
+
+    <div class="disclaimer">
+      <p>免責事項・権利帰属について</p>
+      <ul>
+        <li><span>・</span>本レポートは、生成AI（ChatGPT, Gemini, Claude）のAPIを利用して自動取得した回答を機械的に集計・要約・整理したものです。回答内容は各AIモデルが独自のアルゴリズムに基づき生成したものであり、運営元（Ops Octopus）がその真実性、正確性、最新性、または特定の目的への適合性を保証するものではありません。</li>
+        <li><span>・</span>AIに送信した質問（プロンプト）は、AIが提案した案を利用者が調整・承認した上で実行されたものです。入力されたプロンプトの内容やその解釈に起因する回答の不備について、運営元は一切の責任を負いません。</li>
+        <li><span>・</span>AIの回答には、事実誤認（ハルシネーション）や不適切な内容が含まれる可能性があります。本レポートを意思決定、第三者への公開、引用、または営業活動に利用される際は、利用者の責任において内容の裏付け調査を行ってください。本レポートの利用により生じたいかなる損害についても、運営元は一切の責任を負いかねます。</li>
+        <li><span>・</span>本レポートの内容は調査時点の出力に基づくスナップショットです。AIモデルの更新や学習データの変更により、同一の条件でも回答内容は随時変動します。</li>
+        <li><span>・</span>「ChatGPT」「Gemini」「Claude」およびレポート内に記載されている各ツール名、社名、ロゴ等は、各社の商標または登録商標です。本サービスは各AI提供元との直接的な提携や認定を受けたものではありません。</li>
+      </ul>
+    </div>
+
+    <div class="report-footer">Ops Octopus - Quick Scan ／ 本レポートは利用者の承認に基づきAIが生成した回答を集計したものです。内容の正確性は保証いたしかねます。</div>
+  </div>
+</main>
+</body>
+</html>
