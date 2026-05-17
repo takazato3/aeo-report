@@ -1076,7 +1076,50 @@
       display: block;
       width: 100%;
       height: auto;
+      cursor: zoom-in;
     }
+
+    /* ─── Lightbox ─── */
+    .lb-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(6, 20, 38, 0.88);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      cursor: zoom-out;
+    }
+    .lb-overlay.open { display: flex; }
+    .lb-overlay img {
+      max-width: min(92vw, 1000px);
+      max-height: 90vh;
+      width: auto;
+      height: auto;
+      border-radius: 8px;
+      box-shadow: 0 24px 64px rgba(0,0,0,0.5);
+      cursor: default;
+    }
+    .lb-close {
+      position: fixed;
+      top: 16px;
+      right: 20px;
+      background: rgba(255,255,255,0.12);
+      border: none;
+      color: #fff;
+      font-size: 28px;
+      line-height: 1;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.15s;
+    }
+    .lb-close:hover { background: rgba(255,255,255,0.25); }
 
     .ss-prev, .ss-next {
       position: absolute;
@@ -1829,7 +1872,36 @@
     </div>
   </footer>
 
+  <!-- ── Lightbox ── -->
+  <div class="lb-overlay" id="lb" onclick="lbClose(event)">
+    <button class="lb-close" onclick="lbClose()">&times;</button>
+    <img id="lb-img" src="" alt="">
+  </div>
+
   <script>
+    // ── Lightbox ──
+    function lbOpen(src, alt) {
+      const lb = document.getElementById('lb');
+      const img = document.getElementById('lb-img');
+      img.src = src;
+      img.alt = alt;
+      lb.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+    function lbClose(e) {
+      if (e && e.target === document.getElementById('lb-img')) return;
+      const lb = document.getElementById('lb');
+      lb.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') lbClose();
+    });
+    document.querySelectorAll('.slide img').forEach(img => {
+      img.addEventListener('click', () => lbOpen(img.src, img.alt));
+    });
+
+    // ── Slideshow ──
     function getSlides(ssId) {
       return document.querySelectorAll('#' + ssId + ' .slide');
     }
