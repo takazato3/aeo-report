@@ -222,136 +222,147 @@
       font-family: "Noto Sans JP", sans-serif;
     }
 
-    /* ─── Sample cards ─── */
-    .sample-cards {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 20px;
+    /* ─── Disclaimer ─── */
+    .disclaimer-section {
+      background: var(--blue-gray-100);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 16px 24px;
     }
-    .sample-card {
-      background: var(--white);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 28px 24px;
-      box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+    .disclaimer-inner {
+      max-width: 1100px;
+      margin: 0 auto;
       display: flex;
       flex-direction: column;
-      gap: 12px;
-      transition: box-shadow 0.2s, border-color 0.2s;
+      gap: 6px;
     }
-    .sample-card:hover {
-      box-shadow: 0 6px 20px rgba(6,20,38,0.09);
-      border-color: var(--amber-400);
-    }
-    .sample-card-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
+    .disclaimer-heading {
       font-size: 11px;
       font-weight: 700;
-      padding: 3px 10px;
-      border-radius: 20px;
-      background: rgba(251,191,36,0.15);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+    .disclaimer-body {
+      font-size: 12px;
+      color: var(--text-muted);
+      line-height: 1.8;
+      font-family: "Noto Sans JP", sans-serif;
+    }
+    .disclaimer-body a {
+      color: var(--text-muted);
+      text-decoration: underline;
+    }
+    .disclaimer-body a:hover {
+      color: var(--text-dark);
+    }
+
+    /* ─── Sample log ─── */
+    .sample-log {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      border-top: 1px solid var(--border);
+    }
+    .sample-log-item {
+      display: grid;
+      grid-template-columns: 180px 1fr auto;
+      align-items: center;
+      gap: 20px;
+      padding: 22px 0;
+      border-bottom: 1px solid var(--border);
+      transition: background 0.15s;
+    }
+    .sample-log-item:hover {
+      background: var(--blue-gray-50);
+      margin: 0 -16px;
+      padding-left: 16px;
+      padding-right: 16px;
+    }
+    .sample-log-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      flex-shrink: 0;
+    }
+    .sample-log-date {
+      font-size: 12px;
+      color: var(--text-muted);
+      font-family: "DM Sans", sans-serif;
+    }
+    .sample-log-plan {
+      font-size: 11px;
+      font-weight: 700;
       color: var(--amber-500);
-      border: 1px solid rgba(251,191,36,0.3);
       letter-spacing: 0.04em;
-      width: fit-content;
     }
-    .sample-card-badge .material-icons {
-      font-size: 13px;
-    }
-    .sample-card-title {
-      font-size: 16px;
+    .sample-log-title {
+      font-size: 15px;
       font-weight: 700;
       color: var(--text-dark);
-      line-height: 1.5;
+      margin-bottom: 4px;
     }
-    .sample-card-desc {
+    .sample-log-summary {
       font-size: 13px;
       color: var(--text-muted);
-      line-height: 1.75;
+      line-height: 1.7;
       font-family: "Noto Sans JP", sans-serif;
-      flex: 1;
     }
-    .sample-card-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
+    .sample-log-link {
       font-size: 13px;
       font-weight: 600;
       color: var(--navy-800);
       text-decoration: none;
-      border-top: 1px solid var(--border);
-      padding-top: 14px;
-      margin-top: 4px;
+      white-space: nowrap;
+      flex-shrink: 0;
       transition: color 0.15s;
     }
-    .sample-card-link:hover {
-      color: var(--amber-500);
-    }
-    .sample-card-link .material-icons {
-      font-size: 16px;
-    }
+    .sample-log-link:hover { color: var(--amber-500); }
 
-    /* ─── Coming soon section ─── */
-    .coming-soon-section {
-      padding: 64px 24px;
-      background: var(--blue-gray-50);
-    }
-    .coming-soon-cards {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 20px;
-    }
-    .coming-soon-card {
-      background: var(--white);
+    /* ─── Coming soon text ─── */
+    .coming-soon-text {
       border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 28px 24px;
-      opacity: 0.55;
-      pointer-events: none;
-      user-select: none;
+      border-radius: 12px;
+      padding: 28px 32px;
+      background: var(--white);
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: 16px;
+      max-width: 640px;
     }
-    .coming-soon-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
-      font-size: 11px;
+    .coming-soon-text-title {
+      font-size: 15px;
       font-weight: 700;
-      padding: 3px 10px;
-      border-radius: 20px;
-      background: var(--blue-gray-100);
-      color: var(--text-muted);
-      border: 1px solid var(--border);
-      letter-spacing: 0.04em;
-      width: fit-content;
+      color: var(--text-dark);
     }
-    .coming-soon-badge .material-icons {
-      font-size: 13px;
+    .coming-soon-text-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
     }
-    .coming-soon-title {
-      font-size: 16px;
-      font-weight: 700;
-      color: var(--text-muted);
-      line-height: 1.5;
-    }
-    .coming-soon-desc {
+    .coming-soon-text-list li {
       font-size: 13px;
       color: var(--text-muted);
-      line-height: 1.75;
       font-family: "Noto Sans JP", sans-serif;
+      padding-left: 1.2em;
+      position: relative;
+      line-height: 1.7;
     }
-    .coming-soon-label {
+    .coming-soon-text-list li::before {
+      content: '–';
+      position: absolute;
+      left: 0;
+      color: var(--border);
+    }
+    .coming-soon-notify {
       font-size: 13px;
       font-weight: 600;
       color: var(--text-muted);
-      border-top: 1px solid var(--border);
-      padding-top: 14px;
-      margin-top: 4px;
+      text-decoration: underline;
+      width: fit-content;
     }
+    .coming-soon-notify:hover { color: var(--text-dark); }
 
     /* ─── HR divider ─── */
     .section-divider {
@@ -409,9 +420,12 @@
 
     /* ─── Responsive ─── */
     @media (max-width: 768px) {
-      .sample-cards,
-      .coming-soon-cards {
+      .sample-log-item {
         grid-template-columns: 1fr;
+        gap: 8px;
+      }
+      .sample-log-link {
+        font-size: 12px;
       }
       .footer-inner {
         grid-template-columns: 1fr;
@@ -455,51 +469,61 @@
     </p>
   </section>
 
+  <!-- ── DISCLAIMER ── -->
+  <section class="disclaimer-section">
+    <div class="disclaimer-inner">
+      <p class="disclaimer-heading">本レポートのスタンスと免責事項</p>
+      <p class="disclaimer-body">
+        本ページは、主要AI（ChatGPT / Gemini / Claude）が各ブランドをどのように認識・言及するかを調査した「AIの回答記録」です。掲載されている企業名・製品名・サービス名は各社の商標または登録商標です。Ops Octopusはこれら権利者とは無関係であり、公式な推奨や提携を示すものではありません。レポートの内容は特定のプロンプトに対するAIの生成結果をまとめたものであり、運営者がサービスの品質を保証または毀損する意図はございません。万一、権利者様より掲載の取り下げ依頼をいただいた場合は速やかに対応いたします。→ <a href="https://docs.google.com/forms/d/e/1FAIpQLScNqIDUBU42Rx8B5OGZYrKnGLLB9ZADPNWcJ0eQVkBIW1FNUw/viewform" target="_blank" rel="noopener">お問い合わせフォーム</a>
+      </p>
+    </div>
+  </section>
+
   <!-- ── QUICK SCAN SAMPLES ── -->
   <section class="samples-section">
     <div class="section-inner">
       <h2 class="section-heading">Quick Scan レポート</h2>
-      <p class="section-desc">ChatGPT・Claude・Geminiの3AIに同一の質問を投げ、ブランド・社名に関するAI上の評判・推奨傾向を調査したレポートです。</p>
+      <p class="section-desc">「〇〇カテゴリのおすすめは？」という一発目の質問に対して、3AIがそのブランドをどう言及・推薦するかを記録したレポートです。各AIへの質問は1回ずつ（n=1）。競合比較や複数回集計はDeep Scan以上で対応しています。</p>
 
-      <div class="sample-cards">
+      <ul class="sample-log">
 
-        <!-- カード① -->
-        <div class="sample-card">
-          <span class="sample-card-badge">
-            <span class="material-icons">bolt</span>Quick Scan
-          </span>
-          <p class="sample-card-title">転職エージェント｜JAC Recruitment</p>
-          <p class="sample-card-desc">転職エージェント業界でのJAC Recruitmentに対するAIの推奨・言及傾向を調査しました。</p>
-          <a class="sample-card-link" href="#">
-            レポートを見る →
-          </a>
-        </div>
+        <li class="sample-log-item">
+          <div class="sample-log-meta">
+            <span class="sample-log-date">2025年12月</span>
+            <span class="sample-log-plan">Quick Scan（n=1）</span>
+          </div>
+          <div class="sample-log-body">
+            <p class="sample-log-title">転職エージェント｜JAC Recruitment</p>
+            <p class="sample-log-summary">転職エージェントカテゴリで「おすすめの転職エージェントは？」と聞いた際の、JACに対する3AIの言及・推薦傾向を記録。</p>
+          </div>
+          <a class="sample-log-link" href="#">AIの回答結果を確認 →</a>
+        </li>
 
-        <!-- カード② -->
-        <div class="sample-card">
-          <span class="sample-card-badge">
-            <span class="material-icons">bolt</span>Quick Scan
-          </span>
-          <p class="sample-card-title">観光バス｜はとバス</p>
-          <p class="sample-card-desc">観光・バスツアー分野でのはとバスに対するAIの推奨・言及傾向を調査しました。</p>
-          <a class="sample-card-link" href="#">
-            レポートを見る →
-          </a>
-        </div>
+        <li class="sample-log-item">
+          <div class="sample-log-meta">
+            <span class="sample-log-date">2025年12月</span>
+            <span class="sample-log-plan">Quick Scan（n=1）</span>
+          </div>
+          <div class="sample-log-body">
+            <p class="sample-log-title">観光バス｜はとバス</p>
+            <p class="sample-log-summary">観光・バスツアーカテゴリで「東京の観光バスツアーでおすすめは？」と聞いた際の、はとバスに対する3AIの言及・推薦傾向を記録。</p>
+          </div>
+          <a class="sample-log-link" href="#">AIの回答結果を確認 →</a>
+        </li>
 
-        <!-- カード③ -->
-        <div class="sample-card">
-          <span class="sample-card-badge">
-            <span class="material-icons">bolt</span>Quick Scan
-          </span>
-          <p class="sample-card-title">英語学習アプリ｜Duolingo</p>
-          <p class="sample-card-desc">英語学習アプリ分野でのDuolingoに対するAIの推奨・言及傾向を調査しました。</p>
-          <a class="sample-card-link" href="#">
-            レポートを見る →
-          </a>
-        </div>
+        <li class="sample-log-item">
+          <div class="sample-log-meta">
+            <span class="sample-log-date">2025年12月</span>
+            <span class="sample-log-plan">Quick Scan（n=1）</span>
+          </div>
+          <div class="sample-log-body">
+            <p class="sample-log-title">英語学習アプリ｜Duolingo</p>
+            <p class="sample-log-summary">英語学習アプリカテゴリで「英語学習におすすめのアプリは？」と聞いた際の、Duolingoに対する3AIの言及・推薦傾向を記録。</p>
+          </div>
+          <a class="sample-log-link" href="#">AIの回答結果を確認 →</a>
+        </li>
 
-      </div>
+      </ul>
     </div>
   </section>
 
@@ -511,35 +535,15 @@
       <h2 class="section-heading">Deep / Full Scan レポート</h2>
       <p class="section-desc">3AI×各30回＝90回分の回答を集計した詳細レポートです。競合比較・推薦率推移・改善アクション提案を含みます。</p>
 
-      <div class="coming-soon-cards">
-
-        <div class="coming-soon-card">
-          <span class="coming-soon-badge">
-            <span class="material-icons">schedule</span>近日公開予定
-          </span>
-          <p class="coming-soon-title">Deep Scan サンプル（業種①）</p>
-          <p class="coming-soon-desc">3AI×30回=90回分の回答を集計し、推薦率・競合比較・改善アクションをレポート化します。</p>
-          <p class="coming-soon-label">Coming Soon</p>
-        </div>
-
-        <div class="coming-soon-card">
-          <span class="coming-soon-badge">
-            <span class="material-icons">schedule</span>近日公開予定
-          </span>
-          <p class="coming-soon-title">Deep Scan サンプル（業種②）</p>
-          <p class="coming-soon-desc">3AI×30回=90回分の回答を集計し、推薦率・競合比較・改善アクションをレポート化します。</p>
-          <p class="coming-soon-label">Coming Soon</p>
-        </div>
-
-        <div class="coming-soon-card">
-          <span class="coming-soon-badge">
-            <span class="material-icons">schedule</span>近日公開予定
-          </span>
-          <p class="coming-soon-title">Full Scan サンプル</p>
-          <p class="coming-soon-desc">Deep Scanの全内容に加え、AIへの質問5パターン分・全90回の生データを含む詳細レポートです。</p>
-          <p class="coming-soon-label">Coming Soon</p>
-        </div>
-
+      <div class="coming-soon-text">
+        <p class="coming-soon-text-title">Deep Scan / Full Scan（近日公開予定）</p>
+        <ul class="coming-soon-text-list">
+          <li>3AI × 各30回 ＝ 90回分の回答を集計した統計レポート</li>
+          <li>推薦率の分布・揺らぎも可視化（n=90による確からしさ）</li>
+          <li>競合ブランドとの比較分析</li>
+          <li>Full Scanでは全90回の生データ（AIの回答原文）もすべて提供</li>
+        </ul>
+        <a class="coming-soon-notify" href="https://docs.google.com/forms/d/e/1FAIpQLScNqIDUBU42Rx8B5OGZYrKnGLLB9ZADPNWcJ0eQVkBIW1FNUw/viewform" target="_blank" rel="noopener">公開通知を受け取る →</a>
       </div>
     </div>
   </section>
