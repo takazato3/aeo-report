@@ -1527,6 +1527,34 @@
       }
     }
 
+    function friendlyGasError(rawError) {
+      try {
+        const parsed = typeof rawError === 'string' ? JSON.parse(rawError) : rawError;
+        const code   = parsed?.error?.code;
+        const status = parsed?.error?.status || '';
+        if (code === 503 || status === 'UNAVAILABLE') {
+          return '503';
+        }
+      } catch (_) { /* not JSON */ }
+      return rawError || '質問文の生成に失敗しました。';
+    }
+
+    async function callGASWithRetry(payload, maxRetries = 2) {
+      for (let attempt = 0; attempt <= maxRetries; attempt++) {
+        const data = await callGAS(payload);
+        if (data.success) return data;
+        const friendly = friendlyGasError(data.error);
+        if (friendly === '503' && attempt < maxRetries) {
+          await new Promise(r => setTimeout(r, 2000 * (attempt + 1)));
+          continue;
+        }
+        if (friendly === '503') {
+          throw new Error('AIサービスが混雑しています。しばらく時間をおいてから「戻る」→「次へ」で再試行してください。');
+        }
+        throw new Error(friendly);
+      }
+    }
+
     // ── Screen 1: Submit ──
     $('inputForm').addEventListener('submit', async e => {
       e.preventDefault();
@@ -1585,7 +1613,7 @@
       $('genLimitBanner').classList.remove('visible');
       showLoading('質問文を生成中...');
       try {
-        const data = await callGAS({
+        const data = await callGASWithRetry({
           action:          'generateQuestion',
           token:           state.token,
           category:        state.category,
@@ -1594,7 +1622,6 @@
           customerProfile: state.customerProfile,
           customerIntent:  state.customerIntent,
         });
-        if (!data.success) throw new Error(data.error || '質問文の生成に失敗しました。');
 
         const questions = data.data?.questions;
         if (!questions || typeof questions !== 'object') {
