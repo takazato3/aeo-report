@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ops Octopus - 利用規約</title>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-DNTX6D35RB"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-DNTX6D35RB');
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy-950: #061426;
+      --navy-900: #081b33;
+      --navy-800: #102a4a;
+      --blue-gray-50: #f4f7fb;
+      --blue-gray-100: #eaf0f7;
+      --off-white: #fbfaf6;
+      --white: #ffffff;
+      --amber-400: #fbbf24;
+      --amber-500: #f59e0b;
+      --text-dark: #132033;
+      --text-muted: #5f6f85;
+      --border: #dce4ef;
+    }
+
+    body {
+      font-family: 'Inter', 'Noto Sans JP', "Hiragino Sans", "Hiragino Kaku Gothic ProN",
+        Arial, Meiryo, sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      color: var(--text-dark);
+      background: var(--off-white);
+    }
+
+    /* ─── Header ─── */
+    .header {
+      background: #0d2340;
+      height: auto;
+      padding: 1.5rem 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 200;
+    }
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+    .nav-logo-img {
+      height: 56px;
+      width: auto;
+      display: block;
+    }
+    .nav-logo-text {
+      flex-direction: column;
+      gap: 2px;
+    }
+    .nav-logo-name {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--off-white);
+      letter-spacing: 0.02em;
+      white-space: nowrap;
+    }
+    .nav-logo-sub {
+      font-size: 11px;
+      color: rgba(251,250,246,0.55);
+      white-space: nowrap;
+    }
+    .header-nav {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+    }
+    .header-nav a {
+      font-size: 14px;
+      color: rgba(251,250,246,0.75);
+      text-decoration: none;
+      transition: color 0.15s;
+      white-space: nowrap;
+    }
+    .header-nav a:hover { color: var(--off-white); }
+    .btn-nav-cta {
+      background: var(--amber-400);
+      color: var(--text-dark) !important;
+      font-size: 13px !important;
+      font-weight: 600 !important;
+      padding: 7px 14px;
+      border-radius: 6px;
+      transition: background 0.15s !important;
+      white-space: nowrap;
+    }
+    .btn-nav-cta:hover { background: var(--amber-500) !important; }
+    .nav-cta-tax { font-size: 0.8em; }
+    .nav-cta-short { display: none; }
+
+    @media (max-width: 768px) {
+      .header-tagline { display: none; }
+      .header-nav { gap: 14px; }
+      .header-nav .nav-link-hide { display: none; }
+      .nav-cta-full  { display: none; }
+      .nav-cta-short { display: inline; }
+    }
+    @media (max-width: 480px) {
+      .header-nav { gap: 10px; }
+    }
+
+    /* ─── Layout ─── */
+    .main {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 56px 24px;
+    }
+
+    /* ─── Back link ─── */
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 13px;
+      color: var(--amber-500);
+      text-decoration: none;
+      margin-bottom: 2rem;
+    }
+    .back-link:hover { text-decoration: underline; }
+
+    /* ─── Page title ─── */
+    .page-title {
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--text-dark);
+      letter-spacing: 0.04em;
+      font-feature-settings: "palt";
+      margin-bottom: 4px;
+    }
+    .page-meta {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-bottom: 2.5rem;
+    }
+
+    /* ─── Policy card ─── */
+    .policy-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0px 1px 3px 1px rgba(0,0,0,0.04), 0px 1px 2px 0px rgba(0,0,0,0.06);
+      margin-bottom: 1.5rem;
+    }
+
+    /* ─── Policy intro ─── */
+    .policy-intro {
+      font-size: 15px;
+      color: var(--text-muted);
+      line-height: 1.8;
+      padding: 20px 24px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    /* ─── Policy section ─── */
+    .policy-section {
+      padding: 20px 24px;
+      border-bottom: 1px solid var(--border);
+    }
+    .policy-section:last-child { border-bottom: none; }
+
+    .policy-heading {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text-dark);
+      margin-bottom: 10px;
+      letter-spacing: 0.02em;
+    }
+    .policy-body {
+      font-size: 15px;
+      color: var(--text-muted);
+      line-height: 1.85;
+    }
+    .policy-body p + p { margin-top: 8px; }
+    .policy-body strong { color: var(--text-dark); font-weight: 600; }
+    .policy-body a {
+      color: var(--amber-500);
+      word-break: break-all;
+    }
+    .policy-body a:hover { text-decoration: underline; }
+
+    .policy-list {
+      list-style: none;
+      margin-top: 8px;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+    .policy-list li {
+      padding-left: 1.1em;
+      position: relative;
+      font-size: 15px;
+      color: var(--text-muted);
+      line-height: 1.75;
+    }
+    .policy-list li::before {
+      content: "・";
+      position: absolute;
+      left: 0;
+    }
+
+    .subsection { margin-top: 14px; }
+    .subsection:first-child { margin-top: 0; }
+
+    /* ─── Footer note ─── */
+    .legal-note {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: 1.25rem;
+      line-height: 1.6;
+    }
+
+    /* ─── Footer ─── */
+    .footer {
+      background: var(--navy-900);
+      padding: 2rem 1.5rem;
+    }
+    .footer-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      gap: 24px;
+    }
+    .footer-brand-name {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--off-white);
+      margin-bottom: 4px;
+    }
+    .footer-brand-sub {
+      font-size: 12px;
+      color: rgba(251,250,246,0.5);
+      line-height: 1.5;
+    }
+    .footer-brand-tagline {
+      font-style: italic;
+    }
+    .footer-links {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 2rem;
+    }
+    .footer-link {
+      font-size: 13px;
+      color: var(--off-white);
+      text-decoration: none;
+      opacity: 0.8;
+      transition: opacity 0.15s;
+    }
+    .footer-link:hover { opacity: 1; }
+    .footer-copy {
+      font-size: 12px;
+      color: rgba(251,250,246,0.4);
+      text-align: right;
+    }
+
+    @media (max-width: 768px) {
+      .footer-inner {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+      .footer-copy { text-align: center; }
+      .footer-links { justify-content: center; }
+    }
+
+    @media (max-width: 600px) {
+      .policy-section,
+      .policy-intro { padding: 16px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+
+  <main class="main">
+
+    <a class="back-link" href="index.html">← トップに戻る</a>
+
+    <h1 class="page-title">利用規約</h1>
+    <p class="page-meta">制定日：2026年05月01日</p>
+
+    <div class="policy-card">
+
+      <div class="policy-intro">
+        本利用規約（以下「本規約」）は、Ops Octopus（以下「本サービス」）の利用条件を定めるものです。本サービスを利用される方（以下「利用者」）は、本規約に同意したものとみなされます。
+      </div>
+
+      <div class="policy-section">
+        <h2 class="policy-heading">1. 総則</h2>
+        <p class="policy-body">本規約は、Ops Octopus が提供する AIブランド調査レポートサービスのすべての利用に適用されます。</p>
+      </div>
+
+      <div class="policy-section">
+        <h2 class="policy-heading">2. サービスの概要</h2>
+        <div class="policy-body">
+          <p>本サービスは、生成AI（ChatGPT、Gemini、Claude）に同一のプロンプトを送信し、その回答を集計・分析するレポート生成ツールです。利用者が指定したキーワードやブランド名に関する、AI上での見え方や言及傾向を調査します。</p>
+          <p>提供プラン：</p>
+          <ul class="policy-list">
+            <li>Quick Scan：1回の試行結果を提供</li>
+            <li>Deep Scan：30回の試行を統計集計</li>
+            <li>Full Scan：複数キーワード・競合比較対応</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="policy-section">
+        <h2 class="policy-heading">3. 免責事項</h2>
+        <div class="policy-body">
+          <p>本サービスにより生成されたレポートは、生成AIのAPIを通じて自動取得した回答を機械的に集計・要約したものです。以下の点についてご理解ください：</p>
+          <ul class="policy-list">
+            <li><strong>AIの回答の正確性</strong>：各AI（ChatGPT、Gemini、Claude）が独自のアルゴリズムに基づき生成した回答であり、その内容の真実性、正確性、最新性、または特定目的への適合性を保証するものではありません。</li>
+            <li><strong>ハルシネーションの可能性</strong>：AIの回答には事実誤認や不適切な内容が含まれる可能性があります。</li>
+            <li><strong>単発調査の限界</strong>：Quick Scan は1回の試行のため、回答にブレが生じることがあります。</li>
+            <li><strong>プロンプトの責任</strong>：送信されたプロンプト（質問文）は、AIが提案した案を利用者が調整・承認した上で実行されたものです。プロンプト内容に起因する回答の不備について、運営者は一切の責任を負いません。また、プロンプトの不備を理由とした調査のやり直し・返金はできません。</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="policy-section">
+        <h2 class="policy-heading">4. 利用条件</h2>
+        <div class="policy-body">
+          <p>利用者は、本サービスを以下の方法でのみ利用できます：</p>
+          <ul class="policy-list">
+            <li>法令に違反しない目的での利用</li>
+            <li>自社・自身のマーケティング調査目的での利用</li>
+            <li>第三者のプライバシーを侵害しない利用</li>
+          </ul>
+          <p style="margin-top:12px;">以下の行為は禁止します：</p>
+          <ul class="policy-list">
+            <li>本サービスの無断複製、改変、または営利目的での再販売</li>
+            <li>プロンプトインジェクションやセキュリティへの攻撃行為</li>
+            <li>大量のレポート生成による過度な負荷</li>
+            <li>違法または有害な目的での利用</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="policy-section">
+        <h2 class="policy-heading">5. 購入・決済について</h2>
+        <ul class="policy-list">
+          <li>購入は1回限りのワンタイムリンクで実行されます</li>
+          <li>一度使用したトークン（購入コード）は再利用できません</li>
+          <li>キャンセル・返金には応じられません</li>
+          <li>購入データは Stripe を通じて安全に処理されます</li>
+        </ul>
+      </div>
+
+      <div class="policy-section">
+        <h2 class="policy-heading">6. データ・プライバシー</h2>
+        <ul class="policy-list">
+          <li>利用者が入力したキーワード、ブランド名、カテゴリデータは、レポート生成に必要な期間のみ保持されます</li>
+          <li>調査ログは記録され、サービス改善の参考にします</li>
+          <li>利用者の個人情報（メールアドレス等）は Stripe を通じて管理され、第三者に共有されません</li>
+        </ul>
+      </div>
+
+      <div class="policy-section">
+        <h2 class="policy-heading">7. 利用規約の変更</h2>
+        <p class="policy-body">本規約は予告なく変更されることがあります。変更後の利用は、新規約に同意したものとみなされます。</p>
+      </div>
+
+      <div class="policy-section">
+        <h2 class="policy-heading">8. 問い合わせ</h2>
+        <div class="policy-body">
+          <p>本サービスに関するご質問・ご指摘は、以下までお問い合わせください：</p>
+          <p style="margin-top:6px;">メール：<a href="mailto:opsoctopus.jp@gmail.com">opsoctopus.jp@gmail.com</a></p>
+        </div>
+      </div>
+
+    </div>
+
+    <p class="legal-note">※ 本規約はOps Octopusのすべてのサービスに適用されます。</p>
+
+  </main>
+
+<!-- FOOTER -->
+
+</body>
+</html>
