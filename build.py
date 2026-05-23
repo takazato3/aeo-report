@@ -29,6 +29,7 @@ TARGET_PAGES = [
     'legal.html',
     'faq.html',
     'privacy.html',
+    'terms.html',
 ]
 
 HEADER_MARKER = '<!-- HEADER -->'
