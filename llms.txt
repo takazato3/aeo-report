@@ -1,0 +1,27 @@
+# Ops Octopus
+
+> ChatGPT・Claude・GeminiなどのAIに同じ質問を投げ、ブランドのAI上での評判・推奨傾向を調査するレポートサービスです。買い切り¥300のQuick Scanから利用できます。
+
+## サービス
+
+- [サービス概要](https://app.ops-octopus.com/index.html): Ops Octopusのサービス概要・料金プランの紹介
+- [プラン・料金](https://app.ops-octopus.com/detail.html): Quick Scan / Deep Scan / Full Scanの詳細と料金、調査フローの説明
+- [サンプルレポート](https://app.ops-octopus.com/samples.html): 実際に生成されたレポートのサンプル一覧
+- [よくある質問](https://app.ops-octopus.com/faq.html): サービス内容・プラン・購入・返金に関するFAQ
+
+## ブログ
+
+AEO・GEO・LLMOやAI検索時代のブランドの見え方について調査・解説する記事一覧です。
+
+- [AEO・LLMO・GEO、結局何が違うのか。混同しやすい言葉を整理する](https://app.ops-octopus.com/blog/aeo-llmo-geo-difference.html): AEO・LLMO・GEOという似た言葉が並立していて混乱する、というB2Bマーケター向けに、それぞれの成り立ちと実務上の付き合い方を整理します。
+- [AIに引用されやすいコンテンツとは。押さえておきたい観点](https://app.ops-octopus.com/blog/ai-citable-content.html): AIに引用されやすいコンテンツにはどんな特徴があるのか。断定的な正解ではなく、公開情報や実務の観察から見えてくる観点を整理します。
+- [Google AI Overviews対策とは。AEOとの関係を整理する](https://app.ops-octopus.com/blog/ai-overviews-aeo.html): Google検索に表示されるAI Overviewsとは何か、AEOとの関係をどう捉えればいいのかを整理します。公開情報の範囲でできる現状把握の考え方を紹介します。
+- [AI検索対策とは何か。何から始めればいいのか整理する](https://app.ops-octopus.com/blog/ai-search-strategy.html): AI検索対策として何をすればいいのか分からない、というB2Bマーケター向けに、まず着手しやすい順序を整理します。断定的な正解ではなく、現状把握から始める考え方を紹介します。
+- [AIにどんな質問をされそうかを想定する方法](https://app.ops-octopus.com/blog/anticipating-ai-queries.html): 自社に関心を持ったユーザーがAIにどんな質問を投げるのかを事前に想定する方法を整理します。指名検索から比較検討段階まで、複数の階層で考える進め方を紹介します。
+- [FAQページはAI検索でどう扱われるのか。作り方のポイント](https://app.ops-octopus.com/blog/faq-pages-ai-search.html): FAQページはAI検索との相性がよいとされる形式の一つです。なぜ相性がよいとされるのか、質問文・答え方の作り方のポイントを整理します。
+- [GEOとSEOの違いとは。検索エンジンとAI検索で変わること](https://app.ops-octopus.com/blog/geo-vs-seo.html): GEO（Generative Engine Optimization）とSEOは何が違うのか。検索結果一覧とAIの回答という接点の違いから、押さえておきたいポイントを整理します。
+- [llms.txtの書き方。設置する意味と作成の流れ](https://app.ops-octopus.com/blog/how-to-write-llms-txt.html): llms.txtとは何か、何を書けばいいのか。まだ標準化されていない仕組みであることを踏まえたうえで、設置の意味と作成の流れを整理します。
+- [ChatGPTに自社が表示されない。考えられる要因を整理する](https://app.ops-octopus.com/blog/not-appearing-in-chatgpt.html): ChatGPTに自社名や商品名を聞いても出てこない。そう感じたときに考えられる要因を、断定を避けながら整理します。実務担当者がまず確認すべき観点をまとめました。
+- [構造化データはAEOに効果があるのか。実装の考え方を整理する](https://app.ops-octopus.com/blog/structured-data-aeo.html): 構造化データを実装すればAEOに効果があるのか。断定できる根拠は公開されていない前提を踏まえたうえで、実装の考え方と優先順位を整理します。
+- [AEOとは何か。SEOとの違いとAI検索時代に見るべきポイント](https://app.ops-octopus.com/blog/what-is-aeo.html): AEO（Answer Engine Optimization）とは何かを、SEOとの違いや注目される背景を交えてやさしく解説します。ChatGPT・Claude・GeminiなどのAIにブランドがどう見えているかを知るための第一歩として。
+- [LLMOとは何か。AEO・GEOとの違いをやさしく整理する](https://app.ops-octopus.com/blog/what-is-llmo.html): LLMO（LLM Optimization）とは何かを、AEO・GEOとの違いや使われる文脈を交えて整理します。用語の違いに振り回されがちなB2Bマーケター向けの整理として。

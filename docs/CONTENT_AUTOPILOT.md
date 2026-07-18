@@ -47,3 +47,16 @@
   です・ます調へのリライト~~（2026-07-18 完了。ai-citable-content /
   anticipating-ai-queries / faq-pages-ai-search / how-to-write-llms-txt /
   not-appearing-in-chatgpt / structured-data-aeo の本文をです・ます調へ統一）
+
+## 運用ナレッジ
+
+- GA4接続403（`User does not have sufficient permissions`）の典型原因
+  - GitHub SecretsのValueが空登録になっている
+  - 測定ID（`G-`から始まる文字列）とプロパティID（数字のみ）を
+    取り違えている。`GA4_PROPERTY_ID`には数字のプロパティIDを使う
+  - サービスアカウントに権限を付与したGA4プロパティと、実際に
+    参照しようとしているプロパティが異なっている
+- GSC・GA4はいずれも、サービスアカウントへの権限付与だけでは
+  不十分。GCPプロジェクト側で該当APIを有効化していないと
+  `403 accessNotConfigured` になる（Search Console API /
+  Google Analytics Data API をGCPコンソールで有効化しておくこと）

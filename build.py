@@ -13,6 +13,7 @@
   - ルートの *.html は build.py の出力物なので直接編集しない
 """
 
+import json
 import re
 import sys
 from datetime import datetime
@@ -26,6 +27,10 @@ BLOG_POSTS_DIR = ROOT / 'blog' / 'posts'
 BLOG_OUT_DIR = ROOT / 'blog'
 BLOG_INDEX_SRC = SRC_DIR / 'blog_index.html'
 BLOG_POST_TEMPLATE = TEMPLATES_DIR / 'blog_post.html'
+LLMS_TXT_SRC = SRC_DIR / 'llms.txt'
+
+SITE_BASE_URL = 'https://app.ops-octopus.com'
+ORGANIZATION_JSONLD = {'@type': 'Organization', 'name': 'Ops Octopus'}
 
 # ビルド対象ページ（quick-scan.html と preview.html はビルド管理対象外）
 TARGET_PAGES = [
@@ -41,8 +46,12 @@ TARGET_PAGES = [
 HEADER_MARKER = '<!-- HEADER -->'
 FOOTER_MARKER = '<!-- FOOTER -->'
 POSTS_MARKER = '<!-- POSTS -->'
+JSONLD_MARKER = '{{JSONLD}}'
+LLMS_BLOG_POSTS_MARKER = '<!-- LLMS_BLOG_POSTS -->'
 
 FRONT_MATTER_RE = re.compile(r'\A---\s*\n(.*?)\n---\s*\n?(.*)\Z', re.DOTALL)
+FAQ_SECTION_RE = re.compile(r'##\s*よくある質問\s*\n(.*)', re.DOTALL)
+FAQ_QA_RE = re.compile(r'\*\*Q\.\s*(.+?)\*\*\s*<br>\s*\n\s*A\.\s*(.+?)\s*(?=\n\s*\n|\Z)', re.DOTALL)
 
 # ルートHTMLからヘッダー・フッターブロックを抽出するパターン
 # 直前のコメント行も含めて除去する
@@ -119,6 +128,60 @@ def _render_tags_html(tags, css_class, indent='          '):
     return '\n'.join(f'{indent}<span class="{css_class}">{tag}</span>' for tag in tags)
 
 
+def _extract_faq_pairs(body):
+    """記事本文の「## よくある質問」セクションからQ&Aペアを抽出する"""
+    section_match = FAQ_SECTION_RE.search(body)
+    if not section_match:
+        return []
+
+    pairs = []
+    for m in FAQ_QA_RE.finditer(section_match.group(1)):
+        question = re.sub(r'\s+', ' ', m.group(1)).strip()
+        answer = re.sub(r'\s+', ' ', m.group(2)).strip()
+        if question and answer:
+            pairs.append((question, answer))
+    return pairs
+
+
+def _jsonld_script(data):
+    payload = json.dumps(data, ensure_ascii=False, indent=2)
+    payload = payload.replace('</', '<\\/')
+    return f'  <script type="application/ld+json">\n{payload}\n  </script>'
+
+
+def _build_post_jsonld(post):
+    """記事のArticle（＋FAQがあればFAQPage）構造化データをscriptタグとして生成する"""
+    article = {
+        '@context': 'https://schema.org',
+        '@type': 'Article',
+        'headline': post['title'],
+        'description': post['description'],
+        'datePublished': post['date'],
+        'inLanguage': 'ja',
+        'author': ORGANIZATION_JSONLD,
+        'publisher': ORGANIZATION_JSONLD,
+    }
+    scripts = [_jsonld_script(article)]
+
+    faq_pairs = _extract_faq_pairs(post['body'])
+    if faq_pairs:
+        faqpage = {
+            '@context': 'https://schema.org',
+            '@type': 'FAQPage',
+            'mainEntity': [
+                {
+                    '@type': 'Question',
+                    'name': question,
+                    'acceptedAnswer': {'@type': 'Answer', 'text': answer},
+                }
+                for question, answer in faq_pairs
+            ],
+        }
+        scripts.append(_jsonld_script(faqpage))
+
+    return '\n'.join(scripts)
+
+
 def build_blog():
     """blog/posts/*.md を記事ページ・一覧ページにビルドする"""
     if not BLOG_POSTS_DIR.exists():
@@ -153,6 +216,7 @@ def build_blog():
         page = page.replace('{{TAGS_HTML}}', _render_tags_html(post['tags'], 'article-tag'))
         page = page.replace('{{SLUG}}', post['slug'])
         page = page.replace('{{CONTENT}}', content_html)
+        page = page.replace(JSONLD_MARKER, _build_post_jsonld(post))
 
         out_path = BLOG_OUT_DIR / f"{post['slug']}.html"
         out_path.write_text(page, encoding='utf-8')
@@ -186,6 +250,84 @@ def build_blog():
 
     (BLOG_OUT_DIR / 'index.html').write_text(index_page, encoding='utf-8')
     print(f'  [OK]   blog/index.html（記事 {len(posts)} 件）')
+
+
+def build_sitemap():
+    """ルートの公開ページとブログ記事一覧からsitemap.xmlを生成する"""
+    today = datetime.now().date().isoformat()
+    urls = []
+
+    for name in TARGET_PAGES:
+        if (ROOT / name).exists():
+            urls.append((f'{SITE_BASE_URL}/{name}', today))
+
+    posts = []
+    if BLOG_POSTS_DIR.exists():
+        posts = [_parse_markdown_post(p) for p in sorted(BLOG_POSTS_DIR.glob('*.md'))]
+
+    if posts or BLOG_INDEX_SRC.exists():
+        urls.append((f'{SITE_BASE_URL}/blog/', today))
+
+    for post in posts:
+        urls.append((f'{SITE_BASE_URL}/blog/{post["slug"]}.html', post['date'] or today))
+
+    lines = [
+        '<?xml version="1.0" encoding="UTF-8"?>',
+        '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
+    ]
+    for loc, lastmod in urls:
+        lines.append('  <url>')
+        lines.append(f'    <loc>{loc}</loc>')
+        lines.append(f'    <lastmod>{lastmod}</lastmod>')
+        lines.append('  </url>')
+    lines.append('</urlset>')
+
+    (ROOT / 'sitemap.xml').write_text('\n'.join(lines) + '\n', encoding='utf-8')
+    print(f'  [OK]   sitemap.xml（{len(urls)}件）')
+
+
+def build_robots_txt():
+    """robots.txtが存在しない場合のみ新規作成する（既存ファイルは上書きしない）"""
+    robots_path = ROOT / 'robots.txt'
+    if robots_path.exists():
+        print('  [SKIP] robots.txt は既に存在します（内容は変更しません）。')
+        return
+
+    content = (
+        'User-agent: *\n'
+        'Allow: /\n'
+        '\n'
+        f'Sitemap: {SITE_BASE_URL}/sitemap.xml\n'
+    )
+    robots_path.write_text(content, encoding='utf-8')
+    print('  [OK]   robots.txt を新規作成しました。')
+
+
+def build_llms_txt():
+    """_src/llms.txt のブログ記事一覧マーカーを埋めてルートにllms.txtを生成する"""
+    if not LLMS_TXT_SRC.exists():
+        print('  [SKIP] _src/llms.txt が存在しません。')
+        return
+
+    posts = []
+    if BLOG_POSTS_DIR.exists():
+        posts = [_parse_markdown_post(p) for p in sorted(BLOG_POSTS_DIR.glob('*.md'))]
+        posts.sort(key=lambda p: p['date'], reverse=True)
+
+    if posts:
+        lines = [
+            f'- [{post["title"]}]({SITE_BASE_URL}/blog/{post["slug"]}.html): {post["description"]}'
+            for post in posts
+        ]
+        blog_list = '\n'.join(lines)
+    else:
+        blog_list = '（記事は準備中です）'
+
+    content = LLMS_TXT_SRC.read_text(encoding='utf-8')
+    content = content.replace(LLMS_BLOG_POSTS_MARKER, blog_list)
+
+    (ROOT / 'llms.txt').write_text(content, encoding='utf-8')
+    print(f'  [OK]   llms.txt（記事 {len(posts)} 件）')
 
 
 def init():
@@ -231,3 +373,7 @@ if __name__ == '__main__':
         build()
         print('\n--- build: blog/ を生成します ---')
         build_blog()
+        print('\n--- build: sitemap.xml / robots.txt / llms.txt を生成します ---')
+        build_sitemap()
+        build_robots_txt()
+        build_llms_txt()
