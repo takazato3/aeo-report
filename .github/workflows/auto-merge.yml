@@ -1,0 +1,54 @@
+name: Autopilot Auto-merge
+
+on:
+  schedule:
+    - cron: '0 */6 * * *'
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  auto-merge:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Merge eligible autopilot PRs
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -e
+          NOW=$(date -u +%s)
+
+          PRS=$(gh pr list --repo "$GITHUB_REPOSITORY" --label autopilot --state open \
+            --json number,createdAt,labels \
+            --jq '.[] | select([.labels[].name] | index("hold") | not) | "\(.number) \(.createdAt)"')
+
+          if [ -z "$PRS" ]; then
+            echo "対象PRはありません（autopilotラベル付き・holdなしのオープンPRなし）。"
+            exit 0
+          fi
+
+          while IFS=' ' read -r NUMBER CREATED_AT; do
+            [ -z "$NUMBER" ] && continue
+
+            CREATED_TS=$(date -u -d "$CREATED_AT" +%s)
+            ELAPSED_HOURS=$(( (NOW - CREATED_TS) / 3600 ))
+
+            if [ "$ELAPSED_HOURS" -lt 48 ]; then
+              echo "PR #$NUMBER: 作成から ${ELAPSED_HOURS} 時間のためスキップ（48時間未満）"
+              continue
+            fi
+
+            echo "PR #$NUMBER: 作成から ${ELAPSED_HOURS} 時間経過。マージを試みます"
+            if gh pr merge "$NUMBER" --repo "$GITHUB_REPOSITORY" --squash --delete-branch; then
+              echo "PR #$NUMBER: マージ成功"
+            else
+              echo "PR #$NUMBER: マージ失敗。PRにコメントを残します"
+              gh pr comment "$NUMBER" --repo "$GITHUB_REPOSITORY" \
+                --body "自動マージに失敗しました（コンフリクト等の可能性があります）。内容をご確認のうえ、手動でマージしてください。"
+            fi
+          done <<< "$PRS"

@@ -1,0 +1,98 @@
+name: Weekly Content Autopilot
+
+on:
+  schedule:
+    # 毎週月曜 6:00 JST (= 日曜 21:00 UTC)
+    - cron: '0 21 * * 0'
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  weekly-content:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: |
+          pip install -r requirements-ci.txt
+          pip install -r requirements.txt
+
+      - name: Fetch GSC/GA4 metrics
+        env:
+          GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}
+          GA4_PROPERTY_ID: ${{ secrets.GA4_PROPERTY_ID }}
+        run: python scripts/fetch_metrics.py
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install Claude Code
+        run: npm install -g @anthropic-ai/claude-code
+
+      - name: Create working branch
+        id: branch
+        run: |
+          BRANCH="autopilot/$(date +%Y-%m-%d)"
+          git checkout -B "$BRANCH"
+          echo "branch=$BRANCH" >> "$GITHUB_OUTPUT"
+
+      - name: Run Claude Code (headless)
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          claude -p "$(cat .github/prompts/weekly.md)" --dangerously-skip-permissions
+
+      - name: Build site
+        run: python build.py
+
+      - name: Commit changes
+        id: commit
+        run: |
+          git config user.name "content-autopilot[bot]"
+          git config user.email "content-autopilot@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          else
+            git commit -m "[Autopilot] ${{ steps.branch.outputs.branch }} 週次コンテンツ更新"
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Push branch
+        if: steps.commit.outputs.changed == 'true'
+        run: git push origin "${{ steps.branch.outputs.branch }}" --force-with-lease
+
+      - name: Create pull request
+        if: steps.commit.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          DATE=$(date +%Y-%m-%d)
+          gh pr create \
+            --title "[Autopilot] ${DATE} 週次コンテンツ更新" \
+            --label autopilot \
+            --body "## 概要
+          週次のGSC/GA4データ分析（\`data/metrics/latest.md\`）に基づく自動コンテンツ更新です。
+
+          実施内容の詳細は \`data/metrics/latest.md\` 末尾の「## 今週の実施アクション」を参照してください。
+
+          ## 自動マージについて
+          48時間後に自動マージされます。止める場合はholdラベルを付けてください。"
+
+      - name: No changes
+        if: steps.commit.outputs.changed == 'false'
+        run: echo "今週は変更がありませんでした（アクションなし、または差分なし）。"
