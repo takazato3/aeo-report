@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AEO・LLMO・GEO、結局何が違うのか。混同しやすい言葉を整理する | Ops Octopus ブログ</title>
+  <meta name="description" content="AEO・LLMO・GEOという似た言葉が並立していて混乱する、というB2Bマーケター向けに、それぞれの成り立ちと実務上の付き合い方を整理します。">
+  <meta property="og:title" content="AEO・LLMO・GEO、結局何が違うのか。混同しやすい言葉を整理する | Ops Octopus ブログ">
+  <meta property="og:description" content="AEO・LLMO・GEOという似た言葉が並立していて混乱する、というB2Bマーケター向けに、それぞれの成り立ちと実務上の付き合い方を整理します。">
+  <meta property="og:url" content="https://app.ops-octopus.com/blog/aeo-llmo-geo-difference.html">
+  <meta property="og:type" content="article">
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-DNTX6D35RB"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-DNTX6D35RB');
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    :root {
+      --navy-950: #061426;
+      --navy-900: #081b33;
+      --navy-800: #102a4a;
+      --blue-gray-50: #f4f7fb;
+      --blue-gray-100: #eaf0f7;
+      --off-white: #fbfaf6;
+      --white: #ffffff;
+      --amber-400: #fbbf24;
+      --amber-500: #f59e0b;
+      --text-dark: #132033;
+      --text-muted: #5f6f85;
+      --border: #dce4ef;
+    }
+
+    body {
+      font-family: 'Inter', 'Noto Sans JP', "Hiragino Sans", "Hiragino Kaku Gothic ProN",
+        Arial, Meiryo, sans-serif;
+      font-size: 1rem;
+      line-height: 1.7;
+      color: var(--text-dark);
+      background: var(--white);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ─── Header ─── */
+    .header {
+      background: #0d2340;
+      height: auto;
+      padding: 1.5rem 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 200;
+    }
+    .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    .nav-logo-img { height: 56px; width: auto; display: block; }
+    .nav-logo-text { flex-direction: column; gap: 2px; }
+    .nav-logo-name { font-size: 17px; font-weight: 700; color: var(--off-white); letter-spacing: 0.02em; white-space: nowrap; }
+    .nav-logo-sub { font-size: 11px; color: rgba(251,250,246,0.55); white-space: nowrap; }
+    .header-nav { display: flex; align-items: center; gap: 24px; }
+    .header-nav a { font-size: 14px; color: rgba(251,250,246,0.75); text-decoration: none; transition: color 0.15s; white-space: nowrap; }
+    .header-nav a:hover { color: var(--off-white); }
+    .btn-nav-cta {
+      background: var(--amber-400);
+      color: var(--text-dark) !important;
+      font-size: 13px !important;
+      font-weight: 600 !important;
+      padding: 7px 14px;
+      border-radius: 6px;
+      transition: background 0.15s !important;
+      white-space: nowrap;
+    }
+    .btn-nav-cta:hover { background: var(--amber-500) !important; }
+    .nav-cta-tax { font-size: 0.8em; }
+    .nav-cta-short { display: none; }
+
+    @media (max-width: 768px) {
+      .header-nav { gap: 14px; }
+      .header-nav .nav-link-hide { display: none; }
+      .nav-cta-full  { display: none; }
+      .nav-cta-short { display: inline; }
+    }
+    @media (max-width: 480px) {
+      .header-nav { gap: 10px; }
+    }
+
+    /* ─── Breadcrumb ─── */
+    .breadcrumb {
+      background: var(--navy-900);
+      padding: 10px 24px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      color: rgba(255,255,255,0.45);
+    }
+    .breadcrumb a { color: rgba(255,255,255,0.55); text-decoration: none; transition: color 0.15s; }
+    .breadcrumb a:hover { color: rgba(255,255,255,0.85); }
+    .breadcrumb .sep { color: rgba(255,255,255,0.25); }
+    .breadcrumb .current { color: rgba(255,255,255,0.75); }
+
+    /* ─── Article ─── */
+    .article-page { background: var(--white); padding: 48px 24px 0; }
+    .article-inner { max-width: 720px; margin: 0 auto; }
+
+    .article-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
+    .article-tag {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--amber-500);
+      background: rgba(251,191,36,0.12);
+      border: 1px solid rgba(245,158,11,0.25);
+      padding: 3px 10px;
+      border-radius: 999px;
+      letter-spacing: 0.02em;
+    }
+
+    .article-title {
+      font-size: clamp(24px, 5vw, 34px);
+      font-weight: 700;
+      color: var(--text-dark);
+      line-height: 1.45;
+      letter-spacing: 0.01em;
+      font-feature-settings: "palt";
+      margin-bottom: 14px;
+    }
+
+    .article-meta {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-bottom: 36px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .article-body { font-size: 1.05rem; line-height: 1.9; color: var(--text-dark); }
+    .article-body h2 {
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: var(--text-dark);
+      margin: 40px 0 16px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid var(--amber-400);
+      display: inline-block;
+    }
+    .article-body h3 { font-size: 1.15rem; font-weight: 700; color: var(--text-dark); margin: 28px 0 12px; }
+    .article-body p { margin-bottom: 20px; }
+    .article-body ul, .article-body ol { margin: 0 0 20px 1.4em; }
+    .article-body li { margin-bottom: 8px; }
+    .article-body a { color: #1B6CA8; }
+    .article-body a:hover { text-decoration: underline; }
+    .article-body strong { font-weight: 700; }
+    .article-body blockquote {
+      border-left: 3px solid var(--amber-400);
+      background: var(--blue-gray-50);
+      padding: 12px 18px;
+      margin: 0 0 20px;
+      color: var(--text-muted);
+    }
+    .article-body code {
+      background: var(--blue-gray-50);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.9em;
+    }
+
+    .article-back { margin: 40px 0 0; }
+    .article-back a { font-size: 14px; color: var(--text-muted); text-decoration: none; }
+    .article-back a:hover { color: var(--text-dark); }
+
+    /* ─── CTA ─── */
+    .article-cta {
+      margin-top: 56px;
+      background: var(--blue-gray-50);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 32px 28px;
+      text-align: center;
+    }
+    .article-cta p {
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--text-dark);
+      margin-bottom: 18px;
+      line-height: 1.6;
+    }
+    .btn-primary {
+      background: var(--amber-400);
+      color: var(--text-dark);
+      font-size: 1.05rem;
+      font-weight: 600;
+      padding: 0.9rem 2rem;
+      border-radius: 6px;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      transition: background 0.15s;
+      display: inline-block;
+      font-family: inherit;
+      white-space: nowrap;
+    }
+    .btn-primary:hover { background: var(--amber-500); }
+
+    /* ─── Footer ─── */
+    .footer { background: var(--navy-900); padding: 2rem 1.5rem; margin-top: 64px; }
+    .footer-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      gap: 24px;
+    }
+    .footer-brand-name { font-size: 16px; font-weight: 600; color: var(--off-white); margin-bottom: 4px; }
+    .footer-brand-sub { font-size: 12px; color: rgba(251,250,246,0.5); line-height: 1.5; }
+    .footer-brand-tagline { font-style: italic; }
+    .footer-links { display: flex; flex-direction: row; align-items: center; gap: 2rem; flex-wrap: wrap; }
+    .footer-link { font-size: 13px; color: var(--off-white); text-decoration: none; opacity: 0.8; transition: opacity 0.15s; }
+    .footer-link:hover { opacity: 1; }
+    .footer-copy { font-size: 12px; color: rgba(251,250,246,0.4); text-align: right; }
+
+    @media (max-width: 768px) {
+      .article-page { padding: 36px 16px 0; }
+      .footer-inner { grid-template-columns: 1fr; text-align: center; }
+      .footer-links { justify-content: center; }
+      .footer-copy { text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── HEADER ── -->
+  <header class="header">
+    <a href="/index.html" class="nav-logo">
+      <img src="/assets/images/logo.png" alt="Ops Octopus" class="nav-logo-img"
+        onerror="this.style.display='none'; document.getElementById('nav-logo-text').style.display='flex';">
+      <div id="nav-logo-text" style="display:none;" class="nav-logo-text">
+        <span class="nav-logo-name">🐙 Ops Octopus</span>
+        <span class="nav-logo-sub">AIブランド調査レポート</span>
+      </div>
+    </a>
+    <nav class="header-nav">
+      <a class="nav-link-hide" href="/index.html#about">サービス概要</a>
+      <a class="nav-link-hide" href="/detail.html">プラン・料金</a>
+      <a class="nav-link-hide" href="/samples.html">サンプル</a>
+      <a class="nav-link-hide" href="/blog/">ブログ</a>
+      <a class="nav-link-hide" href="/faq.html">よくある質問</a>
+      <a class="btn-nav-cta" href="https://buy.stripe.com/6oU14ndhZcAR4XR1EKcwg00" onclick="gtag('event', 'cta_click_header', { page: location.pathname })">
+        <span class="nav-cta-full">¥300<span class="nav-cta-tax">（税込）</span>で購入</span>
+        <span class="nav-cta-short">¥300<span class="nav-cta-tax">（税込）</span>で購入</span>
+      </a>
+    </nav>
+  </header>
+
+  <!-- パンくず -->
+  <nav class="breadcrumb">
+    <a href="/index.html">ホーム</a>
+    <span class="sep">›</span>
+    <a href="/blog/">ブログ</a>
+    <span class="sep">›</span>
+    <span class="current">AEO・LLMO・GEO、結局何が違うのか。混同しやすい言葉を整理する</span>
+  </nav>
+
+  <main class="article-page">
+    <div class="article-inner">
+      <article>
+        <div class="article-tags">
+          <span class="article-tag">AEO</span>
+          <span class="article-tag">LLMO</span>
+          <span class="article-tag">GEO</span>
+        </div>
+        <h1 class="article-title">AEO・LLMO・GEO、結局何が違うのか。混同しやすい言葉を整理する</h1>
+        <p class="article-meta"><time datetime="2026-07-18">2026年7月18日</time></p>
+
+        <div class="article-body">
+<p>AEO・LLMO・GEOという言葉を調べると、説明する記事によって定義が微妙に異なり、混乱した経験がある方も多いのではないでしょうか。結論から言うと、この3つの言葉に業界横断で統一された厳密な定義は存在せず、どれも「AIの回答の中で自社がどう見えているか」という同じ関心を、異なる角度から呼んでいるものだと理解しておくのが実務的です。ここでは、それぞれの成り立ちと、実務での付き合い方を整理します。</p>
+<h2>それぞれの言葉が指しているもの</h2>
+<p><a href="/blog/what-is-aeo.html">AEO</a>（Answer Engine Optimization）は「回答エンジン最適化」と訳され、AIが提示する回答という結果に焦点を当てた言葉として使われることが多いです。<a href="/blog/what-is-llmo.html">LLMO</a>（LLM Optimization）は、回答を生成する大規模言語モデルというモデル側に焦点を当てた言葉として使われる傾向があります。GEO（Generative Engine Optimization）は「生成エンジン最適化」と訳され、生成AIという仕組み全体を指す文脈で使われることが多い言葉です。ただし、これらの使い分けは記事や論者によって揺れがあり、絶対的な基準ではありません。同じ現象を説明していても、書き手の専門分野や発信国によって好んで使う言葉が異なる、というのが実情に近いでしょう。</p>
+<h2>なぜ定義が揺れているのか</h2>
+<p>AIチャットサービスが普及する過程で、SEO業界、マーケティング業界、AI開発者コミュニティなど、異なる立場の人たちがほぼ同時期に近い概念を言語化しようとしました。そのため、成立の経緯が異なる複数の言葉が並立し、それぞれが少しずつ違うニュアンスを持ちながらも、実質的に重なる範囲を指す状態になっています。SEOという言葉が定着するまでにも一定の時間がかかったことを踏まえると、AEO・LLMO・GEOについても、今後どれかに収束していく可能性はありますが、現時点では過渡期にあると考えるのが妥当です。海外の記事ではGEOという表記が目立つ一方、国内ではAEOという表記を見かけることも多く、地域によっても優勢な呼び方に違いが見られる点も、この過渡期らしさを表しています。</p>
+<h2>用語の違いより意識したいこと</h2>
+<p>マーケ担当者の実務としては、この3つの言葉を厳密に使い分けることよりも、「AIの回答の中で自社やサービスがどのように扱われているか」という関心そのものに向き合うことのほうが重要です。<a href="/blog/geo-vs-seo.html">GEOとSEOの違い</a>でも触れているとおり、検索結果一覧とAIの回答という接点の違いを理解したうえで、複数のAIを横断して現状を確認する姿勢は、どの言葉を使っていても変わりません。用語の正確さにこだわりすぎて現状把握が後回しになるようでは本末転倒です。</p>
+<h2>海外と国内での温度差</h2>
+<p>この分野は海外の議論が先行しており、海外発の計測サービスの多くがGEOという言葉を軸に情報発信を行っている一方、国内では独自にAEOやLLMOという表記を使う発信も見られます。どちらが正しいというより、発信元の所在地や参照している一次情報によって使われる言葉に偏りが生じている、という状況だと理解しておくと、海外記事と国内記事で違う言葉が使われていても混乱しにくくなります。</p>
+<h2>社内やクライアントへの説明の仕方</h2>
+<p>社内共有や提案資料でこれらの言葉を使う場合は、「AEO・LLMO・GEOという複数の呼び方があるが、いずれもAI上でのブランドの見え方を扱う近い概念である」と補足しておくと、聞き手の混乱を避けやすくなります。特定の言葉だけを正解として断定的に説明するよりも、用語が発展途上であることを前提に伝えるほうが、後々の認識のずれを防げます。資料の中で言葉を統一したい場合は、社内で使われている慣習に合わせつつ、初出時に「AEO（AI検索対策）」のように補足を添えておくと親切です。</p>
+<h2>用語整理をしすぎないためのバランス</h2>
+<p>用語の違いを調べ始めると、それぞれの言葉のルーツや定義の違いに深入りしたくなりますが、あまり時間をかけすぎないバランス感覚も大切です。学術的な厳密さを追求する場ではなく、実務としてAI上での自社の見え方を確認し、必要な対応を検討することが目的であることを思い出すと、用語整理はほどほどのところで切り上げて、次の現状把握のステップに進みやすくなります。</p>
+<h2>よくある質問</h2>
+<p><strong>Q. 提案資料ではAEO・LLMO・GEOのどれを使えばいいですか。</strong><br>
+A. どれが正解というものはありません。相手先で既に使われている言葉に合わせるか、迷う場合は「AI検索対策」のような分かりやすい言い方を併記するのも一つの方法です。</p>
+<p><strong>Q. 今後、言葉が統一される可能性はありますか。</strong><br>
+A. 分かりません。SEOのように長期間かけて一つの言葉に定着していく可能性もありますが、現時点で確定的なことは言えません。</p>
+<p><strong>Q. 用語の違いを気にせず施策を進めても問題ありませんか。</strong><br>
+A. 実務上は問題ありません。重要なのは呼び方ではなく、AI上での自社の見え方を継続的に確認し、必要に応じて対応を検討する姿勢です。</p>
+        </div>
+      </article>
+
+      <div class="article-cta">
+        <p>AIにあなたのブランドはどう見えている？<br>まずは300円のQuick Scanから。</p>
+        <a href="/detail.html#cta" class="btn-primary" onclick="gtag('event', 'cta_click_blog_post', { page: location.pathname })">Quick Scan ¥300 で調べる →</a>
+      </div>
+
+      <p class="article-back"><a href="/blog/">← ブログ一覧に戻る</a></p>
+    </div>
+  </main>
+
+  <!-- ── FOOTER ── -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div>
+        <p class="footer-brand-name">🐙 Ops Octopus</p>
+        <p class="footer-brand-sub">AIブランド調査レポート</p>
+        <p class="footer-brand-sub footer-brand-tagline">「知りたい」に、するっと。</p>
+      </div>
+      <div class="footer-links">
+        <a class="footer-link" href="/blog/">ブログ</a>
+        <a class="footer-link" href="/terms.html">利用規約</a>
+        <a class="footer-link" href="/legal.html">特定商取引法に基づく表記</a>
+        <a class="footer-link" href="/privacy.html">プライバシーポリシー</a>
+      </div>
+      <p class="footer-copy">© 2026 Ops Octopus. All rights reserved.</p>
+    </div>
+  </footer>
+
+</body>
+</html>
