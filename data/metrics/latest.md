@@ -2,54 +2,26 @@
 
 ## データ取得ステータス
 
-- GSC: 取得できませんでした（GSCデータの取得に失敗しました（sc-domain:ops-octopus.com → https://app.ops-octopus.com/ いずれも失敗）: sc-domain:ops-octopus.com: <HttpError 403 when requesting https://searchconsole.googleapis.com/webmasters/v3/sites/sc-domain%3Aops-octopus.com/searchAnalytics/query?alt=json returned "Google Search Console API has not been used in project 153846392272 before or it is disabled. Enable it by visiting https://console.developers.google.com/apis/api/searchconsole.googleapis.com/overview?project=153846392272 then retry. If you enabled this API recently, wait a few minutes for the action to propagate to our systems and retry.". Details: "[{'message': 'Google Search Console API has not been used in project 153846392272 before or it is disabled. Enable it by visiting https://console.developers.google.com/apis/api/searchconsole.googleapis.com/overview?project=153846392272 then retry. If you enabled this API recently, wait a few minutes for the action to propagate to our systems and retry.', 'domain': 'usageLimits', 'reason': 'accessNotConfigured', 'extendedHelp': 'https://console.developers.google.com'}]"> / https://app.ops-octopus.com/: <HttpError 403 when requesting https://searchconsole.googleapis.com/webmasters/v3/sites/https%3A%2F%2Fapp.ops-octopus.com%2F/searchAnalytics/query?alt=json returned "Google Search Console API has not been used in project 153846392272 before or it is disabled. Enable it by visiting https://console.developers.google.com/apis/api/searchconsole.googleapis.com/overview?project=153846392272 then retry. If you enabled this API recently, wait a few minutes for the action to propagate to our systems and retry.". Details: "[{'message': 'Google Search Console API has not been used in project 153846392272 before or it is disabled. Enable it by visiting https://console.developers.google.com/apis/api/searchconsole.googleapis.com/overview?project=153846392272 then retry. If you enabled this API recently, wait a few minutes for the action to propagate to our systems and retry.', 'domain': 'usageLimits', 'reason': 'accessNotConfigured', 'extendedHelp': 'https://console.developers.google.com'}]">）
-- GA4: 取得できませんでした（GA4ページ別レポートの取得に失敗しました: 403 Google Analytics Data API has not been used in project 153846392272 before or it is disabled. Enable it by visiting https://console.developers.google.com/apis/api/analyticsdata.googleapis.com/overview?project=153846392272 then retry. If you enabled this API recently, wait a few minutes for the action to propagate to our systems and retry. [reason: "SERVICE_DISABLED"
-domain: "googleapis.com"
-metadata {
-  key: "service"
-  value: "analyticsdata.googleapis.com"
-}
-metadata {
-  key: "serviceTitle"
-  value: "Google Analytics Data API"
-}
-metadata {
-  key: "containerInfo"
-  value: "153846392272"
-}
-metadata {
-  key: "consumer"
-  value: "projects/153846392272"
-}
-metadata {
-  key: "activationUrl"
-  value: "https://console.developers.google.com/apis/api/analyticsdata.googleapis.com/overview?project=153846392272"
-}
-, locale: "en-US"
-message: "Google Analytics Data API has not been used in project 153846392272 before or it is disabled. Enable it by visiting https://console.developers.google.com/apis/api/analyticsdata.googleapis.com/overview?project=153846392272 then retry. If you enabled this API recently, wait a few minutes for the action to propagate to our systems and retry."
-, links {
-  description: "Google developers console API activation"
-  url: "https://console.developers.google.com/apis/api/analyticsdata.googleapis.com/overview?project=153846392272"
-}
-]）
+- GSC: 取得成功（プロパティ: `https://app.ops-octopus.com/`、期間: 2026-06-20 〜 2026-07-17、行数: 0）
+- GA4: 取得できませんでした（GA4ページ別レポートの取得に失敗しました: 403 User does not have sufficient permissions for this property. To learn more about Property ID, see https://developers.google.com/analytics/devguides/reporting/data/v1/property-id.）
 
 ## a. ブログ記事別サマリー（GSC・直近28日）
 
-GSCデータが取得できなかったため、このセクションは空です。
+該当データがありません。
 
 ## b. 機会クエリ（impressions >= 10 かつ 掲載順位 11〜20）
 
-GSCデータが取得できなかったため、このセクションは空です。
+該当するクエリはありませんでした。
 
 ## c. CTR改善候補（impressions >= 20 かつ ctr < 2.0%）
 
-GSCデータが取得できなかったため、このセクションは空です。
+該当するクエリはありませんでした。
 
 ## d. クエリギャップ（GSCに出るが対応記事がないクエリ／KEYWORD_MAP.mdのP2と突合）
 
 簡易的な文字列一致による突合のため、参考情報として扱うこと（記事化の要否は人間またはClaudeの判断で最終確認する）。
 
-GSCデータが取得できなかったため、このセクションは空です。
+該当するクエリはありませんでした。
 
 ## e. GA4データ（直近28日）
 
@@ -57,38 +29,29 @@ GA4データが取得できなかったため、このセクションは空で�
 
 ## 今週の実施アクション
 
-### 判断の前提
-
-- GSC・GA4ともにAPIが無効化されており（project 153846392272 で
-  Search Console API / Analytics Data API が未有効化）、
-  a〜eの分析データがすべて欠損しました。
-- データ欠損のため、判断ロジック（CTR改善／リライト／新規記事生成）は
-  実行不能と判断しました。`docs/CONTENT_AUTOPILOT.md` の運用に従い、
-  記事品質改善（改善バックログの処理）に切り替えています。
-- 新規記事生成は、KEYWORD_MAP.md のP2からデータ駆動で選定する設計のため、
-  クエリギャップ実績が得られない今週は見送りました（P2→P1昇格なし）。
-
-### 実施内容（バックログ処理・1件）
-
-- **バッチ2の6記事のです・ます調リライト**（改善バックログの最優先項目・
-  「優先度高・計測ループ初回で実施」を消し込み）
-  - 対象：`ai-citable-content` / `anticipating-ai-queries` /
-    `faq-pages-ai-search` / `how-to-write-llms-txt` /
-    `not-appearing-in-chatgpt` / `structured-data-aeo`
-  - 本文（導入サマリ・H2セクション群）の文末を「だ・である調」から
-    「です・ます調」へ統一。断定の拍は「〜です／〜でしょう」で作り、
-    逡巡の拍（〜かもしれません／〜でしょうか）を保持して認知リズムを維持。
-  - 表現ルール順守：AI挙動の断定回避（「〜とされています」「〜傾向」）、
-    独自スコア不使用、匿名運営（一人称なし）を確認。
-  - WRITING_RHYTHM.md の点検手順を実行：話題テスト（導入は適用除外）・
-    漏出テスト（規範語彙・節末進行予告ともに検出なし）・拍の点検を通過。
-    残存していたプレーン文末2件（`言葉を選ぶ。`／`また試す。`）を修正。
-  - `python build.py` 実行済み。全12記事・LP群のビルド成功を確認。
-
-### 次回への申し送り
-
-- **最優先**：GSC / GA4 のAPI有効化。有効化されるまで新規記事の
-  データ駆動生成（P2→P1昇格）は保留となります。
-- データ復旧後、残る改善バックログ（バッチ1へのWRITING_RHYTHM適用、
-  共感的導入の追加、Deep Scan実測データの挿入）を順次処理予定です。
+- **実施日**: 2026-07-18
+- **判断**: GSCが0行、GA4が403で、CTR改善候補・機会クエリ・クエリギャップの
+  いずれも算出できず、メトリクスに基づく判断は不能でした。
+  `docs/CONTENT_AUTOPILOT.md` の判断ロジック（3）およびタスク指示（3）に従い、
+  CTR改善／リライト／新規生成ではなく、記事品質改善（改善バックログ処理）へ
+  切り替えました。
+- **処理したバックログ項目（1件消し込み）**:
+  「既存記事（バッチ1の5本+what-is-aeo）へのWRITING_RHYTHM.md適用」
+- **対象記事（6本）**:
+  what-is-aeo / what-is-llmo / geo-vs-seo / aeo-llmo-geo-difference /
+  ai-search-strategy / ai-overviews-aeo
+- **内容**: 各記事の本文H2セクションに認知リズム〈観察→逡巡→断定→再観察〉を
+  適用し、節冒頭を読者の反問・違和感・共感的な言い直しで開く形へ改稿。
+  文体は「です・ます調」を維持し、`WRITING_RHYTHM.md` の例文の文体（だ・である調）
+  は模倣していません。冒頭の結論サマリと末尾のFAQは適用除外としました。
+  front matter・内部リンク構造・FAQは保持しています。
+- **点検**: `WRITING_RHYTHM.md` の点検手順（話題テスト・漏出テスト・緊張台帳・
+  拍の点検・境界の点検）を実施。平叙終止2件（aeo-llmo-geo-difference）と
+  進行予告の疑い1件（ai-search-strategy「次は」→「今度は」）を修正済み。
+- **表現ルール**: AI挙動の断定を避け「傾向が見られる」フレーミングを維持。
+  独自スコア不使用・匿名運営・一人称なし/Ops Octopusの各ルールを遵守。
+- **ビルド**: `python build.py` 成功（ルート7ページ＋blog記事12本を再生成）。
+- **KEYWORD_MAP更新**: 新規記事生成なし。データ欠損のため新規生成は見送り、
+  P2→P1昇格は行っていません。
+- **変更範囲**: `blog/`・`docs/`・`data/` 配下のみ（決済導線・LP・build.py等は不変更）。
 
