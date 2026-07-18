@@ -32,8 +32,15 @@
 
 ## 改善バックログ（SEOサイクルで回収）
 
-- 既存記事（バッチ1の5本+what-is-aeo）へのWRITING_RHYTHM.md適用
+- ~~既存記事（バッチ1の5本+what-is-aeo）へのWRITING_RHYTHM.md適用~~
+  （2026-07-18 完了。aeo-llmo-geo-difference / ai-overviews-aeo /
+  ai-search-strategy / geo-vs-seo / what-is-aeo / what-is-llmo の本文
+  H2セクションに認知リズム〈観察→逡巡→断定→再観察〉を適用。冒頭結論
+  サマリとFAQは適用除外。文体はです・ます調を維持し、点検手順〈話題・
+  漏出テスト等〉を実施）
 - 記事への共感的な導入（読者の実感の言い直し）の追加
+  （上記WRITING_RHYTHM適用時にバッチ1の6記事へは反映済み。バッチ2の
+  6記事は未対応のため項目として継続）
 - OpsOctopus実測データ・レポート画像の記事への挿入
   （Deep Scan本番稼働後、実調査データを引用素材化する）
 - ~~バッチ2の6記事（not-appearing-in-chatgpt他）の
