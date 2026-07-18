@@ -1,0 +1,16 @@
+# Ops Octopus
+
+> ChatGPT・Claude・GeminiなどのAIに同じ質問を投げ、ブランドのAI上での評判・推奨傾向を調査するレポートサービスです。買い切り¥300のQuick Scanから利用できます。
+
+## サービス
+
+- [サービス概要](https://app.ops-octopus.com/index.html): Ops Octopusのサービス概要・料金プランの紹介
+- [プラン・料金](https://app.ops-octopus.com/detail.html): Quick Scan / Deep Scan / Full Scanの詳細と料金、調査フローの説明
+- [サンプルレポート](https://app.ops-octopus.com/samples.html): 実際に生成されたレポートのサンプル一覧
+- [よくある質問](https://app.ops-octopus.com/faq.html): サービス内容・プラン・購入・返金に関するFAQ
+
+## ブログ
+
+AEO・GEO・LLMOやAI検索時代のブランドの見え方について調査・解説する記事一覧です。
+
+<!-- LLMS_BLOG_POSTS -->
