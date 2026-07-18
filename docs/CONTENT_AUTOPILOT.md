@@ -36,5 +36,7 @@
 - 記事への共感的な導入（読者の実感の言い直し）の追加
 - OpsOctopus実測データ・レポート画像の記事への挿入
   （Deep Scan本番稼働後、実調査データを引用素材化する）
-- バッチ2の6記事（not-appearing-in-chatgpt他）の
-  です・ます調へのリライト（優先度高・計測ループ初回で実施）
+- ~~バッチ2の6記事（not-appearing-in-chatgpt他）の
+  です・ます調へのリライト~~（2026-07-18 完了。ai-citable-content /
+  anticipating-ai-queries / faq-pages-ai-search / how-to-write-llms-txt /
+  not-appearing-in-chatgpt / structured-data-aeo の本文をです・ます調へ統一）
