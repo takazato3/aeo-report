@@ -9,6 +9,7 @@ on:
 permissions:
   contents: write
   pull-requests: write
+  issues: write
 
 jobs:
   weekly-content:
@@ -96,3 +97,66 @@ jobs:
       - name: No changes
         if: steps.commit.outputs.changed == 'false'
         run: echo "今週は変更がありませんでした（アクションなし、または差分なし）。"
+
+      - name: SNS post reminder
+        if: always()
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          X_COUNT=0
+          if [ -f sns/x-queue.md ]; then
+            X_COUNT=$(grep -c '^\s*- \[ \]' sns/x-queue.md || true)
+          fi
+
+          NOTE_COUNT=0
+          if [ -d sns/note-drafts ]; then
+            NOTE_COUNT=$(find sns/note-drafts -maxdepth 1 -type f -name '*.md' | wc -l | tr -d ' ')
+          fi
+
+          TOTAL=$((X_COUNT + NOTE_COUNT))
+          REPO_URL="https://github.com/${GITHUB_REPOSITORY}"
+
+          EXISTING_ISSUE=$(gh issue list --repo "$GITHUB_REPOSITORY" --label sns-reminder --state open \
+            --json number --jq '.[0].number // empty')
+
+          if [ "$TOTAL" -gt 0 ]; then
+            TITLE="📮 SNS投稿キュー:X投稿${X_COUNT}件・note${NOTE_COUNT}件が待機中"
+            BODY="## 未投稿コンテンツ
+
+          - X投稿: ${X_COUNT}件
+          - note記事: ${NOTE_COUNT}件
+
+          ## リンク
+
+          - X投稿キュー: ${REPO_URL}/blob/main/sns/x-queue.md
+          - noteドラフト: ${REPO_URL}/tree/main/sns/note-drafts
+
+          ## 使い方
+
+          1. 上記リンクからドラフトを開き、内容を確認する
+          2. 良ければそのままX/noteに投稿する
+          3. 投稿したら sns/x-queue.md の該当行の \`[ ]\` を \`[x]\` に変更してコミットする
+             （\`[x]\`の項目は次回の週次実行時に sns/x-posted.md へ自動でアーカイブされます）
+
+          このIssueは未投稿件数に応じて自動的に更新・クローズされます。"
+
+            gh label create sns-reminder --color FBCA04 \
+              --description "SNS投稿の未処理ドラフトがあることを知らせるリマインド" 2>/dev/null || true
+
+            if [ -n "$EXISTING_ISSUE" ]; then
+              gh issue edit "$EXISTING_ISSUE" --repo "$GITHUB_REPOSITORY" --title "$TITLE" --body "$BODY"
+              echo "既存Issue #$EXISTING_ISSUE を更新しました。"
+            else
+              gh issue create --repo "$GITHUB_REPOSITORY" --title "$TITLE" --body "$BODY" \
+                --label sns-reminder --assignee takazato3
+              echo "新規Issueを作成しました。"
+            fi
+          else
+            if [ -n "$EXISTING_ISSUE" ]; then
+              gh issue close "$EXISTING_ISSUE" --repo "$GITHUB_REPOSITORY" \
+                --comment "未投稿のSNSコンテンツが0件になったため、このIssueをクローズします。"
+              echo "Issue #$EXISTING_ISSUE をクローズしました。"
+            else
+              echo "未投稿は0件で、オープン中のリマインドIssueもありません。"
+            fi
+          fi
