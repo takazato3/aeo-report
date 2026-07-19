@@ -38,9 +38,12 @@
   H2セクションに認知リズム〈観察→逡巡→断定→再観察〉を適用。冒頭結論
   サマリとFAQは適用除外。文体はです・ます調を維持し、点検手順〈話題・
   漏出テスト等〉を実施）
-- 記事への共感的な導入（読者の実感の言い直し）の追加
-  （上記WRITING_RHYTHM適用時にバッチ1の6記事へは反映済み。バッチ2の
-  6記事は未対応のため項目として継続）
+- ~~記事への共感的な導入（読者の実感の言い直し）の追加~~
+  （上記WRITING_RHYTHM適用時にバッチ1の6記事へは反映済み。2026-07-19に
+  バッチ2の6記事（ai-citable-content / anticipating-ai-queries /
+  faq-pages-ai-search / how-to-write-llms-txt / not-appearing-in-chatgpt /
+  structured-data-aeo）の冒頭へ、読者の実感の言い直しをです・ます調で
+  1文ずつ追加し完了）
 - OpsOctopus実測データ・レポート画像の記事への挿入
   （Deep Scan本番稼働後、実調査データを引用素材化する）
 - ~~バッチ2の6記事（not-appearing-in-chatgpt他）の
