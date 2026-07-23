@@ -39,13 +39,11 @@
   サマリとFAQは適用除外。文体はです・ます調を維持し、点検手順〈話題・
   漏出テスト等〉を実施）
 - ~~記事への共感的な導入（読者の実感の言い直し）の追加~~
-  （2026-07-18 完了。バッチ1の6記事は反映済みだったところに、バッチ2の
-  6記事も対応。not-appearing-in-chatgpt（冒頭の具体的現象描写）と
-  structured-data-aeo（「疑問を持つ担当者は多いものです」）は既に共感的
-  導入を備えていたため据え置き。ai-citable-content / anticipating-ai-queries /
-  faq-pages-ai-search / how-to-write-llms-txt の4本に、結論サマリの手前へ
-  読者の実感の言い直しを一文追加。文体はです・ます調を維持し、WRITING_RHYTHM.md
-  の点検手順〈話題テスト・漏出テスト等〉を実施）
+  （上記WRITING_RHYTHM適用時にバッチ1の6記事へは反映済み。2026-07-19に
+  バッチ2の6記事（ai-citable-content / anticipating-ai-queries /
+  faq-pages-ai-search / how-to-write-llms-txt / not-appearing-in-chatgpt /
+  structured-data-aeo）の冒頭へ、読者の実感の言い直しをです・ます調で
+  1文ずつ追加し完了）
 - OpsOctopus実測データ・レポート画像の記事への挿入
   （Deep Scan本番稼働後、実調査データを引用素材化する）
 - ~~バッチ2の6記事（not-appearing-in-chatgpt他）の
