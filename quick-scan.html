@@ -1538,8 +1538,9 @@
     function hideError(boxId)      { $(boxId).style.display = 'none'; }
 
     async function callGAS(payload) {
+      const timeoutMs = payload.action === 'runDeepScan' ? 120000 : 30000;
       const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 30000);
+      const timeoutId = setTimeout(() => controller.abort(), timeoutMs);
       try {
         const res = await fetch(GAS_URL, {
           method: 'POST',
