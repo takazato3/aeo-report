@@ -14,6 +14,10 @@ permissions:
 jobs:
   weekly-content:
     runs-on: ubuntu-latest
+    env:
+      # Opus等の高額モデルへの意図しない切り替わりを防ぐため固定。
+      # 変更する場合はこの値だけ書き換えれば、PR本文の記録にも自動反映される。
+      CLAUDE_MODEL: sonnet
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -55,7 +59,7 @@ jobs:
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
         run: |
-          claude -p "$(cat .github/prompts/weekly.md)" --dangerously-skip-permissions
+          claude -p "$(cat .github/prompts/weekly.md)" --model "$CLAUDE_MODEL" --dangerously-skip-permissions
 
       - name: Build site
         run: python build.py
@@ -90,6 +94,9 @@ jobs:
           週次のGSC/GA4データ分析（\`data/metrics/latest.md\`）に基づく自動コンテンツ更新です。
 
           実施内容の詳細は \`data/metrics/latest.md\` 末尾の「## 今週の実施アクション」を参照してください。
+
+          ## 実行モデル
+          \`${CLAUDE_MODEL}\`（コスト予測性のため固定。変更は \`.github/workflows/weekly-content.yml\` の \`env.CLAUDE_MODEL\`）
 
           ## 自動マージについて
           48時間後に自動マージされます。止める場合はholdラベルを付けてください。"
