@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AEOの独自スコアはなぜ分かりにくいのか。生データを見る意味 | Ops Octopus ブログ</title>
+  <meta name="description" content="AEO/LLMOツールが示す独自スコアは、なぜ分かりにくく感じられるのか。数字の裏側にある生のAI回答データを確認することの意味を整理します。">
+  <meta property="og:title" content="AEOの独自スコアはなぜ分かりにくいのか。生データを見る意味 | Ops Octopus ブログ">
+  <meta property="og:description" content="AEO/LLMOツールが示す独自スコアは、なぜ分かりにくく感じられるのか。数字の裏側にある生のAI回答データを確認することの意味を整理します。">
+  <meta property="og:url" content="https://app.ops-octopus.com/blog/aeo-score-transparency.html">
+  <meta property="og:type" content="article">
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "AEOの独自スコアはなぜ分かりにくいのか。生データを見る意味",
+  "description": "AEO/LLMOツールが示す独自スコアは、なぜ分かりにくく感じられるのか。数字の裏側にある生のAI回答データを確認することの意味を整理します。",
+  "datePublished": "2026-08-02",
+  "inLanguage": "ja",
+  "author": {
+    "@type": "Organization",
+    "name": "Ops Octopus"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Ops Octopus"
+  }
+}
+  </script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "独自スコアを提示するツールは使わないほうがいいですか。",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "一概に避ける必要はありません。算出方針が説明されており、元になった回答データも確認できるのであれば、要約指標として活用する分には問題ないと考えられます。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "生データを自分で記録する場合、何を残しておけばいいですか。",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "質問文、回答日時、回答の全文、言及の有無、この4点を記録しておくと、あとから振り返って傾向を確認しやすくなります。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "点数と生データ、両方を提供しているツールの見分け方はありますか。",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "資料やデモの段階で、点数の算出根拠についての説明があるか、質問ごとの回答履歴をエクスポートまたは閲覧できるかを確認してみてください。"
+      }
+    }
+  ]
+}
+  </script>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-DNTX6D35RB"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-DNTX6D35RB');
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    :root {
+      --navy-950: #061426;
+      --navy-900: #081b33;
+      --navy-800: #102a4a;
+      --blue-gray-50: #f4f7fb;
+      --blue-gray-100: #eaf0f7;
+      --off-white: #fbfaf6;
+      --white: #ffffff;
+      --amber-400: #fbbf24;
+      --amber-500: #f59e0b;
+      --text-dark: #132033;
+      --text-muted: #5f6f85;
+      --border: #dce4ef;
+    }
+
+    body {
+      font-family: 'Inter', 'Noto Sans JP', "Hiragino Sans", "Hiragino Kaku Gothic ProN",
+        Arial, Meiryo, sans-serif;
+      font-size: 1rem;
+      line-height: 1.7;
+      color: var(--text-dark);
+      background: var(--white);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ─── Header ─── */
+    .header {
+      background: #0d2340;
+      height: auto;
+      padding: 1.5rem 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 200;
+    }
+    .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    .nav-logo-img { height: 56px; width: auto; display: block; }
+    .nav-logo-text { flex-direction: column; gap: 2px; }
+    .nav-logo-name { font-size: 17px; font-weight: 700; color: var(--off-white); letter-spacing: 0.02em; white-space: nowrap; }
+    .nav-logo-sub { font-size: 11px; color: rgba(251,250,246,0.55); white-space: nowrap; }
+    .header-nav { display: flex; align-items: center; gap: 24px; }
+    .header-nav a { font-size: 14px; color: rgba(251,250,246,0.75); text-decoration: none; transition: color 0.15s; white-space: nowrap; }
+    .header-nav a:hover { color: var(--off-white); }
+    .btn-nav-cta {
+      background: var(--amber-400);
+      color: var(--text-dark) !important;
+      font-size: 13px !important;
+      font-weight: 600 !important;
+      padding: 7px 14px;
+      border-radius: 6px;
+      transition: background 0.15s !important;
+      white-space: nowrap;
+    }
+    .btn-nav-cta:hover { background: var(--amber-500) !important; }
+    .nav-cta-tax { font-size: 0.8em; }
+    .nav-cta-short { display: none; }
+
+    @media (max-width: 768px) {
+      .header-nav { gap: 14px; }
+      .header-nav .nav-link-hide { display: none; }
+      .nav-cta-full  { display: none; }
+      .nav-cta-short { display: inline; }
+    }
+    @media (max-width: 480px) {
+      .header-nav { gap: 10px; }
+    }
+
+    /* ─── Breadcrumb ─── */
+    .breadcrumb {
+      background: var(--navy-900);
+      padding: 10px 24px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      color: rgba(255,255,255,0.45);
+    }
+    .breadcrumb a { color: rgba(255,255,255,0.55); text-decoration: none; transition: color 0.15s; }
+    .breadcrumb a:hover { color: rgba(255,255,255,0.85); }
+    .breadcrumb .sep { color: rgba(255,255,255,0.25); }
+    .breadcrumb .current { color: rgba(255,255,255,0.75); }
+
+    /* ─── Article ─── */
+    .article-page { background: var(--white); padding: 48px 24px 0; }
+    .article-inner { max-width: 720px; margin: 0 auto; }
+
+    .article-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
+    .article-tag {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--amber-500);
+      background: rgba(251,191,36,0.12);
+      border: 1px solid rgba(245,158,11,0.25);
+      padding: 3px 10px;
+      border-radius: 999px;
+      letter-spacing: 0.02em;
+    }
+
+    .article-title {
+      font-size: clamp(24px, 5vw, 34px);
+      font-weight: 700;
+      color: var(--text-dark);
+      line-height: 1.45;
+      letter-spacing: 0.01em;
+      font-feature-settings: "palt";
+      margin-bottom: 14px;
+    }
+
+    .article-meta {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-bottom: 36px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .article-body { font-size: 1.05rem; line-height: 1.9; color: var(--text-dark); }
+    .article-body h2 {
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: var(--text-dark);
+      margin: 40px 0 16px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid var(--amber-400);
+      display: inline-block;
+    }
+    .article-body h3 { font-size: 1.15rem; font-weight: 700; color: var(--text-dark); margin: 28px 0 12px; }
+    .article-body p { margin-bottom: 20px; }
+    .article-body ul, .article-body ol { margin: 0 0 20px 1.4em; }
+    .article-body li { margin-bottom: 8px; }
+    .article-body a { color: #1B6CA8; }
+    .article-body a:hover { text-decoration: underline; }
+    .article-body strong { font-weight: 700; }
+    .article-body blockquote {
+      border-left: 3px solid var(--amber-400);
+      background: var(--blue-gray-50);
+      padding: 12px 18px;
+      margin: 0 0 20px;
+      color: var(--text-muted);
+    }
+    .article-body code {
+      background: var(--blue-gray-50);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.9em;
+    }
+
+    .article-back { margin: 40px 0 0; }
+    .article-back a { font-size: 14px; color: var(--text-muted); text-decoration: none; }
+    .article-back a:hover { color: var(--text-dark); }
+
+    /* ─── CTA ─── */
+    .article-cta {
+      margin-top: 56px;
+      background: var(--blue-gray-50);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 32px 28px;
+      text-align: center;
+    }
+    .article-cta p {
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--text-dark);
+      margin-bottom: 18px;
+      line-height: 1.6;
+    }
+    .btn-primary {
+      background: var(--amber-400);
+      color: var(--text-dark);
+      font-size: 1.05rem;
+      font-weight: 600;
+      padding: 0.9rem 2rem;
+      border-radius: 6px;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      transition: background 0.15s;
+      display: inline-block;
+      font-family: inherit;
+      white-space: nowrap;
+    }
+    .btn-primary:hover { background: var(--amber-500); }
+
+    /* ─── Footer ─── */
+    .footer { background: var(--navy-900); padding: 2rem 1.5rem; margin-top: 64px; }
+    .footer-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      gap: 24px;
+    }
+    .footer-brand-name { font-size: 16px; font-weight: 600; color: var(--off-white); margin-bottom: 4px; }
+    .footer-brand-sub { font-size: 12px; color: rgba(251,250,246,0.5); line-height: 1.5; }
+    .footer-brand-tagline { font-style: italic; }
+    .footer-links { display: flex; flex-direction: row; align-items: center; gap: 2rem; flex-wrap: wrap; }
+    .footer-link { font-size: 13px; color: var(--off-white); text-decoration: none; opacity: 0.8; transition: opacity 0.15s; }
+    .footer-link:hover { opacity: 1; }
+    .footer-copy { font-size: 12px; color: rgba(251,250,246,0.4); text-align: right; }
+
+    @media (max-width: 768px) {
+      .article-page { padding: 36px 16px 0; }
+      .footer-inner { grid-template-columns: 1fr; text-align: center; }
+      .footer-links { justify-content: center; }
+      .footer-copy { text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── HEADER ── -->
+  <header class="header">
+    <a href="/index.html" class="nav-logo">
+      <img src="/assets/images/logo.png" alt="Ops Octopus" class="nav-logo-img"
+        onerror="this.style.display='none'; document.getElementById('nav-logo-text').style.display='flex';">
+      <div id="nav-logo-text" style="display:none;" class="nav-logo-text">
+        <span class="nav-logo-name">🐙 Ops Octopus</span>
+        <span class="nav-logo-sub">AIブランド調査レポート</span>
+      </div>
+    </a>
+    <nav class="header-nav">
+      <a class="nav-link-hide" href="/index.html#about">サービス概要</a>
+      <a class="nav-link-hide" href="/detail.html">プラン・料金</a>
+      <a class="nav-link-hide" href="/samples.html">サンプル</a>
+      <a class="nav-link-hide" href="/blog/">ブログ</a>
+      <a class="nav-link-hide" href="/faq.html">よくある質問</a>
+      <a class="btn-nav-cta" href="https://buy.stripe.com/6oU14ndhZcAR4XR1EKcwg00" onclick="gtag('event', 'cta_click_header', { page: location.pathname })">
+        <span class="nav-cta-full">¥300<span class="nav-cta-tax">（税込）</span>で購入</span>
+        <span class="nav-cta-short">¥300<span class="nav-cta-tax">（税込）</span>で購入</span>
+      </a>
+    </nav>
+  </header>
+
+  <!-- パンくず -->
+  <nav class="breadcrumb">
+    <a href="/index.html">ホーム</a>
+    <span class="sep">›</span>
+    <a href="/blog/">ブログ</a>
+    <span class="sep">›</span>
+    <span class="current">AEOの独自スコアはなぜ分かりにくいのか。生データを見る意味</span>
+  </nav>
+
+  <main class="article-page">
+    <div class="article-inner">
+      <article>
+        <div class="article-tags">
+          <span class="article-tag">AEO</span>
+          <span class="article-tag">効果測定</span>
+          <span class="article-tag">ツール比較</span>
+        </div>
+        <h1 class="article-title">AEOの独自スコアはなぜ分かりにくいのか。生データを見る意味</h1>
+        <p class="article-meta"><time datetime="2026-08-02">2026年8月2日</time></p>
+
+        <div class="article-body">
+<p>AEOやLLMOの計測ツールを調べていると、「AEOスコア85点」のように、複数の指標を1つの数字にまとめた独自スコアを目にすることがあります。一目で分かりやすく見える一方、なぜその点数になったのかがよく分からない、と感じたことはないでしょうか。結論としては、独自スコアが分かりにくく感じられるのは受け取り手の理解力の問題ではなく、計算式が公開されていないケースが多いという、ツール側の設計に起因する場合がほとんどです。以下、その理由と、代わりに何を見ればいいのかを整理します。</p>
+<h2>独自スコアが生まれる理由</h2>
+<p>そもそも、なぜ独自スコアという形が選ばれるのでしょうか。AIの回答は、言及の有無、文脈の良し悪し、競合との相対的な位置づけなど、見るべき要素が複数にまたがります。要素が複数あるままだと、社内報告や横展開の際に説明がしづらい、という事情があります。1つの数字にまとめれば、良くなったか悪くなったかを一目で伝えられる。この分かりやすさへの需要が、独自スコアという形式を後押ししていると考えられます。</p>
+<h2>分かりやすさの裏で失われるもの</h2>
+<p>ただ、複数の要素を1つの数字に合成する時点で、必ず何らかの重み付けの判断が入り込みます。言及の有無を重視するのか、文脈の好意度を重視するのか、その配分をどう決めるかによって、同じ調査結果でも出てくる点数は変わりえます。この重み付けの根拠が公開されていない場合、数字が上がった・下がったという結果は分かっても、何が効いてその変化が起きたのかを外部から検証する手段がなくなってしまいます。<a href="/blog/measuring-aeo-effectiveness.html">AEOの効果はどう測定すればいいのか</a>で触れたとおり、AEOにはまだ検索順位に相当する確立された単一指標が存在しません。そんな段階で唐突に精緻な点数を示されると、かえって身構えたくなる場面もあるはずです。</p>
+<h2>分かりやすさと検証可能性は両立しない、とは限らない</h2>
+<p>とはいえ、独自スコアそのものを一律に疑ってかかる必要はないでしょう。問題は点数を出すこと自体ではなく、算出根拠が説明されているかどうかです。計算式の詳細までは難しくても、どの要素をどう重視しているかという方針が説明されており、なおかつ元になった生の回答データにも遡って確認できるのであれば、分かりやすさと検証可能性は両立しえます。逆に、点数だけが示され、元データへのアクセス手段が用意されていない場合は、その数字を鵜呑みにする前に、一度立ち止まったほうがよさそうです。</p>
+<h2>生データを見ると何が変わるか</h2>
+<p>では、生の回答データを確認できると、実務上どう違うのでしょうか。点数だけを見ていると「先月より下がった」という事実しか分かりません。一方で、質問ごとの実際の回答文まで遡れれば、どの質問で言及が減ったのか、文脈がどう変わったのかを具体的に追えます。<a href="/blog/ai-search-ranking-measurement.html">AI検索での「順位」はどう計測すればいいのか</a>で扱った、質問ごとの記録という考え方は、まさにこの生データにあたる部分です。点数という要約と、その裏にある個々の回答という一次情報、両方を行き来できる状態が、実務では望ましい形になります。</p>
+<h2>指名検索の調査でも同じことが言える</h2>
+<p>この「点数より生データ」という視点は、ブランド名の調査にもそのまま当てはまります。<a href="/blog/brand-name-ai-search.html">指名検索でAIは何を答えるのか</a>で扱ったとおり、社名を尋ねたときの答え方には、事業説明にとどまるものから好意的な評価まで幅があります。この幅を1つの点数に圧縮してしまうと、「言及はされているが内容が薄い」ケースと「好意的に語られている」ケースの区別がつかなくなる場合があります。何が起きているかを具体的に把握したいのであれば、点数の前に、まず個々の回答そのものに目を通す姿勢が欠かせません。</p>
+<h2>ツール選びの判断材料としての透明性</h2>
+<p>ツールを比較検討する際、機能の豊富さや見た目の分かりやすさに目が行きがちです。ただ、長く使い続けることを考えるなら、点数の算出根拠が説明されているか、元になった回答データまで確認できるかという透明性の観点も、比較の軸に加えておきたいところです。<a href="/blog/aeo-tool-comparison-points.html">AEO/LLMO計測ツールを比較する際に見るべきポイント</a>でも触れたとおり、契約前にデモや無料トライアルを通じて、実際に出力される画面やデータの形を確認しておくと、契約後の見え方の違いに悩まされずに済みます。</p>
+<h2>よくある質問</h2>
+<p><strong>Q. 独自スコアを提示するツールは使わないほうがいいですか。</strong><br>
+A. 一概に避ける必要はありません。算出方針が説明されており、元になった回答データも確認できるのであれば、要約指標として活用する分には問題ないと考えられます。</p>
+<p><strong>Q. 生データを自分で記録する場合、何を残しておけばいいですか。</strong><br>
+A. 質問文、回答日時、回答の全文、言及の有無、この4点を記録しておくと、あとから振り返って傾向を確認しやすくなります。</p>
+<p><strong>Q. 点数と生データ、両方を提供しているツールの見分け方はありますか。</strong><br>
+A. 資料やデモの段階で、点数の算出根拠についての説明があるか、質問ごとの回答履歴をエクスポートまたは閲覧できるかを確認してみてください。</p>
+        </div>
+      </article>
+
+      <div class="article-cta">
+        <p>AIにあなたのブランドはどう見えている？<br>まずは300円のQuick Scanから。</p>
+        <a href="/detail.html#cta" class="btn-primary" onclick="gtag('event', 'cta_click_blog_post', { page: location.pathname })">Quick Scan ¥300 で調べる →</a>
+      </div>
+
+      <p class="article-back"><a href="/blog/">← ブログ一覧に戻る</a></p>
+    </div>
+  </main>
+
+  <!-- ── FOOTER ── -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div>
+        <p class="footer-brand-name">🐙 Ops Octopus</p>
+        <p class="footer-brand-sub">AIブランド調査レポート</p>
+        <p class="footer-brand-sub footer-brand-tagline">「知りたい」に、するっと。</p>
+      </div>
+      <div class="footer-links">
+        <a class="footer-link" href="/blog/">ブログ</a>
+        <a class="footer-link" href="/terms.html">利用規約</a>
+        <a class="footer-link" href="/legal.html">特定商取引法に基づく表記</a>
+        <a class="footer-link" href="/privacy.html">プライバシーポリシー</a>
+      </div>
+      <p class="footer-copy">© 2026 Ops Octopus. All rights reserved.</p>
+    </div>
+  </footer>
+
+</body>
+</html>

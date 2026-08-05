@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>指名検索でAIは何を答えるのか。ブランド名調査の考え方 | Ops Octopus ブログ</title>
+  <meta name="description" content="自社名や商品名をAIに聞いたとき、何がどう語られるのか。従来の指名検索とは違う切り口から、ブランド名調査の考え方を整理します。">
+  <meta property="og:title" content="指名検索でAIは何を答えるのか。ブランド名調査の考え方 | Ops Octopus ブログ">
+  <meta property="og:description" content="自社名や商品名をAIに聞いたとき、何がどう語られるのか。従来の指名検索とは違う切り口から、ブランド名調査の考え方を整理します。">
+  <meta property="og:url" content="https://app.ops-octopus.com/blog/brand-name-ai-search.html">
+  <meta property="og:type" content="article">
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "指名検索でAIは何を答えるのか。ブランド名調査の考え方",
+  "description": "自社名や商品名をAIに聞いたとき、何がどう語られるのか。従来の指名検索とは違う切り口から、ブランド名調査の考え方を整理します。",
+  "datePublished": "2026-08-02",
+  "inLanguage": "ja",
+  "author": {
+    "@type": "Organization",
+    "name": "Ops Octopus"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Ops Octopus"
+  }
+}
+  </script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "指名検索でAIに全く言及されない場合、何をすればいいですか。",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "まず「情報がないのか、参照されにくいだけなのか」を切り分けることをおすすめします。自社サイトの情報量や表記の統一状況を確認したうえで、複数の表記・複数の質問文で試し直してみてください。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "競合と比べて自社への言及が薄い場合、焦って対策すべきですか。",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "一度の結果で焦る必要はありません。AIの回答は変動しうるため、まずは同じ質問セットで継続的に記録し、傾向として差があるのかどうかを確認してから対応を検討するのが無難です。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "指名検索の調査は自社の担当者だけでもできますか。",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "可能です。複数のAIサービスに手動で質問し、結果を記録する方法から始められます。継続や比較の手間を減らしたい場合は、調査を代行するツールの利用も選択肢になります。"
+      }
+    }
+  ]
+}
+  </script>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-DNTX6D35RB"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-DNTX6D35RB');
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    :root {
+      --navy-950: #061426;
+      --navy-900: #081b33;
+      --navy-800: #102a4a;
+      --blue-gray-50: #f4f7fb;
+      --blue-gray-100: #eaf0f7;
+      --off-white: #fbfaf6;
+      --white: #ffffff;
+      --amber-400: #fbbf24;
+      --amber-500: #f59e0b;
+      --text-dark: #132033;
+      --text-muted: #5f6f85;
+      --border: #dce4ef;
+    }
+
+    body {
+      font-family: 'Inter', 'Noto Sans JP', "Hiragino Sans", "Hiragino Kaku Gothic ProN",
+        Arial, Meiryo, sans-serif;
+      font-size: 1rem;
+      line-height: 1.7;
+      color: var(--text-dark);
+      background: var(--white);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ─── Header ─── */
+    .header {
+      background: #0d2340;
+      height: auto;
+      padding: 1.5rem 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 200;
+    }
+    .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    .nav-logo-img { height: 56px; width: auto; display: block; }
+    .nav-logo-text { flex-direction: column; gap: 2px; }
+    .nav-logo-name { font-size: 17px; font-weight: 700; color: var(--off-white); letter-spacing: 0.02em; white-space: nowrap; }
+    .nav-logo-sub { font-size: 11px; color: rgba(251,250,246,0.55); white-space: nowrap; }
+    .header-nav { display: flex; align-items: center; gap: 24px; }
+    .header-nav a { font-size: 14px; color: rgba(251,250,246,0.75); text-decoration: none; transition: color 0.15s; white-space: nowrap; }
+    .header-nav a:hover { color: var(--off-white); }
+    .btn-nav-cta {
+      background: var(--amber-400);
+      color: var(--text-dark) !important;
+      font-size: 13px !important;
+      font-weight: 600 !important;
+      padding: 7px 14px;
+      border-radius: 6px;
+      transition: background 0.15s !important;
+      white-space: nowrap;
+    }
+    .btn-nav-cta:hover { background: var(--amber-500) !important; }
+    .nav-cta-tax { font-size: 0.8em; }
+    .nav-cta-short { display: none; }
+
+    @media (max-width: 768px) {
+      .header-nav { gap: 14px; }
+      .header-nav .nav-link-hide { display: none; }
+      .nav-cta-full  { display: none; }
+      .nav-cta-short { display: inline; }
+    }
+    @media (max-width: 480px) {
+      .header-nav { gap: 10px; }
+    }
+
+    /* ─── Breadcrumb ─── */
+    .breadcrumb {
+      background: var(--navy-900);
+      padding: 10px 24px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      color: rgba(255,255,255,0.45);
+    }
+    .breadcrumb a { color: rgba(255,255,255,0.55); text-decoration: none; transition: color 0.15s; }
+    .breadcrumb a:hover { color: rgba(255,255,255,0.85); }
+    .breadcrumb .sep { color: rgba(255,255,255,0.25); }
+    .breadcrumb .current { color: rgba(255,255,255,0.75); }
+
+    /* ─── Article ─── */
+    .article-page { background: var(--white); padding: 48px 24px 0; }
+    .article-inner { max-width: 720px; margin: 0 auto; }
+
+    .article-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
+    .article-tag {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--amber-500);
+      background: rgba(251,191,36,0.12);
+      border: 1px solid rgba(245,158,11,0.25);
+      padding: 3px 10px;
+      border-radius: 999px;
+      letter-spacing: 0.02em;
+    }
+
+    .article-title {
+      font-size: clamp(24px, 5vw, 34px);
+      font-weight: 700;
+      color: var(--text-dark);
+      line-height: 1.45;
+      letter-spacing: 0.01em;
+      font-feature-settings: "palt";
+      margin-bottom: 14px;
+    }
+
+    .article-meta {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-bottom: 36px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .article-body { font-size: 1.05rem; line-height: 1.9; color: var(--text-dark); }
+    .article-body h2 {
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: var(--text-dark);
+      margin: 40px 0 16px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid var(--amber-400);
+      display: inline-block;
+    }
+    .article-body h3 { font-size: 1.15rem; font-weight: 700; color: var(--text-dark); margin: 28px 0 12px; }
+    .article-body p { margin-bottom: 20px; }
+    .article-body ul, .article-body ol { margin: 0 0 20px 1.4em; }
+    .article-body li { margin-bottom: 8px; }
+    .article-body a { color: #1B6CA8; }
+    .article-body a:hover { text-decoration: underline; }
+    .article-body strong { font-weight: 700; }
+    .article-body blockquote {
+      border-left: 3px solid var(--amber-400);
+      background: var(--blue-gray-50);
+      padding: 12px 18px;
+      margin: 0 0 20px;
+      color: var(--text-muted);
+    }
+    .article-body code {
+      background: var(--blue-gray-50);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.9em;
+    }
+
+    .article-back { margin: 40px 0 0; }
+    .article-back a { font-size: 14px; color: var(--text-muted); text-decoration: none; }
+    .article-back a:hover { color: var(--text-dark); }
+
+    /* ─── CTA ─── */
+    .article-cta {
+      margin-top: 56px;
+      background: var(--blue-gray-50);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 32px 28px;
+      text-align: center;
+    }
+    .article-cta p {
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--text-dark);
+      margin-bottom: 18px;
+      line-height: 1.6;
+    }
+    .btn-primary {
+      background: var(--amber-400);
+      color: var(--text-dark);
+      font-size: 1.05rem;
+      font-weight: 600;
+      padding: 0.9rem 2rem;
+      border-radius: 6px;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      transition: background 0.15s;
+      display: inline-block;
+      font-family: inherit;
+      white-space: nowrap;
+    }
+    .btn-primary:hover { background: var(--amber-500); }
+
+    /* ─── Footer ─── */
+    .footer { background: var(--navy-900); padding: 2rem 1.5rem; margin-top: 64px; }
+    .footer-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      gap: 24px;
+    }
+    .footer-brand-name { font-size: 16px; font-weight: 600; color: var(--off-white); margin-bottom: 4px; }
+    .footer-brand-sub { font-size: 12px; color: rgba(251,250,246,0.5); line-height: 1.5; }
+    .footer-brand-tagline { font-style: italic; }
+    .footer-links { display: flex; flex-direction: row; align-items: center; gap: 2rem; flex-wrap: wrap; }
+    .footer-link { font-size: 13px; color: var(--off-white); text-decoration: none; opacity: 0.8; transition: opacity 0.15s; }
+    .footer-link:hover { opacity: 1; }
+    .footer-copy { font-size: 12px; color: rgba(251,250,246,0.4); text-align: right; }
+
+    @media (max-width: 768px) {
+      .article-page { padding: 36px 16px 0; }
+      .footer-inner { grid-template-columns: 1fr; text-align: center; }
+      .footer-links { justify-content: center; }
+      .footer-copy { text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── HEADER ── -->
+  <header class="header">
+    <a href="/index.html" class="nav-logo">
+      <img src="/assets/images/logo.png" alt="Ops Octopus" class="nav-logo-img"
+        onerror="this.style.display='none'; document.getElementById('nav-logo-text').style.display='flex';">
+      <div id="nav-logo-text" style="display:none;" class="nav-logo-text">
+        <span class="nav-logo-name">🐙 Ops Octopus</span>
+        <span class="nav-logo-sub">AIブランド調査レポート</span>
+      </div>
+    </a>
+    <nav class="header-nav">
+      <a class="nav-link-hide" href="/index.html#about">サービス概要</a>
+      <a class="nav-link-hide" href="/detail.html">プラン・料金</a>
+      <a class="nav-link-hide" href="/samples.html">サンプル</a>
+      <a class="nav-link-hide" href="/blog/">ブログ</a>
+      <a class="nav-link-hide" href="/faq.html">よくある質問</a>
+      <a class="btn-nav-cta" href="https://buy.stripe.com/6oU14ndhZcAR4XR1EKcwg00" onclick="gtag('event', 'cta_click_header', { page: location.pathname })">
+        <span class="nav-cta-full">¥300<span class="nav-cta-tax">（税込）</span>で購入</span>
+        <span class="nav-cta-short">¥300<span class="nav-cta-tax">（税込）</span>で購入</span>
+      </a>
+    </nav>
+  </header>
+
+  <!-- パンくず -->
+  <nav class="breadcrumb">
+    <a href="/index.html">ホーム</a>
+    <span class="sep">›</span>
+    <a href="/blog/">ブログ</a>
+    <span class="sep">›</span>
+    <span class="current">指名検索でAIは何を答えるのか。ブランド名調査の考え方</span>
+  </nav>
+
+  <main class="article-page">
+    <div class="article-inner">
+      <article>
+        <div class="article-tags">
+          <span class="article-tag">AEO</span>
+          <span class="article-tag">指名検索</span>
+          <span class="article-tag">ブランド調査</span>
+        </div>
+        <h1 class="article-title">指名検索でAIは何を答えるのか。ブランド名調査の考え方</h1>
+        <p class="article-meta"><time datetime="2026-08-02">2026年8月2日</time></p>
+
+        <div class="article-body">
+<p>自社名や商品名を、試しにChatGPTやClaudeに聞いてみたことがあるでしょうか。結論としては、指名検索でAIが何を答えるかは、従来の検索エンジンで自社名を検索したときの表示結果とは別の観点で確認する必要があり、「言及されたかどうか」だけでなく「どんな文脈で語られたか」までを継続的に記録していくことが、ブランド名調査としての実務的な進め方になります。以下、具体的に何を見ていけばいいのかを整理します。</p>
+<h2>指名検索という言葉をAI検索に当てはめると何が変わるか</h2>
+<p>指名検索といえば、これまでは検索エンジンに社名やサービス名をそのまま打ち込み、公式サイトが1位に表示されるかどうかを確認する作業でした。表示順位という決まった物差しがあったからこそ、確認作業も単純だったわけです。ところがAIチャットサービスに同じ社名を尋ねてみると、返ってくるのは順位のついた一覧ではなく、文章としての説明です。物差しの形が変わった以上、確認の仕方も変えるしかない、というのがまず押さえておきたい前提になります。</p>
+<h2>AIは指名検索にどう答えているのか</h2>
+<p>実際に社名を尋ねてみると、いくつかの答え方に分かれる傾向が見られます。会社概要をそのまま説明するように答える場合、事業内容や強みを添えて紹介するように答える場合、そして情報が乏しいのか、当たり障りのない一般論に終始する場合です。<a href="/blog/not-appearing-in-chatgpt.html">ChatGPTに自社が表示されない</a>で扱った「情報がないのか、参照されにくいだけなのか」という切り分けは、指名検索でもそのまま当てはまります。答え自体が薄いようであれば、まずはこの切り分けから確認するのが順当です。</p>
+<h2>「知っている」と「好意的に語る」は別の話</h2>
+<p>社名を尋ねて何かしらの説明が返ってきた時点で、一安心してしまいそうになります。ただ、ここで立ち止まっておきたいことがあります。存在を認識されていることと、好意的に語られていることは、別の話だという点です。事業内容を淡々と説明されるだけの場合もあれば、強みや評判にまで触れて語られる場合もあります。前者で満足してよいのか、それとも後者を目指すべきなのか。この判断は業種やフェーズによって変わるため、一律の答えはありません。少なくとも、答えの有無だけを見て終わりにはできない、ということは言えそうです。</p>
+<h2>表記ゆれが調査結果を左右する</h2>
+<p>正式社名、通称、ローマ字表記、旧社名。指名検索の対象になりうる表記は、思っている以上に複数あるものです。どの表記でAIに尋ねるかによって、参照される情報の一致度が変わり、結果として答えの厚みも変わってくる可能性があります。1つの表記だけで確認して「言及される」「されない」を判断するのは早計かもしれません。複数の表記を並べて試し、どの表記であれば答えが厚くなるのかを見ておくと、自社サイトの表記統一が本当に効いているのかどうかの手がかりにもなります。</p>
+<h2>競合と並べて聞かれたときの答え方も見ておく</h2>
+<p>社名単体で尋ねる質問に加えて、「〇〇業界のサービスを教えて」のように、競合と並べて挙げられる形の質問も試しておきたいところです。単体では丁寧に答えてもらえるのに、比較の文脈になると名前が挙がらない、という傾向が見られることもあります。だとすれば課題は、自社の情報が乏しいことではなく、「どの文脈の質問に対して自社が候補として想起されるか」という結びつきの弱さにある可能性が高くなります。<a href="/blog/anticipating-ai-queries.html">AIにどんな質問をされそうかを想定する方法</a>で扱った質問設計は、この確認作業でもそのまま流用できます。</p>
+<h2>定点観測としての指名検索チェック</h2>
+<p>ここまでの確認を一度やって終わりにするのは、もったいない使い方です。AIの回答はモデルの更新や生成のばらつきによって変わりうるため、単体表記・表記ゆれ・比較文脈という3種類の質問を、月次など無理のない頻度で繰り返し、変化を記録していくほうが実態に近づけます。<a href="/blog/measuring-aeo-effectiveness.html">AEOの効果はどう測定すればいいのか</a>や<a href="/blog/ai-search-ranking-measurement.html">AI検索での「順位」はどう計測すればいいのか</a>で扱った記録の考え方は、指名検索の定点観測にもそのまま当てはまります。手作業で続けるのが難しいと感じる場合は、<a href="/blog/aeo-tool-comparison-points.html">AEO/LLMO計測ツールを比較する際に見るべきポイント</a>で挙げた観点を参考に、継続記録を代行してくれるツールの利用を検討する余地もあります。</p>
+<h2>よくある質問</h2>
+<p><strong>Q. 指名検索でAIに全く言及されない場合、何をすればいいですか。</strong><br>
+A. まず「情報がないのか、参照されにくいだけなのか」を切り分けることをおすすめします。自社サイトの情報量や表記の統一状況を確認したうえで、複数の表記・複数の質問文で試し直してみてください。</p>
+<p><strong>Q. 競合と比べて自社への言及が薄い場合、焦って対策すべきですか。</strong><br>
+A. 一度の結果で焦る必要はありません。AIの回答は変動しうるため、まずは同じ質問セットで継続的に記録し、傾向として差があるのかどうかを確認してから対応を検討するのが無難です。</p>
+<p><strong>Q. 指名検索の調査は自社の担当者だけでもできますか。</strong><br>
+A. 可能です。複数のAIサービスに手動で質問し、結果を記録する方法から始められます。継続や比較の手間を減らしたい場合は、調査を代行するツールの利用も選択肢になります。</p>
+        </div>
+      </article>
+
+      <div class="article-cta">
+        <p>AIにあなたのブランドはどう見えている？<br>まずは300円のQuick Scanから。</p>
+        <a href="/detail.html#cta" class="btn-primary" onclick="gtag('event', 'cta_click_blog_post', { page: location.pathname })">Quick Scan ¥300 で調べる →</a>
+      </div>
+
+      <p class="article-back"><a href="/blog/">← ブログ一覧に戻る</a></p>
+    </div>
+  </main>
+
+  <!-- ── FOOTER ── -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div>
+        <p class="footer-brand-name">🐙 Ops Octopus</p>
+        <p class="footer-brand-sub">AIブランド調査レポート</p>
+        <p class="footer-brand-sub footer-brand-tagline">「知りたい」に、するっと。</p>
+      </div>
+      <div class="footer-links">
+        <a class="footer-link" href="/blog/">ブログ</a>
+        <a class="footer-link" href="/terms.html">利用規約</a>
+        <a class="footer-link" href="/legal.html">特定商取引法に基づく表記</a>
+        <a class="footer-link" href="/privacy.html">プライバシーポリシー</a>
+      </div>
+      <p class="footer-copy">© 2026 Ops Octopus. All rights reserved.</p>
+    </div>
+  </footer>
+
+</body>
+</html>

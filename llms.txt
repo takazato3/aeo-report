@@ -13,6 +13,8 @@
 
 AEO・GEO・LLMOやAI検索時代のブランドの見え方について調査・解説する記事一覧です。
 
+- [AEOの独自スコアはなぜ分かりにくいのか。生データを見る意味](https://app.ops-octopus.com/blog/aeo-score-transparency.html): AEO/LLMOツールが示す独自スコアは、なぜ分かりにくく感じられるのか。数字の裏側にある生のAI回答データを確認することの意味を整理します。
+- [指名検索でAIは何を答えるのか。ブランド名調査の考え方](https://app.ops-octopus.com/blog/brand-name-ai-search.html): 自社名や商品名をAIに聞いたとき、何がどう語られるのか。従来の指名検索とは違う切り口から、ブランド名調査の考え方を整理します。
 - [AEO/LLMO計測ツールを比較する際に見るべきポイント](https://app.ops-octopus.com/blog/aeo-tool-comparison-points.html): AEO/LLMO計測ツールを選ぶ際、何を基準に比較すればいいのか。透明性・対象AIの範囲・記録の継続性など、実務で見落としやすい観点を整理します。
 - [AI検索での「順位」はどう計測すればいいのか](https://app.ops-octopus.com/blog/ai-search-ranking-measurement.html): AI検索に検索順位に相当する指標はあるのか。回答内での言及順や、繰り返し質問したときの出現頻度など、代わりに使える視点を整理します。
 - [ChatGPT検索の仕組みとは。従来の検索エンジンとの違い](https://app.ops-octopus.com/blog/chatgpt-search-mechanism.html): ChatGPT検索は何をしているのか。従来の検索エンジンとの違いを、公開されている情報の範囲で整理します。AEOを考えるうえでの前提知識としてまとめました。
