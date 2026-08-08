@@ -259,7 +259,8 @@ def build_sitemap():
 
     for name in TARGET_PAGES:
         if (ROOT / name).exists():
-            urls.append((f'{SITE_BASE_URL}/{name}', today))
+            path = '/' if name == 'index.html' else f'/{name}'
+            urls.append((f'{SITE_BASE_URL}{path}', today))
 
     posts = []
     if BLOG_POSTS_DIR.exists():
