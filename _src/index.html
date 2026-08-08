@@ -3,13 +3,69 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ops Octopus | AIブランド調査レポート - AEO・GEO・LLMO対策の現状把握に</title>
-  <meta name="description" content="ChatGPT・Gemini・ClaudeのAI検索であなたのブランドがどう推薦されているか調査するレポートサービス。AEO・GEO・LLMO対策の現状把握に。買い切り¥300から。">
+  <title>Ops Octopus | ChatGPT・Gemini・Claudeのブランド回答を3AI横断調査</title>
+  <meta name="description" content="ChatGPT・Gemini・Claudeは、あなたのブランドをどう説明する？同じ質問への3AIの回答、共通点・差分・改善の論点を約2分でレポート化。Quick Scanは会員登録不要・買い切り300円。">
   <link rel="canonical" href="https://app.ops-octopus.com/">
-  <meta property="og:title" content="Ops Octopus | AIブランド調査レポート">
-  <meta property="og:description" content="ChatGPT・Gemini・ClaudeのAI検索であなたのブランドがどう推薦されているか調査するレポートサービス。AEO・GEO・LLMO対策の現状把握に。買い切り¥300から。">
+  <meta property="og:title" content="3つのAIは、あなたのブランドをどう説明する？ | Ops Octopus">
+  <meta property="og:description" content="同じ質問へのChatGPT・Gemini・Claudeの回答を横断比較。Quick Scanなら約2分、買い切り300円。">
   <meta property="og:url" content="https://app.ops-octopus.com/">
   <meta property="og:type" content="website">
+  <meta property="og:image" content="https://app.ops-octopus.com/assets/images/sample-result-full.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Ops Octopus Quick Scan",
+    "serviceType": "AIブランド調査レポート",
+    "description": "ChatGPT・Gemini・Claudeに同じ質問を行い、回答の共通点・差分・改善の論点を整理する買い切り型のAIブランド調査サービスです。",
+    "url": "https://app.ops-octopus.com/",
+    "provider": {
+      "@type": "Organization",
+      "name": "Ops Octopus"
+    },
+    "areaServed": "JP",
+    "offers": {
+      "@type": "Offer",
+      "price": "300",
+      "priceCurrency": "JPY",
+      "availability": "https://schema.org/InStock",
+      "url": "https://buy.stripe.com/6oU14ndhZcAR4XR1EKcwg00"
+    }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "自分で3つのAIに質問するのと何が違いますか？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "ご自身で同じ調査を行うことも可能です。Ops Octopusは、同じ質問を3AIへ送り、回答を横並びにし、共通点・差分・想定ユーザー・改善の論点をひとつのレポートに整理する手間を300円で代行します。"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Quick Scanの結果はどこまで信頼できますか？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Quick ScanはChatGPT・Gemini・Claudeへ各1回質問する、その時点のスナップショットです。AIの回答は変動するため、統計的な傾向ではなく最初の現状確認としてご利用ください。複数回の傾向把握はDeep Scanで提供予定です。"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "会員登録や月額契約は必要ですか？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "不要です。Quick Scanは1回300円の買い切りで、購入コードをメールで受け取って利用します。"
+        }
+      }
+    ]
+  }
+  </script>
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-DNTX6D35RB"></script>
   <script>
@@ -19,857 +75,427 @@
     gtag('config', 'G-DNTX6D35RB');
   </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@500;600;700&family=Noto+Sans+JP:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
   <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    :root {
-      --navy-950: #061426;
-      --navy-900: #081b33;
-      --navy-800: #102a4a;
-      --blue-gray-50: #f4f7fb;
-      --blue-gray-100: #eaf0f7;
-      --off-white: #fbfaf6;
-      --white: #ffffff;
-      --amber-400: #fbbf24;
-      --amber-500: #f59e0b;
-      --text-dark: #132033;
-      --text-muted: #5f6f85;
-      --border: #dce4ef;
-    }
-
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
     body {
-      font-family: 'Inter', 'Noto Sans JP', "Hiragino Sans", "Hiragino Kaku Gothic ProN",
-        Arial, Meiryo, sans-serif;
-      font-size: 1rem;
-      line-height: 1.7;
-      color: var(--text-dark);
-      background: var(--white);
+      margin: 0;
+      font-family: 'DM Sans', 'Noto Sans JP', 'Hiragino Sans', Meiryo, sans-serif;
+      color: #16243a;
+      background: #fbfaf6;
+      line-height: 1.75;
+      -webkit-font-smoothing: antialiased;
+    }
+    img, video { max-width: 100%; }
+    a { color: inherit; }
+    button, a { -webkit-tap-highlight-color: transparent; }
+    :root {
+      --ink: #081b33;
+      --ink-2: #102a4a;
+      --paper: #fbfaf6;
+      --white: #fff;
+      --amber: #fbbf24;
+      --amber-deep: #f59e0b;
+      --blue: #2b6cb0;
+      --muted: #627187;
+      --line: #dce4ef;
+      --mist: #eef3f8;
+      --green: #0f8a65;
+      --shadow: 0 24px 70px rgba(6, 20, 38, .14);
+    }
+    .container { width: min(1120px, calc(100% - 40px)); margin: 0 auto; }
+    .section { padding: 104px 0; }
+    .section--white { background: var(--white); }
+    .section--mist { background: var(--mist); }
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      margin: 0 0 18px;
+      color: #a56600;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+    }
+    .eyebrow::before { content: ''; width: 26px; height: 3px; background: var(--amber); }
+    .section-title {
+      margin: 0;
+      color: var(--ink);
+      font-size: clamp(30px, 4.3vw, 50px);
+      line-height: 1.35;
+      letter-spacing: -.025em;
+      font-weight: 800;
+    }
+    .section-lead {
+      max-width: 720px;
+      margin: 22px 0 0;
+      color: var(--muted);
+      font-size: 17px;
     }
 
-    /* Global typography */
-    h3 { font-size: 1.4rem; font-weight: 600; }
-    p  { font-size: 1.05rem; line-height: 1.8; }
-    li { font-size: 1.05rem; line-height: 1.8; }
-
-    /* ─── Header ─── */
+    /* Header */
     .header {
-      background: #0d2340;
-      height: auto;
-      padding: 1.5rem 24px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      min-height: 76px;
+      padding: 10px max(24px, calc((100vw - 1180px) / 2));
       display: flex;
       align-items: center;
       justify-content: space-between;
-      position: sticky;
-      top: 0;
-      z-index: 200;
-    }
-    .nav-logo {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      text-decoration: none;
-    }
-    .nav-logo-img {
-      height: 56px;
-      width: auto;
-      display: block;
-    }
-    .nav-logo-text {
-      flex-direction: column;
-      gap: 2px;
-    }
-    .nav-logo-name {
-      font-size: 17px;
-      font-weight: 700;
-      color: var(--off-white);
-      letter-spacing: 0.02em;
-      white-space: nowrap;
-    }
-    .nav-logo-sub {
-      font-size: 11px;
-      color: rgba(251,250,246,0.55);
-      white-space: nowrap;
-    }
-    .header-nav {
-      display: flex;
-      align-items: center;
       gap: 24px;
+      background: rgba(8, 27, 51, .96);
+      border-bottom: 1px solid rgba(255,255,255,.09);
+      backdrop-filter: blur(14px);
     }
-    .header-nav a {
-      font-size: 14px;
-      color: rgba(251,250,246,0.75);
-      text-decoration: none;
-      transition: color 0.15s;
-      white-space: nowrap;
-    }
-    .header-nav a:hover { color: var(--off-white); }
+    .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; flex: 0 0 auto; }
+    .nav-logo-img { width: auto; height: 52px; display: block; }
+    .nav-logo-text { flex-direction: column; line-height: 1.25; }
+    .nav-logo-name { color: #fff; font-size: 17px; font-weight: 800; }
+    .nav-logo-sub { color: rgba(255,255,255,.58); font-size: 10px; }
+    .header-nav { display: flex; align-items: center; justify-content: flex-end; gap: 22px; }
+    .header-nav a { color: rgba(255,255,255,.74); font-size: 13px; font-weight: 600; text-decoration: none; white-space: nowrap; }
+    .header-nav a:hover { color: #fff; }
     .btn-nav-cta {
-      background: var(--amber-400);
-      color: var(--text-dark) !important;
-      font-size: 13px !important;
-      font-weight: 600 !important;
-      padding: 7px 14px;
-      border-radius: 6px;
-      transition: background 0.15s !important;
-      white-space: nowrap;
+      padding: 10px 15px;
+      color: var(--ink) !important;
+      background: var(--amber);
+      border-radius: 8px;
+      box-shadow: 0 8px 26px rgba(251,191,36,.18);
     }
-    .btn-nav-cta:hover { background: var(--amber-500) !important; }
-    .nav-cta-tax { font-size: 0.8em; }
-
+    .btn-nav-cta:hover { background: #ffd45b; }
+    .nav-cta-tax { font-size: .78em; }
     .nav-cta-short { display: none; }
 
-    @media (max-width: 768px) {
-      .header-tagline { display: none; }
-      .header-nav { gap: 14px; }
-      .header-nav .nav-link-hide { display: none; }
-      .nav-cta-full  { display: none; }
-      .nav-cta-short { display: inline; }
-    }
-    @media (max-width: 480px) {
-      .header-nav { gap: 10px; }
-    }
-
-    /* ─── ① Hero ─── */
+    /* Hero */
     .hero {
-      background: var(--navy-950);
-      padding: 3.5rem 24px 2rem;
-      min-height: auto;
-    }
-    .hero-inner {
-      max-width: 1100px;
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: 50fr 50fr;
-      gap: 56px;
-      align-items: center;
-    }
-    .hero-left { display: flex; flex-direction: column; gap: 24px; }
-
-    /* Badges */
-    .hero-badges {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-    .hero-badge {
-      font-size: 11px;
-      font-weight: 600;
-      color: var(--amber-400);
-      border: 1px solid var(--amber-400);
-      border-radius: 4px;
-      padding: 3px 10px;
-      letter-spacing: 0.03em;
-      white-space: nowrap;
-    }
-
-    /* Main copy */
-    .hero-catch {
-      font-size: clamp(1.6rem, 2.8vw, 2.4rem);
-      font-weight: 800;
-      color: var(--off-white);
-      line-height: 1.2;
-      letter-spacing: 0.02em;
-      font-feature-settings: "palt";
-    }
-
-    /* Sub copy */
-    .hero-sub-group {
-      display: flex;
-      flex-direction: column;
-      gap: 0.75rem;
-      margin-top: 1.5rem;
-    }
-    .hero-lead {
-      font-size: 0.95rem;
-      color: var(--amber-400);
-      font-weight: 500;
-      line-height: 1.7;
-    }
-    .hero-sub {
-      font-size: 1.1rem;
-      color: var(--off-white);
-      opacity: 0.85;
-      line-height: 1.85;
-    }
-
-    /* CTA buttons */
-    .hero-cta {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-    }
-    .btn-primary {
-      background: var(--amber-400);
-      color: var(--text-dark);
-      font-size: 1.1rem;
-      font-weight: 600;
-      padding: 1rem 2rem;
-      border-radius: 6px;
-      text-decoration: none;
-      border: none;
-      cursor: pointer;
-      transition: background 0.15s;
-      display: inline-block;
-      font-family: inherit;
-      white-space: nowrap;
-    }
-    .btn-primary:hover { background: var(--amber-500); }
-
-    .btn-outline {
-      background: transparent;
-      color: var(--off-white);
-      font-size: 1rem;
-      font-weight: 500;
-      padding: 1rem 2rem;
-      border-radius: 6px;
-      border: 1px solid var(--off-white);
-      text-decoration: none;
-      cursor: pointer;
-      transition: border-color 0.15s, color 0.15s;
-      display: inline-block;
-      font-family: inherit;
-      white-space: nowrap;
-    }
-    .btn-outline:hover {
-      border-color: var(--off-white);
-      color: var(--off-white);
-    }
-
-    /* Hero right: mockup card */
-    .hero-right {
-      display: flex;
-      justify-content: center;
-    }
-    .hero-media-wrapper {
       position: relative;
-      width: 100%;
-      aspect-ratio: 863 / 865;
-      border-radius: 12px;
       overflow: hidden;
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
-      border: 1px solid rgba(255, 255, 255, 0.35);
+      color: #fff;
+      background:
+        radial-gradient(circle at 82% 10%, rgba(43,108,176,.28), transparent 36%),
+        radial-gradient(circle at 12% 85%, rgba(251,191,36,.10), transparent 28%),
+        var(--ink);
+      padding: 86px 0 82px;
     }
-    .hero-media-image {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-    }
-    .hero-media-video {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-    }
-    .hero-mockup {
-      background: var(--white);
-      border-radius: 12px;
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
-      overflow: hidden;
-      width: 100%;
-      max-width: 380px;
-      position: relative;
-    }
-    .hero-mockup img {
-      width: 100%;
-      display: block;
-    }
-    .hero-mockup-badge {
-      position: absolute;
-      top: 10px;
-      right: 10px;
-      background: var(--amber-400);
-      color: var(--text-dark);
-      font-size: 11px;
-      font-weight: 700;
-      padding: 3px 10px;
-      border-radius: 4px;
-      z-index: 1;
-    }
-
-    /* Hero responsive */
-    @media (max-width: 900px) {
-      .hero-catch { font-size: 32px; }
-    }
-    @media (max-width: 768px) {
-      .hero-inner {
-        grid-template-columns: 1fr;
-        gap: 32px;
-      }
-      .hero { padding: 2.5rem 24px 2rem; }
-      .hero-left  { order: 1; }
-      .hero-right { order: 2; }
-      .hero-catch { font-size: 28px; line-height: 1.35; }
-      .hero-mockup { max-width: 100%; }
-    }
-    @media (max-width: 480px) {
-      .hero-catch { font-size: 24px; }
-      .hero-cta { flex-direction: column; }
-      .btn-primary, .btn-outline { text-align: center; }
-    }
-
-    /* ─── ② About ─── */
-    .about {
-      background: var(--off-white);
-      padding: 80px 24px;
-    }
-    .about-inner {
-      max-width: 1100px;
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: 35fr 65fr;
-      gap: 56px;
-      align-items: start;
-    }
-    .about-section-left {
-      display: flex;
-      flex-direction: column;
-    }
-    .about-heading {
-      font-size: clamp(1.5rem, 2.4vw, 2rem);
-      font-weight: 700;
-      color: var(--text-dark);
-      letter-spacing: 0.04em;
-      font-feature-settings: "palt";
-      text-align: left;
-      margin-bottom: 14px;
-      line-height: 1.45;
-    }
-    .about-section-sub {
-      font-size: 1rem;
-      color: var(--text-muted);
-      line-height: 1.75;
-    }
-    .about-octopus-bottom {
-      width: 100px;
-      opacity: 0.9;
-      margin-top: 2rem;
-      display: block;
-    }
-    .about-section-right {
-      display: flex;
-      flex-direction: column;
-    }
-    .about-bubbles {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-    .bubble {
-      position: relative;
-      background: var(--white);
-      border-radius: 16px;
-      box-shadow: 0 2px 12px rgba(0,0,0,0.08);
-      padding: 1rem 1.5rem;
-      font-size: 1rem;
-      color: var(--text-dark);
-      line-height: 1.7;
-      margin-left: 14px;
-    }
-    .bubble::before {
+    .hero::before {
       content: '';
       position: absolute;
-      left: -10px;
-      top: 50%;
-      transform: translateY(-50%);
-      border-width: 7px 10px 7px 0;
-      border-style: solid;
-      border-color: transparent var(--white) transparent transparent;
+      inset: 0;
+      opacity: .2;
+      background-image: linear-gradient(rgba(255,255,255,.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.05) 1px, transparent 1px);
+      background-size: 48px 48px;
+      mask-image: linear-gradient(to bottom, #000, transparent 85%);
     }
-    .about-bubbles .bubble:nth-child(even) { margin-top: 0.75rem; }
-    .about-closing {
-      display: flex;
-      align-items: center;
-      justify-content: flex-end;
-      gap: 16px;
-      margin-top: 24px;
-    }
-    .bubble--closing {
-      margin-left: 0;
-      font-weight: 600;
-      color: var(--text-dark);
-      background: var(--amber-400);
-      box-shadow: 0 2px 12px rgba(251,191,36,0.25);
-    }
-    .bubble--closing::before {
-      left: auto;
-      right: -10px;
-      border-width: 7px 0 7px 10px;
-      border-color: transparent transparent transparent var(--amber-400);
-    }
-    .about-octopus-sm {
-      width: 64px;
-      height: 64px;
-      object-fit: contain;
-      flex-shrink: 0;
-    }
-    .about-octopus-fallback { font-size: 48px; line-height: 1; }
-
-    /* ─── 共通セクションレイアウト ─── */
-    .section-header {
-      text-align: left;
-      margin-bottom: 2.5rem;
-      max-width: 1100px;
-      margin-left: auto;
-      margin-right: auto;
-      padding: 0 1.5rem;
+    .hero-inner {
       position: relative;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(420px, .92fr);
+      gap: 68px;
+      align-items: center;
     }
-    .section-header h2 {
-      font-size: clamp(1.6rem, 2.5vw, 2.2rem);
-      font-weight: 700;
-      color: var(--text-dark);
-      letter-spacing: 0.04em;
-      font-feature-settings: "palt";
-      line-height: 1.4;
-      margin-bottom: 10px;
-    }
-    .section-header p {
-      font-size: 1rem;
-      color: var(--text-muted);
-      line-height: 1.75;
-    }
-    .section-content {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 0 1.5rem;
-    }
-    .samples-link {
+    .hero-kicker {
       display: inline-flex;
       align-items: center;
-      gap: 6px;
-      margin-top: 1.25rem;
-      padding: 11px 24px;
-      background: var(--amber-400);
-      color: var(--text-dark);
-      font-size: 0.95rem;
-      font-weight: 700;
-      text-decoration: none;
-      border-radius: 8px;
-      transition: background 0.15s, box-shadow 0.15s;
-      box-shadow: 0 2px 8px rgba(251,191,36,0.25);
-    }
-    .samples-link:hover {
-      background: var(--amber-500);
-      box-shadow: 0 4px 14px rgba(251,191,36,0.35);
-      text-decoration: none;
-    }
-
-    /* ─── ⑥ Appeal card typography ─── */
-    .appeal-card-icon { font-size: 3rem !important; color: var(--amber-500); flex-shrink: 0; }
-    .appeal-card-title { font-size: 1.3rem; font-weight: 700; color: var(--text-dark); }
-    .appeal-card-desc  { font-size: 1rem; color: var(--text-muted); line-height: 1.85; }
-
- 
-    /* ─── ③ Samples ─── */
-    .samples { background: var(--white); padding: 80px 0; }
-    .samples-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 20px;
-    }
-    .sample-slide {
-      background: var(--white);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      box-shadow: 0 2px 12px rgba(0,0,0,0.07);
-      overflow: hidden;
-      max-width: 360px;
-    }
-    .sample-slide img { width: 100%; display: block; }
-    .sample-caption {
-      font-size: 13px;
-      color: var(--text-muted);
-      padding: 10px 16px;
-      text-align: center;
-    }
-
-    /* ─── ④ Service ─── */
-    .service { background: var(--blue-gray-50); padding: 80px 0; }
-    .ai-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
-    .ai-card { background: var(--white); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; }
-    .ai-card-header { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
-    .ai-card-icon { font-size: 2.5rem !important; flex-shrink: 0; }
-    .ai-card-name { font-size: 1.1rem; font-weight: 600; color: var(--text-dark); }
-    .ai-card-desc { font-size: 1rem; color: var(--text-muted); line-height: 1.75; }
-    .service-emphasis-block { font-size: 1.3rem; font-weight: 700; text-align: left; color: var(--text-dark); margin-top: 2rem; padding-top: 2rem; border-top: 1px solid var(--border); line-height: 1.65; }
-
-    /* ─── ⑤ Value ─── */
-    .value {
-      background: var(--white);
-      padding: 80px 24px;
-    }
-    .value-inner {
-      max-width: 1100px;
-      margin: 0 auto;
-    }
-    .value-heading {
-      font-size: clamp(1.8rem, 3vw, 2.6rem);
-      font-weight: 700;
-      color: var(--text-dark);
-      letter-spacing: 0.04em;
-      font-feature-settings: "palt";
-      text-align: left;
-      line-height: 1.55;
-      margin-bottom: 12px;
-    }
-    .value-sub {
-      font-size: 1.1rem;
-      color: var(--text-muted);
-      text-align: left;
-      margin-bottom: 48px;
-    }
-    .value-cards {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 16px;
-    }
-    .value-card {
-      background: var(--white);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 2rem 1.5rem;
-      box-shadow: 0 1px 4px rgba(0,0,0,0.06);
-    }
-    .value-card-icon {
-      font-size: 3rem !important;
-      color: var(--amber-500);
-      margin-bottom: 12px;
-      display: block;
-    }
-    .value-card-text {
-      font-size: 1.1rem;
-      color: var(--text-dark);
-      line-height: 1.75;
-      font-weight: 600;
-    }
-
-    /* ─── ⑥ Appeal ─── */
-    .appeal { background: var(--blue-gray-50); padding: 80px 0; }
-    .about-octopus-pair { margin-top: 1.5rem; display: flex; flex-direction: column; }
-    .about-octopus-row { display: flex; align-items: center; gap: 12px; }
-    .about-octopus-spacer { margin: 1.5rem 0; }
-    .octopus-speech {
-      background: var(--white);
-      border-radius: 12px;
-      padding: 8px 12px;
-      font-size: 0.85rem;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-      color: var(--text-dark);
-      line-height: 1.5;
-    }
-    .octopus-speech--amber { border: 1px solid var(--amber-400); }
-    .appeal-cards { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
-    .appeal-card { background: var(--white); border: 1px solid var(--border); border-radius: 12px; padding: 28px 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
-    .appeal-card-header { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
-
-    /* ─── ⑦ Plans ─── */
-    .plans { background: var(--white); padding: 80px 0; }
-    .plan-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; align-items: start; }
-    .plan-card {
-      background: var(--white);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 28px 24px;
-      box-shadow: 0 1px 4px rgba(0,0,0,0.06);
-      position: relative;
-    }
-    .plan-card--featured {
-      border: 2px solid var(--amber-400);
-      box-shadow: 0 4px 16px rgba(251,191,36,0.15);
-    }
-    .plan-badge {
-      display: inline-block;
-      font-size: 11px;
-      font-weight: 700;
-      padding: 2px 10px;
-      border-radius: 20px;
-      background: var(--blue-gray-100);
-      color: var(--text-muted);
-      margin-bottom: 12px;
-      letter-spacing: 0.04em;
-    }
-    .plan-badge--featured {
-      background: var(--amber-400);
-      color: var(--text-dark);
-    }
-    .plan-name {
-      font-size: 18px;
-      font-weight: 700;
-      color: var(--text-dark);
-      margin-bottom: 6px;
-    }
-    .plan-price {
-      font-size: 36px;
-      font-weight: 700;
-      color: var(--text-dark);
-      letter-spacing: -0.02em;
-      line-height: 1.1;
-    }
-    .plan-price-unit {
-      font-size: 14px;
-      font-weight: 400;
-      color: var(--text-muted);
-      margin-left: 2px;
-    }
-    .plan-desc {
-      font-size: 13px;
-      color: var(--text-muted);
-      line-height: 1.7;
-      margin: 12px 0 20px;
-    }
-    .plan-features {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
       gap: 8px;
-      margin-bottom: 24px;
-    }
-    .plan-features li {
+      margin-bottom: 22px;
+      color: var(--amber);
       font-size: 13px;
-      color: var(--text-dark);
-      display: flex;
-      align-items: flex-start;
-      gap: 6px;
-      line-height: 1.6;
+      font-weight: 800;
+      letter-spacing: .07em;
     }
-    .plan-features li .material-icons {
-      font-size: 16px !important;
-      color: var(--amber-500);
-      flex-shrink: 0;
-      margin-top: 2px;
+    .hero-kicker .material-icons-round { font-size: 18px; }
+    .hero h1 {
+      margin: 0;
+      font-size: clamp(38px, 5.1vw, 66px);
+      line-height: 1.22;
+      letter-spacing: -.04em;
+      font-weight: 800;
     }
-    .plan-cta {
-      display: block;
-      width: 100%;
-      padding: 13px 0;
-      border-radius: 8px;
-      font-size: 15px;
-      font-weight: 600;
-      text-align: center;
-      cursor: pointer;
-      font-family: inherit;
-      border: none;
-      text-decoration: none;
-      transition: opacity 0.15s;
+    .hero h1 em { color: var(--amber); font-style: normal; }
+    .hero-copy {
+      max-width: 630px;
+      margin: 28px 0 0;
+      color: rgba(255,255,255,.76);
+      font-size: 17px;
+      line-height: 1.9;
     }
-    .plan-cta--primary {
-      background: var(--amber-400);
-      color: var(--text-dark);
-    }
-    .plan-cta--primary:hover { opacity: 0.88; }
-    .plan-cta--disabled {
-      background: var(--blue-gray-100);
-      color: var(--text-muted);
-      cursor: not-allowed;
-    }
-    .plan-notify {
-      display: block;
-      text-align: center;
-      font-size: 12px;
-      color: var(--text-muted);
-      margin-top: 10px;
-      text-decoration: none;
-    }
-    .plan-notify:hover { text-decoration: underline; }
-
-    /* ─── ⑧ Steps ─── */
-    .steps {
-      background: #0d2340;
-      padding: 80px 0;
-      position: relative;
-      overflow: hidden;
-    }
-    .steps .section-header h2 { color: #fbfaf6; }
-    .steps .section-header p  { color: rgba(251,250,246,0.7); }
-    .steps-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 16px;
-    }
-    .step-item {
-      background: var(--white);
-      border-radius: 12px;
-      padding: 2rem;
-      text-align: center;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-    .step-icon-wrap {
-      width: 72px;
-      height: 72px;
-      flex-shrink: 0;
-      border-radius: 50%;
-      background: var(--blue-gray-50);
-      border: 2px solid var(--amber-400);
-      display: flex;
+    .hero-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 13px; margin-top: 34px; }
+    .button {
+      display: inline-flex;
       align-items: center;
       justify-content: center;
-      margin-bottom: 16px;
-    }
-    .step-icon-wrap .material-icons { font-size: 3rem !important; color: var(--amber-500); }
-    .step-num {
-      font-size: 1.5rem;
-      font-weight: 700;
-      color: var(--amber-400);
-      letter-spacing: 0.04em;
-      margin-bottom: 8px;
-    }
-    .step-title {
-      font-size: 1.2rem;
-      font-weight: 600;
-      color: var(--text-dark);
-      margin-bottom: 6px;
-      line-height: 1.45;
-    }
-    .step-sub {
-      font-size: 1rem;
-      color: var(--text-muted);
-      line-height: 1.6;
-    }
-
-    /* ─── ⑨ FAQ ─── */
-    .faq { background: var(--white); padding: 80px 0; }
-    .faq .section-content { max-width: 800px; }
-    .faq-list {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-    .faq-item {
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      overflow: hidden;
-    }
-    .faq-item summary {
-      display: flex;
-      align-items: flex-start;
-      gap: 10px;
-      padding: 16px 20px;
-      cursor: pointer;
-      font-size: 1.05rem;
-      font-weight: 600;
-      color: var(--text-dark);
-      line-height: 1.6;
-      list-style: none;
-      background: var(--blue-gray-50);
-      user-select: none;
-    }
-    .faq-item summary::-webkit-details-marker { display: none; }
-    .faq-item summary::after {
-      content: "＋";
-      margin-left: auto;
-      flex-shrink: 0;
-      font-size: 18px;
-      color: var(--text-muted);
-      line-height: 1;
-      margin-top: 1px;
-    }
-    .faq-item[open] summary::after { content: "－"; }
-    .faq-item summary .faq-q-mark {
-      color: var(--amber-500);
-      font-weight: 700;
-      flex-shrink: 0;
-    }
-    .faq-answer {
-      padding: 14px 20px 16px;
-      font-size: 1.05rem;
-      font-weight: 500;
-      color: var(--text-muted);
-      line-height: 1.8;
-      border-top: 1px solid var(--border);
-    }
-    .faq-answer a { color: #1B6CA8; }
-    .faq-answer a:hover { text-decoration: underline; }
-    .faq-disclaimer {
-      margin-top: 32px;
-      font-size: 12px;
-      color: var(--text-muted);
-      line-height: 1.8;
-      padding: 16px 20px;
-      background: var(--blue-gray-50);
-      border-radius: 8px;
-      border: 1px solid var(--border);
-    }
-
-    /* ─── ⑩ Footer ─── */
-    .footer {
-      background: var(--navy-900);
-      padding: 2rem 1.5rem;
-    }
-    .footer-inner {
-      max-width: 1100px;
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: 1fr auto 1fr;
-      align-items: center;
-      gap: 24px;
-    }
-    .footer-brand-name {
-      font-size: 16px;
-      font-weight: 600;
-      color: var(--off-white);
-      margin-bottom: 4px;
-    }
-    .footer-brand-sub {
-      font-size: 12px;
-      color: rgba(251,250,246,0.5);
-      line-height: 1.5;
-    }
-    .footer-brand-tagline {
-      font-style: italic;
-    }
-    .footer-links {
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      gap: 2rem;
-    }
-    .footer-link {
-      font-size: 13px;
-      color: var(--off-white);
+      gap: 7px;
+      min-height: 54px;
+      padding: 0 22px;
+      border-radius: 9px;
+      font-size: 15px;
+      font-weight: 800;
       text-decoration: none;
-      opacity: 0.8;
-      transition: opacity 0.15s;
+      transition: transform .18s ease, box-shadow .18s ease, background .18s ease;
     }
-    .footer-link:hover { opacity: 1; }
-    .footer-copy {
+    .button:hover { transform: translateY(-2px); }
+    .button--primary { color: var(--ink); background: var(--amber); box-shadow: 0 14px 30px rgba(251,191,36,.18); }
+    .button--primary:hover { background: #ffd45b; box-shadow: 0 18px 36px rgba(251,191,36,.24); }
+    .button--ghost { color: #fff; border: 1px solid rgba(255,255,255,.26); background: rgba(255,255,255,.05); }
+    .button--ghost:hover { background: rgba(255,255,255,.11); }
+    .button--dark { color: #fff; background: var(--ink); }
+    .button--dark:hover { background: var(--ink-2); box-shadow: 0 16px 34px rgba(8,27,51,.18); }
+    .hero-assurances { display: flex; flex-wrap: wrap; gap: 14px 20px; margin-top: 20px; }
+    .hero-assurance { display: flex; align-items: center; gap: 6px; color: rgba(255,255,255,.60); font-size: 12px; }
+    .hero-assurance .material-icons-round { color: var(--amber); font-size: 16px; }
+    .product-window {
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,.2);
+      border-radius: 16px;
+      background: #fff;
+      box-shadow: 0 34px 90px rgba(0,0,0,.34);
+      transform: rotate(1.1deg);
+    }
+    .product-window-bar { height: 38px; display: flex; align-items: center; gap: 6px; padding: 0 14px; background: #edf2f7; border-bottom: 1px solid #d9e1eb; }
+    .product-window-bar span { width: 8px; height: 8px; border-radius: 50%; background: #c4cfdb; }
+    .product-window video { display: block; width: 100%; background: #fff; }
+    .product-stamp {
+      position: absolute;
+      right: -18px;
+      bottom: -22px;
+      z-index: 2;
+      width: 132px;
+      filter: drop-shadow(0 16px 20px rgba(0,0,0,.24));
+      transform: rotate(-6deg);
+    }
+    .hero-price-tag {
+      position: absolute;
+      left: -26px;
+      bottom: 30px;
+      z-index: 3;
+      padding: 10px 15px;
+      color: var(--ink);
+      background: var(--amber);
+      border: 3px solid var(--ink);
+      box-shadow: 6px 6px 0 var(--ink-2);
       font-size: 12px;
-      color: rgba(251,250,246,0.4);
-      text-align: right;
+      font-weight: 800;
+      transform: rotate(-3deg);
     }
 
-    @media (max-width: 768px) {
-      .samples { padding: 56px 0; }
-      .service  { padding: 56px 0; }
-      .value    { padding: 56px 16px; }
-      .appeal   { padding: 56px 0; }
-      .plans    { padding: 56px 0; }
-      .steps    { padding: 56px 0; }
-      .faq      { padding: 56px 0; }
-      .value-heading    { font-size: 20px; }
-      .about-inner   { grid-template-columns: 1fr; }
-      .samples-grid  { grid-template-columns: 1fr; }
-      .steps-grid    { grid-template-columns: 1fr; }
-      .ai-cards      { grid-template-columns: 1fr; }
-      .value-cards   { grid-template-columns: repeat(2, 1fr); }
-      .appeal-cards  { grid-template-columns: 1fr; }
-      .plan-cards    { grid-template-columns: 1fr; }
-      .plan-card--featured { order: -1; }
-      .footer-inner {
-        grid-template-columns: 1fr;
-        text-align: center;
-      }
+    /* Signal strip */
+    .signal-strip { background: #fff; border-bottom: 1px solid var(--line); }
+    .signal-grid { display: grid; grid-template-columns: repeat(4, 1fr); }
+    .signal { padding: 26px 28px; border-left: 1px solid var(--line); }
+    .signal:last-child { border-right: 1px solid var(--line); }
+    .signal-value { margin: 0; color: var(--ink); font-size: 24px; font-weight: 800; line-height: 1.2; }
+    .signal-label { margin: 7px 0 0; color: var(--muted); font-size: 12px; }
+
+    /* Report proof */
+    .report-layout { display: grid; grid-template-columns: 1.08fr .92fr; gap: 72px; align-items: center; margin-top: 56px; }
+    .report-image-wrap {
+      position: relative;
+      padding: 16px;
+      background: #e7edf4;
+      border: 1px solid #d4dde8;
+      border-radius: 18px;
+      box-shadow: var(--shadow);
+    }
+    .report-image-wrap img { display: block; width: 100%; border-radius: 8px; }
+    .report-image-note { margin: 12px 2px 0; color: #6a788b; font-size: 11px; }
+    .deliverables { display: grid; gap: 12px; }
+    .deliverable {
+      display: grid;
+      grid-template-columns: 42px 1fr;
+      gap: 14px;
+      padding: 19px;
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+    }
+    .deliverable-icon { width: 42px; height: 42px; display: grid; place-items: center; color: var(--ink); background: #fff5cd; border-radius: 9px; }
+    .deliverable-icon .material-icons-round { font-size: 21px; }
+    .deliverable h3 { margin: 0 0 4px; color: var(--ink); font-size: 16px; }
+    .deliverable p { margin: 0; color: var(--muted); font-size: 13px; line-height: 1.7; }
+    .inline-link { display: inline-flex; align-items: center; gap: 5px; margin-top: 18px; color: var(--blue); font-size: 14px; font-weight: 800; text-decoration: none; }
+    .inline-link:hover { text-decoration: underline; }
+
+    /* Honest objection */
+    .honest-box {
+      position: relative;
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: 1.05fr .95fr;
+      gap: 56px;
+      align-items: center;
+      padding: 64px;
+      color: #fff;
+      background: var(--ink);
+      border-radius: 22px;
+      box-shadow: var(--shadow);
+    }
+    .honest-box::after { content: '“'; position: absolute; right: 28px; top: -70px; color: rgba(255,255,255,.055); font-size: 260px; font-family: Georgia, serif; }
+    .honest-box h2 { position: relative; margin: 0; font-size: clamp(30px, 4.4vw, 48px); line-height: 1.4; letter-spacing: -.03em; }
+    .honest-box h2 span { color: var(--amber); }
+    .honest-answer { position: relative; padding-left: 26px; border-left: 3px solid var(--amber); }
+    .honest-answer strong { display: block; margin-bottom: 10px; color: var(--amber); font-size: 19px; }
+    .honest-answer p { margin: 0; color: rgba(255,255,255,.73); font-size: 15px; }
+
+    /* Quick Scan offer */
+    .offer-layout { display: grid; grid-template-columns: .92fr 1.08fr; gap: 66px; align-items: start; margin-top: 56px; }
+    .formula-card { padding: 34px; color: #fff; background: var(--ink); border-radius: 18px; box-shadow: var(--shadow); }
+    .formula-label { margin: 0 0 16px; color: var(--amber); font-size: 12px; font-weight: 800; letter-spacing: .12em; }
+    .formula { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+    .formula-part { text-align: center; }
+    .formula-num { display: block; font-size: 42px; line-height: 1; font-weight: 800; }
+    .formula-name { display: block; margin-top: 7px; color: rgba(255,255,255,.58); font-size: 11px; }
+    .formula-sign { color: var(--amber); font-size: 26px; font-weight: 800; }
+    .formula-note { margin: 24px 0 0; padding-top: 20px; border-top: 1px solid rgba(255,255,255,.13); color: rgba(255,255,255,.68); font-size: 13px; }
+    .offer-card { position: relative; padding: 40px; background: #fff; border: 2px solid var(--ink); border-radius: 18px; box-shadow: 9px 9px 0 #dbe3ed; }
+    .offer-badge { position: absolute; top: -15px; right: 24px; padding: 7px 12px; color: var(--ink); background: var(--amber); border-radius: 999px; font-size: 11px; font-weight: 800; }
+    .offer-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 20px; padding-bottom: 24px; border-bottom: 1px solid var(--line); }
+    .offer-name { margin: 0; color: var(--ink); font-size: 23px; font-weight: 800; }
+    .offer-sub { margin: 3px 0 0; color: var(--muted); font-size: 12px; }
+    .offer-price { margin: 0; color: var(--ink); font-size: 43px; line-height: 1; font-weight: 800; letter-spacing: -.04em; }
+    .offer-price small { font-size: 12px; letter-spacing: 0; }
+    .check-list { display: grid; gap: 11px; margin: 24px 0 28px; padding: 0; list-style: none; }
+    .check-list li { display: flex; gap: 9px; color: #38485d; font-size: 14px; }
+    .check-list .material-icons-round { color: var(--green); font-size: 19px; flex: 0 0 auto; margin-top: 2px; }
+    .offer-card .button { width: 100%; }
+    .offer-small { margin: 13px 0 0; color: var(--muted); font-size: 11px; text-align: center; }
+
+    /* Process */
+    .process-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 52px; }
+    .process-card { position: relative; padding: 28px; background: #fff; border: 1px solid var(--line); border-radius: 14px; }
+    .process-num { margin: 0 0 20px; color: #bd7900; font-size: 12px; font-weight: 800; letter-spacing: .12em; }
+    .process-card h3 { margin: 0 0 10px; color: var(--ink); font-size: 19px; }
+    .process-card p { margin: 0; color: var(--muted); font-size: 13px; }
+    .process-card:not(:last-child)::after { content: '→'; position: absolute; z-index: 2; top: 50%; right: -18px; width: 34px; height: 34px; display: grid; place-items: center; color: var(--ink); background: var(--amber); border-radius: 50%; font-weight: 800; transform: translateY(-50%); }
+
+    /* Samples */
+    .sample-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 50px; }
+    .sample-card { overflow: hidden; color: inherit; background: #fff; border: 1px solid var(--line); border-radius: 14px; text-decoration: none; transition: transform .18s ease, box-shadow .18s ease; }
+    .sample-card:hover { transform: translateY(-4px); box-shadow: 0 20px 42px rgba(8,27,51,.1); }
+    .sample-card-visual { height: 150px; padding: 22px; background: var(--ink); display: flex; flex-direction: column; justify-content: space-between; }
+    .sample-card-brand { color: #fff; font-size: 22px; font-weight: 800; }
+    .sample-card-query { color: rgba(255,255,255,.58); font-size: 11px; line-height: 1.6; }
+    .sample-card-body { padding: 22px; }
+    .sample-card-meta { margin: 0 0 7px; color: #a56600; font-size: 10px; font-weight: 800; letter-spacing: .09em; }
+    .sample-card h3 { margin: 0; color: var(--ink); font-size: 17px; }
+    .sample-card-more { display: block; margin-top: 16px; color: var(--blue); font-size: 12px; font-weight: 800; }
+
+    /* Deep */
+    .deep-panel {
+      display: grid;
+      grid-template-columns: 1fr .9fr;
+      gap: 58px;
+      align-items: center;
+      padding: 64px;
+      color: #fff;
+      background: linear-gradient(135deg, #102a4a, #071728 72%);
+      border-radius: 24px;
+      box-shadow: var(--shadow);
+    }
+    .deep-panel .eyebrow { color: var(--amber); }
+    .deep-panel h2 { margin: 0; font-size: clamp(31px, 4.4vw, 48px); line-height: 1.35; letter-spacing: -.03em; }
+    .deep-panel-copy { margin: 21px 0 0; color: rgba(255,255,255,.70); font-size: 15px; }
+    .deep-formula { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 28px; }
+    .deep-stat { padding: 17px 10px; text-align: center; background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.12); border-radius: 10px; }
+    .deep-stat strong { display: block; color: var(--amber); font-size: 26px; }
+    .deep-stat span { color: rgba(255,255,255,.56); font-size: 10px; }
+    .deep-list { display: grid; gap: 12px; padding: 0; margin: 0 0 28px; list-style: none; }
+    .deep-list li { display: flex; gap: 9px; color: rgba(255,255,255,.78); font-size: 14px; }
+    .deep-list .material-icons-round { color: var(--amber); font-size: 19px; }
+    .deep-panel .button--ghost { width: 100%; }
+    .deep-price { margin: 14px 0 0; color: rgba(255,255,255,.48); font-size: 11px; text-align: center; }
+
+    /* FAQ */
+    .faq-layout { display: grid; grid-template-columns: .62fr 1fr; gap: 72px; align-items: start; }
+    .faq-list { border-top: 1px solid var(--line); }
+    .faq-item { border-bottom: 1px solid var(--line); }
+    .faq-item summary { cursor: pointer; list-style: none; position: relative; padding: 22px 42px 22px 0; color: var(--ink); font-size: 15px; font-weight: 800; }
+    .faq-item summary::-webkit-details-marker { display: none; }
+    .faq-item summary::after { content: '+'; position: absolute; right: 4px; top: 20px; color: #a56600; font-size: 22px; font-weight: 500; }
+    .faq-item[open] summary::after { content: '−'; }
+    .faq-answer { padding: 0 34px 22px 0; color: var(--muted); font-size: 13px; line-height: 1.85; }
+
+    /* Final CTA */
+    .final-cta { padding: 92px 0; text-align: center; background: #fff1b9; }
+    .final-cta img { width: 108px; margin-bottom: 10px; }
+    .final-cta h2 { margin: 0; color: var(--ink); font-size: clamp(29px, 4vw, 46px); line-height: 1.4; letter-spacing: -.03em; }
+    .final-cta p { margin: 18px auto 28px; max-width: 650px; color: #536278; font-size: 15px; }
+    .final-actions { display: flex; justify-content: center; flex-wrap: wrap; gap: 12px; }
+    .final-cta .button--ghost { color: var(--ink); border-color: rgba(8,27,51,.25); background: rgba(255,255,255,.35); }
+    .final-cta .button--ghost:hover { background: rgba(255,255,255,.7); }
+
+    /* Footer */
+    .footer { padding: 40px 24px; color: #fff; background: var(--ink); }
+    .footer-inner { width: min(1120px, 100%); margin: 0 auto; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 28px; }
+    .footer-brand-name { margin: 0; font-size: 16px; font-weight: 800; }
+    .footer-brand-sub { margin: 3px 0 0; color: rgba(255,255,255,.5); font-size: 11px; }
+    .footer-brand-tagline { font-style: italic; }
+    .footer-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 18px; }
+    .footer-link { color: rgba(255,255,255,.68); font-size: 11px; text-decoration: none; }
+    .footer-link:hover { color: #fff; }
+    .footer-copy { margin: 0; color: rgba(255,255,255,.38); font-size: 10px; text-align: right; }
+
+    @media (max-width: 960px) {
+      .header-nav { gap: 13px; }
+      .header-nav .nav-link-hide:nth-of-type(4), .header-nav .nav-link-hide:nth-of-type(5) { display: none; }
+      .hero-inner, .report-layout, .offer-layout, .deep-panel, .faq-layout { grid-template-columns: 1fr; }
+      .hero-inner { gap: 56px; }
+      .hero-copy { max-width: 720px; }
+      .product-window { width: min(720px, 94%); margin: 0 auto; }
+      .report-layout, .offer-layout, .faq-layout { gap: 44px; }
+      .honest-box { grid-template-columns: 1fr; gap: 30px; padding: 48px; }
+      .deep-panel { gap: 38px; padding: 48px; }
+      .sample-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 700px) {
+      .container { width: min(100% - 30px, 1120px); }
+      .section { padding: 72px 0; }
+      .header { min-height: 66px; padding: 9px 15px; }
+      .nav-logo-img { height: 46px; }
+      .header-nav .nav-link-hide { display: none !important; }
+      .btn-nav-cta { padding: 9px 11px; font-size: 12px !important; }
+      .nav-cta-full { display: none; }
+      .nav-cta-short { display: inline; }
+      .hero { padding: 62px 0 58px; }
+      .hero-inner { grid-template-columns: minmax(0, 1fr); gap: 48px; }
+      .hero h1 { font-size: clamp(36px, 11vw, 50px); }
+      .hero-copy { font-size: 15px; }
+      .hero-actions { align-items: stretch; flex-direction: column; }
+      .hero-actions .button { width: 100%; }
+      .product-window { width: 96%; transform: none; }
+      .product-stamp { width: 92px; right: -8px; bottom: -18px; }
+      .hero-price-tag { left: -7px; bottom: 14px; }
+      .signal-grid { grid-template-columns: 1fr 1fr; }
+      .signal { padding: 20px 18px; }
+      .signal:nth-child(odd) { border-left: 1px solid var(--line); }
+      .signal:nth-child(-n+2) { border-bottom: 1px solid var(--line); }
+      .signal-value { font-size: 20px; }
+      .section-title { font-size: clamp(28px, 8.5vw, 38px); }
+      .section-lead { font-size: 15px; }
+      .report-layout { margin-top: 40px; }
+      .report-image-wrap { padding: 8px; border-radius: 13px; }
+      .honest-box { padding: 36px 25px; border-radius: 16px; }
+      .formula-card, .offer-card { padding: 27px 23px; }
+      .formula-num { font-size: 34px; }
+      .offer-head { align-items: flex-start; flex-direction: column; }
+      .process-grid, .sample-grid { grid-template-columns: 1fr; }
+      .process-card:not(:last-child)::after { top: auto; bottom: -17px; right: 24px; transform: rotate(90deg); }
+      .deep-panel { padding: 37px 25px; border-radius: 17px; }
+      .faq-layout { gap: 36px; }
+      .final-cta { padding: 70px 0; }
+      .final-actions { flex-direction: column; padding: 0 15px; }
+      .footer-inner { grid-template-columns: 1fr; text-align: center; }
       .footer-copy { text-align: center; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { transition: none !important; }
+      .product-window { transform: none; }
     }
   </style>
 </head>
@@ -877,415 +503,243 @@
 
 <!-- HEADER -->
 
-  <!-- ① ヒーロー -->
+<main>
   <section class="hero">
-    <div class="hero-inner">
-      <div class="hero-left">
-        <div class="hero-badges">
-          <span class="hero-badge">買い切り・サブスク不要</span>
-          <span class="hero-badge">営業なし・すぐ使える</span>
-          <span class="hero-badge">3AI横断調査</span>
+    <div class="container hero-inner">
+      <div>
+        <div class="hero-kicker"><span class="material-icons-round">radar</span>AI BRAND QUICK SCAN</div>
+        <h1>3つのAIは、<br>あなたのブランドを<br><em>どう説明する？</em></h1>
+        <p class="hero-copy">ChatGPT・Gemini・Claudeに、同じ質問を。回答の共通点・違い・想定ユーザー・改善の論点を、ひとつのレポートに整理します。Quick Scanなら、購入から結果確認まで約2分です。</p>
+        <div class="hero-actions">
+          <a class="button button--primary" href="https://buy.stripe.com/6oU14ndhZcAR4XR1EKcwg00" onclick="gtag('event', 'cta_click_hero_buy', { page: '/' })">¥300でQuick Scanを試す <span class="material-icons-round">arrow_forward</span></a>
+          <a class="button button--ghost" href="/samples.html" onclick="gtag('event', 'cta_click_hero_sample', { page: '/' })">実物のサンプルを見る</a>
         </div>
-        <h1 class="hero-catch">
-          AEO、気になる。<br><br>
-          でも、何から見ればいいか<br>分からない。
-        </h1>
-        <div class="hero-sub-group">
-          <p class="hero-lead">AEO / GEO / LLMO —— AI検索の最適化が<br>マーケティングの新しい課題になっています。</p>
-          <p class="hero-sub">
-            ChatGPT・Gemini・Claudeに同じ条件で問い合わせ、<br>
-            AI上でのブランドの推奨状況をレポート化します。<br>
-            商談も月額契約も要らない、¥300(税込)からの買い切りサービスです。<br>
-          </p>
-        </div>
-        <div class="hero-cta">
-          <a class="btn-primary" href="detail.html#cta" onclick="gtag('event', 'cta_click_hero', { page: 'index.html' })">Quick Scanを試す（¥300）→</a>
+        <div class="hero-assurances">
+          <span class="hero-assurance"><span class="material-icons-round">check_circle</span>1回買い切り</span>
+          <span class="hero-assurance"><span class="material-icons-round">check_circle</span>会員登録不要</span>
+          <span class="hero-assurance"><span class="material-icons-round">check_circle</span>営業連絡なし</span>
         </div>
       </div>
-      <div class="hero-right">
-        <div class="hero-media-wrapper">
-          <img
-            src="assets/images/sample-result-full.png"
-            alt="調査レポートのサンプル画面"
-            class="hero-media-image"
-            onerror="this.style.display='none'"
-          />
-          <video
-            class="hero-media-video"
-            autoplay
-            muted
-            loop
-            playsinline
-          >
-            <source src="assets/videos/report-animation.mp4" type="video/mp4">
+      <div style="position:relative;">
+        <div class="product-window">
+          <div class="product-window-bar"><span></span><span></span><span></span></div>
+          <video autoplay muted loop playsinline poster="/assets/images/sample-result-full.png" aria-label="Quick Scanレポートの画面イメージ">
+            <source src="/assets/videos/report-animation.mp4" type="video/mp4">
           </video>
         </div>
+        <div class="hero-price-tag">公開テスト価格 ¥300</div>
+        <img class="product-stamp" src="/assets/images/octopus-confident.png" alt="">
       </div>
     </div>
   </section>
 
-  <!-- ② 課題提起 -->
-  <section id="about" class="about">
-    <div class="about-inner">
-      <div class="about-section-left">
-        <h2 class="about-heading">こんな悩み、ありませんか？</h2>
-        <p class="about-section-sub">AEOが気になるマーケターの、よくある課題です。</p>
-        <div class="about-octopus-pair">
-          <div class="about-octopus-row">
-            <img src="assets/images/octopus-user-worry.png" alt="" style="width:120px;"
-              onerror="this.style.display='none'">
-            <div class="octopus-speech">...このモヤモヤ、あるある</div>
-          </div>
-          <div class="about-octopus-spacer"></div>
-        </div>
-      </div>
-      <div class="about-section-right">
-        <div class="about-bubbles">
-          <div class="bubble">サイトの訪問数やPVが下がってきた</div>
-          <div class="bubble">AEO / LLMO / AI検索が気になるけど、何から手をつけていいか分からない</div>
-          <div class="bubble">競合と比べてどうなのかが分からない</div>
-          <div class="bubble">手作業で聞いて、見比べて、まとめるのは正直しんどい</div>
-        </div>
-        <div class="about-closing">
-          <div class="bubble bubble--closing">そのモヤモヤ、Ops Octopusがまとめて代行します。</div>
-          <img src="assets/images/octopus-confident.png" alt="" style="width:120px;"
-              onerror="this.style.display='none'">
-          <span class="about-octopus-fallback" style="display:none;">??</span>
-        </div>
-      </div>
+  <div class="signal-strip" aria-label="Quick Scanの概要">
+    <div class="container signal-grid">
+      <div class="signal"><p class="signal-value">3 AI</p><p class="signal-label">ChatGPT・Gemini・Claude</p></div>
+      <div class="signal"><p class="signal-value">約2分</p><p class="signal-label">購入から結果確認までの目安</p></div>
+      <div class="signal"><p class="signal-value">¥300</p><p class="signal-label">税込・サブスクなし</p></div>
+      <div class="signal"><p class="signal-value">HTML</p><p class="signal-label">結果をそのまま保存可能</p></div>
     </div>
-  </section>
-  
-  <!-- ⑤ 価値提示 -->
-  <section class="value">
-    <div class="value-inner">
-      <h2 class="value-heading">AIが自社を正しく推奨しているなら、まずは安心。<br>そうでないなら、手を打つ。</h2>
-      <p class="value-sub">その現状把握が、最初の一歩です。</p>
-      <div class="value-cards">
-        <div class="value-card">
-          <span class="material-icons value-card-icon">search</span>
-          <p class="value-card-text">AI検索で自社がどう見えているかを知る</p>
+  </div>
+
+  <section id="report" class="section section--white">
+    <div class="container">
+      <p class="eyebrow">What you get</p>
+      <h2 class="section-title">3つの回答を、<br>「次に何を見るか」まで整理。</h2>
+      <p class="section-lead">回答を並べるだけでは、違いを読むのに時間がかかります。Ops Octopusは、同じ質問に対する3AIの回答から、共通して語られたこと、AIごとの差、改善につながる論点を読みやすくまとめます。</p>
+      <div class="report-layout">
+        <div class="report-image-wrap">
+          <img src="/assets/images/sample-result-insight.png" alt="Quick ScanのAIインサイト画面。3AIの共通見解、言及の差、想定ユーザー、改善のヒントを表示">
+          <p class="report-image-note">実際のQuick Scanレポート画面より。調査対象と質問によって内容は変わります。</p>
         </div>
-        <div class="value-card">
-          <span class="material-icons value-card-icon">compare_arrows</span>
-          <p class="value-card-text">競合と比べてどこにいるかを知る</p>
-        </div>
-        <div class="value-card">
-          <span class="material-icons value-card-icon">flag</span>
-          <p class="value-card-text">施策を始める前の現状把握に使う</p>
-        </div>
-        <div class="value-card">
-          <span class="material-icons value-card-icon">lightbulb</span>
-          <p class="value-card-text">サイト改善・SEO/AEO・営業資料・コンテンツ設計のヒントにできる</p>
+        <div>
+          <div class="deliverables">
+            <div class="deliverable">
+              <div class="deliverable-icon"><span class="material-icons-round">view_column</span></div>
+              <div><h3>3AIの回答比較</h3><p>同じ質問へのChatGPT・Gemini・Claudeの回答を横並びで確認できます。</p></div>
+            </div>
+            <div class="deliverable">
+              <div class="deliverable-icon"><span class="material-icons-round">difference</span></div>
+              <div><h3>共通見解と、回答の差</h3><p>どのAIも触れた強みと、AIごとに異なる評価・説明を切り分けます。</p></div>
+            </div>
+            <div class="deliverable">
+              <div class="deliverable-icon"><span class="material-icons-round">person_search</span></div>
+              <div><h3>想定されるユーザー像</h3><p>回答から、どんな利用者・検討文脈と結びついているかを整理します。</p></div>
+            </div>
+            <div class="deliverable">
+              <div class="deliverable-icon"><span class="material-icons-round">lightbulb</span></div>
+              <div><h3>AEO改善の論点</h3><p>Webサイトやコンテンツで、次に明確化したい情報のヒントを示します。</p></div>
+            </div>
+          </div>
+          <a class="inline-link" href="/samples.html">3社のサンプルレポートを見る <span class="material-icons-round">arrow_forward</span></a>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ③ 成果物サンプル -->
-  <section id="samples" class="samples">
-    <div class="section-header">
-      <h2>こんなレポートが見られます。</h2>
-      <p>AIの回答をただ並べるだけではなく、推奨度・競合比較・言及キーワード・改善アクションまで、判断材料として見やすく整理します。<br>※一部機能はDeep Scan以上で提供予定</p>
-      <a class="samples-link" href="samples.html" onclick="gtag('event', 'cta_click_samples', { page: 'index.html' })">サンプルレポートをもっと見る →</a>
-    </div>
-    <div class="section-content">
-      <div class="samples-grid">
-        <div class="sample-slide">
-          <img src="assets/images/sample-result1.png" alt="3AIの回答を横並び比較">
-          <p class="sample-caption">3AIの回答を横並び比較</p>
-        </div>
-        <div class="sample-slide">
-          <img src="assets/images/sample-result2.png" alt="サマリーと改善アクションを提案">
-          <p class="sample-caption">サマリーと改善アクションを提案</p>
-        </div>
-        <div class="sample-slide">
-          <img src="assets/images/sample-result3.png" alt="読みやすいHTMLファイルで保存">
-          <p class="sample-caption">読みやすいHTMLファイルで保存可能 ※QuickScanの場合</p>
+  <section id="about" class="section">
+    <div class="container">
+      <div class="honest-box">
+        <h2>「でも、3つのAIに<br><span>自分で聞けば無料</span>ですよね」</h2>
+        <div class="honest-answer">
+          <strong>その通りです。</strong>
+          <p>Quick Scanが300円で引き受けるのは、質問の条件を揃え、3つの回答を見比べ、共通点と差を読み、あとで見返せる形へ整える手間です。高価なダッシュボードはまだ要らない。でも一度、いまの見え方を確認したい。そんなときのための小さな調査です。</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ④ プロダクト説明 -->
-  <section id="service" class="service">
-    <div class="section-header">
-      <h2>3つのAIに聞いて、ブランドの見え方をレポート化します。</h2>
-      <p>Ops OctopusのAIブランド調査レポートは、ChatGPT・Gemini・Claudeの3つのAIに同じ条件で問い合わせ、その回答を自動で収集・整理してレポートとして提供します。AIによって回答の傾向が異なるため、3社を横断することで、より実態に近いブランドの見られ方を把握できます。</p>
-    </div>
-    <div class="section-content">
-      <div class="ai-cards">
-        <div class="ai-card">
-          <div class="ai-card-header">
-            <span class="material-icons ai-card-icon" style="color:#10a37f;">smart_toy</span>
-            <span class="ai-card-name">ChatGPT</span>
+  <section id="quick-scan" class="section section--mist">
+    <div class="container">
+      <p class="eyebrow">Quick Scan / β</p>
+      <h2 class="section-title">まずは1回。<br>現在地を軽く確かめる。</h2>
+      <p class="section-lead">Quick Scanは、統計スコアではありません。3つのAIへ各1回ずつ質問し、その時点の回答を記録するスナップショットです。限界も含めて分かったうえで、最初の現状確認に使えます。</p>
+      <div class="offer-layout">
+        <div class="formula-card">
+          <p class="formula-label">QUICK SCAN METHOD</p>
+          <div class="formula">
+            <div class="formula-part"><span class="formula-num">3</span><span class="formula-name">AI</span></div>
+            <span class="formula-sign">×</span>
+            <div class="formula-part"><span class="formula-num">1</span><span class="formula-name">質問</span></div>
+            <span class="formula-sign">×</span>
+            <div class="formula-part"><span class="formula-num">1</span><span class="formula-name">回ずつ</span></div>
           </div>
-          <p class="ai-card-desc">認知度・利用者数ともにNo.1。<br>幅広く利用される代表的な生成AI。</p>
+          <p class="formula-note">AIの回答は毎回変わる可能性があります。Quick Scanは「今日の回答」を知るための入口。複数回の調査から出現頻度や傾向を見るDEEPプランとは、役割を明確に分けています。</p>
         </div>
-        <div class="ai-card">
-          <div class="ai-card-header">
-            <span class="material-icons ai-card-icon" style="color:#4285F4;">auto_awesome</span>
-            <span class="ai-card-name">Gemini</span>
+        <div class="offer-card">
+          <span class="offer-badge">現在購入できます</span>
+          <div class="offer-head">
+            <div><p class="offer-name">Quick Scan</p><p class="offer-sub">AIブランド調査・1回買い切り</p></div>
+            <p class="offer-price">¥300<small>（税込）</small></p>
           </div>
-          <p class="ai-card-desc">Googleの生成AI。<br>検索エンジンに近い文脈で最新情報に強い回答をする傾向。</p>
-        </div>
-        <div class="ai-card">
-          <div class="ai-card-header">
-            <span class="material-icons ai-card-icon" style="color:#CC785C;">psychology</span>
-            <span class="ai-card-name">Claude</span>
-          </div>
-          <p class="ai-card-desc">急速に利用者を増やしている生成AI。<br>分析的な回答が多く、エンジニア・クリエーターの利用も多い。</p>
-        </div>
-      </div>
-      <p class="service-emphasis-block">ChatGPTに聞いて、Geminiに聞いて、Claudeに聞いて、集計して。―― 全部、こちらでやっておきます。</p>
-    </div>
-  </section>
-
-
-  <!-- ⑥ アピールポイント -->
-  <section class="appeal">
-    <div class="section-header">
-      <h2>なぜOps Octopusなのか</h2>
-      <p>買い切り・営業なし・いますぐ調査開始。それだけで、十分な理由があります。</p>
-    </div>
-    <div class="section-content">
-      <div class="appeal-cards">
-        <div class="appeal-card">
-          <div class="appeal-card-header">
-            <span class="material-icons appeal-card-icon">payments</span>
-            <span class="appeal-card-title">格安な買い切りサービス</span>
-          </div>
-          <p class="appeal-card-desc">¥300(税込)から。サブスクなし、更新なし。<br>必要な時に 必要な分だけ使えるサービスです。</p>
-        </div>
-        <div class="appeal-card">
-          <div class="appeal-card-header">
-            <span class="material-icons appeal-card-icon">do_not_disturb</span>
-            <span class="appeal-card-title">営業なし・即日調査開始</span>
-          </div>
-          <p class="appeal-card-desc">営業電話、アポ取りメールは一切行ないません。<br>「少し知りたいだけ」のあなたの意思にブレーキを掛けることなく、いますぐ調査できます。</p>
-        </div>
-        <div class="appeal-card">
-          <div class="appeal-card-header">
-            <span class="material-icons appeal-card-icon">hub</span>
-            <span class="appeal-card-title">3AI横断の最新調査</span>
-          </div>
-          <p class="appeal-card-desc">ChatGPT / Gemini / Claudeに同時に問い合わせ。1つのAIだけでは見えないブランドの実態が見えてきます。<br>調査ボタンを押したその日時点の最新のAI回答を調査するため現状把握に最適です。</p>
-        </div>
-        <div class="appeal-card">
-          <div class="appeal-card-header">
-            <span class="material-icons appeal-card-icon">analytics</span>
-            <span class="appeal-card-title">最大90回調査の信頼性</span>
-          </div>
-          <p class="appeal-card-desc">3AI×各30回＝計90回AIに都度調査*。複数パターン・最大90回のAIの回答を集計することで信頼性の高いレポートを作成します。<br>*90回調査はDeep Scan以上で提供予定</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ⑦ プラン・料金 -->
-  <section id="plans" class="plans">
-    <div class="section-header">
-      <h2>プランを選ぶ</h2>
-      <p>現在は<strong>Quick Scan（β版）</strong> のみご利用いただけます。Deep Scan / Full Scanは、Quick Scanテスト期間後に順次リリース予定です。</p>
-    </div>
-    <div class="section-content">
-      <div class="plan-cards">
-
-        <!-- Quick Scan -->
-        <div class="plan-card plan-card--featured">
-          <span class="plan-badge plan-badge--featured">βテスト実施中</span>
-          <p class="plan-name">Quick Scan</p>
-          <p class="plan-price">¥300<span class="plan-price-unit">（税込）</span></p>
-          <p class="plan-desc">ドリンク1杯分でまずは現状チェック。AI上での自社の評判を確認します</p>
-          <ul class="plan-features">
-            <li><span class="material-icons">check</span>AIへの質問：自社の評判を確認する1パターン</li>
-            <li><span class="material-icons">check</span>3AIに同一の質問を問い合わせ（各1回）</li>
-            <li><span class="material-icons">check</span><strong>画面表示ですぐに結果を確認</strong></li>
-            <li><span class="material-icons">check</span>レポートはボタン一つでダウンロード可能（HTML）</li>
+          <ul class="check-list">
+            <li><span class="material-icons-round">check_circle</span>ChatGPT・Gemini・Claudeへ同じ質問を各1回</li>
+            <li><span class="material-icons-round">check_circle</span>質問文はAIが作成をサポート。実行前に編集・確認可能</li>
+            <li><span class="material-icons-round">check_circle</span>3AIの回答比較と専用インサイトをその場で表示</li>
+            <li><span class="material-icons-round">check_circle</span>レポートをHTMLファイルでダウンロード</li>
+            <li><span class="material-icons-round">check_circle</span>会員登録・月額契約・営業とのやり取りは不要</li>
           </ul>
-          <a class="plan-cta plan-cta--primary" href="detail.html#cta" onclick="gtag('event', 'cta_click_plan', { page: 'index.html' })">Quick Scanを購入（¥300）</a>
-        </div>
-
-        <!-- Deep Scan -->
-        <div class="plan-card">
-          <span class="plan-badge">Coming Soon</span>
-          <p class="plan-name">Deep Scan</p>
-          <p class="plan-price">¥2,980<span class="plan-price-unit">（税込）</span></p>
-          <p class="plan-desc">専門書2冊分で、自社ブランドのAI評価90回分を集計レポート。1回買い切りプランです</p>
-          <ul class="plan-features">
-            <li><span class="material-icons">check</span>AIへの質問：<strong>深掘り3パターン</strong></li>          
-            <li><span class="material-icons">check</span>3AIに3種の質問を各10回=90回分の回答を集計・可視化</li>
-            <li><span class="material-icons">check</span>競合との比較分析</li>
-            <li><span class="material-icons">check</span>詳細なPDFレポートを24時間以内にメール納品</li>
-            <li><span class="material-icons">check</span><strong>即時確認できるQuick Scan 1回分付き</strong></li>
-          </ul>
-          <button class="plan-cta plan-cta--disabled" disabled>Coming Soon</button>
-          <a class="plan-notify" href="https://docs.google.com/forms/d/e/1FAIpQLScNqIDUBU42Rx8B5OGZYrKnGLLB9ZADPNWcJ0eQVkBIW1FNUw/viewform" target="_blank">公開通知を受け取る →</a>
-        </div>
-
-        <!-- Full Scan -->
-        <div class="plan-card">
-          <span class="plan-badge">開発中</span>
-          <p class="plan-name">Full Scan</p>
-          <p class="plan-price">¥9,800<span class="plan-price-unit">（税込）</span></p>
-          <p class="plan-desc">ブラックボックスなし。90回の回答データも全部お渡しします。資料の強化、ご自身での分析に</p>
-          <ul class="plan-features">
-            <li><span class="material-icons">check</span><strong>Deep Scanのすべての内容</strong></li>
-            <li><span class="material-icons">check</span> <strong>90回分のAI回答原文（ログ）を全納品</strong></li>
-            <li><span class="material-icons">check</span>プロンプト分析＋詳細改善チェックリスト</li>
-            <li><span class="material-icons">check</span>PDFレポート ＋ Excel / スプレッドシートをメールで納品予定</li>
-          </ul>
-          <button class="plan-cta plan-cta--disabled" disabled>開発中</button>
-          <a class="plan-notify" href="https://docs.google.com/forms/d/e/1FAIpQLScNqIDUBU42Rx8B5OGZYrKnGLLB9ZADPNWcJ0eQVkBIW1FNUw/viewform" target="_blank">公開通知を受け取る →</a>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- ⑧ ご利用の流れ -->
-  <section class="steps">
-    <div class="section-header">
-      <h2>あなたがやることはこれだけ</h2>
-      <p>Quick Scanなら最短2分。調べたいカテゴリを選んで、AIに投げる質問（プロンプト）をつくるだけ。質問作りもAIがお手伝いします。</p>
-    </div>
-    <div class="section-content">
-      <div class="steps-grid">
-        <div class="step-item">
-          <div class="step-icon-wrap"><span class="material-icons">shopping_cart</span></div>
-          <p class="step-num">STEP 1</p>
-          <p class="step-title">プランを選んで購入</p>
-          <p class="step-sub">クレジットカード決済</p>
-        </div>
-        <div class="step-item">
-          <div class="step-icon-wrap"><span class="material-icons">mail</span></div>
-          <p class="step-num">STEP 2</p>
-          <p class="step-title">購入コードをメールで受け取る</p>
-          <p class="step-sub">即時自動送信</p>
-        </div>
-        <div class="step-item">
-          <div class="step-icon-wrap"><span class="material-icons">edit</span></div>
-          <p class="step-num">STEP 3</p>
-          <p class="step-title">ブランド名・カテゴリを入力</p>
-          <p class="step-sub">AIが質問作成をサポート</p>
-        </div>
-        <div class="step-item">
-          <div class="step-icon-wrap"><span class="material-icons">description</span></div>
-          <p class="step-num">STEP 4</p>
-          <p class="step-title">レポートを確認・保存</p>
-          <p class="step-sub">画面表示またはHTMLファイル</p>
+          <a class="button button--dark" href="https://buy.stripe.com/6oU14ndhZcAR4XR1EKcwg00" onclick="gtag('event', 'cta_click_quickscan_buy', { page: '/' })">Quick Scanを購入する <span class="material-icons-round">arrow_forward</span></a>
+          <p class="offer-small">Stripeで決済後、購入コードをメールでお送りします。</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ⑨ FAQ -->
-  <section class="faq">
-    <div class="section-header">
-      <h2>よくある質問</h2>
+  <section class="section section--white">
+    <div class="container">
+      <p class="eyebrow">How it works</p>
+      <h2 class="section-title">購入して、質問を確認して、結果を見る。</h2>
+      <p class="section-lead">法人情報の登録やデモ商談はありません。調べたいブランドとカテゴリを入力すれば、質問文の作成も画面上でサポートします。</p>
+      <div class="process-grid">
+        <div class="process-card"><p class="process-num">STEP 01</p><h3>購入コードを受け取る</h3><p>Stripeで300円を決済。購入コードがメールで自動送信されます。</p></div>
+        <div class="process-card"><p class="process-num">STEP 02</p><h3>質問をつくって確認する</h3><p>ブランド名・カテゴリ・顧客像を入力。AIが質問案を作り、実行前に編集できます。</p></div>
+        <div class="process-card"><p class="process-num">STEP 03</p><h3>3AIの結果を保存する</h3><p>画面上でレポートを確認。ボタンひとつでHTMLファイルとして保存できます。</p></div>
+      </div>
     </div>
-    <div class="section-content">
+  </section>
+
+  <section id="samples" class="section">
+    <div class="container">
+      <p class="eyebrow">Real samples</p>
+      <h2 class="section-title">説明より先に、<br>実物を見てください。</h2>
+      <p class="section-lead">公開されているブランド名を使い、実際のQuick Scanと同じ形式で作成したサンプルです。購入前に、出力の粒度と読みやすさを確認できます。</p>
+      <div class="sample-grid">
+        <a class="sample-card" href="/assets/sample_reports/OpsOctopus_QuickScan_JAC_20260517.html" target="_blank" rel="noopener">
+          <div class="sample-card-visual"><span class="sample-card-brand">JAC Recruitment</span><span class="sample-card-query">外資系企業への転職を考えています。強みや評判について教えてください。</span></div>
+          <div class="sample-card-body"><p class="sample-card-meta">BTOC / CAREER</p><h3>転職サービスの強みと評判</h3><span class="sample-card-more">レポートを開く →</span></div>
+        </a>
+        <a class="sample-card" href="/assets/sample_reports/OpsOctopus_QuickScan_hatobus_20260517.html" target="_blank" rel="noopener">
+          <div class="sample-card-visual"><span class="sample-card-brand">はとバス</span><span class="sample-card-query">初めて観光バスツアーを利用します。特徴と評判を教えてください。</span></div>
+          <div class="sample-card-body"><p class="sample-card-meta">TRAVEL / TOURISM</p><h3>観光サービスの特徴と評判</h3><span class="sample-card-more">レポートを開く →</span></div>
+        </a>
+        <a class="sample-card" href="/assets/sample_reports/OpsOctopus_QuickScan_Duolingo_20260517.html" target="_blank" rel="noopener">
+          <div class="sample-card-visual"><span class="sample-card-brand">Duolingo</span><span class="sample-card-query">どんな点がユーザーに評価されていますか。特徴や強みも教えてください。</span></div>
+          <div class="sample-card-body"><p class="sample-card-meta">APP / EDUCATION</p><h3>学習アプリの特徴と評価</h3><span class="sample-card-more">レポートを開く →</span></div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section id="deep-scan" class="section section--white">
+    <div class="container">
+      <div class="deep-panel">
+        <div>
+          <p class="eyebrow">Coming next</p>
+          <h2>1回の回答から、<br>90回の傾向へ。<br>DEEPは準備中です。</h2>
+          <p class="deep-panel-copy">Quick Scanで「いま何と答えるか」を見たあと、DEEPでは質問の角度と試行回数を増やし、競合との比較やブランドの出現頻度を集計します。</p>
+          <div class="deep-formula">
+            <div class="deep-stat"><strong>3</strong><span>AI</span></div>
+            <div class="deep-stat"><strong>3</strong><span>質問パターン</span></div>
+            <div class="deep-stat"><strong>10</strong><span>回ずつ試行</span></div>
+          </div>
+        </div>
+        <div>
+          <ul class="deep-list">
+            <li><span class="material-icons-round">check_circle</span>合計90回の回答を集計・可視化</li>
+            <li><span class="material-icons-round">check_circle</span>指名・競合比較・非指名想起の3方向から調査</li>
+            <li><span class="material-icons-round">check_circle</span>出現頻度とAI別の差を確認</li>
+            <li><span class="material-icons-round">check_circle</span>詳細PDFを24時間以内にメール納品予定</li>
+            <li><span class="material-icons-round">check_circle</span>即時確認用のQuick Scan 1回分付き</li>
+          </ul>
+          <a class="button button--ghost" href="https://docs.google.com/forms/d/e/1FAIpQLScNqIDUBU42Rx8B5OGZYrKnGLLB9ZADPNWcJ0eQVkBIW1FNUw/viewform" target="_blank" rel="noopener" onclick="gtag('event', 'cta_click_deep_waitlist', { page: '/' })">DEEPの公開通知を受け取る</a>
+          <p class="deep-price">予定価格 ¥2,980（税込）・1回買い切り</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--mist">
+    <div class="container faq-layout">
+      <div>
+        <p class="eyebrow">Questions</p>
+        <h2 class="section-title">購入前に、<br>気になること。</h2>
+        <p class="section-lead">Quick Scanは小さな調査です。できることと、できないことを明確にしています。</p>
+        <a class="inline-link" href="/faq.html">FAQをすべて見る <span class="material-icons-round">arrow_forward</span></a>
+      </div>
       <div class="faq-list">
-
-        <details class="faq-item">
-          <summary><span class="faq-q-mark">Q.</span>何に使えるレポートですか？</summary>
-          <div class="faq-answer">自社ブランドやサービス名が、ChatGPT・Gemini・Claude上でどのように言及・推奨されるかを確認するためのレポートです。<br>AEO / LLMO対策の現状把握、競合比較、Webサイトや記事コンテンツの見直し、営業資料・提案資料の補強材料として使えます。</div>
+        <details class="faq-item" open>
+          <summary>自分で3つのAIに質問するのと何が違いますか？</summary>
+          <div class="faq-answer">ご自身で同じ調査を行うことも可能です。Ops Octopusは、同じ質問を3AIへ送り、回答を横並びにし、共通点・差分・想定ユーザー・改善の論点をひとつのレポートに整理する手間を300円で代行します。</div>
         </details>
-
         <details class="faq-item">
-          <summary><span class="faq-q-mark">Q.</span>どんな人に向いていますか？</summary>
-          <div class="faq-answer">生成AI上で自社や競合がどう見えているかを知りたいマーケティング担当者、事業担当者、個人事業主、SEO / コンテンツ制作に関わる方に向いています。本格的なAEO施策を始める前に、まず現状を軽く確認したい場合に使いやすいレポートです。</div>
+          <summary>Quick Scanの結果はどこまで信頼できますか？</summary>
+          <div class="faq-answer">各AIへ1回ずつ質問する、その時点のスナップショットです。AIの回答は調査時点やモデル更新などで変わるため、統計的な傾向ではなく最初の現状確認としてご利用ください。複数回の傾向把握はDEEPで提供予定です。</div>
         </details>
-        
         <details class="faq-item">
-          <summary><span class="faq-q-mark">Q.</span>まだAEOに詳しくなくても使えますか？</summary>
-          <div class="faq-answer">はい。専門知識がなくても、まず「AIに自社やサービスがどう見えているか」を確認できるように設計しています。Quick Scanは、AEO / GEO / LLMOが気になり始めた段階での現状チェックに向いています。</div>
+          <summary>質問文は自分で考える必要がありますか？</summary>
+          <div class="faq-answer">ブランド名・カテゴリ・顧客像などの入力から、Ops Octopusが質問案を作成します。そのまま使うことも、調査前にご自身で編集することもできます。</div>
         </details>
-
-        
         <details class="faq-item">
-          <summary><span class="faq-q-mark">Q.</span>購入に法人名や仕事用メールアドレスは必要ですか？</summary>
-          <div class="faq-answer">いいえ、購入時に法人名や仕事用のメールアドレスは必須ではありません。ただし決済や調査用コードの受け取りのためにはメールアドレスが必要です。メールが受け取り可能なGmailなどのアドレス等をご用意ください。<br>調査時に調査対象として社名やブランド名の入力を求めることがありますが、入力いただいた情報はレポート生成およびサービス改善目的のみに使用し、個人が分かる形での公開や第三者への販売に利用することはありません。</div>
+          <summary>会員登録や月額契約は必要ですか？</summary>
+          <div class="faq-answer">不要です。Quick Scanは1回300円の買い切りで、購入コードをメールで受け取って利用します。継続課金や営業担当とのやり取りはありません。</div>
         </details>
-
-
         <details class="faq-item">
-          <summary><span class="faq-q-mark">Q.</span>入力したブランド名やキーワードはどのように扱われますか？</summary>
-          <div class="faq-answer">入力いただいたブランド名・サービス名・キーワード・質問等はレポート生成のために使用します。個別の入力内容を、第三者への販売や不要な営業目的で利用することはありません。<br>決済時に入力された個人情報は本サービスの提供目的にのみ使用し、法令に基づく開示要求がある場合等を除き第三者に提供することはありません。<br>詳細は<a href="privacy.html">プライバシーポリシー</a>をご確認ください。</div>
+          <summary>入力したブランド名や質問はどう扱われますか？</summary>
+          <div class="faq-answer">レポート生成とサービス改善のために使用します。第三者への販売や不要な営業目的には利用しません。詳細は<a href="/privacy.html">プライバシーポリシー</a>をご確認ください。</div>
         </details>
-
         <details class="faq-item">
-          <summary><span class="faq-q-mark">Q.</span>Quick Scanでは何が分かりますか？</summary>
-          <div class="faq-answer">Quick Scanでは、ChatGPT・Gemini・Claudeに各1回ずつ問い合わせ、AI上での自社ブランドの回答傾向を確認できます。「自社名やサービス名がAIにどう説明されているか」「競合名が出てくるか」「想定した文脈で推奨されるか」を軽く見るためのプランです。</div>
+          <summary>調査結果によってAEOの成果は保証されますか？</summary>
+          <div class="faq-answer">保証されません。本サービスはAI上の回答傾向を調査・整理するものであり、検索順位、AIでの推奨増加、売上などの成果を保証するものではありません。</div>
         </details>
-        
-        <details class="faq-item">
-          <summary><span class="faq-q-mark">Q.</span>Quick Scanで入力する質問はどう決めればいいですか？</summary>
-          <div class="faq-answer">Quick Scanでは調査したい社名やブランド、商品について入力します。<br>入力内容をもとにOPS Octopusが調査用の質問を画面上で自動作成するので、そちらをそのまま使うことが可能です。質問を自分で調整することももちろん可能です。</div>
-        </details>
-        
-        <details class="faq-item">
-          <summary><span class="faq-q-mark">Q.</span>Quick Scanは、Deep Scan / Full Scanとは何が違いますか？</summary>
-          <div class="faq-answer">Quick Scanは各AIに1回ずつ自社や自ブランドの評判を問い合わせるお試し調査です。<br>Deep Scanでは、3AIに各30回、合計90回問い合わせることで「AIの回答に自社が含まれる頻度」など、1回の回答ではわからない傾向も確認できます。<br>Full Scanでは、生データ提供まで含めた、社内共有や提案資料向けのレポートを想定しています。</div>
-        </details>
-        
-        <details class="faq-item">
-          <summary><span class="faq-q-mark">Q.</span>AIの回答は毎回同じですか？</summary>
-          <div class="faq-answer">いいえ。AIの回答は、調査時点、モデル更新、入力条件などによって変動する可能性があります。本サービスのレポートは、調査実行時点のスナップショットとしてご利用ください。</div>
-        </details>
-
-        <details class="faq-item">
-          <summary><span class="faq-q-mark">Q.</span>調査結果は成果を保証しますか？</summary>
-          <div class="faq-answer">いいえ。本サービスはAI上での回答傾向を調査・可視化するものであり、検索順位の改善、AI上の推奨の増加、売上向上などの成果を保証するものではありません。</div>
-        </details>
-        
-        <details class="faq-item">
-          <summary><span class="faq-q-mark">Q.</span>ChatGPT / Gemini / Claudeの公式サービスですか？</summary>
-          <div class="faq-answer">いいえ。本サービスは各社が公式に提供・認定するものではありません。ChatGPT / Gemini / Claudeの名称、また質問作成時やレポートに表示される名称は、各社の商標または登録商標です。</div>
-        </details>
-
-
-      </div>
-
-      <div class="faq-disclaimer">
-        <p style="font-size:12px; font-weight:700; color:var(--text-dark); margin-bottom:8px;">免責事項・権利帰属について</p>
-        <ul style="list-style:none; display:flex; flex-direction:column; gap:6px; margin:0; padding:0;">
-          <li style="font-size:11px; color:var(--text-muted); line-height:1.75; padding-left:1em; position:relative;">
-            <span style="position:absolute; left:0;">・</span>
-            本サービスは、生成AI（ChatGPT, Gemini, Claude）のAPIを利用して回答を自動取得・集計・整理するものです。回答内容は各AIモデルが独自のアルゴリズムに基づき生成したものであり、運営元（Ops Octopus）がその真実性、正確性、最新性、または特定の目的への適合性を保証するものではありません。
-          </li>
-          <li style="font-size:11px; color:var(--text-muted); line-height:1.75; padding-left:1em; position:relative;">
-            <span style="position:absolute; left:0;">・</span>
-            AIの回答には、事実誤認（ハルシネーション）や不適切な内容が含まれる可能性があります。調査結果を意思決定、第三者への公開、引用、または営業活動に利用される際は、利用者の責任において内容の裏付け調査を行ってください。
-          </li>
-          <li style="font-size:11px; color:var(--text-muted); line-height:1.75; padding-left:1em; position:relative;">
-            <span style="position:absolute; left:0;">・</span>
-            本サービスの調査結果は実行時点のスナップショットです。AIモデルの更新や学習データの変更により、同一の条件でも回答内容は随時変動します。
-          </li>
-          <li style="font-size:11px; color:var(--text-muted); line-height:1.75; padding-left:1em; position:relative;">
-            <span style="position:absolute; left:0;">・</span>
-            本サービスは、検索順位の改善やAI上での推奨増加など特定の成果を保証するものではありません。
-          </li>
-          <li style="font-size:11px; color:var(--text-muted); line-height:1.75; padding-left:1em; position:relative;">
-            <span style="position:absolute; left:0;">・</span>
-            「ChatGPT」「Gemini」「Claude」およびレポート内に記載されている各ツール名、社名等は各社の商標または登録商標です。本サービスは各AI提供元との直接的な提携や認定を受けたものではありません。
-          </li>
-        </ul>
       </div>
     </div>
   </section>
+
+  <section class="final-cta">
+    <div class="container">
+      <img src="/assets/images/octopus-smile.png" alt="">
+      <h2>まず、AIにどう見えているかを<br>一度だけ見てみる。</h2>
+      <p>月額ツールを選ぶのも、本格的なAEO施策を考えるのも、そのあとで大丈夫です。3つのAIの現在の回答を、300円で手元に残せます。</p>
+      <div class="final-actions">
+        <a class="button button--dark" href="https://buy.stripe.com/6oU14ndhZcAR4XR1EKcwg00" onclick="gtag('event', 'cta_click_final_buy', { page: '/' })">¥300でQuick Scanを試す <span class="material-icons-round">arrow_forward</span></a>
+        <a class="button button--ghost" href="/detail.html">購入後の流れを確認する</a>
+      </div>
+    </div>
+  </section>
+</main>
 
 <!-- FOOTER -->
 
-<script>
-  const heroVideo = document.querySelector('.hero-media-video');
-  if (heroVideo) {
-    heroVideo.addEventListener('loadedmetadata', () => {
-      heroVideo.currentTime = 4;    // 4秒から再生開始
-      heroVideo.playbackRate = 0.6; // 0.6倍速
-    });
-  }
-</script>
-  
 </body>
 </html>
