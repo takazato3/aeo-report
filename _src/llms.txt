@@ -4,7 +4,7 @@
 
 ## サービス
 
-- [サービス概要](https://app.ops-octopus.com/index.html): Ops Octopusのサービス概要・料金プランの紹介
+- [サービス概要](https://app.ops-octopus.com/): Ops Octopusのサービス概要・料金プランの紹介
 - [プラン・料金](https://app.ops-octopus.com/detail.html): Quick Scan / Deep Scan / Full Scanの詳細と料金、調査フローの説明
 - [サンプルレポート](https://app.ops-octopus.com/samples.html): 実際に生成されたレポートのサンプル一覧
 - [よくある質問](https://app.ops-octopus.com/faq.html): サービス内容・プラン・購入・返金に関するFAQ
