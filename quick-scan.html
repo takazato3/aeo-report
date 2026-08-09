@@ -1502,7 +1502,7 @@
       return PLAN_MAP[prefix] || null;
     }
 
-    const state = { token: '', category: '', subcategory: '', keyword: '', question: '', questions: null, customerProfile: '', customerIntent: '', categoryData: null };
+    const state = { token: '', category: '', subcategory: '', keyword: '', question: '', question_q2: '', question_q3: '', questions: null, customerProfile: '', customerIntent: '', categoryData: null };
     let questionGenerationCount = 0;
 
 
@@ -1921,6 +1921,10 @@
           keyword:     state.keyword,
           category:    state.category,
           subcategory: state.subcategory,
+          // Deep/Full: 画面②でユーザーが確認・確定したQ1/Q2/Q3をまとめて送る
+          // (GAS側でCloud Tasksペイロードのquestionsに転送される。既存のquestionフィールドは
+          //  runSurvey/後方互換のため残す)
+          questions:   isDeep ? { q1: state.question, q2: state.question_q2, q3: state.question_q3 } : undefined,
         });
         console.log('GASレスポンス:', JSON.stringify(data));
         if (!data.success) throw new Error(data.error || '調査の実行に失敗しました。');
@@ -2004,6 +2008,26 @@
       if (!q.value) return showError('errorBox2', '質問文を入力してください。');
       if (q.error)  return showError('errorBox2', `質問文：${q.error}`);
       state.question = q.value;
+
+      // Deep/Fullプランでは【競合比較】【課題解決】もstateに格納し、GAS送信ペイロードに含める
+      // (Quick Scanはロック中のtextareaを読むだけで、runSurvey側のロジックには渡さない)
+      const plan   = sessionStorage.getItem('currentPlan') || getPlanFromToken(state.token) || 'quick';
+      const isDeep = plan === 'deep' || plan === 'full';
+
+      if (isDeep) {
+        const q2 = sanitizeInput($('q-competitive-text').value, 200);
+        if (!q2.value) return showError('errorBox2', '質問文（競合比較）を入力してください。');
+        if (q2.error)  return showError('errorBox2', `質問文（競合比較）：${q2.error}`);
+        state.question_q2 = q2.value;
+
+        const q3 = sanitizeInput($('q-solution-text').value, 200);
+        if (!q3.value) return showError('errorBox2', '質問文（課題解決）を入力してください。');
+        if (q3.error)  return showError('errorBox2', `質問文（課題解決）：${q3.error}`);
+        state.question_q3 = q3.value;
+      } else {
+        state.question_q2 = '';
+        state.question_q3 = '';
+      }
 
       showConfirmModal();
     });
