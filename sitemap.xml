@@ -2,35 +2,35 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://app.ops-octopus.com/</loc>
-    <lastmod>2026-08-08</lastmod>
+    <lastmod>2026-08-09</lastmod>
   </url>
   <url>
     <loc>https://app.ops-octopus.com/detail.html</loc>
-    <lastmod>2026-08-08</lastmod>
+    <lastmod>2026-08-09</lastmod>
   </url>
   <url>
     <loc>https://app.ops-octopus.com/samples.html</loc>
-    <lastmod>2026-08-08</lastmod>
+    <lastmod>2026-08-09</lastmod>
   </url>
   <url>
     <loc>https://app.ops-octopus.com/legal.html</loc>
-    <lastmod>2026-08-08</lastmod>
+    <lastmod>2026-08-09</lastmod>
   </url>
   <url>
     <loc>https://app.ops-octopus.com/faq.html</loc>
-    <lastmod>2026-08-08</lastmod>
+    <lastmod>2026-08-09</lastmod>
   </url>
   <url>
     <loc>https://app.ops-octopus.com/privacy.html</loc>
-    <lastmod>2026-08-08</lastmod>
+    <lastmod>2026-08-09</lastmod>
   </url>
   <url>
     <loc>https://app.ops-octopus.com/terms.html</loc>
-    <lastmod>2026-08-08</lastmod>
+    <lastmod>2026-08-09</lastmod>
   </url>
   <url>
     <loc>https://app.ops-octopus.com/blog/</loc>
-    <lastmod>2026-08-08</lastmod>
+    <lastmod>2026-08-09</lastmod>
   </url>
   <url>
     <loc>https://app.ops-octopus.com/blog/aeo-llmo-geo-difference.html</loc>
@@ -47,6 +47,10 @@
   <url>
     <loc>https://app.ops-octopus.com/blog/ai-citable-content.html</loc>
     <lastmod>2026-07-18</lastmod>
+  </url>
+  <url>
+    <loc>https://app.ops-octopus.com/blog/ai-mention-rate.html</loc>
+    <lastmod>2026-08-09</lastmod>
   </url>
   <url>
     <loc>https://app.ops-octopus.com/blog/ai-overviews-aeo.html</loc>
@@ -99,6 +103,10 @@
   <url>
     <loc>https://app.ops-octopus.com/blog/what-is-aeo.html</loc>
     <lastmod>2026-07-18</lastmod>
+  </url>
+  <url>
+    <loc>https://app.ops-octopus.com/blog/what-is-ai-search.html</loc>
+    <lastmod>2026-08-09</lastmod>
   </url>
   <url>
     <loc>https://app.ops-octopus.com/blog/what-is-llmo.html</loc>

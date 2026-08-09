@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI検索とは何か。従来の検索行動との違いを整理する | Ops Octopus ブログ</title>
+  <meta name="description" content="「AI検索」という言葉が何を指しているのか、これまでの検索エンジンでの調べ方と何が変わったのかを整理します。AEO・LLMOという取り組みを考えるうえでの前提になる話です。">
+  <link rel="canonical" href="https://app.ops-octopus.com/blog/what-is-ai-search.html">
+  <meta property="og:title" content="AI検索とは何か。従来の検索行動との違いを整理する | Ops Octopus ブログ">
+  <meta property="og:description" content="「AI検索」という言葉が何を指しているのか、これまでの検索エンジンでの調べ方と何が変わったのかを整理します。AEO・LLMOという取り組みを考えるうえでの前提になる話です。">
+  <meta property="og:url" content="https://app.ops-octopus.com/blog/what-is-ai-search.html">
+  <meta property="og:type" content="article">
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "AI検索とは何か。従来の検索行動との違いを整理する",
+  "description": "「AI検索」という言葉が何を指しているのか、これまでの検索エンジンでの調べ方と何が変わったのかを整理します。AEO・LLMOという取り組みを考えるうえでの前提になる話です。",
+  "datePublished": "2026-08-09",
+  "inLanguage": "ja",
+  "author": {
+    "@type": "Organization",
+    "name": "Ops Octopus"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Ops Octopus"
+  }
+}
+  </script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "AI検索とAI Overviewsは同じものですか。",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "厳密には別のものです。AI Overviewsは検索エンジンに組み込まれた要約機能の名称であり、AI検索はChatGPTなどのチャットサービスも含めた、より広い調べ方全般を指す言葉として使われています。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "AI検索が広がると、従来のSEOは不要になりますか。",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "不要になるとは言い切れません。AI検索の回答も情報源を参照して生成される以上、検索結果に表示される状態を保つことには引き続き意味があると考えられます。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "AI検索での自社の見え方は、どうやって確認すればいいですか。",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "自社に関連しそうな質問を、複数のAIサービスに実際に投げてみることから始められます。継続的に確認したい場合は、記録や比較を手助けするツールの利用も選択肢になります。"
+      }
+    }
+  ]
+}
+  </script>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-DNTX6D35RB"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-DNTX6D35RB');
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    :root {
+      --navy-950: #061426;
+      --navy-900: #081b33;
+      --navy-800: #102a4a;
+      --blue-gray-50: #f4f7fb;
+      --blue-gray-100: #eaf0f7;
+      --off-white: #fbfaf6;
+      --white: #ffffff;
+      --amber-400: #fbbf24;
+      --amber-500: #f59e0b;
+      --text-dark: #132033;
+      --text-muted: #5f6f85;
+      --border: #dce4ef;
+    }
+
+    body {
+      font-family: 'Inter', 'Noto Sans JP', "Hiragino Sans", "Hiragino Kaku Gothic ProN",
+        Arial, Meiryo, sans-serif;
+      font-size: 1rem;
+      line-height: 1.7;
+      color: var(--text-dark);
+      background: var(--white);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ─── Header ─── */
+    .header {
+      background: #0d2340;
+      height: auto;
+      padding: 1.5rem 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 200;
+    }
+    .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    .nav-logo-img { height: 56px; width: auto; display: block; }
+    .nav-logo-text { flex-direction: column; gap: 2px; }
+    .nav-logo-name { font-size: 17px; font-weight: 700; color: var(--off-white); letter-spacing: 0.02em; white-space: nowrap; }
+    .nav-logo-sub { font-size: 11px; color: rgba(251,250,246,0.55); white-space: nowrap; }
+    .header-nav { display: flex; align-items: center; gap: 24px; }
+    .header-nav a { font-size: 14px; color: rgba(251,250,246,0.75); text-decoration: none; transition: color 0.15s; white-space: nowrap; }
+    .header-nav a:hover { color: var(--off-white); }
+    .btn-nav-cta {
+      background: var(--amber-400);
+      color: var(--text-dark) !important;
+      font-size: 13px !important;
+      font-weight: 600 !important;
+      padding: 7px 14px;
+      border-radius: 6px;
+      transition: background 0.15s !important;
+      white-space: nowrap;
+    }
+    .btn-nav-cta:hover { background: var(--amber-500) !important; }
+    .nav-cta-tax { font-size: 0.8em; }
+    .nav-cta-short { display: none; }
+
+    @media (max-width: 768px) {
+      .header-nav { gap: 14px; }
+      .header-nav .nav-link-hide { display: none; }
+      .nav-cta-full  { display: none; }
+      .nav-cta-short { display: inline; }
+    }
+    @media (max-width: 480px) {
+      .header-nav { gap: 10px; }
+    }
+
+    /* ─── Breadcrumb ─── */
+    .breadcrumb {
+      background: var(--navy-900);
+      padding: 10px 24px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      color: rgba(255,255,255,0.45);
+    }
+    .breadcrumb a { color: rgba(255,255,255,0.55); text-decoration: none; transition: color 0.15s; }
+    .breadcrumb a:hover { color: rgba(255,255,255,0.85); }
+    .breadcrumb .sep { color: rgba(255,255,255,0.25); }
+    .breadcrumb .current { color: rgba(255,255,255,0.75); }
+
+    /* ─── Article ─── */
+    .article-page { background: var(--white); padding: 48px 24px 0; }
+    .article-inner { max-width: 720px; margin: 0 auto; }
+
+    .article-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
+    .article-tag {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--amber-500);
+      background: rgba(251,191,36,0.12);
+      border: 1px solid rgba(245,158,11,0.25);
+      padding: 3px 10px;
+      border-radius: 999px;
+      letter-spacing: 0.02em;
+    }
+
+    .article-title {
+      font-size: clamp(24px, 5vw, 34px);
+      font-weight: 700;
+      color: var(--text-dark);
+      line-height: 1.45;
+      letter-spacing: 0.01em;
+      font-feature-settings: "palt";
+      margin-bottom: 14px;
+    }
+
+    .article-meta {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-bottom: 36px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .article-body { font-size: 1.05rem; line-height: 1.9; color: var(--text-dark); }
+    .article-body h2 {
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: var(--text-dark);
+      margin: 40px 0 16px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid var(--amber-400);
+      display: inline-block;
+    }
+    .article-body h3 { font-size: 1.15rem; font-weight: 700; color: var(--text-dark); margin: 28px 0 12px; }
+    .article-body p { margin-bottom: 20px; }
+    .article-body ul, .article-body ol { margin: 0 0 20px 1.4em; }
+    .article-body li { margin-bottom: 8px; }
+    .article-body a { color: #1B6CA8; }
+    .article-body a:hover { text-decoration: underline; }
+    .article-body strong { font-weight: 700; }
+    .article-body blockquote {
+      border-left: 3px solid var(--amber-400);
+      background: var(--blue-gray-50);
+      padding: 12px 18px;
+      margin: 0 0 20px;
+      color: var(--text-muted);
+    }
+    .article-body code {
+      background: var(--blue-gray-50);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.9em;
+    }
+
+    .article-back { margin: 40px 0 0; }
+    .article-back a { font-size: 14px; color: var(--text-muted); text-decoration: none; }
+    .article-back a:hover { color: var(--text-dark); }
+
+    /* ─── CTA ─── */
+    .article-cta {
+      margin-top: 56px;
+      background: var(--blue-gray-50);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 32px 28px;
+      text-align: center;
+    }
+    .article-cta p {
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--text-dark);
+      margin-bottom: 18px;
+      line-height: 1.6;
+    }
+    .btn-primary {
+      background: var(--amber-400);
+      color: var(--text-dark);
+      font-size: 1.05rem;
+      font-weight: 600;
+      padding: 0.9rem 2rem;
+      border-radius: 6px;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      transition: background 0.15s;
+      display: inline-block;
+      font-family: inherit;
+      white-space: nowrap;
+    }
+    .btn-primary:hover { background: var(--amber-500); }
+
+    /* ─── Footer ─── */
+    .footer { background: var(--navy-900); padding: 2rem 1.5rem; margin-top: 64px; }
+    .footer-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      gap: 24px;
+    }
+    .footer-brand-name { font-size: 16px; font-weight: 600; color: var(--off-white); margin-bottom: 4px; }
+    .footer-brand-sub { font-size: 12px; color: rgba(251,250,246,0.5); line-height: 1.5; }
+    .footer-brand-tagline { font-style: italic; }
+    .footer-links { display: flex; flex-direction: row; align-items: center; gap: 2rem; flex-wrap: wrap; }
+    .footer-link { font-size: 13px; color: var(--off-white); text-decoration: none; opacity: 0.8; transition: opacity 0.15s; }
+    .footer-link:hover { opacity: 1; }
+    .footer-copy { font-size: 12px; color: rgba(251,250,246,0.4); text-align: right; }
+
+    @media (max-width: 768px) {
+      .article-page { padding: 36px 16px 0; }
+      .footer-inner { grid-template-columns: 1fr; text-align: center; }
+      .footer-links { justify-content: center; }
+      .footer-copy { text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── HEADER ── -->
+  <header class="header">
+    <a href="/" class="nav-logo">
+      <img src="/assets/images/logo.png" alt="Ops Octopus" class="nav-logo-img"
+        onerror="this.style.display='none'; document.getElementById('nav-logo-text').style.display='flex';">
+      <div id="nav-logo-text" style="display:none;" class="nav-logo-text">
+        <span class="nav-logo-name">🐙 Ops Octopus</span>
+        <span class="nav-logo-sub">AIブランド調査レポート</span>
+      </div>
+    </a>
+    <nav class="header-nav">
+      <a class="nav-link-hide" href="/#report">レポート内容</a>
+      <a class="nav-link-hide" href="/#quick-scan">Quick Scan</a>
+      <a class="nav-link-hide" href="/samples.html">サンプル</a>
+      <a class="nav-link-hide" href="/#deep-scan">DEEP</a>
+      <a class="nav-link-hide" href="/blog/">ブログ</a>
+      <a class="btn-nav-cta" href="https://buy.stripe.com/6oU14ndhZcAR4XR1EKcwg00" onclick="gtag('event', 'cta_click_header', { page: location.pathname })">
+        <span class="nav-cta-full">¥300<span class="nav-cta-tax">（税込）</span>で購入</span>
+        <span class="nav-cta-short">¥300<span class="nav-cta-tax">（税込）</span>で購入</span>
+      </a>
+    </nav>
+  </header>
+
+  <!-- パンくず -->
+  <nav class="breadcrumb">
+    <a href="/">ホーム</a>
+    <span class="sep">›</span>
+    <a href="/blog/">ブログ</a>
+    <span class="sep">›</span>
+    <span class="current">AI検索とは何か。従来の検索行動との違いを整理する</span>
+  </nav>
+
+  <main class="article-page">
+    <div class="article-inner">
+      <article>
+        <div class="article-tags">
+          <span class="article-tag">AI検索</span>
+          <span class="article-tag">AEO</span>
+        </div>
+        <h1 class="article-title">AI検索とは何か。従来の検索行動との違いを整理する</h1>
+        <p class="article-meta"><time datetime="2026-08-09">2026年8月9日</time></p>
+
+        <div class="article-body">
+<p>AI検索とは何か。厳密に定義された用語があるわけではありませんが、ChatGPTやGemini、あるいは検索エンジンに組み込まれたAIの要約機能に対して、知りたいことを尋ねる調べ方全般を指す言葉として使われています。結論としては、AI検索と呼ばれる調べ方の核心は「検索結果一覧から自分で選ぶ」から「AIがまとめた説明を読む」への変化にあり、この変化を踏まえたうえで自社の見え方を確認する取り組みが、AEOやLLMOと呼ばれる領域につながっていきます。以下、具体的に何がどう変わったのかを整理します。</p>
+<h2>「AI検索」という言葉が指すもの</h2>
+<p>「AI検索」という言葉を聞いたとき、思い浮かべる対象は人によって少しずつ違うかもしれません。ChatGPTやClaudeのようなチャットサービスに直接質問する行動を指す場合もあれば、GoogleのAI Overviewsのように、検索結果の上部にAIによる要約が表示される機能を指す場合もあります。呼び方は一つでも、実態は一つに定まっていない、というのがまず押さえておきたい前提です。共通しているのは、キーワードの一致ではなく、質問文の意味を汲み取った説明が返ってくる点です。</p>
+<h2>何を検索窓に打ち込むかが変わった</h2>
+<p>これまでの検索エンジンでは、短いキーワードを打ち込むことが基本でした。「AEO とは」のように、単語を並べる打ち込み方です。長い文章で質問しても、検索エンジンの側でキーワードに分解されて処理される、という理解が定着していました。ところがAI検索では、この前提が崩れます。「AEOって何のためにやるの、SEOと何が違うの」というように、話し言葉に近い質問文をそのまま打ち込んでも、意味を汲んだ答えが返ってくるようになりました。打ち込み方が変わったということは、打ち込む側の癖も変わっていくはずです。</p>
+<h2>一覧から要約への切り替え</h2>
+<p>従来の検索結果は、青いリンクが並ぶ一覧でした。どのリンクを開くかは、ユーザー自身が見出しや説明文を見比べて判断していました。AI検索では、この判断の一部が先取りされます。複数の情報源を踏まえた要約が、最初から目の前に置かれるということです。便利になった、と単純に喜んでいいのだろうか——そう感じる場面もあるかもしれません。要約を鵜呑みにせず、元のリンクまで確認するユーザーもいれば、要約だけで満足してしまうユーザーもいる。この分かれ方が、これから先どちらに寄っていくのかは、まだ見えていません。</p>
+<h2>検索エンジンの中にもAI要約が入り込んでいる</h2>
+<p>AI検索というと、ChatGPTのような専用のチャットサービスを思い浮かべがちです。ただ、変化はそれだけにとどまりません。Google検索の結果ページ自体にも、AI Overviewsと呼ばれる要約機能が組み込まれるようになりました。<a href="/blog/ai-overviews-aeo.html">Google AI Overviews対策とは</a>で触れたとおり、検索エンジンの中と外の両方で、同じような要約型の見え方が広がりつつあるということです。専用サービスか検索結果の一部かという違いはあっても、ユーザーが最初に触れる情報が要約である、という点では同じ性質を持っています。</p>
+<h2>SEOとの関係をどう整理するか</h2>
+<p>ここまで読むと、SEOはもう不要なのかと思われるかもしれません。ただ、それは早計だろうと思います。AI検索の回答も、元をたどれば何らかの情報源を参照して生成されています。検索結果に表示されること自体は、参照される可能性を保つうえで、引き続き意味を持つはずです。<a href="/blog/geo-vs-seo.html">GEOとSEOの違いとは</a>や<a href="/blog/aeo-llmo-geo-difference.html">AEO・LLMO・GEO、結局何が違うのか</a>でも触れたとおり、既存の取り組みを置き換えるというより、見るべき観点が一つ増えた、という捉え方のほうが実態に近いはずです。</p>
+<h2>まず何を確認すればいいか</h2>
+<p>AI検索という言葉の輪郭がつかめたところで、次に気になるのは、自社にとって何をすればいいのかという点です。<a href="/blog/ai-search-strategy.html">AI検索対策とは何か</a>で整理したとおり、最初にやるべきことは大掛かりな施策ではなく、現状の確認です。自社に関連する質問を、実際にAIへ投げてみて、どのような答えが返ってくるかを見ておく。<a href="/blog/chatgpt-search-mechanism.html">ChatGPT検索の仕組みとは</a>で扱ったような、それぞれのサービスの特性を知っておくことも、この確認作業の助けになります。</p>
+<h2>よくある質問</h2>
+<p><strong>Q. AI検索とAI Overviewsは同じものですか。</strong><br>
+A. 厳密には別のものです。AI Overviewsは検索エンジンに組み込まれた要約機能の名称であり、AI検索はChatGPTなどのチャットサービスも含めた、より広い調べ方全般を指す言葉として使われています。</p>
+<p><strong>Q. AI検索が広がると、従来のSEOは不要になりますか。</strong><br>
+A. 不要になるとは言い切れません。AI検索の回答も情報源を参照して生成される以上、検索結果に表示される状態を保つことには引き続き意味があると考えられます。</p>
+<p><strong>Q. AI検索での自社の見え方は、どうやって確認すればいいですか。</strong><br>
+A. 自社に関連しそうな質問を、複数のAIサービスに実際に投げてみることから始められます。継続的に確認したい場合は、記録や比較を手助けするツールの利用も選択肢になります。</p>
+        </div>
+      </article>
+
+      <div class="article-cta">
+        <p>AIにあなたのブランドはどう見えている？<br>まずは300円のQuick Scanから。</p>
+        <a href="/detail.html#cta" class="btn-primary" onclick="gtag('event', 'cta_click_blog_post', { page: location.pathname })">Quick Scan ¥300 で調べる →</a>
+      </div>
+
+      <p class="article-back"><a href="/blog/">← ブログ一覧に戻る</a></p>
+    </div>
+  </main>
+
+  <!-- ── FOOTER ── -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div>
+        <p class="footer-brand-name">🐙 Ops Octopus</p>
+        <p class="footer-brand-sub">AIブランド調査レポート</p>
+        <p class="footer-brand-sub footer-brand-tagline">「知りたい」に、するっと。</p>
+      </div>
+      <div class="footer-links">
+        <a class="footer-link" href="/blog/">ブログ</a>
+        <a class="footer-link" href="/terms.html">利用規約</a>
+        <a class="footer-link" href="/legal.html">特定商取引法に基づく表記</a>
+        <a class="footer-link" href="/privacy.html">プライバシーポリシー</a>
+      </div>
+      <p class="footer-copy">© 2026 Ops Octopus. All rights reserved.</p>
+    </div>
+  </footer>
+
+</body>
+</html>
