@@ -1,4 +1,4 @@
-name: Sample Report to SNS
+name: Sample Report to Content
 
 on:
   push:
@@ -12,7 +12,7 @@ permissions:
   pull-requests: write
 
 jobs:
-  sample-to-sns:
+  sample-to-content:
     runs-on: ubuntu-latest
     env:
       # Opus等の高額モデルへの意図しない切り替わりを防ぐため固定。
@@ -57,7 +57,7 @@ jobs:
         if: steps.detect.outputs.found == 'true'
         id: branch
         run: |
-          BRANCH="autopilot/sample-sns-$(date +%Y-%m-%d)-${GITHUB_RUN_ID}"
+          BRANCH="autopilot/sample-content-$(date +%Y-%m-%d)-${GITHUB_RUN_ID}"
           git checkout -B "$BRANCH"
           echo "branch=$BRANCH" >> "$GITHUB_OUTPUT"
 
@@ -67,11 +67,25 @@ jobs:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           NEW_FILES: ${{ steps.detect.outputs.files }}
         run: |
-          PROMPT="$(cat .github/prompts/sample-to-sns.md)
+          PROMPT="$(cat .github/prompts/sample-to-content.md)
 
           対象ファイル:
           $NEW_FILES"
           claude -p "$PROMPT" --model "$CLAUDE_MODEL" --dangerously-skip-permissions
+
+      - name: Set up Python
+        if: steps.detect.outputs.found == 'true'
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        if: steps.detect.outputs.found == 'true'
+        run: pip install -r requirements.txt
+
+      - name: Build site
+        if: steps.detect.outputs.found == 'true'
+        run: python build.py
 
       - name: Commit changes
         if: steps.detect.outputs.found == 'true'
@@ -83,7 +97,7 @@ jobs:
           if git diff --cached --quiet; then
             echo "changed=false" >> "$GITHUB_OUTPUT"
           else
-            git commit -m "[Autopilot] ${{ steps.branch.outputs.branch }} サンプルレポートのSNS転用ドラフト追加"
+            git commit -m "[Autopilot] ${{ steps.branch.outputs.branch }} サンプルレポートのSNS転用ドラフト・事例記事を追加"
             echo "changed=true" >> "$GITHUB_OUTPUT"
           fi
 
@@ -97,10 +111,13 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           gh pr create \
-            --title "[Autopilot] $(date +%Y-%m-%d) サンプルレポートのSNS転用ドラフト" \
+            --title "[Autopilot] $(date +%Y-%m-%d) サンプルレポートのSNS転用ドラフト・事例記事" \
             --label autopilot \
             --body "## 概要
-          新規追加されたサンプルレポートから、docs/SNS_REPURPOSE.mdのルールに従いX投稿ドラフトを生成し、sns/x-queue.md に追記しました。
+          新規追加されたサンプルレポートから、以下の2つを生成しました。
+
+          - docs/SNS_REPURPOSE.mdのルールに従ったX投稿ドラフト(sns/x-queue.md に追記)
+          - サンプルレポートの01(3AI回答)・02(インサイト)セクションのみを根拠にしたブログ事例記事(blog/posts/配下に新規追加。ブランドへの新規AI問い合わせ・Web検索は行っていません)
 
           ## 対象ファイル
           \`\`\`
@@ -115,4 +132,4 @@ jobs:
 
       - name: No changes
         if: steps.detect.outputs.found == 'true' && steps.commit.outputs.changed == 'false'
-        run: echo "SNS転用ドラフトの生成対象はありましたが、差分がありませんでした。"
+        run: echo "生成対象はありましたが、差分がありませんでした。"

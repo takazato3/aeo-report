@@ -66,7 +66,7 @@
   - 業界傾向データがcategoriesシート未登録(該当行なし)の場合は生成を失敗させず、「データ未登録」であることが分かる表示にフォールバックする
   - `assets/sample_reports/` にレポートHTMLを出力し、`_src/samples.html` に一覧項目を追記、キューを「未実施」→「実施済み」へ移動、`data/SAMPLE_COST_LOG.md` に実行履歴を記録(本番Quick Scanと同一API枠のため個別コスト算出は行わない)
 - 週次ループ(`weekly-content.yml`)とは独立した月次ワークフロー:`.github/workflows/sample-generator.yml`(毎月第1月曜起動 + 手動起動)
-- サンプル追加をトリガーにSNS転用ドラフトを生成する:`.github/workflows/sample-to-sns.yml`(`assets/sample_reports/**` へのpushで起動)
+- サンプル追加をトリガーにSNS転用ドラフト・ブログ事例記事を生成する:`.github/workflows/sample-to-content.yml`(`assets/sample_reports/**` へのpushで起動。詳細は「サンプル→コンテンツ連携」参照)
 
 ### tier切替の考え方(`SAMPLE_TIER` Variable)
 
@@ -75,13 +75,31 @@
 ### 承認フロー
 
 - `sample-generator.yml` が作成するPRには `sample-review` ラベルを付与し、`autopilot` ラベルは付けない。そのため既存の48時間自動マージ(`auto-merge.yml`)の対象外となり、**必ず手動マージ**する(本番と同一のAI API利用枠を消費する処理であり、レポート内容・掲載順を人が確認してからマージする運用のため)
-- 一方、`sample-to-sns.yml` が生成するSNS転用ドラフトPRには `autopilot` ラベルを付与し、既存の48時間自動マージ対象に含める(ドラフトの追記のみで実際の投稿は行わないため、他の週次コンテンツ更新と同様の運用でよい)
+- 一方、`sample-to-content.yml` が生成するSNS転用ドラフト・ブログ事例記事のPRには `autopilot` ラベルを付与し、既存の48時間自動マージ対象に含める(ドラフトの追記・記事の新規追加のみで実際の投稿は行わないため、他の週次コンテンツ更新と同様の運用でよい)
 - ブランドキューが空の場合は生成をスキップし、`sample-review` ラベル・`assignee: takazato3` 付きのIssueを作成して通知する
 
 ### コスト方針
 
 - Quick Scan:本番GASの`generateSampleReport`アクション経由で3AI(GPT/Claude/Gemini)への1回ずつの問い合わせ+Claudeによる質問文生成・インサイト要約を行う。本番Quick Scanの購入者が消費するのと同一のAPI利用枠(APIキー)を使うため、サンプル生成側で個別にコストを見積もる必要はない。`data/SAMPLE_COST_LOG.md`には実行日・ブランド名・tierの履歴のみを記録する
 - Deep Scan:将来実装。1回あたり3AI×複数質問×複数回の集計となるため、実行都度のAPI利用量はQuickより大きく増加する見込み。本番実装時はGAS側のDeep Scan相当アクション追加とあわせて、コストへの影響を確認すること
+
+## サンプル→コンテンツ連携
+
+サンプルレポート(`sample-generator.yml`のPRがマージされ`assets/sample_reports/**`に新規ファイルが追加されたタイミング)をトリガーに、`.github/workflows/sample-to-content.yml`がSNS転用ドラフトとブログ事例記事の両方を1回のワークフロー実行で生成する。
+
+### 仕組み
+
+- トリガー・生成方法とも`weekly-content.yml`と同じくClaude Codeヘッドレス起動(プロンプトは`.github/prompts/sample-to-content.md`)。モデルはコスト予測性のため`sonnet`固定
+- X投稿ドラフト2案:既存どおりdocs/SNS_REPURPOSE.mdのルールに従い`sns/x-queue.md`に追記。サンプルレポートの中身(ブランド名・AI回答)には言及しない一般的なサービス紹介文にする
+- ブログ事例記事1本:サンプルレポートHTMLの「01 3AIの回答」「02 AIインサイト」セクションの内容のみを根拠に生成し、`blog/posts/<slug>-case-study.md`として保存(front matterの`tags`に"事例"を含める)。記事構成は「結論ファースト→共通点・差分→AEO視点での示唆→サンプルレポート本体へのリンク→自社ブランド確認のCTA(detail.html)」の順で固定。1000〜1500字程度
+- docs/WRITING_RHYTHM.mdは記事中間部(共通点・差分、AEO視点での示唆)にのみ適用し、結論部と末尾CTAは適用除外とする(WRITING_RHYTHM.md自体の「適用範囲」注記と同じ考え方)
+- 生成後`python build.py`を実行し、`blog/<slug>-case-study.html`・`blog/index.html`・`sitemap.xml`等に反映してからコミットする
+- SNS転用ドラフトとブログ事例記事は同一コミット・同一PRにまとめ、`autopilot`ラベルを付与して既存の48時間自動マージフローに乗せる(別立てのPRフローは作らない)
+
+### 承認済みデータのみ使用する制約(厳守)
+
+- ブログ事例記事の執筆にあたり、対象ブランドへ新たにAIへ質問を投げ直したり、Web検索等で追加情報を集めたりすることを禁止する。サンプルレポート(人がレビューし`sample-review`ラベルのPRを手動マージして承認済みの内容)に書かれている情報だけを根拠にする
+- この制約により、ブログ記事の内容は必ず「人が確認済みのサンプルレポート」の範囲に収まる。サンプルレポート生成時点(`sample-generator.yml`、必ず手動マージ)での品質管理が、そのままブログ記事側の品質担保にもなる設計
 
 ## 運用ナレッジ
 
