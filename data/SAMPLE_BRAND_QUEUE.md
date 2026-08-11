@@ -6,7 +6,6 @@
 
 | ブランド名 | 業種カテゴリ | 中カテゴリ | 想定質問の方向性 |
 |---|---|---|---|
-| コメダ珈琲店 | 飲食・外食	| カフェ/ファストフード等 |	初めて利用する人向けの特徴・評判
 |　SKⅡ	| 美容・コスメ |	スキンケア/ブランド等 |	初心者向けの選び方・評判
 | Salesforce | ITツール	| 業務効率化SaaS等 |	導入検討者向けの評判・強み
 
@@ -17,3 +16,4 @@
 | Duolingo | 2026-05-17 | OpsOctopus_QuickScan_Duolingo_20260517.html |
 | はとバス | 2026-05-17 | OpsOctopus_QuickScan_hatobus_20260517.html |
 | JACリクルートメント | 2026-05-17 | OpsOctopus_QuickScan_JAC_20260517.html |
+| コメダ珈琲店 | 2026-08-11 | OpsOctopus_QuickScan_komedaJiaBeiDian_20260811.html |
