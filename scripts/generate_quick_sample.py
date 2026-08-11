@@ -3,20 +3,26 @@
 Quick Scan サンプルレポート生成スクリプト
 ====================
 data/SAMPLE_BRAND_QUEUE.md の「未実施」先頭ブランド(または引数指定ブランド)について、
-質問文生成→ChatGPT/Gemini/Claudeへの同一質問送信→Claudeによるインサイト要約を行い、
+本番GAS Webアプリの action: "generateSampleReport" を呼び出し、画面②「調査開始」
+確定時と同一のロジック(質問文生成→3AI実行→インサイト合成)で結果を取得したうえで、
 _templates/quick_scan_sample.html に流し込んで assets/sample_reports/ 配下に
 サンプルレポートHTMLを生成する。
+
+独自にOpenAI/Claude/Geminiへ直接問い合わせることはしない。本番Quick Scanの
+プロンプト・要約仕様が変わっても、GAS側の同一コードパスを経由するため
+サンプル生成側の追従は不要になる。
 
 使い方:
   python scripts/generate_quick_sample.py            # キューの未実施先頭1件を使用
   python scripts/generate_quick_sample.py "ブランド名"  # 手動指定(キュー未登録でも可)
 
 環境変数:
-  GCP_SA_KEY    Secret Manager接続用サービスアカウント認証情報(JSON文字列)
-                openai-api-key / claude-api-key / gemini-api-key の3シークレットを取得する
-  SAMPLE_TIER   "quick"(デフォルト)または "deep"。
-                "deep" は現時点ではQuick実行にフォールバックするスタブ
-                (将来Cloud Runの /process 呼び出しに差し替え予定)
+  GAS_SAMPLE_SECRET  GAS Webアプリの generateSampleReport アクション認証用シークレット
+                      (GASスクリプトプロパティ SAMPLE_GEN_SECRET と同じ値)
+  GAS_WEBAPP_URL      GAS WebアプリのURL(省略時はCLAUDE.md記載の本番デプロイURLを使用)
+  SAMPLE_TIER         "quick"(デフォルト)または "deep"。
+                       "deep" は現時点ではQuick実行にフォールバックするスタブ
+                       (将来Cloud Runの /process 呼び出しに差し替え予定)
 
 このスクリプトが行わないこと(呼び出し側の責務):
   - python build.py の実行(_src/samples.html → samples.html への反映)
@@ -26,7 +32,6 @@ _templates/quick_scan_sample.html に流し込んで assets/sample_reports/ 配�
 
 import argparse
 import html as html_lib
-import json
 import os
 import re
 import sys
@@ -34,6 +39,7 @@ from datetime import date, datetime
 from pathlib import Path
 
 import markdown
+import requests
 
 ROOT = Path(__file__).resolve().parent.parent
 TEMPLATE_PATH = ROOT / '_templates' / 'quick_scan_sample.html'
@@ -42,76 +48,47 @@ SAMPLES_SRC_PATH = ROOT / '_src' / 'samples.html'
 QUEUE_PATH = ROOT / 'data' / 'SAMPLE_BRAND_QUEUE.md'
 COST_LOG_PATH = ROOT / 'data' / 'SAMPLE_COST_LOG.md'
 
-# コスト予測性のため固定。変更する場合はこの値だけ書き換える。
-CLAUDE_MODEL = os.environ.get('SAMPLE_CLAUDE_MODEL', 'claude-sonnet-5')
-OPENAI_MODEL = os.environ.get('SAMPLE_OPENAI_MODEL', 'gpt-4o-mini')
-GEMINI_MODEL = os.environ.get('SAMPLE_GEMINI_MODEL', 'gemini-2.5-flash')
-
-# 1Mトークンあたりの概算USD単価。実際の請求額とは異なる場合がある(参考値。
-# 料金改定があれば随時更新すること)。
-PRICING = {
-    'claude': {'input': 3.00, 'output': 15.00},
-    'openai': {'input': 0.15, 'output': 0.60},
-    'gemini': {'input': 0.30, 'output': 2.50},
-}
+# CLAUDE.md記載の本番GAS Webアプリ(既存デプロイ)。環境変数で上書き可能。
+DEFAULT_GAS_WEBAPP_URL = (
+    'https://script.google.com/macros/s/'
+    'AKfycbzYeiBAv2CY5zqLjx2kbHTRegNRkdz2dAecGwa2MDH_c6_5NpIocr9xpVP3ItwT7m-0-Q/exec'
+)
+GAS_WEBAPP_URL = os.environ.get('GAS_WEBAPP_URL', DEFAULT_GAS_WEBAPP_URL)
+GAS_REQUEST_TIMEOUT = 180  # 質問文生成+3AI+インサイト合成を直列実行するため長めに取る
 
 TREND_WIDTH_MAP = {'低い': 30, '中程度': 60, '高い': 100}
 
-QUESTION_EXAMPLES = """\
-- Duolingoに興味があります。Duolingoのどんな点がユーザーに評価されていますか?特徴や強みも教えてください。
-- 初めて観光バスツアーを利用する予定です。はとバスのツアーはどんな特徴がありますか?利用者の評判も知りたいです。
-- 外資系企業への転職を考えています。JACリクルートメントの強みや評判について教えてください。"""
 
-SYNTHESIS_SCHEMA = {
-    'type': 'object',
-    'properties': {
-        'common': {'type': 'string'},
-        'difference': {'type': 'string'},
-        'persona': {'type': 'string'},
-        'keywords': {'type': 'array', 'items': {'type': 'string'}},
-        'industry_header': {'type': 'string'},
-        'trend_level': {'type': 'string', 'enum': ['低い', '中程度', '高い']},
-        'trend_comment': {'type': 'string'},
-        'aeo_hint': {'type': 'string'},
-    },
-    'required': [
-        'common', 'difference', 'persona', 'keywords',
-        'industry_header', 'trend_level', 'trend_comment', 'aeo_hint',
-    ],
-    'additionalProperties': False,
-}
+# ─── GAS呼び出し ───
 
+def call_gas_generate_sample_report(secret, brand, category_major, category_sub, direction_hint):
+    """GASの action: "generateSampleReport" を呼び出す。
 
-# ─── Secret Manager ───
-
-def load_gcp_credentials():
-    key_json = os.environ.get('GCP_SA_KEY')
-    if not key_json:
-        print('[error] GCP_SA_KEY が未設定です。', file=sys.stderr)
-        sys.exit(1)
-    from google.oauth2 import service_account
-    info = json.loads(key_json)
-    creds = service_account.Credentials.from_service_account_info(
-        info, scopes=['https://www.googleapis.com/auth/cloud-platform'],
-    )
-    return creds, info['project_id']
-
-
-def fetch_secret(client, project_id, secret_id):
-    name = f'projects/{project_id}/secrets/{secret_id}/versions/latest'
-    response = client.access_secret_version(request={'name': name})
-    return response.payload.data.decode('utf-8')
-
-
-def load_api_keys():
-    from google.cloud import secretmanager
-    creds, project_id = load_gcp_credentials()
-    client = secretmanager.SecretManagerServiceClient(credentials=creds)
-    return {
-        'openai': fetch_secret(client, project_id, 'openai-api-key'),
-        'claude': fetch_secret(client, project_id, 'claude-api-key'),
-        'gemini': fetch_secret(client, project_id, 'gemini-api-key'),
+    GAS Webアプリのレスポンスはscript.google.com/.../execから
+    script.googleusercontent.com/macros/echo?...への302リダイレクトで返る。
+    リダイレクト先は一度しか読み出せない一時URLのため、requestsの自動
+    リダイレクト追従（POSTのまま再送されうる）に頼らず、Locationヘッダーを
+    手動で取得してGETで取得する。
+    """
+    payload = {
+        'action': 'generateSampleReport',
+        'secret': secret,
+        'brand': brand,
+        'category_major': category_major,
+        'category_sub': category_sub,
+        'direction_hint': direction_hint,
     }
+    resp = requests.post(
+        GAS_WEBAPP_URL, json=payload, allow_redirects=False, timeout=GAS_REQUEST_TIMEOUT,
+    )
+    if resp.status_code in (301, 302, 303) and 'Location' in resp.headers:
+        resp = requests.get(resp.headers['Location'], timeout=GAS_REQUEST_TIMEOUT)
+    resp.raise_for_status()
+    body = resp.json()
+
+    if not body.get('success'):
+        raise RuntimeError(f'GAS generateSampleReport が失敗しました: {body.get("error")}')
+    return body['data']
 
 
 # ─── ブランドキュー ───
@@ -179,102 +156,6 @@ def update_queue_text(text, brand_row, output_filename, run_date):
     return new_text + new_row + '\n'
 
 
-# ─── AI呼び出し ───
-
-def generate_question(client, model, brand, category_major, category_sub, direction_hint):
-    prompt = f"""あなたはAIブランド調査サービス「Ops Octopus」の質問文生成担当です。
-以下のブランドについて、実際のユーザーが生成AIに話しかけるときの自然な一人称の質問文を1つだけ作成してください。
-
-ブランド名: {brand}
-業種・大カテゴリ: {category_major or '(指定なし)'}
-中カテゴリ: {category_sub or '(指定なし)'}
-想定質問の方向性: {direction_hint or '(指定なし。ブランドの強み・評判を尋ねる一般的な質問でよい)'}
-
-過去の質問文の例(トーンの参考。同じ文面は使わないこと):
-{QUESTION_EXAMPLES}
-
-出力ルール:
-- 日本語の自然な一人称の会話文にすること(「〜を検討しています」「〜に興味があります」等)
-- 1〜2文程度、120文字以内
-- ブランド名を必ず含めること
-- 質問文以外の説明・前置き・引用符は一切つけず、質問文そのものだけを出力すること"""
-
-    resp = client.messages.create(
-        model=model,
-        max_tokens=300,
-        messages=[{'role': 'user', 'content': prompt}],
-    )
-    text = next((b.text for b in resp.content if b.type == 'text'), '').strip()
-    return text.strip('「」"\''), resp.usage
-
-
-def call_openai(client, model, question):
-    resp = client.chat.completions.create(
-        model=model,
-        messages=[{'role': 'user', 'content': question}],
-    )
-    text = resp.choices[0].message.content or ''
-    return text, resp.usage
-
-
-def call_gemini(client, model, question):
-    resp = client.models.generate_content(model=model, contents=question)
-    text = resp.text or ''
-    return text, resp.usage_metadata
-
-
-def call_claude_answer(client, model, question):
-    resp = client.messages.create(
-        model=model,
-        max_tokens=1024,
-        messages=[{'role': 'user', 'content': question}],
-    )
-    text = next((b.text for b in resp.content if b.type == 'text'), '')
-    return text, resp.usage
-
-
-def build_synthesis_prompt(brand, category_major, category_sub, chatgpt_text, gemini_text, claude_text):
-    return f"""以下は、AIブランド調査サービス「Ops Octopus」がChatGPT・Gemini・Claudeの3AIに
-同一の質問をした際の回答です。
-
-ブランド名: {brand}
-業種・大カテゴリ: {category_major or '(不明)'}
-中カテゴリ: {category_sub or '(不明)'}
-
---- ChatGPTの回答 ---
-{chatgpt_text}
-
---- Geminiの回答 ---
-{gemini_text}
-
---- Claudeの回答 ---
-{claude_text}
-
-上記を踏まえ、以下をすべて日本語で作成してください。既存レポートのトーン
-(実務者向け、断定しすぎず「〜傾向が見られます」等の柔らかい表現、煽らない)に合わせること。
-
-- common: 3AIの回答に共通する見解を2〜3文で
-- difference: 3AIの回答の間に見られる言及の差を2〜3文で
-- persona: このキーワードを検索する想定ユーザー像を1〜2文で
-- keywords: 3AIの回答に現れた注目ワードを8〜15個、単語または短い句で
-- industry_header: 「{category_major or brand}」を業界名として短く言い換えたもの
-- trend_level: この業界のAI検索利用傾向のレベル(「低い」「中程度」「高い」のいずれか)
-- trend_comment: この業界でのAI検索利用傾向についての説明を2〜3文で
-- aeo_hint: この業界向けのAEO改善のヒントを「・」始まりの行3項目程度、改行区切りのプレーンテキストで"""
-
-
-def synthesize_insights(client, model, brand, category_major, category_sub, chatgpt_text, gemini_text, claude_text):
-    prompt = build_synthesis_prompt(brand, category_major, category_sub, chatgpt_text, gemini_text, claude_text)
-    resp = client.messages.create(
-        model=model,
-        max_tokens=2000,
-        output_config={'format': {'type': 'json_schema', 'schema': SYNTHESIS_SCHEMA}},
-        messages=[{'role': 'user', 'content': prompt}],
-    )
-    text = next(b.text for b in resp.content if b.type == 'text')
-    return json.loads(text), resp.usage
-
-
 # ─── HTML変換 ───
 
 def esc(text):
@@ -294,8 +175,22 @@ def highlight_keyword(html_content, keyword):
 
 
 def to_card_html(raw_text, brand):
+    """本番quick-scan.htmlのrenderResult()と同じ変換を行う:
+    markdown変換→<em>/<mark>タグの除去(中身は残す)→キーワードハイライト。
+    """
+    if not raw_text:
+        return '<p><span class="result-error">回答を取得できませんでした。</span></p>'
     rendered = markdown.markdown(esc(raw_text.strip()), extensions=['extra', 'sane_lists'])
+    rendered = re.sub(r'</?mark>', '', rendered)
+    rendered = re.sub(r'</?em>', '', rendered)
     return highlight_keyword(rendered, brand)
+
+
+def parse_keywords(keywords_field):
+    """GASのinsight.keywordsはカンマ区切りの文字列(quick-scan.htmlと同じ形式)。"""
+    if not keywords_field:
+        return []
+    return [k.strip() for k in keywords_field.split(',') if k.strip()]
 
 
 def render_template(template_text, mapping):
@@ -334,25 +229,54 @@ def update_samples_src(text, entry_html):
     return text[:end] + entry_html + text[end:]
 
 
+def build_industry_trend_fields(category_major, category_data):
+    """業界傾向(02セクション下段)のプレースホルダ値を組み立てる。
+
+    categoryDataはGAS側のcategoriesシートに該当行が無ければnullになる
+    (新規カテゴリをキューに追加した直後などに起こりうる)。その場合は
+    生成自体は失敗させず、「未登録」であることが分かる表示にフォールバックする。
+    """
+    industry_header = esc(category_major)
+    if not category_data:
+        print(f'[warn] categoriesシートに一致する行が見つかりませんでした（業種・大カテゴリ: "{category_major}"）。'
+              '業界傾向パネルは「未登録」表示になります。')
+        return {
+            'INDUSTRY_HEADER': industry_header,
+            'TREND_LEVEL': 'データ未登録',
+            'TREND_WIDTH': '0',
+            'TREND_COMMENT': 'この業種・カテゴリのAI検索利用傾向データは、まだcategoriesシートに登録されていません。',
+            'AEO_HINT_HTML': 'この業種・カテゴリのAEO改善ヒントは、まだcategoriesシートに登録されていません。',
+        }
+
+    trend_level = category_data.get('ai_usage_trend') or '中程度'
+    # 本番quick-scan.htmlと同じく、コメント・ヒントはcategoriesシートの内容を
+    # そのまま(エスケープせず)改行→<br>変換のみで埋め込む。
+    trend_comment = (category_data.get('ai_usage_comment_quick') or '').replace('\n', '<br>')
+    aeo_hint = (category_data.get('aeo_hint_quick') or '').replace('\n', '<br>')
+    return {
+        'INDUSTRY_HEADER': industry_header,
+        'TREND_LEVEL': esc(trend_level),
+        'TREND_WIDTH': str(TREND_WIDTH_MAP.get(trend_level, 60)),
+        'TREND_COMMENT': trend_comment,
+        'AEO_HINT_HTML': aeo_hint,
+    }
+
+
 # ─── コストログ ───
 
-def estimate_cost(provider, input_tokens, output_tokens):
-    pricing = PRICING[provider]
-    return (input_tokens / 1_000_000 * pricing['input']) + (output_tokens / 1_000_000 * pricing['output'])
-
-
-def append_cost_log(run_date, brand, tier, total_cost, breakdown):
+def append_cost_log(run_date, brand, tier):
     COST_LOG_PATH.parent.mkdir(parents=True, exist_ok=True)
     if not COST_LOG_PATH.exists():
         header = (
             '# サンプルレポート生成コストログ\n\n'
-            '日付順に追記する。トークン数は各AI SDKのusageレスポンスから取得した概算値。\n'
-            '金額は概算(見積り)であり、実際の請求額とは異なる場合がある。\n\n'
-            '| 実行日 | ブランド名 | ティア | 概算コスト(USD) | 内訳 |\n'
-            '|---|---|---|---|---|\n'
+            '本番GAS(generateSampleReportアクション)経由で生成しており、本番Quick Scan/Deep Scan\n'
+            'と同一のAPI利用枠を使うため、このスクリプト単体での個別コスト算出は行わない。\n'
+            '実行履歴の記録のみを目的とする。\n\n'
+            '| 実行日 | ブランド名 | ティア | 備考 |\n'
+            '|---|---|---|---|\n'
         )
         COST_LOG_PATH.write_text(header, encoding='utf-8')
-    row = f'| {run_date.isoformat()} | {brand} | {tier} | ${total_cost:.4f} | {breakdown} |\n'
+    row = f'| {run_date.isoformat()} | {brand} | {tier} | GAS経由・本番同一ロジック(個別コスト算出なし) |\n'
     with COST_LOG_PATH.open('a', encoding='utf-8') as f:
         f.write(row)
 
@@ -370,40 +294,36 @@ def main():
     parser.add_argument('brand', nargs='?', default=None, help='手動指定するブランド名(省略時はキュー先頭)')
     args = parser.parse_args()
 
+    secret = os.environ.get('GAS_SAMPLE_SECRET')
+    if not secret:
+        print('[error] GAS_SAMPLE_SECRET が未設定です。', file=sys.stderr)
+        sys.exit(1)
+
     queue_text = QUEUE_PATH.read_text(encoding='utf-8')
     queue_rows = parse_queue_pending(queue_text)
     brand_row, from_queue = select_brand(queue_rows, args.brand)
-
-    api_keys = load_api_keys()
-
-    import anthropic
-    import openai as openai_sdk
-    from google import genai as genai_sdk
-
-    claude_client = anthropic.Anthropic(api_key=api_keys['claude'])
-    openai_client = openai_sdk.OpenAI(api_key=api_keys['openai'])
-    gemini_client = genai_sdk.Client(api_key=api_keys['gemini'])
 
     brand = brand_row['brand']
     category_major = brand_row.get('category_major', '')
     category_sub = brand_row.get('category_sub', '')
     direction_hint = brand_row.get('direction_hint', '')
 
-    question, q_usage = generate_question(
-        claude_client, CLAUDE_MODEL, brand, category_major, category_sub, direction_hint,
-    )
-    print(f'[ok] 質問文を生成しました: {question}')
+    if not category_major:
+        print('[error] category_major が空です。SAMPLE_BRAND_QUEUE.md を確認してください。', file=sys.stderr)
+        sys.exit(1)
 
-    chatgpt_text, chatgpt_usage = call_openai(openai_client, OPENAI_MODEL, question)
-    gemini_text, gemini_usage = call_gemini(gemini_client, GEMINI_MODEL, question)
-    claude_text, claude_usage = call_claude_answer(claude_client, CLAUDE_MODEL, question)
-    print('[ok] 3AIへの質問を完了しました。')
+    print(f'[ok] GAS generateSampleReport を呼び出します（ブランド: {brand}）...')
+    data = call_gas_generate_sample_report(secret, brand, category_major, category_sub, direction_hint)
 
-    insight, synth_usage = synthesize_insights(
-        claude_client, CLAUDE_MODEL, brand, category_major, category_sub,
-        chatgpt_text, gemini_text, claude_text,
-    )
-    print('[ok] AIインサイトを生成しました。')
+    question = data.get('question') or ''
+    results = data.get('results') or {}
+    insight = data.get('insight') or {}
+    errors = data.get('errors') or []
+    category_data = data.get('categoryData')
+
+    print(f'[ok] 質問文: {question}')
+    if errors:
+        print(f'[warn] GAS側で一部エラーが発生しました: {errors}')
 
     run_date = date.today()
     now = datetime.now()
@@ -411,28 +331,24 @@ def main():
     output_filename = f'OpsOctopus_QuickScan_{slug}_{run_date.strftime("%Y%m%d")}.html'
     output_path = SAMPLE_REPORTS_DIR / output_filename
 
-    keywords_html = ''.join(f'<span class="keyword-tag">{esc(k)}</span>' for k in insight['keywords'])
-    trend_level = insight['trend_level']
+    keywords_html = ''.join(f'<span class="keyword-tag">{esc(k)}</span>' for k in parse_keywords(insight.get('keywords')))
+
     mapping = {
         'BRAND_NAME': esc(brand),
         'DATE_YYYYMMDD': run_date.strftime('%Y%m%d'),
         'SURVEY_DATETIME': f'{now.year}/{now.month}/{now.day} {now.strftime("%H:%M:%S")}',
-        'CATEGORY_MAJOR': esc(category_major or brand),
-        'CATEGORY_SUB': esc(category_sub or brand),
+        'CATEGORY_MAJOR': esc(category_major),
+        'CATEGORY_SUB': esc(category_sub or category_major),
         'PROMPT_TEXT': esc(question),
-        'CHATGPT_ANSWER_HTML': to_card_html(chatgpt_text, brand),
-        'GEMINI_ANSWER_HTML': to_card_html(gemini_text, brand),
-        'CLAUDE_ANSWER_HTML': to_card_html(claude_text, brand),
-        'INSIGHT_COMMON': esc(insight['common']),
-        'INSIGHT_DIFFERENCE': esc(insight['difference']),
-        'INSIGHT_PERSONA': esc(insight['persona']),
+        'CHATGPT_ANSWER_HTML': to_card_html(results.get('chatgpt'), brand),
+        'GEMINI_ANSWER_HTML': to_card_html(results.get('gemini'), brand),
+        'CLAUDE_ANSWER_HTML': to_card_html(results.get('claude'), brand),
+        'INSIGHT_COMMON': esc(insight.get('common')),
+        'INSIGHT_DIFFERENCE': esc(insight.get('difference')),
+        'INSIGHT_PERSONA': esc(insight.get('persona')),
         'INSIGHT_KEYWORDS_HTML': keywords_html,
-        'INDUSTRY_HEADER': esc(insight['industry_header']),
-        'TREND_LEVEL': esc(trend_level),
-        'TREND_WIDTH': str(TREND_WIDTH_MAP.get(trend_level, 60)),
-        'TREND_COMMENT': esc(insight['trend_comment']),
-        'AEO_HINT_HTML': esc(insight['aeo_hint']).replace('\n', '<br>'),
     }
+    mapping.update(build_industry_trend_fields(category_major, category_data))
 
     template_text = TEMPLATE_PATH.read_text(encoding='utf-8')
     SAMPLE_REPORTS_DIR.mkdir(parents=True, exist_ok=True)
@@ -450,22 +366,8 @@ def main():
     else:
         print('[warn] キュー未登録のブランドのため、SAMPLE_BRAND_QUEUE.md は更新していません。')
 
-    cost_items = [
-        ('claude', q_usage.input_tokens, q_usage.output_tokens, '質問生成'),
-        ('openai', getattr(chatgpt_usage, 'prompt_tokens', 0) or 0,
-         getattr(chatgpt_usage, 'completion_tokens', 0) or 0, 'ChatGPT'),
-        ('gemini', getattr(gemini_usage, 'prompt_token_count', 0) or 0,
-         getattr(gemini_usage, 'candidates_token_count', 0) or 0, 'Gemini'),
-        ('claude', claude_usage.input_tokens, claude_usage.output_tokens, 'Claude回答'),
-        ('claude', synth_usage.input_tokens, synth_usage.output_tokens, 'Synthesize'),
-    ]
-    total_cost = 0.0
-    breakdown_parts = []
-    for provider, in_tok, out_tok, label in cost_items:
-        total_cost += estimate_cost(provider, in_tok, out_tok)
-        breakdown_parts.append(f'{label}={in_tok}+{out_tok}tok')
-    append_cost_log(run_date, brand, tier, total_cost, ', '.join(breakdown_parts))
-    print(f'[ok] data/SAMPLE_COST_LOG.md に概算コスト ${total_cost:.4f} を記録しました。')
+    append_cost_log(run_date, brand, tier)
+    print('[ok] data/SAMPLE_COST_LOG.md に実行履歴を記録しました。')
 
 
 def _romanize(text):
