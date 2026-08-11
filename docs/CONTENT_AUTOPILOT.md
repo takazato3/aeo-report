@@ -60,9 +60,11 @@
 - ブランドキュー:`data/SAMPLE_BRAND_QUEUE.md`(オーナーが対象ブランドを手動追加。AIは自動選定しない)
 - テンプレート:`_templates/quick_scan_sample.html`(既存3サンプルの共通構造をプレースホルダ化したもの)
 - 生成スクリプト:`scripts/generate_quick_sample.py`
-  - Secret Manager(`GCP_SA_KEY`経由)からOpenAI/Claude/Geminiの各APIキーを取得
-  - キュー先頭ブランド(または手動指定ブランド)について、質問文生成→3AI(GPT/Gemini/Claude)への同一質問送信→Claudeによるインサイト要約(共通見解・差分・想定ユーザー・注目ワード)を実施
-  - `assets/sample_reports/` にレポートHTMLを出力し、`_src/samples.html` に一覧項目を追記、キューを「未実施」→「実施済み」へ移動、`data/SAMPLE_COST_LOG.md` に概算コストを記録
+  - 独自にOpenAI/Claude/Geminiへ直接問い合わせることはしない。本番GAS Webアプリ(gas-opsoctopus、CLAUDE.md記載のデプロイURL)の `action: "generateSampleReport"` を呼び出す(認証は環境変数`GAS_SAMPLE_SECRET`、GAS側スクリプトプロパティ`SAMPLE_GEN_SECRET`と照合)
+  - このアクションは画面②「調査開始」確定時(`runSurvey`)と同一のコードパスを、人間による質問確認・編集をスキップして実行する。本番のプロンプト・要約仕様が変わってもサンプル生成側の追従が不要になる設計
+  - キュー先頭ブランド(または手動指定ブランド)のbrand/category_major/category_sub/direction_hintを送信し、質問文・3AI回答・インサイト(共通見解・言及の差・想定ユーザー・注目ワード)・業界傾向データ(categoriesシート由来)をJSONで受け取る
+  - 業界傾向データがcategoriesシート未登録(該当行なし)の場合は生成を失敗させず、「データ未登録」であることが分かる表示にフォールバックする
+  - `assets/sample_reports/` にレポートHTMLを出力し、`_src/samples.html` に一覧項目を追記、キューを「未実施」→「実施済み」へ移動、`data/SAMPLE_COST_LOG.md` に実行履歴を記録(本番Quick Scanと同一API枠のため個別コスト算出は行わない)
 - 週次ループ(`weekly-content.yml`)とは独立した月次ワークフロー:`.github/workflows/sample-generator.yml`(毎月第1月曜起動 + 手動起動)
 - サンプル追加をトリガーにSNS転用ドラフトを生成する:`.github/workflows/sample-to-sns.yml`(`assets/sample_reports/**` へのpushで起動)
 
@@ -72,14 +74,14 @@
 
 ### 承認フロー
 
-- `sample-generator.yml` が作成するPRには `sample-review` ラベルを付与し、`autopilot` ラベルは付けない。そのため既存の48時間自動マージ(`auto-merge.yml`)の対象外となり、**必ず手動マージ**する(生成コストが発生する処理であり、レポート内容・掲載順・コストログを人が確認してからマージする運用のため)
+- `sample-generator.yml` が作成するPRには `sample-review` ラベルを付与し、`autopilot` ラベルは付けない。そのため既存の48時間自動マージ(`auto-merge.yml`)の対象外となり、**必ず手動マージ**する(本番と同一のAI API利用枠を消費する処理であり、レポート内容・掲載順を人が確認してからマージする運用のため)
 - 一方、`sample-to-sns.yml` が生成するSNS転用ドラフトPRには `autopilot` ラベルを付与し、既存の48時間自動マージ対象に含める(ドラフトの追記のみで実際の投稿は行わないため、他の週次コンテンツ更新と同様の運用でよい)
 - ブランドキューが空の場合は生成をスキップし、`sample-review` ラベル・`assignee: takazato3` 付きのIssueを作成して通知する
 
 ### コスト方針
 
-- Quick Scan:3AI(GPT-4o-mini相当/Gemini Flash相当/Claude Sonnet)への1回ずつの問い合わせ + Claudeによる質問文生成・インサイト要約のみのため低コスト。実行のたびに `data/SAMPLE_COST_LOG.md` に概算USDを記録し、増加傾向を追跡できるようにする
-- Deep Scan:将来実装。1回あたり3AI×複数質問×複数回の集計となるため、実行都度のコストはQuickより大きく増加する見込み。本番実装時はコストログのフォーマット・単価表を合わせて見直すこと
+- Quick Scan:本番GASの`generateSampleReport`アクション経由で3AI(GPT/Claude/Gemini)への1回ずつの問い合わせ+Claudeによる質問文生成・インサイト要約を行う。本番Quick Scanの購入者が消費するのと同一のAPI利用枠(APIキー)を使うため、サンプル生成側で個別にコストを見積もる必要はない。`data/SAMPLE_COST_LOG.md`には実行日・ブランド名・tierの履歴のみを記録する
+- Deep Scan:将来実装。1回あたり3AI×複数質問×複数回の集計となるため、実行都度のAPI利用量はQuickより大きく増加する見込み。本番実装時はGAS側のDeep Scan相当アクション追加とあわせて、コストへの影響を確認すること
 
 ## 運用ナレッジ
 

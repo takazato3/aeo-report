@@ -103,7 +103,7 @@ jobs:
       - name: Generate sample report
         if: steps.gate.outputs.skip != 'true' && steps.queue.outputs.empty != 'true'
         env:
-          GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}
+          GAS_SAMPLE_SECRET: ${{ secrets.GAS_SAMPLE_SECRET }}
           SAMPLE_TIER: ${{ github.event.inputs.tier || vars.SAMPLE_TIER || 'quick' }}
         run: |
           python scripts/generate_quick_sample.py "${{ github.event.inputs.brand }}"
@@ -156,7 +156,7 @@ jobs:
           ## 確認事項
           - 生成されたレポート(\`assets/sample_reports/\` 配下)の内容
           - \`samples.html\` への掲載順・文言
-          - \`data/SAMPLE_COST_LOG.md\` に記録された概算コスト
+          - 業界傾向パネルが「データ未登録」表示になっていないか(categoriesシートに該当カテゴリが無い場合はその旨のフォールバック表示になります)
 
           ## マージについて
           このPRは手動マージ対象です(autopilotラベル付きPRのような48時間自動マージの対象ではありません)。内容を確認のうえマージしてください。"
