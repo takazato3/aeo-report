@@ -51,6 +51,36 @@
   anticipating-ai-queries / faq-pages-ai-search / how-to-write-llms-txt /
   not-appearing-in-chatgpt / structured-data-aeo の本文をです・ます調へ統一）
 
+## サンプルレポート生成
+
+月次でQuick Scanサンプルレポートを自動生成し、マーケ素材(LP掲載・SNS転用)として蓄積する仕組み。
+
+### 全体構成
+
+- ブランドキュー:`data/SAMPLE_BRAND_QUEUE.md`(オーナーが対象ブランドを手動追加。AIは自動選定しない)
+- テンプレート:`_templates/quick_scan_sample.html`(既存3サンプルの共通構造をプレースホルダ化したもの)
+- 生成スクリプト:`scripts/generate_quick_sample.py`
+  - Secret Manager(`GCP_SA_KEY`経由)からOpenAI/Claude/Geminiの各APIキーを取得
+  - キュー先頭ブランド(または手動指定ブランド)について、質問文生成→3AI(GPT/Gemini/Claude)への同一質問送信→Claudeによるインサイト要約(共通見解・差分・想定ユーザー・注目ワード)を実施
+  - `assets/sample_reports/` にレポートHTMLを出力し、`_src/samples.html` に一覧項目を追記、キューを「未実施」→「実施済み」へ移動、`data/SAMPLE_COST_LOG.md` に概算コストを記録
+- 週次ループ(`weekly-content.yml`)とは独立した月次ワークフロー:`.github/workflows/sample-generator.yml`(毎月第1月曜起動 + 手動起動)
+- サンプル追加をトリガーにSNS転用ドラフトを生成する:`.github/workflows/sample-to-sns.yml`(`assets/sample_reports/**` へのpushで起動)
+
+### tier切替の考え方(`SAMPLE_TIER` Variable)
+
+リポジトリVariable `SAMPLE_TIER` で `quick`(デフォルト)/`deep` を切り替える想定。現時点では `deep` を指定してもQuick Scan相当の処理にフォールバックするスタブのみが実装されており、実行ログに「Deep tier未実装。Quick実行にフォールバックしました」と出力される。将来Deep Scanが本番稼働した際は、このフォールバック部分をCloud Runの `/process` エンドポイント呼び出しに差し替える(スタブ箇所は`generate_quick_sample.py`内にTODOコメントで明記済み)。手動起動(`workflow_dispatch`)時はtier入力欄でも上書き指定できる。
+
+### 承認フロー
+
+- `sample-generator.yml` が作成するPRには `sample-review` ラベルを付与し、`autopilot` ラベルは付けない。そのため既存の48時間自動マージ(`auto-merge.yml`)の対象外となり、**必ず手動マージ**する(生成コストが発生する処理であり、レポート内容・掲載順・コストログを人が確認してからマージする運用のため)
+- 一方、`sample-to-sns.yml` が生成するSNS転用ドラフトPRには `autopilot` ラベルを付与し、既存の48時間自動マージ対象に含める(ドラフトの追記のみで実際の投稿は行わないため、他の週次コンテンツ更新と同様の運用でよい)
+- ブランドキューが空の場合は生成をスキップし、`sample-review` ラベル・`assignee: takazato3` 付きのIssueを作成して通知する
+
+### コスト方針
+
+- Quick Scan:3AI(GPT-4o-mini相当/Gemini Flash相当/Claude Sonnet)への1回ずつの問い合わせ + Claudeによる質問文生成・インサイト要約のみのため低コスト。実行のたびに `data/SAMPLE_COST_LOG.md` に概算USDを記録し、増加傾向を追跡できるようにする
+- Deep Scan:将来実装。1回あたり3AI×複数質問×複数回の集計となるため、実行都度のコストはQuickより大きく増加する見込み。本番実装時はコストログのフォーマット・単価表を合わせて見直すこと
+
 ## 運用ナレッジ
 
 - GA4接続403（`User does not have sufficient permissions`）の典型原因

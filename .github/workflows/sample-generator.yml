@@ -1,0 +1,166 @@
+name: Sample Report Generator
+
+on:
+  schedule:
+    # 毎週月曜 6:00 JST (= 日曜 21:00 UTC) に実行。
+    # cronの day-of-month/day-of-week はOR判定になり「第1月曜のみ」を直接表現できないため、
+    # 毎週起動した上でジョブ内(JST日付が1〜7日か)でフィルタする。
+    - cron: '0 21 * * 0'
+  workflow_dispatch:
+    inputs:
+      brand:
+        description: '手動指定するブランド名(省略時はキュー未実施の先頭)'
+        required: false
+      tier:
+        description: 'tier(quick/deep)。省略時はリポジトリVariable SAMPLE_TIERを使用'
+        required: false
+
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+
+jobs:
+  sample-generator:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Gate on first Monday (schedule trigger only)
+        if: github.event_name == 'schedule'
+        id: gate
+        run: |
+          DAY=$(TZ='Asia/Tokyo' date +%-d)
+          if [ "$DAY" -gt 7 ]; then
+            echo "第1月曜ではないためスキップします(JST日付: ${DAY}日)"
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "skip=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Checkout
+        if: steps.gate.outputs.skip != 'true'
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Check brand queue
+        if: steps.gate.outputs.skip != 'true'
+        id: queue
+        run: |
+          if [ -n "${{ github.event.inputs.brand }}" ]; then
+            echo "手動指定ブランドがあるためキュー件数チェックをスキップします"
+            echo "empty=false" >> "$GITHUB_OUTPUT"
+          else
+            COUNT=$(awk '
+              /^## 未実施/ { f=1; next }
+              /^## / { f=0 }
+              f && /^\|/ && $0 !~ /ブランド名/ && $0 !~ /^\|---/ { c++ }
+              END { print c+0 }
+            ' data/SAMPLE_BRAND_QUEUE.md)
+            echo "未実施件数: ${COUNT}"
+            if [ "$COUNT" -eq 0 ]; then
+              echo "empty=true" >> "$GITHUB_OUTPUT"
+            else
+              echo "empty=false" >> "$GITHUB_OUTPUT"
+            fi
+          fi
+
+      - name: Create empty-queue issue
+        if: steps.gate.outputs.skip != 'true' && steps.queue.outputs.empty == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh label create sample-review --color 5319E7 \
+            --description "サンプルレポート生成・レビュー関連" 2>/dev/null || true
+
+          EXISTING=$(gh issue list --repo "$GITHUB_REPOSITORY" --label sample-review --state open \
+            --search "サンプルブランドキューが空です in:title" --json number --jq '.[0].number // empty')
+
+          if [ -n "$EXISTING" ]; then
+            echo "既存Issue #$EXISTING があるため作成をスキップします。"
+          else
+            gh issue create --repo "$GITHUB_REPOSITORY" \
+              --title "⚠️ サンプルブランドキューが空です" \
+              --label sample-review --assignee takazato3 \
+              --body "data/SAMPLE_BRAND_QUEUE.md の「未実施」リストが空のため、今回のサンプルレポート生成をスキップしました。
+
+          次回の月次実行までにブランドを追加してください。
+
+          キューファイル: ${{ github.server_url }}/${{ github.repository }}/blob/main/data/SAMPLE_BRAND_QUEUE.md"
+          fi
+
+      - name: Set up Python
+        if: steps.gate.outputs.skip != 'true' && steps.queue.outputs.empty != 'true'
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        if: steps.gate.outputs.skip != 'true' && steps.queue.outputs.empty != 'true'
+        run: |
+          pip install -r requirements.txt
+          pip install -r requirements-sample.txt
+
+      - name: Generate sample report
+        if: steps.gate.outputs.skip != 'true' && steps.queue.outputs.empty != 'true'
+        env:
+          GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}
+          SAMPLE_TIER: ${{ github.event.inputs.tier || vars.SAMPLE_TIER || 'quick' }}
+        run: |
+          python scripts/generate_quick_sample.py "${{ github.event.inputs.brand }}"
+
+      - name: Build site
+        if: steps.gate.outputs.skip != 'true' && steps.queue.outputs.empty != 'true'
+        run: python build.py
+
+      - name: Create working branch
+        if: steps.gate.outputs.skip != 'true' && steps.queue.outputs.empty != 'true'
+        id: branch
+        run: |
+          BRANCH="sample-report/$(date +%Y-%m-%d)-${GITHUB_RUN_ID}"
+          git checkout -B "$BRANCH"
+          echo "branch=$BRANCH" >> "$GITHUB_OUTPUT"
+
+      - name: Commit changes
+        if: steps.gate.outputs.skip != 'true' && steps.queue.outputs.empty != 'true'
+        id: commit
+        run: |
+          git config user.name "sample-report-bot[bot]"
+          git config user.email "sample-report-bot@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          else
+            git commit -m "[Sample] ${{ steps.branch.outputs.branch }} サンプルレポート生成"
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Push branch
+        if: steps.gate.outputs.skip != 'true' && steps.queue.outputs.empty != 'true' && steps.commit.outputs.changed == 'true'
+        run: git push origin "${{ steps.branch.outputs.branch }}"
+
+      - name: Create pull request
+        if: steps.gate.outputs.skip != 'true' && steps.queue.outputs.empty != 'true' && steps.commit.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh label create sample-review --color 5319E7 \
+            --description "サンプルレポート生成・レビュー関連" 2>/dev/null || true
+
+          gh pr create \
+            --title "[Sample] $(date +%Y-%m-%d) サンプルレポート生成" \
+            --label sample-review \
+            --assignee takazato3 \
+            --body "## 概要
+          \`data/SAMPLE_BRAND_QUEUE.md\` に基づく新規Quick Scanサンプルレポートです。
+
+          ## 確認事項
+          - 生成されたレポート(\`assets/sample_reports/\` 配下)の内容
+          - \`samples.html\` への掲載順・文言
+          - \`data/SAMPLE_COST_LOG.md\` に記録された概算コスト
+
+          ## マージについて
+          このPRは手動マージ対象です(autopilotラベル付きPRのような48時間自動マージの対象ではありません)。内容を確認のうえマージしてください。"
+
+      - name: No changes
+        if: steps.gate.outputs.skip != 'true' && steps.queue.outputs.empty != 'true' && steps.commit.outputs.changed == 'false'
+        run: echo "生成処理は完了しましたが、差分がありませんでした。"

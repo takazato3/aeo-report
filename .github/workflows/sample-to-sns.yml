@@ -1,0 +1,118 @@
+name: Sample Report to SNS
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'assets/sample_reports/**'
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  sample-to-sns:
+    runs-on: ubuntu-latest
+    env:
+      # Opus等の高額モデルへの意図しない切り替わりを防ぐため固定。
+      CLAUDE_MODEL: sonnet
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Detect new sample reports
+        id: detect
+        run: |
+          BEFORE="${{ github.event.before }}"
+          if [ -z "$BEFORE" ] || [ "$BEFORE" = "0000000000000000000000000000000000000000" ]; then
+            BEFORE="HEAD~1"
+          fi
+          NEW_FILES=$(git diff --diff-filter=A --name-only "$BEFORE" "${{ github.sha }}" -- assets/sample_reports/ || true)
+          if [ -z "$NEW_FILES" ]; then
+            echo "新規追加されたサンプルレポートが見つかりませんでした。"
+            echo "found=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "found=true" >> "$GITHUB_OUTPUT"
+            {
+              echo "files<<SNS_EOF"
+              echo "$NEW_FILES"
+              echo "SNS_EOF"
+            } >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Set up Node.js
+        if: steps.detect.outputs.found == 'true'
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install Claude Code
+        if: steps.detect.outputs.found == 'true'
+        run: npm install -g @anthropic-ai/claude-code
+
+      - name: Create working branch
+        if: steps.detect.outputs.found == 'true'
+        id: branch
+        run: |
+          BRANCH="autopilot/sample-sns-$(date +%Y-%m-%d)-${GITHUB_RUN_ID}"
+          git checkout -B "$BRANCH"
+          echo "branch=$BRANCH" >> "$GITHUB_OUTPUT"
+
+      - name: Run Claude Code (headless)
+        if: steps.detect.outputs.found == 'true'
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          NEW_FILES: ${{ steps.detect.outputs.files }}
+        run: |
+          PROMPT="$(cat .github/prompts/sample-to-sns.md)
+
+          対象ファイル:
+          $NEW_FILES"
+          claude -p "$PROMPT" --model "$CLAUDE_MODEL" --dangerously-skip-permissions
+
+      - name: Commit changes
+        if: steps.detect.outputs.found == 'true'
+        id: commit
+        run: |
+          git config user.name "content-autopilot[bot]"
+          git config user.email "content-autopilot@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          else
+            git commit -m "[Autopilot] ${{ steps.branch.outputs.branch }} サンプルレポートのSNS転用ドラフト追加"
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Push branch
+        if: steps.detect.outputs.found == 'true' && steps.commit.outputs.changed == 'true'
+        run: git push origin "${{ steps.branch.outputs.branch }}"
+
+      - name: Create pull request
+        if: steps.detect.outputs.found == 'true' && steps.commit.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh pr create \
+            --title "[Autopilot] $(date +%Y-%m-%d) サンプルレポートのSNS転用ドラフト" \
+            --label autopilot \
+            --body "## 概要
+          新規追加されたサンプルレポートから、docs/SNS_REPURPOSE.mdのルールに従いX投稿ドラフトを生成し、sns/x-queue.md に追記しました。
+
+          ## 対象ファイル
+          \`\`\`
+          ${{ steps.detect.outputs.files }}
+          \`\`\`
+
+          ## 実行モデル
+          \`${CLAUDE_MODEL}\`(コスト予測性のため固定)
+
+          ## 自動マージについて
+          48時間後に自動マージされます。止める場合はholdラベルを付けてください。"
+
+      - name: No changes
+        if: steps.detect.outputs.found == 'true' && steps.commit.outputs.changed == 'false'
+        run: echo "SNS転用ドラフトの生成対象はありましたが、差分がありませんでした。"

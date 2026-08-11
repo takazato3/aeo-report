@@ -1,0 +1,7 @@
+anthropic
+openai
+google-genai
+google-auth
+google-cloud-secret-manager
+unidecode
+markdown
