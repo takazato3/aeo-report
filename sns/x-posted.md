@@ -28,3 +28,11 @@ sns/x-queue.md で `[x]` になった項目が、週次実行のたびにここ�
 - [x] (2026-07-18生成 | anticipating-ai-queries)
   AIにされそうな質問を想定する作業、指名検索・比較検討・課題起点の3階層で考えると抜けが減る。書けない階層があるとしたら、それは知識より顧客理解の解像度の問題かもしれない。🐙 #AEO #AI検索
   URL: https://app.ops-octopus.com/blog/anticipating-ai-queries.html
+
+- [x] (2026-08-02生成 | brand-name-ai-search)
+  自社の名前、試しにChatGPTに聞いてみたことありますか？聞くたびに答え方が微妙に違ったり、競合の名前のほうがよく出てきたり…ということもあるらしいです。タコ的には「言われてるか」より「どう言われてるか」のほうが気になる派。みなさんは試したことありますか？🐙 #AI検索
+  URL: https://app.ops-octopus.com/blog/brand-name-ai-search.html
+
+- [x] (2026-08-02生成 | aeo-score-transparency)
+  「AEOスコア85点」みたいな数字だけ見せられて、「で、何が効いたの？」ってなったこと、ありませんか？タコ的には点数より中身（生の回答）を見たい派です。独自スコアより素のやり取りのほうが結局分かりやすい気がしています。どう思いますか？🐙
+  URL: https://app.ops-octopus.com/blog/aeo-score-transparency.html
