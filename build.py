@@ -13,6 +13,7 @@
   - ルートの *.html は build.py の出力物なので直接編集しない
 """
 
+import hashlib
 import json
 import re
 import sys
@@ -28,6 +29,7 @@ BLOG_OUT_DIR = ROOT / 'blog'
 BLOG_INDEX_SRC = SRC_DIR / 'blog_index.html'
 BLOG_POST_TEMPLATE = TEMPLATES_DIR / 'blog_post.html'
 LLMS_TXT_SRC = SRC_DIR / 'llms.txt'
+BUILD_STATE_PATH = ROOT / 'data' / 'build_state.json'
 
 SITE_BASE_URL = 'https://app.ops-octopus.com'
 ORGANIZATION_JSONLD = {'@type': 'Organization', 'name': 'Ops Octopus'}
@@ -252,24 +254,69 @@ def build_blog():
     print(f'  [OK]   blog/index.html（記事 {len(posts)} 件）')
 
 
+def _load_build_state():
+    if BUILD_STATE_PATH.exists():
+        try:
+            return json.loads(BUILD_STATE_PATH.read_text(encoding='utf-8'))
+        except (json.JSONDecodeError, OSError):
+            return {}
+    return {}
+
+
+def _save_build_state(state):
+    BUILD_STATE_PATH.parent.mkdir(exist_ok=True)
+    BUILD_STATE_PATH.write_text(
+        json.dumps(state, ensure_ascii=False, indent=2, sort_keys=True) + '\n',
+        encoding='utf-8',
+    )
+
+
+def _stable_lastmod(state, key, content, today):
+    """コンテンツのハッシュが前回ビルド時と同じならlastmodを据え置く。
+
+    複数のワークフローが同じページを別々の日にビルドしても、実際に中身が
+    変わっていない限りsitemap.xmlの当該行は変化しない。これにより、無関係な
+    ブランチ同士がsitemap.xmlの同じ行を奪い合ってマージコンフリクトになる
+    事象を防ぐ（lastmodを毎回today()にしていたことが従来の衝突源だった）。
+    """
+    digest = hashlib.sha256(content.encode('utf-8')).hexdigest()
+    prev = state.get(key)
+    lastmod = prev['lastmod'] if prev and prev.get('hash') == digest else today
+    state[key] = {'hash': digest, 'lastmod': lastmod}
+    return lastmod
+
+
 def build_sitemap():
     """ルートの公開ページとブログ記事一覧からsitemap.xmlを生成する"""
     today = datetime.now().date().isoformat()
+    state = _load_build_state()
     urls = []
 
     for name in TARGET_PAGES:
-        if (ROOT / name).exists():
+        page_path = ROOT / name
+        if page_path.exists():
             path = '/' if name == 'index.html' else f'/{name}'
-            urls.append((f'{SITE_BASE_URL}{path}', today))
+            content = page_path.read_text(encoding='utf-8')
+            lastmod = _stable_lastmod(state, f'page:{name}', content, today)
+            urls.append((f'{SITE_BASE_URL}{path}', lastmod))
 
     posts = []
     if BLOG_POSTS_DIR.exists():
         posts = [_parse_markdown_post(p) for p in sorted(BLOG_POSTS_DIR.glob('*.md'))]
 
+    blog_index_path = BLOG_OUT_DIR / 'index.html'
     if posts or BLOG_INDEX_SRC.exists():
-        urls.append((f'{SITE_BASE_URL}/blog/', today))
+        if blog_index_path.exists():
+            lastmod = _stable_lastmod(
+                state, 'page:blog/index.html', blog_index_path.read_text(encoding='utf-8'), today
+            )
+        else:
+            lastmod = today
+        urls.append((f'{SITE_BASE_URL}/blog/', lastmod))
 
     for post in posts:
+        # 記事は front matter の date が実質的な最終更新日なので、生成のたびに
+        # today() で上書きせずそのまま使う（もともと安定した値）。
         urls.append((f'{SITE_BASE_URL}/blog/{post["slug"]}.html', post['date'] or today))
 
     lines = [
@@ -284,6 +331,7 @@ def build_sitemap():
     lines.append('</urlset>')
 
     (ROOT / 'sitemap.xml').write_text('\n'.join(lines) + '\n', encoding='utf-8')
+    _save_build_state(state)
     print(f'  [OK]   sitemap.xml（{len(urls)}件）')
 
 

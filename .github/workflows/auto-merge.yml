@@ -15,6 +15,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Merge eligible autopilot PRs
         env:
@@ -22,6 +24,9 @@ jobs:
         run: |
           set -e
           NOW=$(date -u +%s)
+
+          git config user.name "autopilot-auto-merge[bot]"
+          git config user.email "autopilot-auto-merge@users.noreply.github.com"
 
           PRS=$(gh pr list --repo "$GITHUB_REPOSITORY" --label autopilot --state open \
             --json number,createdAt,labels \
@@ -32,23 +37,55 @@ jobs:
             exit 0
           fi
 
+          gh label create merge-conflict --color D93F0B \
+            --description "mainとの間に自動解消できないコンフリクトがある" 2>/dev/null || true
+
           while IFS=' ' read -r NUMBER CREATED_AT; do
             [ -z "$NUMBER" ] && continue
 
             CREATED_TS=$(date -u -d "$CREATED_AT" +%s)
             ELAPSED_HOURS=$(( (NOW - CREATED_TS) / 3600 ))
 
-            if [ "$ELAPSED_HOURS" -lt 48 ]; then
-              echo "PR #$NUMBER: 作成から ${ELAPSED_HOURS} 時間のためスキップ（48時間未満）"
+            if [ "$ELAPSED_HOURS" -lt 24 ]; then
+              echo "PR #$NUMBER: 作成から ${ELAPSED_HOURS} 時間のためスキップ（24時間未満）"
               continue
             fi
 
-            echo "PR #$NUMBER: 作成から ${ELAPSED_HOURS} 時間経過。マージを試みます"
-            if gh pr merge "$NUMBER" --repo "$GITHUB_REPOSITORY" --squash --delete-branch; then
-              echo "PR #$NUMBER: マージ成功"
+            HEAD_REF=$(gh pr view "$NUMBER" --repo "$GITHUB_REPOSITORY" --json headRefName --jq '.headRefName')
+            echo "PR #$NUMBER (${HEAD_REF}): 作成から ${ELAPSED_HOURS} 時間経過。マージを試みます"
+
+            git fetch origin "$HEAD_REF" main
+            git checkout -B "merge-attempt/$NUMBER" "origin/$HEAD_REF"
+
+            if git merge "origin/main" --no-edit -m "Merge main into ${HEAD_REF} (auto-merge pre-check)"; then
+              # mainとの単純な差分はここで自動解消済み。念のためブランチを更新してからマージする
+              git push origin "HEAD:${HEAD_REF}"
+
+              if gh pr merge "$NUMBER" --repo "$GITHUB_REPOSITORY" --squash --delete-branch; then
+                echo "PR #$NUMBER: マージ成功"
+                gh pr edit "$NUMBER" --repo "$GITHUB_REPOSITORY" --remove-label merge-conflict 2>/dev/null || true
+              else
+                echo "PR #$NUMBER: マージ失敗（コンフリクト以外の要因の可能性）。PRにコメントを残します"
+                gh pr comment "$NUMBER" --repo "$GITHUB_REPOSITORY" \
+                  --body "自動マージに失敗しました（コンフリクト以外の要因の可能性があります）。内容をご確認のうえ、手動でマージしてください。"
+              fi
             else
-              echo "PR #$NUMBER: マージ失敗。PRにコメントを残します"
-              gh pr comment "$NUMBER" --repo "$GITHUB_REPOSITORY" \
-                --body "自動マージに失敗しました（コンフリクト等の可能性があります）。内容をご確認のうえ、手動でマージしてください。"
+              # mainとの間に本物のコンフリクトがある。同じ通知を6時間おきに繰り返さないよう、
+              # 初めて検出したときだけラベル付与とコメントを行う
+              git merge --abort
+
+              HAS_LABEL=$(gh pr view "$NUMBER" --repo "$GITHUB_REPOSITORY" --json labels \
+                --jq '[.labels[].name] | index("merge-conflict") // empty')
+
+              if [ -z "$HAS_LABEL" ]; then
+                echo "PR #$NUMBER: mainとの間に本物のコンフリクトを検出。ラベルを付けてコメントします"
+                gh pr edit "$NUMBER" --repo "$GITHUB_REPOSITORY" --add-label merge-conflict
+                gh pr comment "$NUMBER" --repo "$GITHUB_REPOSITORY" \
+                  --body "自動マージに失敗しました。mainとの間に自動解消できないコンフリクトがあります。内容をご確認のうえ、手動でマージしてください（このコメントはコンフリクトを新たに検出したときのみ出力されます）。"
+              else
+                echo "PR #$NUMBER: 既知のコンフリクトのため通知をスキップします"
+              fi
             fi
+
+            git branch -D "merge-attempt/$NUMBER" 2>/dev/null || true
           done <<< "$PRS"

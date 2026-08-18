@@ -1,0 +1,34 @@
+{
+  "page:blog/index.html": {
+    "hash": "fd2a7f2de2f2ff7d84a53c678c7b35345396019359ff15cf6757bbe6c3a72ab9",
+    "lastmod": "2026-08-18"
+  },
+  "page:detail.html": {
+    "hash": "5ce7100e08fdadb5ceb83630c057021671d2bce7236ba959c08259ab7e23dbca",
+    "lastmod": "2026-08-18"
+  },
+  "page:faq.html": {
+    "hash": "b5ae3195032c50595b6bdbb5812c67f75e0090b56d9dc746d430b14cc614eb4a",
+    "lastmod": "2026-08-18"
+  },
+  "page:index.html": {
+    "hash": "8b126bffc20f282a9ad0a7ab18b216c25b342556e919b5129ee3a4a038a6fe07",
+    "lastmod": "2026-08-18"
+  },
+  "page:legal.html": {
+    "hash": "a8d005ef2f698f416e91129009645993dc5f141fbed5421ab42e08513a92311d",
+    "lastmod": "2026-08-18"
+  },
+  "page:privacy.html": {
+    "hash": "94e9245cf7b8529614748144b3f6c9f16cefdf9c963a9a0e760baceca956b793",
+    "lastmod": "2026-08-18"
+  },
+  "page:samples.html": {
+    "hash": "953348e3932193749fd57eb29a6f33f9d606e184f250ec1642a95bdc9050d728",
+    "lastmod": "2026-08-18"
+  },
+  "page:terms.html": {
+    "hash": "6d249508726eb1960c57fef77c46db6b842c29cbd7f9d9aa1c3aa9bba5693275",
+    "lastmod": "2026-08-18"
+  }
+}

@@ -159,7 +159,7 @@ jobs:
           - 業界傾向パネルが「データ未登録」表示になっていないか(categoriesシートに該当カテゴリが無い場合はその旨のフォールバック表示になります)
 
           ## マージについて
-          このPRは手動マージ対象です(autopilotラベル付きPRのような48時間自動マージの対象ではありません)。内容を確認のうえマージしてください。"
+          このPRは手動マージ対象です(autopilotラベル付きPRのような24時間自動マージの対象ではありません)。内容を確認のうえマージしてください。"
 
       - name: No changes
         if: steps.gate.outputs.skip != 'true' && steps.queue.outputs.empty != 'true' && steps.commit.outputs.changed == 'false'

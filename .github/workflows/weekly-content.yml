@@ -99,7 +99,7 @@ jobs:
           \`${CLAUDE_MODEL}\`（コスト予測性のため固定。変更は \`.github/workflows/weekly-content.yml\` の \`env.CLAUDE_MODEL\`）
 
           ## 自動マージについて
-          48時間後に自動マージされます。止める場合はholdラベルを付けてください。"
+          24時間後に自動マージされます。止める場合はholdラベルを付けてください。"
 
       - name: No changes
         if: steps.commit.outputs.changed == 'false'
