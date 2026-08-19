@@ -13,6 +13,8 @@
 
 AEO・GEO・LLMOやAI検索時代のブランドの見え方について調査・解説する記事一覧です。
 
+- [AIの「言及率」とは何か。数字の見方と注意点](https://app.ops-octopus.com/blog/ai-mention-rate.html): AEO関連で使われる「言及率」とはどんな指標か。分母の取り方や、数字だけでは見えないものを含めて、扱ううえでの注意点を整理します。
+- [競合とのAI上での見え方をどう比較すればいいか](https://app.ops-octopus.com/blog/competitor-ai-search-comparison.html): 自社だけでなく競合もAIにどう扱われているかを確認したいとき、何を基準に比較すればいいのか。単体調査との違いや記録の残し方を整理します。
 - [AEOの独自スコアはなぜ分かりにくいのか。生データを見る意味](https://app.ops-octopus.com/blog/aeo-score-transparency.html): AEO/LLMOツールが示す独自スコアは、なぜ分かりにくく感じられるのか。数字の裏側にある生のAI回答データを確認することの意味を整理します。
 - [指名検索でAIは何を答えるのか。ブランド名調査の考え方](https://app.ops-octopus.com/blog/brand-name-ai-search.html): 自社名や商品名をAIに聞いたとき、何がどう語られるのか。従来の指名検索とは違う切り口から、ブランド名調査の考え方を整理します。
 - [AEO/LLMO計測ツールを比較する際に見るべきポイント](https://app.ops-octopus.com/blog/aeo-tool-comparison-points.html): AEO/LLMO計測ツールを選ぶ際、何を基準に比較すればいいのか。透明性・対象AIの範囲・記録の継続性など、実務で見落としやすい観点を整理します。
