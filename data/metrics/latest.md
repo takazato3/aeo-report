@@ -1,9 +1,9 @@
-# 週次メトリクスレポート（2026-08-16）
+# 週次メトリクスレポート（2026-08-23）
 
 ## データ取得ステータス
 
-- GSC: 取得成功（プロパティ: `https://app.ops-octopus.com/`、期間: 2026-07-19 〜 2026-08-15、行数: 0）
-- GA4: 取得成功（ページ数: 9）
+- GSC: 取得成功（プロパティ: `https://app.ops-octopus.com/`、期間: 2026-07-26 〜 2026-08-22、行数: 0）
+- GA4: 取得成功（ページ数: 8）
 
 ## a. ブログ記事別サマリー（GSC・直近28日）
 
@@ -27,51 +27,23 @@
 
 | ページ | セッション数 | エンゲージメント率 |
 |---|---|---|
-| /blog/ | 6 | 100.0% |
-| /blog/aeo-score-transparency.html | 3 | 100.0% |
-| /blog/aeo-tool-comparison-points.html | 1 | 100.0% |
+| /blog/ | 7 | 85.7% |
+| /blog/aeo-score-transparency.html | 5 | 60.0% |
 
 ### detail.htmlの参考値
 
 注記: GA4の標準Data APIでは「どのブログ記事からdetail.htmlへ遷移したか」というセッション内の経路（ファネル）は取得できない（BigQueryエクスポートまたはExploreのファネル探索が必要）。以下はdetail.html単体のセッション数・エンゲージメント率の参考値。
-- detail.html: セッション数 2、エンゲージメント率 100.0%
+- detail.html: セッション数 1、エンゲージメント率 100.0%
 
 ## 今週の実施アクション
 
-- **実施日**: 2026-08-16
-- **判断**: GSCが今週も0行、GA4のセッション数も僅少（/blog/で6、各記事1〜3件程度）で、
-  機会クエリ・CTR改善候補・クエリギャップのいずれも算出できず、メトリクスに基づく
-  CTR改善／リライト／新規生成の判断は不能でした。`docs/CONTENT_AUTOPILOT.md` の
-  判断ロジック、およびタスク指示（3）に従い、まず改善バックログに処理可能な項目が
-  ないかを確認しました。
-- **バックログ確認**: 改善バックログの残項目は「OpsOctopus実測データ・レポート画像の
-  記事への挿入（Deep Scan本番稼働後、実調査データを引用素材化する）」の1件のみでした。
-  前回（2026-08-02）に続き、Deep Scanは本番稼働しておらず実調査データ・レポート画像が
-  本ランでも取得できないため、処理可能な項目ではないと判断しました。バックログは
-  消し込まず据え置きです。
-- **新規記事の生成（2本、指示（3）の代替ルートを適用）**: バックログに処理可能な項目が
-  なかったため、`docs/KEYWORD_MAP.md` のP2から、既存P1記事との内部リンクが張りやすい
-  ものを優先して2本を新規生成し、P1へ昇格しました。
-  - 「競合とのAI上での見え方をどう比較すればいいか」
-    （`blog/posts/competitor-ai-search-comparison.md`）。brand-name-ai-search /
-    measuring-aeo-effectiveness / ai-search-ranking-measurement /
-    anticipating-ai-queries / aeo-tool-comparison-points と内部リンク。
-  - 「AIの「言及率」とは何か。数字の見方と注意点」
-    （`blog/posts/ai-mention-rate.md`）。ai-search-ranking-measurement /
-    anticipating-ai-queries / brand-name-ai-search / aeo-score-transparency /
-    measuring-aeo-effectiveness / not-appearing-in-chatgpt /
-    aeo-tool-comparison-points / competitor-ai-search-comparison（新規記事同士）
-    と内部リンク。
-- **KEYWORD_MAP.md更新**: 上記2件を「競合 AI検索 比較」「AI 言及率 とは」の行で
-  P2→P1（2026-08-16昇格）に更新し、P1タイトル一覧に追加しました（18本目・19本目）。
-- **点検**: `WRITING_RHYTHM.md` の点検手順（話題テスト・漏出テスト・緊張台帳・拍の点検・
-  境界の点検）を両記事に適用済み。文体は「です・ます調」、AI挙動は「傾向が見られる」
-  フレーミングを維持し、独自スコア・ブラックボックス指標をOps Octopus側が採用する
-  表現は使用していません。
-- **ビルド確認**: `python build.py` 実行済み。blog記事20件・sitemap 28件で
-  ビルドエラーなしを確認しました。
-- **SNS転用**: 新規記事2本からX投稿ドラフトを各2案（計4案）生成し
-  `sns/x-queue.md` に追記。新規記事が2本以上のため、両記事を束ねたnote記事ドラフトを
-  `sns/note-drafts/2026-08-16-competitor-comparison-and-mention-rate.md` に生成しました。
-  また、`sns/x-queue.md` の`[x]`済み項目（2件）を`sns/x-posted.md` へ移動しました。
+- GSCが行数0、機会クエリ・CTR改善候補・クエリギャップのいずれも該当なしのため、判断ロジック（CTR改善/リライト/新規生成）に基づくアクションは実施不可（データ欠損）
+- 改善バックログ（docs/CONTENT_AUTOPILOT.md）を確認。未処理項目「OpsOctopus実測データ・レポート画像の記事への挿入」はDeep Scan本番稼働が前提条件であり、現時点では処理不可能なため見送り
+- バックログにも処理可能な項目がなかったため、KEYWORD_MAP.mdのP2から新規記事を2本生成
+  - `sge-ai-search-response`（生成AI検索（旧SGE）にどう対応すればいいのか）：ai-overviews-aeo / what-is-aeo / ai-search-strategy と内部リンク
+  - `primary-source-ai-search`（AI検索時代に一次情報を出す意味を考える）：ai-citable-content / anticipating-ai-queries / structured-data-aeo / faq-pages-ai-search / not-appearing-in-chatgpt と内部リンク
+  - KEYWORD_MAP.mdの該当2項目をP2→P1へ昇格し記録済み
+- 上記2記事はWRITING_RHYTHM.mdの点検手順を実施済み（primary-source-ai-searchの1文を状況側の記述へ修正）
+- `python build.py` 実行、ビルド成功（記事22件、sitemap 30件）
+- SNS転用：新規記事2本それぞれからX投稿ドラフト2案（計4案）を`sns/x-queue.md`に追記。新規記事が2本以上だったため、note記事ドラフト1本（両記事を束ねた「今週の実験と観察」形式）を`sns/note-drafts/2026-08-23-sge-naming-and-primary-source.md`に保存。x-queue.mdに`[x]`項目はなく、x-posted.mdへの移動は無し
 
