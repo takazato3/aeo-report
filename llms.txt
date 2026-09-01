@@ -13,6 +13,8 @@
 
 AEO・GEO・LLMOやAI検索時代のブランドの見え方について調査・解説する記事一覧です。
 
+- [AI検索調査レポートはどこを見ればいいのか](https://app.ops-octopus.com/blog/ai-search-report-guide.html): AEO・AI検索関連の調査レポートを受け取ったとき、どの項目に注目すればいいのか。指標の意味や落とし穴を踏まえた読み方を整理します。
+- [AI検索とは何か。従来の検索行動との違い](https://app.ops-octopus.com/blog/what-is-ai-search.html): 「AI検索」という言葉が指すものは何かを、従来の検索エンジンとの違いや、AEO・GEO・LLMOとの関係を交えて整理します。
 - [AI検索時代に一次情報を出す意味を考える](https://app.ops-octopus.com/blog/primary-source-ai-search.html): 独自の調査データや実績といった一次情報が、AI検索の文脈でなぜ重視されやすいのか。どこから手をつければいいのかを整理します。
 - [生成AI検索（旧SGE）にどう対応すればいいのか](https://app.ops-octopus.com/blog/sge-ai-search-response.html): 「SGE」という呼び方で検索されることがまだあるGoogleの生成AI機能。現在の位置づけと、AEOの観点から実務上何を確認すればいいのかを整理します。
 - [AIの「言及率」とは何か。数字の見方と注意点](https://app.ops-octopus.com/blog/ai-mention-rate.html): AEO関連で使われる「言及率」とはどんな指標か。分母の取り方や、数字だけでは見えないものを含めて、扱ううえでの注意点を整理します。
