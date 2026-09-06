@@ -69,3 +69,19 @@
 - [ ] (2026-08-30生成 | ai-search-report-guide)
   「言及率70%です」ってレポートで言われて、へえーで終わらせたこと、ありませんか？分母が何回分の質問なのかで、その数字の重みは結構変わってくるらしいです。同じ70%でも、5回中3.5回と、50回中35回とでは意味合いが違う気がしてきます。数字の見た目のきれいさより、中身の根拠を見る癖をつけたいなと思って、レポートの読み方を整理してみました。皆さんはどこまで細かく見てますか？
   URL: https://app.ops-octopus.com/blog/ai-search-report-guide.html
+
+- [ ] (2026-09-06生成 | qa-format-content-ai-search)
+  ブログ記事の途中にQ&Aコーナーを入れると、AIに読まれやすくなるって聞いたことありませんか？疑問文と答えがセットになってる形が、AIにとって拾いやすいらしいです。ただ詰め込みすぎると本文がとっちらかるので、2〜3個くらいが良さそうという結論に落ち着きました。記事にQ&A、入れてますか？🐙 #AI検索
+  URL: https://app.ops-octopus.com/blog/qa-format-content-ai-search.html
+
+- [ ] (2026-09-06生成 | qa-format-content-ai-search)
+  FAQページ作るほどではないけど、記事の途中に小さなQ&Aだけ入れたい、ということありませんか？見出しを体言止めじゃなくてそのまま疑問文の形にしておくと、AIにも読み手にも伝わりやすくなるっぽいです。詰め込みすぎ注意、というのが地味に難しいところ。みなさんの記事、見出しは疑問文になってます？
+  URL: https://app.ops-octopus.com/blog/qa-format-content-ai-search.html
+
+- [ ] (2026-09-06生成 | robots-txt-ai-crawlers)
+  robots.txt、Googlebot向けの設定はしてるけど、GPTBotやClaudeBotは放置してた…なんてことありませんか？AIクローラーは検索エンジンとは別のユーザーエージェント名で来るので、既存設定がそのまま効いてるとは限らないみたいです。自社のrobots.txt、確認したことあります？🐙 #AI検索
+  URL: https://app.ops-octopus.com/blog/robots-txt-ai-crawlers.html
+
+- [ ] (2026-09-06生成 | robots-txt-ai-crawlers)
+  AIクローラーって許可すべき？制限すべき？と聞かれることが増えた気がします。学習用とリアルタイム参照用で目的が違うらしく、一律に決めるより用途ごとに考えるのが現実的っぽいです。とはいえrobots.txtは「お願い」レベルの仕組みなので、過信は禁物だなとも思っています。どっち派ですか？
+  URL: https://app.ops-octopus.com/blog/robots-txt-ai-crawlers.html
