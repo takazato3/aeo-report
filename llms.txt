@@ -13,6 +13,8 @@
 
 AEO・GEO・LLMOやAI検索時代のブランドの見え方について調査・解説する記事一覧です。
 
+- [AIに読まれやすいブログ記事の書き方を考える](https://app.ops-octopus.com/blog/ai-readable-blog-writing.html): 自社のブログ記事がAIの回答にほとんど反映されないのはなぜか。記事数や更新頻度以前に見直したい、構成上の観点を整理します。
+- [導入事例はAIの回答にどう使われうるか](https://app.ops-octopus.com/blog/case-study-ai-citation.html): 導入事例やお客様の声のコンテンツが、AIの回答の中で参照される可能性はあるのか。一次情報としての価値と、書き方の観点を整理します。
 - [Q&A形式のコンテンツはAI検索に向いているのか](https://app.ops-octopus.com/blog/qa-format-content-ai-search.html): FAQページ以外でも、記事やサービス紹介ページの一部にQ&A形式のセクションを設けることは、AI検索対策として有効なのか。期待できる範囲と限界を整理します。
 - [robots.txtでAIクローラーをどう扱うか。基本の考え方](https://app.ops-octopus.com/blog/robots-txt-ai-crawlers.html): AIクローラーの巡回を許可するか制限するか、robots.txtでどう指定すればいいのか。llms.txtとの役割の違いも踏まえて基本の考え方を整理します。
 - [AI検索調査レポートはどこを見ればいいのか](https://app.ops-octopus.com/blog/ai-search-report-guide.html): AEO・AI検索関連の調査レポートを受け取ったとき、どの項目に注目すればいいのか。指標の意味や落とし穴を踏まえた読み方を整理します。
