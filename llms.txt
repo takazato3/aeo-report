@@ -13,6 +13,8 @@
 
 AEO・GEO・LLMOやAI検索時代のブランドの見え方について調査・解説する記事一覧です。
 
+- [AEO施策の効果はいつ頃見え始めるのか](https://app.ops-octopus.com/blog/aeo-effect-timing.html): AEO施策に取り組み始めても、効果がいつ頃見え始めるのか。判断を急ぎすぎないための考え方を整理します。
+- [Perplexityで自社が見られるためにできること](https://app.ops-octopus.com/blog/perplexity-ai-visibility.html): Perplexityの回答で自社が言及されやすくなるために意識できることは何か。ChatGPTなど他のAIとの違いを踏まえつつ整理します。
 - [AIに読まれやすいブログ記事の書き方を考える](https://app.ops-octopus.com/blog/ai-readable-blog-writing.html): 自社のブログ記事がAIの回答にほとんど反映されないのはなぜか。記事数や更新頻度以前に見直したい、構成上の観点を整理します。
 - [導入事例はAIの回答にどう使われうるか](https://app.ops-octopus.com/blog/case-study-ai-citation.html): 導入事例やお客様の声のコンテンツが、AIの回答の中で参照される可能性はあるのか。一次情報としての価値と、書き方の観点を整理します。
 - [Q&A形式のコンテンツはAI検索に向いているのか](https://app.ops-octopus.com/blog/qa-format-content-ai-search.html): FAQページ以外でも、記事やサービス紹介ページの一部にQ&A形式のセクションを設けることは、AI検索対策として有効なのか。期待できる範囲と限界を整理します。
