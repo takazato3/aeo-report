@@ -101,3 +101,19 @@
 - [ ] (2026-09-13生成 | case-study-ai-citation)
   事例って導入後の感想で締めがちなんですが、比較検討中の人が本当に知りたいのはむしろ「導入前にどう迷ったか」の方かもという話を整理してみました。決め手や当時の懸念点まで書いてる事例、探してみると意外と少ない気がしています。皆さんの会社の事例、迷った経緯まで書いてありますか？
   URL: https://app.ops-octopus.com/blog/case-study-ai-citation.html
+
+- [ ] (2026-09-20生成 | perplexity-ai-visibility)
+  Perplexityで自社名を検索してみたら、出典のリンクに自社サイトが1個も入ってなかった…ということありませんか？ChatGPTと違って出典番号がわりとしっかり出るタイプらしく、見られてるかどうかがそのまま分かりやすい気がしています。試したことあります？🐙 #AI検索
+  URL: https://app.ops-octopus.com/blog/perplexity-ai-visibility.html
+
+- [ ] (2026-09-20生成 | perplexity-ai-visibility)
+  ChatGPTだけ見て安心してたんですが、Perplexityは出典元がリンクで並ぶタイプで、地味に自社が拾われてるか一目で分かりやすいんですよね。競合ばかり出典に並んでたら、それはそれで気になる情報な気がします。自社名、Perplexityでも聞いてみたことありますか？
+  URL: https://app.ops-octopus.com/blog/perplexity-ai-visibility.html
+
+- [ ] (2026-09-20生成 | aeo-effect-timing)
+  AEO施策やってみたものの、いつ効果出るのか全然分からなくてモヤモヤすること、ありませんか？SEOよりさらに目安が立てにくいらしく、数週間〜数ヶ月スパンで気長に記録するしかなさそうという結論に落ち着きました。皆さんはどのくらいの期間で判断してますか？🐙
+  URL: https://app.ops-octopus.com/blog/aeo-effect-timing.html
+
+- [ ] (2026-09-20生成 | aeo-effect-timing)
+  コンテンツ直したのに反応ない…と思ったら、AIモデル側の更新タイミングと重なってただけかもしれない、という地味にややこしい話を整理しました。効果測定、変更前の記録がないと余計に判断つかなくなる気がしています。みなさん変更前の記録、残してますか？ #AI検索
+  URL: https://app.ops-octopus.com/blog/aeo-effect-timing.html
