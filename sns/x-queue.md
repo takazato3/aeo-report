@@ -117,3 +117,19 @@
 - [ ] (2026-09-20生成 | aeo-effect-timing)
   コンテンツ直したのに反応ない…と思ったら、AIモデル側の更新タイミングと重なってただけかもしれない、という地味にややこしい話を整理しました。効果測定、変更前の記録がないと余計に判断つかなくなる気がしています。みなさん変更前の記録、残してますか？ #AI検索
   URL: https://app.ops-octopus.com/blog/aeo-effect-timing.html
+
+- [ ] (2026-09-27生成 | company-profile-page-ai)
+  会社概要ページ、住所とか法人番号を載せるだけのページだと思ってません？実は「この会社が何をしているか」をAIが把握するための数少ない手がかりになってるかもしれない、という話を整理してみました。自社の会社概要、最後に更新したのいつでしたか？🐙 #AI検索
+  URL: https://app.ops-octopus.com/blog/company-profile-page-ai.html
+
+- [ ] (2026-09-27生成 | company-profile-page-ai)
+  事業内容の説明、「様々なサービスを展開しています」で止まってません？具体的な言葉で書いてあるかどうかが、AIが会社を説明するときの材料になってるかもという話です。設立年とか実績の数字、更新されたままになってますか？
+  URL: https://app.ops-octopus.com/blog/company-profile-page-ai.html
+
+- [ ] (2026-09-27生成 | press-release-ai-search)
+  プレスリリース、配信サービスに出したら満足して終わってません？自社サイトのニュース欄が更新されないまま、なんてこともありそうです。同じ内容でも置き場所によって見つけてもらえるかどうかが変わるかも、という話を整理しました。🐙 #AI検索
+  URL: https://app.ops-octopus.com/blog/press-release-ai-search.html
+
+- [ ] (2026-09-27生成 | press-release-ai-search)
+  プレスリリースって「いつ・何が起きたか」を積み重ねていく記録でもあるんですよね。誇張表現より、数字と固有名詞で書いたほうが後から参照されやすいかもという話です。皆さんのプレスリリース、数字入ってますか？
+  URL: https://app.ops-octopus.com/blog/press-release-ai-search.html
