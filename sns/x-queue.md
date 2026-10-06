@@ -133,3 +133,11 @@
 - [ ] (2026-09-27生成 | press-release-ai-search)
   プレスリリースって「いつ・何が起きたか」を積み重ねていく記録でもあるんですよね。誇張表現より、数字と固有名詞で書いたほうが後から参照されやすいかもという話です。皆さんのプレスリリース、数字入ってますか？
   URL: https://app.ops-octopus.com/blog/press-release-ai-search.html
+
+- [ ] (2026-10-04生成 | generative-ai-seo)
+  「生成AI時代のSEO」って調べても、結局何をすればいいのか分からなくて検索窓を閉じたこと、ありませんか？構造化データとか一次情報とか、今までのSEOでやってきたことがわりとそのまま効くらしくて、ちょっと拍子抜けしました。新しく何を足せばいいのか、気になったことあります？🐙 #AI検索
+  URL: https://app.ops-octopus.com/blog/generative-ai-seo.html
+
+- [ ] (2026-10-04生成 | generative-ai-seo)
+  AEOにGEOにLLMO、略語が増えすぎて正直ついていけてない派です。でも用語の定義を覚えるより、自社名を試しにAIへ聞いてみるほうが早い気がしてきました。生成AI時代のSEO、言葉の整理より先に何から手をつけてますか？
+  URL: https://app.ops-octopus.com/blog/generative-ai-seo.html

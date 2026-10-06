@@ -13,6 +13,7 @@
 
 AEO・GEO・LLMOやAI検索時代のブランドの見え方について調査・解説する記事一覧です。
 
+- [生成AI時代の検索エンジン最適化とは何をすればいいか](https://app.ops-octopus.com/blog/generative-ai-seo.html): 「生成AI時代のSEO」という言葉で検索して、何から着手すればいいのか分からない担当者向けに、従来のSEOと重なる部分・新しく必要になる視点を整理します。
 - [会社概要ページはAIにどう読まれているのか](https://app.ops-octopus.com/blog/company-profile-page-ai.html): 会社概要ページの書き方が、AIの回答での自社の扱われ方に関係するのか。設立年・事業内容・実績といった基本情報の書き方を整理します。
 - [プレスリリースはAI検索での見え方に関係するのか](https://app.ops-octopus.com/blog/press-release-ai-search.html): プレスリリースの配信が、AI検索での自社の見え方に関係するのか。一次情報としての位置づけと、書き方の観点を整理します。
 - [AEO施策の効果はいつ頃見え始めるのか](https://app.ops-octopus.com/blog/aeo-effect-timing.html): AEO施策に取り組み始めても、効果がいつ頃見え始めるのか。判断を急ぎすぎないための考え方を整理します。
