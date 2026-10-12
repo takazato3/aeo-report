@@ -1,9 +1,9 @@
-# 週次メトリクスレポート（2026-10-04）
+# 週次メトリクスレポート（2026-10-12）
 
 ## データ取得ステータス
 
-- GSC: 取得成功（プロパティ: `https://app.ops-octopus.com/`、期間: 2026-09-06 〜 2026-10-03、行数: 0）
-- GA4: 取得成功（ページ数: 6）
+- GSC: 取得成功（プロパティ: `https://app.ops-octopus.com/`、期間: 2026-09-14 〜 2026-10-11、行数: 0）
+- GA4: 取得成功（ページ数: 5）
 
 ## a. ブログ記事別サマリー（GSC・直近28日）
 
@@ -37,13 +37,20 @@
 
 ## 今週の実施アクション
 
-- GSC行数0件のためCTR改善・リライト・クエリギャップの判断材料なし（データ欠損・分析不能）。
-- 改善バックログを確認したが、唯一の未処理項目（OpsOctopus実測データ・レポート画像の記事への挿入）はDeep Scan本番稼働が前提条件のため、現時点では処理不可（スタブ実装のまま）。
-- バックログに処理可能な項目がなかったため、KEYWORD_MAP.mdのP2から新規記事を生成（P2該当は1件のみだったため1本）。
-  - 新規記事：`blog/posts/generative-ai-seo.md`（生成AI時代の検索エンジン最適化とは何をすればいいか）
-  - 選定理由：既存P1記事（ai-search-strategy / aeo-llmo-geo-difference / geo-vs-seo / ai-search-ranking-measurement / faq-pages-ai-search / anticipating-ai-queries / structured-data-aeo / aeo-effect-timing）との内部リンクが張りやすく、「生成AI向けSEO」という検索意図と概念理解系クラスタの既存記事群が直接つながる内容だったため
-  - KEYWORD_MAP.mdでP2→P1へ昇格済み（2026-10-04昇格、概念理解系・項目32として追記）
-- WRITING_RHYTHM.mdの点検手順（話題テスト・漏出テスト・緊張台帳・拍の点検・境界の点検）を実行し、本文H2セクションに適用（冒頭結論サマリ・FAQは適用除外）。
-- `python build.py` 実行済み・ビルド成功（記事33件、sitemap 41件）。
-- SNS転用：新規記事1本のため、docs/SNS_REPURPOSE.mdのルールに従いX投稿ドラフト2案を`sns/x-queue.md`の未投稿末尾へ追記。新規記事が2本未満のためnote記事ドラフトは今回生成せず。x-queue.mdに`[x]`済み項目はなかったため、`sns/x-posted.md`への移動は発生せず。
+- GSC行数0件のため、CTR改善・リライト・クエリギャップいずれの判断材料もなし（データ欠損・分析不能）。
+- 改善バックログ（docs/CONTENT_AUTOPILOT.md）を確認。唯一の未処理項目（OpsOctopus実測データ・
+  レポート画像の記事への挿入）はDeep Scan本番稼働が前提条件。`scripts/generate_quick_sample.py`を
+  確認したところ`SAMPLE_TIER=deep`は依然Quick実行へフォールバックするスタブのままであり、
+  前提条件が未充足のため今回も処理不可。
+- バックログに処理可能な項目がなかったため、KEYWORD_MAP.mdのP2プールを確認したところ**該当0件**
+  （クラスタ1〜3の全クエリが既にP1または済に到達済み）。新規記事を生成できる候補が存在しないため、
+  今週は新規記事・リライトともに実施なし。
+  - docs/CONTENT_AUTOPILOT.mdの改善バックログに、P2プール枯渇と今後人間による新規クエリ候補の
+    棚卸しが必要である旨を記録した。
+- 記事の変更がなかったため、WRITING_RHYTHM.mdの点検手順は対象なし。
+- `python build.py` 実行済み・ビルド成功（記事33件、sitemap 41件）。差分なし（既存の記事構成に変更なし）。
+- SNS転用：新規生成・大幅改稿した記事がなかったため、docs/SNS_REPURPOSE.mdのルールd.に従いX投稿の
+  新規生成はスキップ。sns/x-queue.mdの未投稿は34件（5件を下回っていないため補充も不要）。
+  x-queue.mdに`[x]`済み項目はなく、sns/x-posted.mdへの移動も発生せず。新規記事0本のためnote記事
+  ドラフトの生成もなし。
 

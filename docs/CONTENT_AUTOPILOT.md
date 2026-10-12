@@ -50,6 +50,10 @@
   です・ます調へのリライト~~（2026-07-18 完了。ai-citable-content /
   anticipating-ai-queries / faq-pages-ai-search / how-to-write-llms-txt /
   not-appearing-in-chatgpt / structured-data-aeo の本文をです・ます調へ統一）
+- KEYWORD_MAP.mdのP2候補プールが枯渇（2026-10-12週次サイクル時点で0件。
+  クラスタ1〜3の全クエリがP1または済に到達）。GSCのクエリギャップ分析も
+  現状データ0件で機能していないため、新規記事生成を再開するには人間による
+  新規クエリ候補の棚卸し・追加がKEYWORD_MAP.mdに対して必要
 
 ## サンプルレポート生成
 
