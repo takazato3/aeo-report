@@ -141,3 +141,19 @@
 - [ ] (2026-10-04生成 | generative-ai-seo)
   AEOにGEOにLLMO、略語が増えすぎて正直ついていけてない派です。でも用語の定義を覚えるより、自社名を試しにAIへ聞いてみるほうが早い気がしてきました。生成AI時代のSEO、言葉の整理より先に何から手をつけてますか？
   URL: https://app.ops-octopus.com/blog/generative-ai-seo.html
+
+- [ ] (2026-10-18生成 | recruit-page-ai-search)
+  採用ページって人事だけが見るものだと思ってません？社員インタビューとか職務内容の説明って、実は会社概要よりも具体的な事業紹介になってることがあるらしいです。自社の採用ページ、定型句だけで埋まってないか気になってきました🐙 #AI検索
+  URL: https://app.ops-octopus.com/blog/recruit-page-ai-search.html
+
+- [ ] (2026-10-18生成 | recruit-page-ai-search)
+  終了した求人票、消さずに放置してるページって結構ありますよね。募集中か終了かさえ分かれば悪くないらしいんですが、そのままだと地味に情報が古く見えるかもという話を整理しました。皆さんの会社の採用ページ、最後に見直したのいつですか？
+  URL: https://app.ops-octopus.com/blog/recruit-page-ai-search.html
+
+- [ ] (2026-10-18生成 | whitepaper-ai-citation)
+  せっかく作ったホワイトペーパー、フォームの奥に眠らせたままになってません？中身にある独自データ、フォームがある時点でAIからは見えてない可能性があるらしいです。要点だけでも外に出しておくと違うのかもという話、気になりませんか？🐙
+  URL: https://app.ops-octopus.com/blog/whitepaper-ai-citation.html
+
+- [ ] (2026-10-18生成 | whitepaper-ai-citation)
+  資料ダウンロードページのタイトル、「〇〇業界の最新動向レポート」みたいな曖昧な感じになってません？資料本体が読めない分、そのタイトルと要約文だけが手がかりになってるかもという話を整理してみました。皆さんの資料、タイトルで中身が伝わりますか？ #AI検索
+  URL: https://app.ops-octopus.com/blog/whitepaper-ai-citation.html
