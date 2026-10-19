@@ -833,6 +833,68 @@
       background: #f0f0f0;
       border-color: #ddd;
     }
+
+    /* ── 集計に含める表記 (Screen 2・Deep/Full) ── */
+    .alias-body { padding: 12px 14px 14px; }
+    .alias-desc { font-size: 13px; color: var(--text-dark); line-height: 1.7; margin-bottom: 10px; }
+    .alias-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; }
+    .alias-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      max-width: 100%;
+      font-size: 14px;
+      color: var(--text-dark);
+      background: var(--blue-gray-50);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 4px 6px 4px 12px;
+    }
+    .alias-chip-text { overflow-wrap: anywhere; }
+    .alias-chip.is-registered { background: var(--white); border-color: rgba(16,42,74,0.3); padding-right: 12px; }
+    .alias-chip-tag {
+      font-size: 11px;
+      color: var(--navy-800);
+      background: rgba(16,42,74,0.07);
+      border-radius: 4px;
+      padding: 1px 6px;
+      white-space: nowrap;
+    }
+    .alias-remove {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      width: 24px;
+      height: 24px;
+      border: none;
+      border-radius: 50%;
+      background: transparent;
+      color: var(--text-muted);
+      font-size: 16px;
+      line-height: 1;
+      cursor: pointer;
+      font-family: inherit;
+    }
+    .alias-remove:hover { background: var(--blue-gray-100); color: var(--text-dark); }
+    .alias-add-row { display: flex; gap: 8px; }
+    .alias-add-row .form-input { flex: 1; min-width: 0; }
+    .alias-add-btn {
+      flex-shrink: 0;
+      min-height: 44px;
+      padding: 0 18px;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--navy-800);
+      background: var(--white);
+      border: 1px solid rgba(16,42,74,0.3);
+      border-radius: 6px;
+      cursor: pointer;
+      font-family: inherit;
+    }
+    .alias-add-btn:hover { background: var(--blue-gray-50); }
+    .alias-message { font-size: 12px; color: #b22323; margin-top: 6px; min-height: 1em; }
+    .alias-message.is-info { color: var(--text-muted); }
     .lock-overlay {
       position: absolute;
       inset: 0;
@@ -1183,6 +1245,25 @@
           </div>
         </div>
 
+        <!-- 集計に含める表記（Deep / Full のみ表示） -->
+        <div class="question-card" id="alias-card" style="display:none;">
+          <div class="question-card-header">
+            <span class="question-card-label">集計に含める表記</span>
+            <span class="question-card-badge">Deep / Full</span>
+          </div>
+          <div class="alias-body">
+            <p class="alias-desc">AIの回答でこの表記が使われた場合も、自社の言及として数えます。一般的な単語と同じ表記（例：Apple）は、無関係な言及まで数えてしまう原因になるため避けてください。</p>
+            <div class="alias-chips" id="aliasChips"></div>
+            <label class="form-label" for="aliasInput">表記を追加（最大5件・1件3〜50文字）</label>
+            <div class="alias-add-row">
+              <input type="text" class="form-input" id="aliasInput" maxlength="50" placeholder="例：英字表記・カタカナ表記・略称" autocomplete="off">
+              <button type="button" class="alias-add-btn" id="aliasAddBtn">追加</button>
+            </div>
+            <span class="field-warning" id="aliasInput-warning">セキュリティ上、この文字は使用できません</span>
+            <p class="alias-message" id="aliasMessage" role="status"></p>
+          </div>
+        </div>
+
         <div class="btn-group">
           <button class="btn-primary" id="runSurveyBtn" type="button" onclick="gtag('event', 'scan_step2_start', { page: 'quick-scan.html' })">この内容で調査を開始する</button>
           <button class="btn-secondary" id="backToInputBtn" type="button">← 前の画面に戻る</button>
@@ -1502,7 +1583,7 @@
       return PLAN_MAP[prefix] || null;
     }
 
-    const state = { token: '', category: '', subcategory: '', keyword: '', question: '', question_q2: '', question_q3: '', questions: null, customerProfile: '', customerIntent: '', categoryData: null };
+    const state = { token: '', category: '', subcategory: '', keyword: '', question: '', question_q2: '', question_q3: '', questions: null, customerProfile: '', customerIntent: '', categoryData: null, brand_aliases: [] };
     let questionGenerationCount = 0;
 
 
@@ -1638,6 +1719,9 @@
         // 上限超過：API呼び出しなし。既存の質問文はそのまま維持
         $('genLimitBanner').classList.add('visible');
         applyPlanLock(sessionStorage.getItem('currentPlan') || 'quick');
+        // 質問文は作り直さないので、今の一覧を入力し直した登録名で絞り直して使う
+        setAliasCandidates(state.brand_aliases.slice());
+        updateAliasSection(sessionStorage.getItem('currentPlan') || 'quick');
         showScreen(2);
         updateInputBadges();
         return;
@@ -1673,6 +1757,8 @@
           throw new Error('質問文の取得に失敗しました。しばらくしてから再試行してください。');
         }
         state.questions = questions;
+        // 別表記の候補（AIの推測。空のこともある）。画面②でユーザーが確認・編集する
+        setAliasCandidates(questions.brand_aliases);
 
         // 画面②の質問カードに値をセット
         $('q-reputation-text').value  = questions.reputation  || '';
@@ -1681,6 +1767,7 @@
 
         // プランに応じてロック制御
         applyPlanLock(sessionStorage.getItem('currentPlan') || 'quick');
+        updateAliasSection(sessionStorage.getItem('currentPlan') || 'quick');
 
         showScreen(2);
         updateInputBadges();
@@ -1876,6 +1963,104 @@
       });
     }
 
+    // ── 集計に含める表記（Deep/Fullのみ） ──
+    // 登録名（state.keyword）以外の別表記を state.brand_aliases に持ち、runDeepScan で送る。
+    // 表記はCloud Run側でAIへの指示文に埋め込まれるため、キーワード欄と同じ危険文字の検査をかける
+    const ALIAS_MAX_COUNT  = 5;
+    const ALIAS_MIN_LENGTH = 3;
+    const ALIAS_MAX_LENGTH = 50;
+
+    // 全角半角・大文字小文字・空白の違いだけのものを同じ表記とみなす（Cloud Run側の判定と同じ）
+    function aliasKey(s) {
+      return String(s).normalize('NFKC').toLowerCase().replace(/\s+/g, '');
+    }
+
+    // 追加できない理由を返す。追加できるならnull
+    function aliasRejectReason(value) {
+      const v = sanitizeInput(value, 1000);
+      const length = Array.from(v.value).length;
+      if (!v.value)                     return '表記を入力してください。';
+      if (state.brand_aliases.length >= ALIAS_MAX_COUNT) return `追加できるのは${ALIAS_MAX_COUNT}件までです。`;
+      if (BLOCKED_CHARS_TEST.test(v.value)) return '使用できない文字（< > ; \' "）が含まれています。';
+      if (v.error)                      return v.error;
+      if (length < ALIAS_MIN_LENGTH)    return `${ALIAS_MIN_LENGTH}文字以上で入力してください。`;
+      if (length > ALIAS_MAX_LENGTH)    return `${ALIAS_MAX_LENGTH}文字以内で入力してください。`;
+      if (aliasKey(v.value) === aliasKey(state.keyword)) return '登録名と同じ表記は追加できません。';
+      if (state.brand_aliases.some(a => aliasKey(a) === aliasKey(v.value))) return 'すでに追加されています。';
+      return null;
+    }
+
+    function showAliasMessage(msg, isInfo = false) {
+      const el = $('aliasMessage');
+      el.textContent = msg || '';
+      el.classList.toggle('is-info', isInfo);
+    }
+
+    function renderAliasChips() {
+      const box = $('aliasChips');
+      box.innerHTML = '';
+      const chip = (text, removeIndex) => {
+        const el = document.createElement('span');
+        el.className = 'alias-chip' + (removeIndex === null ? ' is-registered' : '');
+        const label = document.createElement('span');
+        label.className = 'alias-chip-text';
+        label.textContent = text;
+        el.appendChild(label);
+        if (removeIndex === null) {
+          const tag = document.createElement('span');
+          tag.className = 'alias-chip-tag';
+          tag.textContent = '登録名';
+          el.appendChild(tag);
+        } else {
+          const btn = document.createElement('button');
+          btn.type = 'button';
+          btn.className = 'alias-remove';
+          btn.textContent = '×';
+          btn.setAttribute('aria-label', `「${text}」を削除`);
+          btn.addEventListener('click', () => {
+            state.brand_aliases.splice(removeIndex, 1);
+            showAliasMessage('');
+            renderAliasChips();
+          });
+          el.appendChild(btn);
+        }
+        box.appendChild(el);
+      };
+      chip(state.keyword, null);
+      state.brand_aliases.forEach((alias, i) => chip(alias, i));
+    }
+
+    // 候補（AIの推測、または前回の一覧）を、ユーザーの追加分と同じ条件で絞って並べ直す
+    function setAliasCandidates(candidates) {
+      state.brand_aliases = [];
+      let dropped = 0;
+      (Array.isArray(candidates) ? candidates : []).forEach(c => {
+        if (typeof c !== 'string' || aliasRejectReason(c)) { dropped++; return; }
+        state.brand_aliases.push(sanitizeInput(c, ALIAS_MAX_LENGTH).value);
+      });
+      $('aliasInput').value = '';
+      showAliasMessage(dropped ? `条件に合わない候補${dropped}件は除きました。` : '', true);
+      renderAliasChips();
+    }
+
+    function updateAliasSection(plan) {
+      $('alias-card').style.display = (plan === 'deep' || plan === 'full') ? 'block' : 'none';
+    }
+
+    function addAliasFromInput() {
+      const reason = aliasRejectReason($('aliasInput').value);
+      if (reason) return showAliasMessage(reason);
+      state.brand_aliases.push(sanitizeInput($('aliasInput').value, ALIAS_MAX_LENGTH).value);
+      $('aliasInput').value = '';
+      showAliasMessage('');
+      renderAliasChips();
+    }
+
+    $('aliasAddBtn').addEventListener('click', addAliasFromInput);
+    $('aliasInput').addEventListener('keydown', e => {
+      if (e.key === 'Enter' && !e.isComposing) { e.preventDefault(); addAliasFromInput(); }
+    });
+
     // ── 確認モーダル ──
     function showConfirmModal() {
       const plan = sessionStorage.getItem('currentPlan') || 'quick';
@@ -1930,6 +2115,9 @@
           // (GAS側でCloud Tasksペイロードのquestionsに転送される。既存のquestionフィールドは
           //  runSurvey/後方互換のため残す)
           questions:   isDeep ? { q1: state.question, q2: state.question_q2, q3: state.question_q3 } : undefined,
+          // Deep/Full: 画面②で確認した自社ブランドの別表記（登録名は含めない・空なら空の配列）。
+          // GAS側でCloud Tasksペイロードのbrand_aliasesに転送される
+          brand_aliases: isDeep ? state.brand_aliases.slice() : undefined,
         });
         console.log('GASレスポンス:', JSON.stringify(data));
         if (!data.success) throw new Error(data.error || '調査の実行に失敗しました。');
@@ -2437,6 +2625,7 @@ body{margin:0;font-family:"Inter","Noto Sans JP",sans-serif;color:var(--text-dar
     initDangerFilter('keyword');
     initDangerFilter('customerProfile');
     initDangerFilter('customerIntent');
+    initDangerFilter('aliasInput');
   </script>
 </body>
 </html>
