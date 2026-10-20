@@ -30,7 +30,7 @@
   </url>
   <url>
     <loc>https://app.ops-octopus.com/blog/</loc>
-    <lastmod>2026-10-04</lastmod>
+    <lastmod>2026-10-18</lastmod>
   </url>
   <url>
     <loc>https://app.ops-octopus.com/blog/aeo-effect-timing.html</loc>
@@ -141,6 +141,10 @@
     <lastmod>2026-09-06</lastmod>
   </url>
   <url>
+    <loc>https://app.ops-octopus.com/blog/recruit-page-ai-search.html</loc>
+    <lastmod>2026-10-18</lastmod>
+  </url>
+  <url>
     <loc>https://app.ops-octopus.com/blog/robots-txt-ai-crawlers.html</loc>
     <lastmod>2026-09-06</lastmod>
   </url>
@@ -163,5 +167,9 @@
   <url>
     <loc>https://app.ops-octopus.com/blog/what-is-llmo.html</loc>
     <lastmod>2026-07-18</lastmod>
+  </url>
+  <url>
+    <loc>https://app.ops-octopus.com/blog/whitepaper-ai-citation.html</loc>
+    <lastmod>2026-10-18</lastmod>
   </url>
 </urlset>
