@@ -13,6 +13,8 @@
 
 AEO・GEO・LLMOやAI検索時代のブランドの見え方について調査・解説する記事一覧です。
 
+- [社員インタビューはAIにとってどんな情報源になるのか](https://app.ops-octopus.com/blog/employee-interview-ai-search.html): 社員インタビューコンテンツが、AI検索の文脈でどんな情報源として扱われうるのかを整理します。採用ページ・会社概要ページとの役割の違いも見ていきます。
+- [口コミ・レビューサイトはAIの評判形成にどう関わるのか](https://app.ops-octopus.com/blog/review-site-ai-search.html): 口コミ・レビューサイトに蓄積された第三者の評価が、AIによるブランドの評判の語られ方にどう関わりうるのかを整理します。自社で管理できない情報源との向き合い方も考えます。
 - [採用ページ・求人情報はAIにどう読まれているのか](https://app.ops-octopus.com/blog/recruit-page-ai-search.html): 採用ページや求人情報の書き方が、AI検索での自社の見え方に関係するのか。会社概要ページとの違いや、働く人の言葉という一次情報の観点を整理します。
 - [ホワイトペーパー・資料コンテンツはAIにどう使われうるのか](https://app.ops-octopus.com/blog/whitepaper-ai-citation.html): フォーム登録が必要なホワイトペーパーや資料コンテンツは、AI検索の文脈でどう扱われうるのか。一次情報としての価値と公開範囲の考え方を整理します。
 - [生成AI時代の検索エンジン最適化とは何をすればいいか](https://app.ops-octopus.com/blog/generative-ai-seo.html): 「生成AI時代のSEO」という言葉で検索して、何から着手すればいいのか分からない担当者向けに、従来のSEOと重なる部分・新しく必要になる視点を整理します。

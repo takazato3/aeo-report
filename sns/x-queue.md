@@ -157,3 +157,19 @@
 - [ ] (2026-10-18生成 | whitepaper-ai-citation)
   資料ダウンロードページのタイトル、「〇〇業界の最新動向レポート」みたいな曖昧な感じになってません？資料本体が読めない分、そのタイトルと要約文だけが手がかりになってるかもという話を整理してみました。皆さんの資料、タイトルで中身が伝わりますか？ #AI検索
   URL: https://app.ops-octopus.com/blog/whitepaper-ai-citation.html
+
+- [ ] (2026-10-25生成 | employee-interview-ai-search)
+  社員インタビューって採用ページのオマケ的な扱いになってません？「前職はこうだったけど今はこう」みたいな具体的なエピソードって、会社概要より踏み込んだ事業紹介になってることがあるらしいです。自社のインタビュー記事、定型句だけで終わってないか気になってきました🐙 #AI検索
+  URL: https://app.ops-octopus.com/blog/employee-interview-ai-search.html
+
+- [ ] (2026-10-25生成 | employee-interview-ai-search)
+  社員インタビュー、顔写真と実名を出さなきゃ意味ないと思ってません？属性情報と具体的なエピソードの組み合わせでも、意外と固有性って保てるみたいです。匿名でも中身次第なのかも、という話を整理しました。みなさんの会社はどっち派ですか？
+  URL: https://app.ops-octopus.com/blog/employee-interview-ai-search.html
+
+- [ ] (2026-10-25生成 | review-site-ai-search)
+  自社の評判をAIに聞いたら、思ったより厳しめの答えが返ってきたこと、ありませんか？口コミサイトって自社じゃコントロールできない情報源なのに、AIの回答にじわっと影響してるかもという話を整理してみました。見たことあります？🐙 #AI検索
+  URL: https://app.ops-octopus.com/blog/review-site-ai-search.html
+
+- [ ] (2026-10-25生成 | review-site-ai-search)
+  言及率70%って聞くと安心しちゃうけど、好意的に語られてるかまでは分からない数字なんですよね。口コミサイトの評判が、この「語られ方の温度」ににじみ出てるのかも、というモヤモヤを記事にしました。皆さんは口コミ、定期的にチェックしてますか？
+  URL: https://app.ops-octopus.com/blog/review-site-ai-search.html

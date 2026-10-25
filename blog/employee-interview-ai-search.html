@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>社員インタビューはAIにとってどんな情報源になるのか | Ops Octopus ブログ</title>
+  <meta name="description" content="社員インタビューコンテンツが、AI検索の文脈でどんな情報源として扱われうるのかを整理します。採用ページ・会社概要ページとの役割の違いも見ていきます。">
+  <link rel="canonical" href="https://app.ops-octopus.com/blog/employee-interview-ai-search.html">
+  <meta property="og:title" content="社員インタビューはAIにとってどんな情報源になるのか | Ops Octopus ブログ">
+  <meta property="og:description" content="社員インタビューコンテンツが、AI検索の文脈でどんな情報源として扱われうるのかを整理します。採用ページ・会社概要ページとの役割の違いも見ていきます。">
+  <meta property="og:url" content="https://app.ops-octopus.com/blog/employee-interview-ai-search.html">
+  <meta property="og:type" content="article">
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "社員インタビューはAIにとってどんな情報源になるのか",
+  "description": "社員インタビューコンテンツが、AI検索の文脈でどんな情報源として扱われうるのかを整理します。採用ページ・会社概要ページとの役割の違いも見ていきます。",
+  "datePublished": "2026-10-25",
+  "inLanguage": "ja",
+  "author": {
+    "@type": "Organization",
+    "name": "Ops Octopus"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Ops Octopus"
+  }
+}
+  </script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "社員インタビューの本数は多いほうがいいですか。",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "本数そのものより、定型句ではない具体的なエピソードが書かれているかのほうが重要だと考えられます。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "匿名での社員紹介でも効果はありますか。",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "断定はできません。ただし、属性情報と具体的なエピソードの組み合わせがあれば、実名でなくても固有性は保てると考えられます。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "古いインタビューはどう扱えばいいですか。",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "削除する必要はありません。現在の状況と異なる場合は、更新時期が分かる形にしておくほうが扱いやすいでしょう。"
+      }
+    }
+  ]
+}
+  </script>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-DNTX6D35RB"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-DNTX6D35RB');
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    :root {
+      --navy-950: #061426;
+      --navy-900: #081b33;
+      --navy-800: #102a4a;
+      --blue-gray-50: #f4f7fb;
+      --blue-gray-100: #eaf0f7;
+      --off-white: #fbfaf6;
+      --white: #ffffff;
+      --amber-400: #fbbf24;
+      --amber-500: #f59e0b;
+      --text-dark: #132033;
+      --text-muted: #5f6f85;
+      --border: #dce4ef;
+    }
+
+    body {
+      font-family: 'Inter', 'Noto Sans JP', "Hiragino Sans", "Hiragino Kaku Gothic ProN",
+        Arial, Meiryo, sans-serif;
+      font-size: 1rem;
+      line-height: 1.7;
+      color: var(--text-dark);
+      background: var(--white);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ─── Header ─── */
+    .header {
+      background: #0d2340;
+      height: auto;
+      padding: 1.5rem 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 200;
+    }
+    .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    .nav-logo-img { height: 56px; width: auto; display: block; }
+    .nav-logo-text { flex-direction: column; gap: 2px; }
+    .nav-logo-name { font-size: 17px; font-weight: 700; color: var(--off-white); letter-spacing: 0.02em; white-space: nowrap; }
+    .nav-logo-sub { font-size: 11px; color: rgba(251,250,246,0.55); white-space: nowrap; }
+    .header-nav { display: flex; align-items: center; gap: 24px; }
+    .header-nav a { font-size: 14px; color: rgba(251,250,246,0.75); text-decoration: none; transition: color 0.15s; white-space: nowrap; }
+    .header-nav a:hover { color: var(--off-white); }
+    .btn-nav-cta {
+      background: var(--amber-400);
+      color: var(--text-dark) !important;
+      font-size: 13px !important;
+      font-weight: 600 !important;
+      padding: 7px 14px;
+      border-radius: 6px;
+      transition: background 0.15s !important;
+      white-space: nowrap;
+    }
+    .btn-nav-cta:hover { background: var(--amber-500) !important; }
+    .nav-cta-tax { font-size: 0.8em; }
+    .nav-cta-short { display: none; }
+
+    @media (max-width: 768px) {
+      .header-nav { gap: 14px; }
+      .header-nav .nav-link-hide { display: none; }
+      .nav-cta-full  { display: none; }
+      .nav-cta-short { display: inline; }
+    }
+    @media (max-width: 480px) {
+      .header-nav { gap: 10px; }
+    }
+
+    /* ─── Breadcrumb ─── */
+    .breadcrumb {
+      background: var(--navy-900);
+      padding: 10px 24px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      color: rgba(255,255,255,0.45);
+    }
+    .breadcrumb a { color: rgba(255,255,255,0.55); text-decoration: none; transition: color 0.15s; }
+    .breadcrumb a:hover { color: rgba(255,255,255,0.85); }
+    .breadcrumb .sep { color: rgba(255,255,255,0.25); }
+    .breadcrumb .current { color: rgba(255,255,255,0.75); }
+
+    /* ─── Article ─── */
+    .article-page { background: var(--white); padding: 48px 24px 0; }
+    .article-inner { max-width: 720px; margin: 0 auto; }
+
+    .article-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
+    .article-tag {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--amber-500);
+      background: rgba(251,191,36,0.12);
+      border: 1px solid rgba(245,158,11,0.25);
+      padding: 3px 10px;
+      border-radius: 999px;
+      letter-spacing: 0.02em;
+    }
+
+    .article-title {
+      font-size: clamp(24px, 5vw, 34px);
+      font-weight: 700;
+      color: var(--text-dark);
+      line-height: 1.45;
+      letter-spacing: 0.01em;
+      font-feature-settings: "palt";
+      margin-bottom: 14px;
+    }
+
+    .article-meta {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-bottom: 36px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .article-body { font-size: 1.05rem; line-height: 1.9; color: var(--text-dark); }
+    .article-body h2 {
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: var(--text-dark);
+      margin: 40px 0 16px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid var(--amber-400);
+      display: inline-block;
+    }
+    .article-body h3 { font-size: 1.15rem; font-weight: 700; color: var(--text-dark); margin: 28px 0 12px; }
+    .article-body p { margin-bottom: 20px; }
+    .article-body ul, .article-body ol { margin: 0 0 20px 1.4em; }
+    .article-body li { margin-bottom: 8px; }
+    .article-body a { color: #1B6CA8; }
+    .article-body a:hover { text-decoration: underline; }
+    .article-body strong { font-weight: 700; }
+    .article-body blockquote {
+      border-left: 3px solid var(--amber-400);
+      background: var(--blue-gray-50);
+      padding: 12px 18px;
+      margin: 0 0 20px;
+      color: var(--text-muted);
+    }
+    .article-body code {
+      background: var(--blue-gray-50);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.9em;
+    }
+
+    .article-back { margin: 40px 0 0; }
+    .article-back a { font-size: 14px; color: var(--text-muted); text-decoration: none; }
+    .article-back a:hover { color: var(--text-dark); }
+
+    /* ─── CTA ─── */
+    .article-cta {
+      margin-top: 56px;
+      background: var(--blue-gray-50);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 32px 28px;
+      text-align: center;
+    }
+    .article-cta p {
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--text-dark);
+      margin-bottom: 18px;
+      line-height: 1.6;
+    }
+    .btn-primary {
+      background: var(--amber-400);
+      color: var(--text-dark);
+      font-size: 1.05rem;
+      font-weight: 600;
+      padding: 0.9rem 2rem;
+      border-radius: 6px;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      transition: background 0.15s;
+      display: inline-block;
+      font-family: inherit;
+      white-space: nowrap;
+    }
+    .btn-primary:hover { background: var(--amber-500); }
+
+    /* ─── Footer ─── */
+    .footer { background: var(--navy-900); padding: 2rem 1.5rem; margin-top: 64px; }
+    .footer-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      gap: 24px;
+    }
+    .footer-brand-name { font-size: 16px; font-weight: 600; color: var(--off-white); margin-bottom: 4px; }
+    .footer-brand-sub { font-size: 12px; color: rgba(251,250,246,0.5); line-height: 1.5; }
+    .footer-brand-tagline { font-style: italic; }
+    .footer-links { display: flex; flex-direction: row; align-items: center; gap: 2rem; flex-wrap: wrap; }
+    .footer-link { font-size: 13px; color: var(--off-white); text-decoration: none; opacity: 0.8; transition: opacity 0.15s; }
+    .footer-link:hover { opacity: 1; }
+    .footer-copy { font-size: 12px; color: rgba(251,250,246,0.4); text-align: right; }
+
+    @media (max-width: 768px) {
+      .article-page { padding: 36px 16px 0; }
+      .footer-inner { grid-template-columns: 1fr; text-align: center; }
+      .footer-links { justify-content: center; }
+      .footer-copy { text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── HEADER ── -->
+  <header class="header">
+    <a href="/" class="nav-logo">
+      <img src="/assets/images/logo.png" alt="Ops Octopus" class="nav-logo-img"
+        onerror="this.style.display='none'; document.getElementById('nav-logo-text').style.display='flex';">
+      <div id="nav-logo-text" style="display:none;" class="nav-logo-text">
+        <span class="nav-logo-name">🐙 Ops Octopus</span>
+        <span class="nav-logo-sub">AIブランド調査レポート</span>
+      </div>
+    </a>
+    <nav class="header-nav">
+      <a class="nav-link-hide" href="/#report">レポート内容</a>
+      <a class="nav-link-hide" href="/#quick-scan">Quick Scan</a>
+      <a class="nav-link-hide" href="/samples.html">サンプル</a>
+      <a class="nav-link-hide" href="/#deep-scan">DEEP</a>
+      <a class="nav-link-hide" href="/blog/">ブログ</a>
+      <a class="btn-nav-cta" href="https://buy.stripe.com/6oU14ndhZcAR4XR1EKcwg00" onclick="gtag('event', 'cta_click_header', { page: location.pathname })">
+        <span class="nav-cta-full">¥300<span class="nav-cta-tax">（税込）</span>で購入</span>
+        <span class="nav-cta-short">¥300<span class="nav-cta-tax">（税込）</span>で購入</span>
+      </a>
+    </nav>
+  </header>
+
+  <!-- パンくず -->
+  <nav class="breadcrumb">
+    <a href="/">ホーム</a>
+    <span class="sep">›</span>
+    <a href="/blog/">ブログ</a>
+    <span class="sep">›</span>
+    <span class="current">社員インタビューはAIにとってどんな情報源になるのか</span>
+  </nav>
+
+  <main class="article-page">
+    <div class="article-inner">
+      <article>
+        <div class="article-tags">
+          <span class="article-tag">AEO</span>
+          <span class="article-tag">コンテンツ</span>
+        </div>
+        <h1 class="article-title">社員インタビューはAIにとってどんな情報源になるのか</h1>
+        <p class="article-meta"><time datetime="2026-10-25">2026年10月25日</time></p>
+
+        <div class="article-body">
+<p>社員インタビューのページ、採用サイトを賑やかにするための添え物くらいに考えていないでしょうか。結論としては、社員インタビューには他のページでは代わりが利かない固有の事実――具体的な業務内容、入社の経緯、日々の判断の積み重ね――が集まりやすく、AIが会社の実態を説明する際の材料になっている可能性があります。ここでは、社員インタビューがAI検索の文脈でどう位置づけられそうかを整理します。</p>
+<h2>社員インタビューが「採用広報の添え物」で終わっていないか</h2>
+<p>社員インタビューの企画は、たいてい採用担当か広報のチームが単独で進めます。応募者の不安を和らげる、会社の雰囲気を伝える。目的はそのあたりに収まっていて、それ自体は間違っていません。ただ、できあがったインタビュー記事を読み返すと、具体的な業務の進め方や、入社前後で変わった考え方など、採用目的を超えた情報が意外と詰まっていることに気づきます。公開した時点では、誰もそこまで期待していなかったはずです。</p>
+<h2>定型句と固有の事実の差</h2>
+<p>「風通しの良い職場です」「チームワークを大切にしています」。この手の言葉は、どの会社のインタビューにも書けてしまいます。一方で、「前職では承認に3段階かかっていた稟議が、今は担当者の判断で即日動く」というような具体的な比較は、その人がその会社で実際に経験したことでしか出てきません。<a href="/blog/ai-citable-content.html">AIに引用されやすいコンテンツ</a>で触れたとおり、他社が同じ形で持てない固有の事実こそが参照の理由を作りやすいという見方に立つなら、社員インタビューの価値は定型句の量ではなく、固有のエピソードがどれだけ具体的に書かれているかで決まってきそうです。</p>
+<h2>採用ページ全体の中での位置づけ</h2>
+<p><a href="/blog/recruit-page-ai-search.html">採用ページ・求人情報はAIにどう読まれているのか</a>では、職務内容の記述が会社概要より解像度の高い事業説明になりうる、という見方を整理しました。社員インタビューは、その職務内容の記述に人の声が加わったものと捉えられます。募集要項が「何をする仕事か」を説明するなら、インタビューは「それをやっている人が何を考えているか」を補う情報です。両方がそろって初めて、採用ページ全体が一次情報の厚みを持つ、という関係に近いのかもしれません。</p>
+<h2>会社概要ページとの役割の違い</h2>
+<p><a href="/blog/company-profile-page-ai.html">会社概要ページはAIにどう読まれているのか</a>で見た「会社としての今の状態」を説明する情報と比べると、社員インタビューは個人の視点から見た会社という、別の角度の情報になります。会社概要の事業内容が抽象的な言葉で止まっていても、社員インタビューの中に具体的な業務の描写があれば、AIが参照できる材料としては補い合える関係にあります。どちらか一方を厚くすればいい、という単純な話ではなさそうです。</p>
+<h2>匿名性と具体性のバランス</h2>
+<p>社員インタビューを充実させようとすると、顔写真や実名、部署名まで載せたくなります。ただし、本人の同意なく個人を特定できる情報を増やすことは避けるべきで、具体性と匿名性は必ずしも対立しません。「入社2年目、法人営業担当」という程度の属性情報と、具体的なエピソードの組み合わせでも、固有性は十分に保てます。本人が特定される不安を感じるようなインタビューは、協力してくれる社員を減らすだけで、長続きしない施策になってしまいます。</p>
+<h2>社員インタビューを見直す際の観点</h2>
+<p>見直すとすれば、まず定型句だけで終わっているインタビューがないかを確認するところから始められます。次に、職務内容や入社の経緯について、具体的なエピソードが含まれているか。そして、本人が特定される不安を感じない範囲で、属性情報と内容のバランスが取れているか。この3点であれば、新しく企画を立て直さなくても、既存のインタビュー記事に手を加えるだけで着手できる範囲です。</p>
+<h2>よくある質問</h2>
+<p><strong>Q. 社員インタビューの本数は多いほうがいいですか。</strong><br>
+A. 本数そのものより、定型句ではない具体的なエピソードが書かれているかのほうが重要だと考えられます。</p>
+<p><strong>Q. 匿名での社員紹介でも効果はありますか。</strong><br>
+A. 断定はできません。ただし、属性情報と具体的なエピソードの組み合わせがあれば、実名でなくても固有性は保てると考えられます。</p>
+<p><strong>Q. 古いインタビューはどう扱えばいいですか。</strong><br>
+A. 削除する必要はありません。現在の状況と異なる場合は、更新時期が分かる形にしておくほうが扱いやすいでしょう。</p>
+        </div>
+      </article>
+
+      <div class="article-cta">
+        <p>AIにあなたのブランドはどう見えている？<br>まずは300円のQuick Scanから。</p>
+        <a href="/detail.html#cta" class="btn-primary" onclick="gtag('event', 'cta_click_blog_post', { page: location.pathname })">Quick Scan ¥300 で調べる →</a>
+      </div>
+
+      <p class="article-back"><a href="/blog/">← ブログ一覧に戻る</a></p>
+    </div>
+  </main>
+
+  <!-- ── FOOTER ── -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div>
+        <p class="footer-brand-name">🐙 Ops Octopus</p>
+        <p class="footer-brand-sub">AIブランド調査レポート</p>
+        <p class="footer-brand-sub footer-brand-tagline">「知りたい」に、するっと。</p>
+      </div>
+      <div class="footer-links">
+        <a class="footer-link" href="/blog/">ブログ</a>
+        <a class="footer-link" href="/terms.html">利用規約</a>
+        <a class="footer-link" href="/legal.html">特定商取引法に基づく表記</a>
+        <a class="footer-link" href="/privacy.html">プライバシーポリシー</a>
+      </div>
+      <p class="footer-copy">© 2026 Ops Octopus. All rights reserved.</p>
+    </div>
+  </footer>
+
+</body>
+</html>
