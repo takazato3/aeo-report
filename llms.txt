@@ -13,6 +13,8 @@
 
 AEO・GEO・LLMOやAI検索時代のブランドの見え方について調査・解説する記事一覧です。
 
+- [英語ページがないとAI検索で不利になるのか](https://app.ops-octopus.com/blog/multilingual-pages-ai-search.html): 自社サイトに英語版・多言語ページがないことが、AI検索での見え方にどう関わりうるのかを整理します。優先順位の考え方も合わせて見ていきます。
+- [セミナー・ウェビナー情報はAI検索の材料になるのか](https://app.ops-octopus.com/blog/seminar-webinar-ai-search.html): セミナー・ウェビナー開催情報や登壇資料が、AI検索の文脈でどんな情報源として扱われうるのかを整理します。プレスリリース・ホワイトペーパーとの違いも見ていきます。
 - [社員インタビューはAIにとってどんな情報源になるのか](https://app.ops-octopus.com/blog/employee-interview-ai-search.html): 社員インタビューコンテンツが、AI検索の文脈でどんな情報源として扱われうるのかを整理します。採用ページ・会社概要ページとの役割の違いも見ていきます。
 - [口コミ・レビューサイトはAIの評判形成にどう関わるのか](https://app.ops-octopus.com/blog/review-site-ai-search.html): 口コミ・レビューサイトに蓄積された第三者の評価が、AIによるブランドの評判の語られ方にどう関わりうるのかを整理します。自社で管理できない情報源との向き合い方も考えます。
 - [採用ページ・求人情報はAIにどう読まれているのか](https://app.ops-octopus.com/blog/recruit-page-ai-search.html): 採用ページや求人情報の書き方が、AI検索での自社の見え方に関係するのか。会社概要ページとの違いや、働く人の言葉という一次情報の観点を整理します。

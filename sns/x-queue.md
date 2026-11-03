@@ -173,3 +173,19 @@
 - [ ] (2026-10-25生成 | review-site-ai-search)
   言及率70%って聞くと安心しちゃうけど、好意的に語られてるかまでは分からない数字なんですよね。口コミサイトの評判が、この「語られ方の温度」ににじみ出てるのかも、というモヤモヤを記事にしました。皆さんは口コミ、定期的にチェックしてますか？
   URL: https://app.ops-octopus.com/blog/review-site-ai-search.html
+
+- [ ] (2026-11-02生成 | multilingual-pages-ai-search)
+  海外の競合サイトには英語ページあるのに、うちは日本語だけ…とちょっと焦ったことありませんか？でも国内向けのビジネスなら、英語ページより先に日本語の指名検索でどう答えられてるか見るほうが優先度高いかもという話を整理しました。英語ページ、気にしたことあります？🐙 #AI検索
+  URL: https://app.ops-octopus.com/blog/multilingual-pages-ai-search.html
+
+- [ ] (2026-11-02生成 | multilingual-pages-ai-search)
+  「英語ページがないから海外で見られてない」って決めつけるの、ちょっと早いかもしれません。言語ごとにAIが参照する情報源はそもそも違うらしく、単純にページを翻訳するだけでは足りない気もしています。多言語対応、どこから手をつけるか悩んだことあります？
+  URL: https://app.ops-octopus.com/blog/multilingual-pages-ai-search.html
+
+- [ ] (2026-11-02生成 | seminar-webinar-ai-search)
+  ウェビナーの告知ページ、開催日が終わったらそのまま放置してません？質疑応答とか当日の論点って、実はその回でしか出てこなかった一次情報だったりするんですよね。終了後のレポート、作ったことあります？🐙 #AI検索
+  URL: https://app.ops-octopus.com/blog/seminar-webinar-ai-search.html
+
+- [ ] (2026-11-02生成 | seminar-webinar-ai-search)
+  セミナーの登壇者紹介、毎回同じ定型文で済ませてません？その回のテーマに即した具体的な経験を書くかどうかで、残る情報の厚みが結構変わるかもという話を整理してみました。登壇者プロフィール、使い回してますか？
+  URL: https://app.ops-octopus.com/blog/seminar-webinar-ai-search.html
