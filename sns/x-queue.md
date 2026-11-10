@@ -189,3 +189,19 @@
 - [ ] (2026-11-02生成 | seminar-webinar-ai-search)
   セミナーの登壇者紹介、毎回同じ定型文で済ませてません？その回のテーマに即した具体的な経験を書くかどうかで、残る情報の厚みが結構変わるかもという話を整理してみました。登壇者プロフィール、使い回してますか？
   URL: https://app.ops-octopus.com/blog/seminar-webinar-ai-search.html
+
+- [ ] (2026-11-09生成 | author-profile-ai-search)
+  ブログ記事の最後、「編集部」とだけ書いて著者情報ページは特に用意してない…なんてことありませんか？誰が書いたか分かる情報が増えるほど、AIが参照する材料も厚くなるのかもという話を整理しました。自社の著者情報ページ、肩書き以上の中身入ってますか？🐙 #AI検索
+  URL: https://app.ops-octopus.com/blog/author-profile-ai-search.html
+
+- [ ] (2026-11-09生成 | author-profile-ai-search)
+  著者情報ページ、名前と役職だけで終わってません？経歴や実績まで書いてあるページとそうでないページとで、AIが参照する理由の濃さが変わってくるかもという話です。社員インタビューや会社概要ページとは役割が少し違うのも地味に発見でした。自社の著者欄、見直したことあります？
+  URL: https://app.ops-octopus.com/blog/author-profile-ai-search.html
+
+- [ ] (2026-11-09生成 | glossary-page-ai-search)
+  業界用語集ページ、正直どこも似たような説明になりがちですよね。自社の現場感覚を一言添えるだけで、辞書的な定義の繰り返しより参照される理由が増えるのかも、という話を整理しました。自社の用語集、他サイトの言い換えだけになってないか気になってきました🐙 #AI検索
+  URL: https://app.ops-octopus.com/blog/glossary-page-ai-search.html
+
+- [ ] (2026-11-09生成 | glossary-page-ai-search)
+  用語集ページとFAQページ、同じようなものだと思ってまとめて作ってません？「用語の意味」を聞きたい人と「自社への疑問」を持つ人は、実はちょっと違う読者なのかもという話です。皆さんのサイト、この2つ分かれてますか？
+  URL: https://app.ops-octopus.com/blog/glossary-page-ai-search.html
