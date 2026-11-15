@@ -37,6 +37,28 @@
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Ops Octopus Deep Scan",
+    "serviceType": "AIブランド調査レポート",
+    "description": "ChatGPT・Gemini・Claudeに3種類の質問を各10回、計90回問い合わせ、出現頻度・競合比較・改善の論点を集計したPDFレポートをメールでお届けする買い切り型のAIブランド調査サービスです。",
+    "url": "https://app.ops-octopus.com/#deep-scan",
+    "provider": {
+      "@type": "Organization",
+      "name": "Ops Octopus"
+    },
+    "areaServed": "JP",
+    "offers": {
+      "@type": "Offer",
+      "price": "2980",
+      "priceCurrency": "JPY",
+      "availability": "https://schema.org/InStock",
+      "url": "https://buy.stripe.com/9B64gz3HpbwN0HB4QWcwg01"
+    }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
     "@type": "FAQPage",
     "mainEntity": [
       {
@@ -52,7 +74,7 @@
         "name": "Quick Scanの結果はどこまで信頼できますか？",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Quick ScanはChatGPT・Gemini・Claudeへ各1回質問する、その時点のスナップショットです。AIの回答は変動するため、統計的な傾向ではなく最初の現状確認としてご利用ください。複数回の傾向把握はDeep Scanで提供予定です。"
+          "text": "Quick ScanはChatGPT・Gemini・Claudeへ各1回質問する、その時点のスナップショットです。AIの回答は変動するため、統計的な傾向ではなく最初の現状確認としてご利用ください。複数回の傾向把握はDeep Scan（¥2,980）でご利用いただけます。"
         }
       },
       {
@@ -409,6 +431,7 @@
     .deep-list li { display: flex; gap: 9px; color: rgba(255,255,255,.78); font-size: 14px; }
     .deep-list .material-icons-round { color: var(--amber); font-size: 19px; }
     .deep-panel .button--ghost { width: 100%; }
+    .deep-panel .button--primary { width: 100%; }
     .deep-price { margin: 14px 0 0; color: rgba(255,255,255,.48); font-size: 11px; text-align: center; }
 
     /* FAQ */
@@ -666,8 +689,8 @@
     <div class="container">
       <div class="deep-panel">
         <div>
-          <p class="eyebrow">Coming next</p>
-          <h2>1回の回答から、<br>90回の傾向へ。<br>DEEPは準備中です。</h2>
+          <p class="eyebrow">Deep Scan</p>
+          <h2>1回の回答から、<br>90回の傾向へ。</h2>
           <p class="deep-panel-copy">Quick Scanで「いま何と答えるか」を見たあと、DEEPでは質問の角度と試行回数を増やし、競合との比較やブランドの出現頻度を集計します。</p>
           <div class="deep-formula">
             <div class="deep-stat"><strong>3</strong><span>AI</span></div>
@@ -680,11 +703,11 @@
             <li><span class="material-icons-round">check_circle</span>合計90回の回答を集計・可視化</li>
             <li><span class="material-icons-round">check_circle</span>指名・競合比較・非指名想起の3方向から調査</li>
             <li><span class="material-icons-round">check_circle</span>出現頻度とAI別の差を確認</li>
-            <li><span class="material-icons-round">check_circle</span>詳細PDFを24時間以内にメール納品予定</li>
+            <li><span class="material-icons-round">check_circle</span>詳細PDFを調査開始から通常30分程度でメール納品</li>
             <li><span class="material-icons-round">check_circle</span>即時確認用のQuick Scan 1回分付き</li>
           </ul>
-          <a class="button button--ghost" href="https://docs.google.com/forms/d/e/1FAIpQLScNqIDUBU42Rx8B5OGZYrKnGLLB9ZADPNWcJ0eQVkBIW1FNUw/viewform" target="_blank" rel="noopener" onclick="gtag('event', 'cta_click_deep_waitlist', { page: '/' })">DEEPの公開通知を受け取る</a>
-          <p class="deep-price">予定価格 ¥2,980（税込）・1回買い切り</p>
+          <a class="button button--primary" href="https://buy.stripe.com/9B64gz3HpbwN0HB4QWcwg01" onclick="gtag('event', 'cta_click_deepscan_buy', { page: '/' })">Deep Scanを購入する（¥2,980） <span class="material-icons-round">arrow_forward</span></a>
+          <p class="deep-price">¥2,980（税込）・1回買い切り｜Stripeで決済後、購入コードをメールでお送りします。</p>
         </div>
       </div>
     </div>
@@ -705,7 +728,7 @@
         </details>
         <details class="faq-item">
           <summary>Quick Scanの結果はどこまで信頼できますか？</summary>
-          <div class="faq-answer">各AIへ1回ずつ質問する、その時点のスナップショットです。AIの回答は調査時点やモデル更新などで変わるため、統計的な傾向ではなく最初の現状確認としてご利用ください。複数回の傾向把握はDEEPで提供予定です。</div>
+          <div class="faq-answer">各AIへ1回ずつ質問する、その時点のスナップショットです。AIの回答は調査時点やモデル更新などで変わるため、統計的な傾向ではなく最初の現状確認としてご利用ください。複数回の傾向把握はDeep Scan（¥2,980）でご利用いただけます。</div>
         </details>
         <details class="faq-item">
           <summary>質問文は自分で考える必要がありますか？</summary>

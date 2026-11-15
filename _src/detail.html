@@ -1573,7 +1573,7 @@
   <section id="plans" class="plans">
     <div class="section-header">
       <h2>プランを選ぶ</h2>
-      <p>現在は<strong>Quick Scan（β版）</strong> のみご利用いただけます。Deep Scan / Full Scanは、Quick Scanテスト期間後に順次リリース予定です。</p>
+      <p>現在は<strong>Quick Scan（β版）</strong>と<strong>Deep Scan</strong>をご利用いただけます。Full Scanは順次リリース予定です。</p>
     </div>
     <div class="section-content">
       <div class="plan-cards">
@@ -1595,7 +1595,7 @@
 
         <!-- Deep Scan -->
         <div class="plan-card">
-          <span class="plan-badge">Coming Soon</span>
+          <span class="plan-badge plan-badge--featured">販売中</span>
           <p class="plan-name">Deep Scan</p>
           <p class="plan-price">¥2,980<span class="plan-price-unit">（税込）</span></p>
           <p class="plan-desc">専門書2冊分で、自社ブランドのAI評価90回分を集計レポート。1回買い切りプランです</p>
@@ -1603,11 +1603,10 @@
             <li><span class="material-icons">check</span>AIへの質問：<strong>深掘り3パターン</strong></li>
             <li><span class="material-icons">check</span>3AIに3種の質問を各10回=90回分の回答を集計・可視化</li>
             <li><span class="material-icons">check</span>競合との比較分析</li>
-            <li><span class="material-icons">check</span>詳細なPDFレポートを24時間以内にメール納品</li>
+            <li><span class="material-icons">check</span>詳細なPDFレポートを調査開始から通常30分程度でメール納品</li>
             <li><span class="material-icons">check</span><strong>即時確認できるQuick Scan 1回分付き</strong></li>
           </ul>
-          <button class="plan-cta plan-cta--disabled" disabled>Coming Soon</button>
-          <a class="plan-notify" href="https://docs.google.com/forms/d/e/1FAIpQLScNqIDUBU42Rx8B5OGZYrKnGLLB9ZADPNWcJ0eQVkBIW1FNUw/viewform" target="_blank">公開通知を受け取る →</a>
+          <a class="plan-cta plan-cta--primary" href="https://buy.stripe.com/9B64gz3HpbwN0HB4QWcwg01" onclick="gtag('event', 'cta_click_detail_deep_plan', { page: 'detail.html' })">Deep Scanを購入（¥2,980）</a>
         </div>
 
         <!-- Full Scan -->
@@ -1681,25 +1680,25 @@
             <tr>
               <td class="row-label">調査回数</td>
               <td style="color:var(--text-muted); font-size:12px;">各AI 1回</td>
-              <td><span class="icon-soon">各AI 30回（計90回）</span></td>
+              <td style="font-size:12px;">各AI 30回（計90回）</td>
               <td><span class="icon-soon">各AI 30回（計90回）</span></td>
             </tr>
             <tr>
               <td class="row-label">推薦率グラフ</td>
               <td><span class="material-icons-round icon-cross">remove_circle_outline</span></td>
-              <td><span class="icon-soon">Coming Soon</span></td>
+              <td><span class="material-icons-round icon-check">check_circle</span></td>
               <td><span class="icon-soon">Coming Soon</span></td>
             </tr>
             <tr>
               <td class="row-label">競合比較</td>
               <td><span class="material-icons-round icon-cross">remove_circle_outline</span></td>
-              <td><span class="icon-soon">Coming Soon</span></td>
+              <td><span class="material-icons-round icon-check">check_circle</span></td>
               <td><span class="icon-soon">Coming Soon</span></td>
             </tr>
             <tr>
               <td class="row-label">PDFレポート</td>
               <td><span class="material-icons-round icon-cross">remove_circle_outline</span></td>
-              <td><span class="icon-soon">Coming Soon</span></td>
+              <td><span class="material-icons-round icon-check">check_circle</span></td>
               <td><span class="icon-soon">Coming Soon</span></td>
             </tr>
             <tr>
@@ -1762,26 +1761,26 @@
         <div class="report-img-card">
           <div class="report-img-card-header">
             <span class="report-img-plan-name">Deep Scan</span>
-            <span class="report-img-plan-price" style="color:var(--text-muted);">¥2,980</span>
-            <span class="report-img-status soon">Coming Soon</span>
+            <span class="report-img-plan-price">¥2,980</span>
+            <span class="report-img-status available">利用可能</span>
           </div>
           <div class="slideshow" id="ss-deep">
             <div class="slide active">
               <div class="slide-placeholder">
                 <span class="material-icons-round" style="font-size:40px; color:var(--border-strong);">insert_photo</span>
-                <p>開発中<br><span style="font-size:11px;">（推薦率グラフ）</span></p>
+                <p>サンプル画像準備中<br><span style="font-size:11px;">（推薦率グラフ）</span></p>
               </div>
             </div>
             <div class="slide">
               <div class="slide-placeholder">
                 <span class="material-icons-round" style="font-size:40px; color:var(--border-strong);">insert_photo</span>
-                <p>開発中<br><span style="font-size:11px;">（競合比較）</span></p>
+                <p>サンプル画像準備中<br><span style="font-size:11px;">（競合比較）</span></p>
               </div>
             </div>
             <div class="slide">
               <div class="slide-placeholder">
                 <span class="material-icons-round" style="font-size:40px; color:var(--border-strong);">insert_photo</span>
-                <p>開発中<br><span style="font-size:11px;">（PDFレポート）</span></p>
+                <p>サンプル画像準備中<br><span style="font-size:11px;">（PDFレポート）</span></p>
               </div>
             </div>
             <button class="ss-prev" onclick="slidePrev('ss-deep')"><span class="material-icons-round">chevron_left</span></button>
@@ -1793,8 +1792,7 @@
             <span class="ss-dot" onclick="slideTo('ss-deep',2)"></span>
           </div>
           <div class="report-img-card-footer">
-            <button class="report-img-cta cta-disabled-sm" disabled>Coming Soon</button>
-            <a href="https://docs.google.com/forms/d/e/1FAIpQLScNqIDUBU42Rx8B5OGZYrKnGLLB9ZADPNWcJ0eQVkBIW1FNUw/viewform" target="_blank" rel="noopener" class="plan-notify">公開通知を受け取る →</a>
+            <a href="https://buy.stripe.com/9B64gz3HpbwN0HB4QWcwg01" class="report-img-cta cta-primary-sm" onclick="gtag('event', 'cta_click_detail_deep_image', { page: 'detail.html' })">Deep Scanを購入（¥2,980）</a>
           </div>
         </div>
 
