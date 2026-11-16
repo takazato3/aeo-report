@@ -13,6 +13,8 @@
 
 AEO・GEO・LLMOやAI検索時代のブランドの見え方について調査・解説する記事一覧です。
 
+- [IR情報・決算ページはAIにどう参照されているのか](https://app.ops-octopus.com/blog/ir-page-ai-search.html): 投資家向けのIR情報・決算ページが、AI検索での自社の見え方にどう関わりうるのかを整理します。会社概要・プレスリリースとの役割の違いも見ていきます。
+- [商品ページの仕様表記はAIにどう読まれるのか](https://app.ops-octopus.com/blog/product-spec-table-ai-search.html): 商品ページに載せるスペック表・仕様一覧が、AI検索での自社商品の扱われ方にどう関わりうるのかを整理します。構造化データ・FAQページとの役割の違いも見ていきます。
 - [著者情報・プロフィールページはAIにどう参照されているのか](https://app.ops-octopus.com/blog/author-profile-ai-search.html): 記事やコラムに添える著者情報・プロフィールページが、AI検索での自社の見え方にどう関わりうるのかを整理します。会社概要・社員インタビューとの役割の違いも見ていきます。
 - [用語集・グロッサリーページはAI検索でどう扱われるのか](https://app.ops-octopus.com/blog/glossary-page-ai-search.html): 業界用語集・グロッサリーページが、AI検索での自社の見え方や言及のされ方にどう関わりうるのかを整理します。FAQページとの役割の違いも見ていきます。
 - [英語ページがないとAI検索で不利になるのか](https://app.ops-octopus.com/blog/multilingual-pages-ai-search.html): 自社サイトに英語版・多言語ページがないことが、AI検索での見え方にどう関わりうるのかを整理します。優先順位の考え方も合わせて見ていきます。

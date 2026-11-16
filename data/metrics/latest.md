@@ -1,9 +1,9 @@
-# 週次メトリクスレポート（2026-11-09）
+# 週次メトリクスレポート（2026-11-16）
 
 ## データ取得ステータス
 
-- GSC: 取得成功（プロパティ: `https://app.ops-octopus.com/`、期間: 2026-10-12 〜 2026-11-08、行数: 0）
-- GA4: 取得成功（ページ数: 6）
+- GSC: 取得成功（プロパティ: `https://app.ops-octopus.com/`、期間: 2026-10-19 〜 2026-11-15、行数: 0）
+- GA4: 取得成功（ページ数: 5）
 
 ## a. ブログ記事別サマリー（GSC・直近28日）
 
@@ -30,18 +30,18 @@
 ### detail.htmlの参考値
 
 注記: GA4の標準Data APIでは「どのブログ記事からdetail.htmlへ遷移したか」というセッション内の経路（ファネル）は取得できない（BigQueryエクスポートまたはExploreのファネル探索が必要）。以下はdetail.html単体のセッション数・エンゲージメント率の参考値。
-- detail.html: セッション数 1、エンゲージメント率 0.0%
+- detail.htmlのデータが見つかりませんでした。
 
 ## 今週の実施アクション
 
-- 改善バックログ：処理可能な未処理項目なし（残る1件「OpsOctopus実測データ・レポート画像の記事への挿入」はDeep Scan本番稼働待ちのため引き続き着手不可）
-- GSCが引き続き0件、GA4もブログページのデータなしで、CTR改善／リライト／クエリギャップの判断ロジックが実行不能だった。バックログにも処理可能な項目がなかったため、まずKEYWORD_MAP.mdクラスタ2のP2候補プールを確認したところ、前回（2026-11-02）までに追加済みの候補が全て昇格済みでプールが空になっていた
-- そのため、既存P1記事との内部リンクが張りやすい切り口（ページ種別の横展開）で新規クエリ候補5件をKEYWORD_MAP.mdクラスタ2に追加（著者情報・プロフィールページ／用語集・グロッサリーページ／動画・YouTube／IR情報・決算ページ／商品ページのスペック表）。このうち内部リンクが特に張りやすい2件を新規記事として生成
-  1. 著者情報・プロフィールページはAIにどう参照されているのか（`blog/posts/author-profile-ai-search.md`）。会社概要・社員インタビュー・AIに引用されやすいコンテンツ・構造化データの各P1記事と内部リンクで接続
-  2. 用語集・グロッサリーページはAI検索でどう扱われるのか（`blog/posts/glossary-page-ai-search.md`）。AEOとは何か・AEO/LLMO/GEOの違い・AIに引用されやすいコンテンツ・一次情報・FAQページ・構造化データの各P1記事と内部リンクで接続
-  - 残り3件（動画・YouTube／IR情報・決算ページ／商品ページのスペック表）はP2としてプールに保持し、次回以降の候補とする
-  - KEYWORD_MAP.mdでP2→P1へ昇格記録済み（2026-11-09昇格）。CONTENT_AUTOPILOT.mdの改善バックログにも、P2プールが再び枯渇した経緯と対応を記録
-- 両記事ともWRITING_RHYTHM.mdの点検手順（話題テスト・漏出テスト・緊張台帳・拍の点検・境界の点検）を実施済み。適用範囲（冒頭結論サマリ・FAQ除外）に従った
-- `python build.py` 実行済み。ビルド正常終了（blog記事41件、sitemap49件）
-- SNS転用：新規記事2本のためX投稿ドラフトを各2案（計4案）生成し`sns/x-queue.md`の未投稿セクション末尾に追記。note記事ドラフト1本（2記事を束ねた「今週の実験と観察」形式）を`sns/note-drafts/2026-11-09-author-profile-and-glossary-page.md`に保存。x-queue.mdに`[x]`項目はなかったためx-posted.mdへの移動なし
+- GSC（行数0）・GA4（ブログページ該当なし）とも分析可能なデータが引き続き得られず、判断ロジック（CTR改善/リライト/クエリギャップ）に基づくアクションは今回も実施不可
+- 改善バックログ（docs/CONTENT_AUTOPILOT.md）を確認。唯一の未処理項目「OpsOctopus実測データ・レポート画像の記事への挿入」はDeep Scan本番稼働が前提条件であり、Deep Scanは引き続きComing Soon（スタブ実装のまま）のため今回も処理不可
+- 上記によりデータ欠損・バックログ双方とも処理可能な項目がなかったため、KEYWORD_MAP.mdのP2プールから、既存P1記事との内部リンクが特に張りやすい2件を選定し新規記事化
+  - IR情報・決算ページはAIにどう参照されているのか（`blog/posts/ir-page-ai-search.md`）：[会社概要ページ](/blog/company-profile-page-ai.html)・[プレスリリース](/blog/press-release-ai-search.html)・[一次情報](/blog/primary-source-ai-search.html)・[ホワイトペーパー](/blog/whitepaper-ai-citation.html)・[構造化データ](/blog/structured-data-aeo.html)へリンク
+  - 商品ページの仕様表記はAIにどう読まれるのか（`blog/posts/product-spec-table-ai-search.md`）：[AIに引用されやすいコンテンツ](/blog/ai-citable-content.html)・[構造化データ](/blog/structured-data-aeo.html)・[FAQページ](/blog/faq-pages-ai-search.html)・[導入事例](/blog/case-study-ai-citation.html)・[競合比較](/blog/competitor-ai-search-comparison.html)へリンク
+  - 両記事とも執筆後にWRITING_RHYTHM.mdの点検手順（話題テスト・漏出テスト・緊張台帳・拍の点検・境界の点検）を実施済み
+  - KEYWORD_MAP.mdで両クエリをP2→P1（2026-11-16昇格）へ更新し、P1初期15本リストに41・42として追記。P2プールには「動画 YouTube AI検索」のみ残留
+- `python build.py`を実行し、新規2記事のビルド（blog/index.html・sitemap.xml・llms.txt反映含む）がエラーなく通ることを確認
+- SNS転用：新規記事2本それぞれからX投稿ドラフト2案（計4案）を生成し`sns/x-queue.md`の未投稿セクション末尾に追記。新規記事が2本以上だったため、両記事を束ねたnote記事ドラフト1本を`sns/note-drafts/2026-11-16-ir-page-and-product-spec.md`として生成
+- `sns/x-queue.md`に`[x]`済みの項目はなかったため、`sns/x-posted.md`への移動作業は対象なし
 
