@@ -205,3 +205,19 @@
 - [ ] (2026-11-09生成 | glossary-page-ai-search)
   用語集ページとFAQページ、同じようなものだと思ってまとめて作ってません？「用語の意味」を聞きたい人と「自社への疑問」を持つ人は、実はちょっと違う読者なのかもという話です。皆さんのサイト、この2つ分かれてますか？
   URL: https://app.ops-octopus.com/blog/glossary-page-ai-search.html
+
+- [ ] (2026-11-16生成 | ir-page-ai-search)
+  決算ページって投資家向けのコーナーだから、普段のAI検索対策とは関係ないと思ってません？実は売上や事業規模みたいな数字って、他のページにはない一次情報だったりするんですよね。PDFの奥に眠らせたままになってないか、気になってきました🐙 #AI検索
+  URL: https://app.ops-octopus.com/blog/ir-page-ai-search.html
+
+- [ ] (2026-11-16生成 | ir-page-ai-search)
+  決算資料、PDFでびっちり数字が並んでるけど、あれってAIからすると意外と読み取りにくい形なのかもなと思っています。ハイライトだけでもテキストで書き出しておくと変わるのかも、という話を整理しました。皆さんの会社、決算ハイライトってHTMLでも読めますか？
+  URL: https://app.ops-octopus.com/blog/ir-page-ai-search.html
+
+- [ ] (2026-11-16生成 | product-spec-table-ai-search)
+  商品ページのスペック表、デザイン優先で画像に埋め込んでません？サイズとか対応環境みたいな数字こそAIにとっての手がかりになるらしく、画像のままだと読み取ってもらえてない可能性があるという話を整理しました🐙 #AI検索
+  URL: https://app.ops-octopus.com/blog/product-spec-table-ai-search.html
+
+- [ ] (2026-11-16生成 | product-spec-table-ai-search)
+  同じ商品なのに、ページによって「約120mm」だったり「12cm」だったり、表記がバラバラになってること、ありませんか？地味だけど単位を揃えるだけでも違うのかも、という話です。自社の商品ページ、数字の表記って揃ってますか？
+  URL: https://app.ops-octopus.com/blog/product-spec-table-ai-search.html
