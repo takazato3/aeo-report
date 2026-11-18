@@ -41,11 +41,11 @@ ChatGPT・Claude・Geminiの3AIに同時問い合わせし、ブランド名・�
 | プラン | 価格 | 状態 | 位置づけ |
 |---|---:|---|---|
 | Quick Scan | \300 | 利用可能 | お試し |
-| Deep Scan | \2,980 | Coming Soon / 近日公開 | 本命 |
+| Deep Scan | \2,980 | 販売中 | 本命 |
 | Full Scan | \9,800 | Coming Soon / 近日公開 | プロ向け |
 
-現時点では **Quick Scanを中心に販売** します。  
-Deep Scan / Full Scan は **Coming Soon または近日公開扱い** で表示してください。
+現時点では **Quick Scanを入口に、Deep Scanも販売** します。  
+Full Scan は **Coming Soon または近日公開扱い** で表示してください。
 
 ---
 
@@ -379,7 +379,7 @@ ChatGPTだけ見ても、ClaudeやGeminiでは違う可能性がある
 
 ```text
 AIの回答をただ並べるだけではなく、推奨度・競合比較・言及キーワード・改善アクションまで、判断材料として見やすく整理します。
-※一部機能はDeep Scan以上で提供予定です。
+※一部機能はDeep Scan以上で提供します。
 ```
 
 ## サンプル導線
@@ -509,7 +509,7 @@ Quick Scanとの違いが分かるようにしてください。
 例：
 
 ```text
-※90回調査はDeep Scan以上で提供予定です。
+※90回調査はDeep Scan以上で提供します。
 ```
 
 ---
@@ -519,14 +519,14 @@ Quick Scanとの違いが分かるようにしてください。
 3プラン横並びで表示してください。  
 中央の **Deep Scan / \2,980** を本命として強調します。
 
-ただし、現時点で利用できるのはQuick Scanのみです。  
-Deep Scan / Full Scanは Coming Soon として、未完成で不安に見えすぎないように表現してください。
+現時点で利用できるのはQuick ScanとDeep Scanです。  
+Full Scanは Coming Soon として、未完成で不安に見えすぎないように表現してください。
 
 ## 共通注意文
 
 ```text
-現在はQuick Scanのみご利用いただけます。
-Deep Scan / Full Scanは、Quick Scanテスト期間後に順次リリース予定です。
+現在はQuick ScanとDeep Scanをご利用いただけます。
+Full Scanは順次リリース予定です。
 ```
 
 ---
@@ -560,7 +560,7 @@ Quick Scanを試す
 |---|---|
 | 価格 | \2,980 |
 | ラベル | 本命 / おすすめ / 会議に出せる |
-| 状態 | Coming Soon |
+| 状態 | 販売中 |
 | 説明 | AIの90回分の最新回答を集計レポートに。即決できる1回買い切りプランです。|
 
 ### 想定用途
@@ -573,14 +573,10 @@ Quick Scanを試す
 ### CTA
 
 ```text
-Coming Soon
+Deep Scanを購入する（\2,980）
 ```
 
-または
-
-```text
-公開通知を受け取る
-```
+Payment Link：https://buy.stripe.com/9B64gz3HpbwN0HB4QWcwg01
 
 ---
 
@@ -662,7 +658,7 @@ A. 調査レポート作成のために使用します。詳細はプライバ�
 
 ### Q. Deep Scan / Full Scanはいつ使えますか？
 
-A. 現在準備中です。サンプルレポート公開後、順次受付予定です。
+A. Deep Scanは現在ご購入いただけます。Full Scanは準備中です。
 
 ## 注意事項・免責
 
@@ -866,7 +862,7 @@ AEO、気になっていたけど何を見ればいいか分からなかった�
 - [ ] タコが主役になりすぎていない
 - [ ] レポートサンプルは業務資料として使えそうに見える
 - [ ] Quick Scanが現在利用可能であることが分かる
-- [ ] Deep Scan / Full ScanがComing Soonであることが不安なく伝わる
+- [ ] Deep Scanが購入でき、Full ScanがComing Soonであることが不安なく伝わる
 - [ ] 料金表でDeep Scanが本命に見える
 - [ ] 90回調査がDeep Scan以上の仕様の訴求だと分かる
 - [ ] サブスク不要・営業なしが伝わる

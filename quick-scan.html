@@ -550,7 +550,7 @@
 
     /* ── feature list ── */
     .feature-list { list-style: none; margin-bottom: 16px; display: flex; flex-direction: column; gap: 6px; }
-    .feature-list li { display: flex; align-items: center; gap: 8px; font-size: 14px; color: #08131a; }
+    .feature-list li { display: flex; align-items: baseline; gap: 8px; font-size: 14px; color: #08131a; }
     .feature-check { color: var(--navy-800); font-weight: 700; font-size: 15px; flex-shrink: 0; }
 
     /* ── warn banner ── */
@@ -1451,11 +1451,11 @@
             </div>
             <div class="upsell-block">
               <div class="upsell-block-header">
-                <p class="upsell-block-desc">このレポートはAI各1回のスナップショットです。Deep Scanでは3AI × 3質問 × 各10回＝90回を集計。「自社の評判」に加え、「競合と比べてどう見えるか」「ブランド名なしで自発的に想起されるか」を調査し、それぞれの出現頻度をPDFレポートにまとめてお届けします（24時間以内）。</p>
+                <p class="upsell-block-desc">このレポートはAI各1回のスナップショットです。Deep Scanでは3AI × 3質問 × 各10回＝90回を集計。「自社の評判」に加え、「競合と比べてどう見えるか」「ブランド名なしで自発的に想起されるか」を調査し、それぞれの出現頻度をPDFレポートにまとめてお届けします（調査開始から通常30分程度）。</p>
               </div>
               <div class="upsell-block-body">
                 <div class="locked-preview">
-                  <div class="locked-preview-label">AI推薦頻度ランキング（競合2社との比較）</div>
+                  <div class="locked-preview-label">AI推薦頻度ランキング（回答に出たブランドとの比較）</div>
                   <div class="locked-preview-body">
                     <div class="locked-preview-content">
                       <div class="locked-row">
@@ -1484,16 +1484,14 @@
                   </div>
                 </div>
                 <ul class="feature-list">
-                  <li><span class="feature-check">✓</span>30回試行・統計集計</li>
-                  <li><span class="feature-check">✓</span>キーワード3つまで対応</li>
-                  <li><span class="feature-check">✓</span>競合2社との比較</li>
-                  <li><span class="feature-check">✓</span>PDFレポート納品</li>
+                  <li><span class="feature-check">✓</span>3質問 × 3AI（ChatGPT・Claude・Gemini）× 各10回＝計90回</li>
+                  <li><span class="feature-check">✓</span>調べるブランド名は1つ。競合は指定不要で、AIの回答に出たブランドを集計</li>
+                  <li><span class="feature-check">✓</span>結果はPDFレポートでメールにお届け</li>
                 </ul>
-                <button class="btn-primary" style="max-width:280px;" type="button">Deep Scanを見る（¥2,980）</button>
+                <a class="btn-primary" style="max-width:280px; display:block; text-align:center; text-decoration:none;" href="https://buy.stripe.com/9B64gz3HpbwN0HB4QWcwg01" target="_blank" rel="noopener">Deep Scanを購入する（¥2,980）</a>
                 <div class="deep-scan-notify">
-                  <a href="https://docs.google.com/forms/d/e/1FAIpQLScNqIDUBU42Rx8B5OGZYrKnGLLB9ZADPNWcJ0eQVkBIW1FNUw/viewform"
-                    target="_blank" rel="noopener">
-                    Deep Scanのリリース通知を受け取る →
+                  <a href="https://app.ops-octopus.com/detail.html#plans" target="_blank" rel="noopener">
+                    Deep Scanの詳細を見る →
                   </a>
                 </div>
               </div>
@@ -1722,6 +1720,7 @@
         // 質問文は作り直さないので、今の一覧を入力し直した登録名で絞り直して使う
         setAliasCandidates(state.brand_aliases.slice());
         updateAliasSection(sessionStorage.getItem('currentPlan') || 'quick');
+        updateHeaderPlan(sessionStorage.getItem('currentPlan') || 'quick');
         showScreen(2);
         updateInputBadges();
         return;
@@ -1768,6 +1767,7 @@
         // プランに応じてロック制御
         applyPlanLock(sessionStorage.getItem('currentPlan') || 'quick');
         updateAliasSection(sessionStorage.getItem('currentPlan') || 'quick');
+        updateHeaderPlan(sessionStorage.getItem('currentPlan') || 'quick');
 
         showScreen(2);
         updateInputBadges();
@@ -2047,6 +2047,11 @@
       $('alias-card').style.display = (plan === 'deep' || plan === 'full') ? 'block' : 'none';
     }
 
+    // ヘッダーのプラン表記（DP-トークンのときだけ Deep Scan に切り替える）
+    function updateHeaderPlan(plan) {
+      document.querySelector('.header-plan').textContent = plan === 'deep' ? 'Deep Scan ¥2,980' : 'Quick Scan ¥300';
+    }
+
     function addAliasFromInput() {
       const reason = aliasRejectReason($('aliasInput').value);
       if (reason) return showAliasMessage(reason);
@@ -2094,7 +2099,7 @@
       const isDeep = plan === 'deep' || plan === 'full';
 
       const loadingMessage = isDeep
-        ? '3つのAIに問い合わせ中...\nしばらくお待ちください。\n\n⚡ いま表示されるのは速報プレビューです。\n本レポート（3AI×3質問×10回＝90回調査のPDF）は\n24時間以内にメールでお届けします。'
+        ? '3つのAIに問い合わせ中...\nしばらくお待ちください。\n\n⚡ いま表示されるのは速報プレビューです。\n本レポート（3AI×3質問×10回＝90回調査のPDF）は\n調査開始から通常30分程度でメールにてお届けします。'
         : '3つのAIに問い合わせ中...\nしばらくお待ちください。';
       showLoading(loadingMessage, true);
 
@@ -2189,7 +2194,7 @@
       } else {
         notice.innerHTML =
           '<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#b45309" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>' +
-          `<span>本レポート（PDF・90回調査）は24時間以内に<strong>${escapeHtml(email || '')}</strong>宛にお届けします。</span>`;
+          `<span>本レポート（PDF・90回調査）は調査開始から通常30分程度で<strong>${escapeHtml(email || '')}</strong>宛にお届けします。</span>`;
       }
     }
 
@@ -2514,7 +2519,7 @@ body{margin:0;font-family:"Inter","Noto Sans JP",sans-serif;color:var(--text-dar
       <div class="section-kicker"><span class="section-number">04</span><h2 class="section-heading">より精度の高い調査はDeep Scanで</h2></div>
       <div class="upsell">
         <p class="upsell-title">このレポートはAI各1回のスナップショットです</p>
-        <p class="upsell-desc">Deep Scanでは3AI × 3質問 × 各10回＝90回を集計。「自社の評判」に加え、「競合と比べてどう見えるか」「ブランド名なしで自発的に想起されるか」を調査し、それぞれの出現頻度をPDFレポートにまとめてお届けします（24時間以内）。</p>
+        <p class="upsell-desc">Deep Scanでは3AI × 3質問 × 各10回＝90回を集計。「自社の評判」に加え、「競合と比べてどう見えるか」「ブランド名なしで自発的に想起されるか」を調査し、それぞれの出現頻度をPDFレポートにまとめてお届けします（調査開始から通常30分程度）。</p>
         <a class="upsell-link" href="https://app.ops-octopus.com/detail.html" target="_blank" rel="noopener">Deep Scanの詳細を見る →</a>
       </div>
     </section>
