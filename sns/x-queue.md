@@ -221,3 +221,11 @@
 - [ ] (2026-11-16生成 | product-spec-table-ai-search)
   同じ商品なのに、ページによって「約120mm」だったり「12cm」だったり、表記がバラバラになってること、ありませんか？地味だけど単位を揃えるだけでも違うのかも、という話です。自社の商品ページ、数字の表記って揃ってますか？
   URL: https://app.ops-octopus.com/blog/product-spec-table-ai-search.html
+
+- [ ] (2026-11-23生成 | video-youtube-ai-search)
+  自社のYouTube動画、サムネイルとか再生数ばっかり気にして概要欄はテンプレのまま…なんてことありませんか？映像でどれだけ丁寧に説明してても、テキストになってないと参照されにくいかもという話を整理しました。概要欄、一行で終わってません？🐙 #AI検索
+  URL: https://app.ops-octopus.com/blog/video-youtube-ai-search.html
+
+- [ ] (2026-11-23生成 | video-youtube-ai-search)
+  動画の自動字幕、誤変換そのまま放置してません？文字起こしがAIにとっての手がかりになりうる一方、固有名詞の誤変換が多いと逆に不正確な情報扱いになるかもという話です。皆さんの動画、字幕まで見直したことあります？
+  URL: https://app.ops-octopus.com/blog/video-youtube-ai-search.html
