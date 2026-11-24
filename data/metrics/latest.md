@@ -1,13 +1,15 @@
-# 週次メトリクスレポート（2026-11-16）
+# 週次メトリクスレポート（2026-11-23）
 
 ## データ取得ステータス
 
-- GSC: 取得成功（プロパティ: `https://app.ops-octopus.com/`、期間: 2026-10-19 〜 2026-11-15、行数: 0）
-- GA4: 取得成功（ページ数: 5）
+- GSC: 取得成功（プロパティ: `https://app.ops-octopus.com/`、期間: 2026-10-26 〜 2026-11-22、行数: 1）
+- GA4: 取得成功（ページ数: 1）
 
 ## a. ブログ記事別サマリー（GSC・直近28日）
 
-該当データがありません。
+| ページ | クエリ数 | impressions | clicks | 平均CTR | 平均掲載順位 |
+|---|---|---|---|---|---|
+| https://app.ops-octopus.com/blog/what-is-aeo.html | 1 | 5 | 0 | 0.0% | 99.6 |
 
 ## b. 機会クエリ（impressions >= 10 かつ 掲載順位 11〜20）
 
@@ -32,16 +34,18 @@
 注記: GA4の標準Data APIでは「どのブログ記事からdetail.htmlへ遷移したか」というセッション内の経路（ファネル）は取得できない（BigQueryエクスポートまたはExploreのファネル探索が必要）。以下はdetail.html単体のセッション数・エンゲージメント率の参考値。
 - detail.htmlのデータが見つかりませんでした。
 
-## 今週の実施アクション
+## 今週の実施アクション（2026-11-23）
 
-- GSC（行数0）・GA4（ブログページ該当なし）とも分析可能なデータが引き続き得られず、判断ロジック（CTR改善/リライト/クエリギャップ）に基づくアクションは今回も実施不可
-- 改善バックログ（docs/CONTENT_AUTOPILOT.md）を確認。唯一の未処理項目「OpsOctopus実測データ・レポート画像の記事への挿入」はDeep Scan本番稼働が前提条件であり、Deep Scanは引き続きComing Soon（スタブ実装のまま）のため今回も処理不可
-- 上記によりデータ欠損・バックログ双方とも処理可能な項目がなかったため、KEYWORD_MAP.mdのP2プールから、既存P1記事との内部リンクが特に張りやすい2件を選定し新規記事化
-  - IR情報・決算ページはAIにどう参照されているのか（`blog/posts/ir-page-ai-search.md`）：[会社概要ページ](/blog/company-profile-page-ai.html)・[プレスリリース](/blog/press-release-ai-search.html)・[一次情報](/blog/primary-source-ai-search.html)・[ホワイトペーパー](/blog/whitepaper-ai-citation.html)・[構造化データ](/blog/structured-data-aeo.html)へリンク
-  - 商品ページの仕様表記はAIにどう読まれるのか（`blog/posts/product-spec-table-ai-search.md`）：[AIに引用されやすいコンテンツ](/blog/ai-citable-content.html)・[構造化データ](/blog/structured-data-aeo.html)・[FAQページ](/blog/faq-pages-ai-search.html)・[導入事例](/blog/case-study-ai-citation.html)・[競合比較](/blog/competitor-ai-search-comparison.html)へリンク
-  - 両記事とも執筆後にWRITING_RHYTHM.mdの点検手順（話題テスト・漏出テスト・緊張台帳・拍の点検・境界の点検）を実施済み
-  - KEYWORD_MAP.mdで両クエリをP2→P1（2026-11-16昇格）へ更新し、P1初期15本リストに41・42として追記。P2プールには「動画 YouTube AI検索」のみ残留
-- `python build.py`を実行し、新規2記事のビルド（blog/index.html・sitemap.xml・llms.txt反映含む）がエラーなく通ることを確認
-- SNS転用：新規記事2本それぞれからX投稿ドラフト2案（計4案）を生成し`sns/x-queue.md`の未投稿セクション末尾に追記。新規記事が2本以上だったため、両記事を束ねたnote記事ドラフト1本を`sns/note-drafts/2026-11-16-ir-page-and-product-spec.md`として生成
-- `sns/x-queue.md`に`[x]`済みの項目はなかったため、`sns/x-posted.md`への移動作業は対象なし
+- **改善バックログ**：未処理項目を確認したが、処理可能な項目はなかった（唯一の未処理項目「OpsOctopus実測データ・レポート画像の記事への挿入」はDeep Scan本番稼働待ちのため着手不可）
+- **判断ロジック（CTR改善/リライト/新規生成）**：GSC・GA4とも実データがほぼ無く（impressions合計5件・クエリ1件のみ）、機会クエリ・CTR改善候補・クエリギャップのいずれも該当0件。本ロジックに基づくアクションは実施不可と判断
+- **データ欠損時のフォールバック**：改善バックログに処理可能な項目がなかったため、KEYWORD_MAP.mdのP2候補プールから新規記事を生成。プールに残っていた候補は1件（動画・YouTube）のみだったため、本サイクルでは1本を生成
+  - 新規記事：「YouTube動画や文字起こしはAIの回答に使われるのか」（`blog/posts/video-youtube-ai-search.md`）。既存P1記事（product-spec-table-ai-search / structured-data-aeo / seminar-webinar-ai-search / case-study-ai-citation）と内部リンクを設置
+  - KEYWORD_MAP.mdでP2→P1へ昇格（2026-11-23昇格）し、P1初期15本リストにも追記
+  - この結果、KEYWORD_MAP.mdのP2候補プールが再び空になったため、CONTENT_AUTOPILOT.mdの改善バックログに次回最優先処理項目として追加（プール補充＋P1昇格を次回サイクルで実施）
+- **WRITING_RHYTHM.md点検**：新規記事の本文H2セクションに対し、話題テスト・漏出テスト・緊張台帳・拍の点検・境界の点検を実施。冒頭結論サマリとFAQは適用除外のまま、です・ます調を維持
+- **ビルド確認**：`python build.py` 実行、エラーなく完了（記事44件、sitemap 52件）
+- **SNS転用**：
+  - 新規記事1本からX投稿ドラフト2案を生成し`sns/x-queue.md`の未投稿セクション末尾に追記
+  - 新規記事が1本のみ（2本未満）のため、note記事ドラフトの生成は今回スキップ
+  - `x-queue.md`に`[x]`済みの項目は無かったため、`x-posted.md`への移動は無し
 
